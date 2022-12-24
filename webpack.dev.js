@@ -1,12 +1,12 @@
-const { join } = require('path')
-const { merge } = require('webpack-merge')
-const config = require('./webpack.config')
+const { join } = require('path');
+const { merge } = require('webpack-merge');
+const config = require('./webpack.config');
 
 module.exports = merge(config, {
   mode: 'development',
   devtool: 'eval-source-map',
   optimization: {
-    minimize: false
+    minimize: false,
   },
   devServer: {
     port: process.env.PORT,
@@ -18,11 +18,11 @@ module.exports = merge(config, {
     client: {
       overlay: {
         errors: true,
-        warnings: false
-      }
-    }
+        warnings: false,
+      },
+    },
   },
   output: {
-    publicPath: '/'
-  }
-})
+    publicPath: '/',
+  },
+});

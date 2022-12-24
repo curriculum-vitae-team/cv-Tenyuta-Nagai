@@ -1,2 +1,3 @@
-console.log("v1.0.0");
-export {};
+import { hello } from './app';
+
+console.log(hello);

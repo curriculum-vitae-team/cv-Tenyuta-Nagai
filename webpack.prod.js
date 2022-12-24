@@ -1,24 +1,24 @@
-const { resolve } = require('path')
-const { merge } = require('webpack-merge')
-const CompressionPlugin = require('compression-webpack-plugin')
-const { ESBuildMinifyPlugin } = require('esbuild-loader')
-const config = require('./webpack.config')
+const { resolve } = require('path');
+const { merge } = require('webpack-merge');
+const CompressionPlugin = require('compression-webpack-plugin');
+const { ESBuildMinifyPlugin } = require('esbuild-loader');
+const config = require('./webpack.config');
 
 module.exports = merge(config, {
   mode: 'production',
   devtool: 'source-map',
   plugins: [
     new CompressionPlugin({
-      algorithm: 'gzip'
-    })
+      algorithm: 'gzip',
+    }),
   ],
   optimization: {
     minimize: true,
     minimizer: [
       new ESBuildMinifyPlugin({
         target: 'es2015',
-      })
-    ]
+      }),
+    ],
   },
   output: {
     filename: '[name].[contenthash:8].js',
@@ -26,6 +26,6 @@ module.exports = merge(config, {
     assetModuleFilename: 'assets/[hash][ext]',
     path: resolve(__dirname, './build'),
     publicPath: '/',
-    clean: true
-  }
-})
+    clean: true,
+  },
+});
