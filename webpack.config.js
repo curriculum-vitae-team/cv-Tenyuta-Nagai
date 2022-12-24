@@ -29,8 +29,45 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.s[ac]ss$/i,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.scss$/i,
+        exclude: /\.module\.scss$/i,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: {
+                mode: 'icss',
+              },
+            },
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
+      },
+      {
+        test: /\.module\.scss$/i,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: {
+                mode: 'local',
+              },
+            },
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
       },
       {
         test: /\.tsx?$/,
