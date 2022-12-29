@@ -1,9 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint", "react", "prettier", "react-hooks"
-  ],
+  "plugins": ["@typescript-eslint", "react", "prettier", "react-hooks"],
   "extends": [
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
@@ -14,7 +12,7 @@
   ],
 
   "rules": {
-    "arrow-parens": "warn",
+    "arrow-parens": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "comma-dangle": ["error", "only-multiline"],
@@ -60,6 +58,13 @@
     "import/resolver": {
       "typescript": {}
     }
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "env": {
     "browser": true,
