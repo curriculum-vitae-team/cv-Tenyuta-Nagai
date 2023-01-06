@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DepartmentsPage = () => {
-  return <div>DepartmentsPage</div>;
+  return <main>DepartmentsPage</main>;
 };
 
 export default DepartmentsPage;

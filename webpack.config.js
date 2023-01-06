@@ -95,4 +95,7 @@ module.exports = {
       chunks: 'async',
     },
   },
+  performance: {
+    hints: false,
+  },
 };

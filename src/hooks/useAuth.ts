@@ -1,5 +1,5 @@
 export const useAuth = () => {
-  const isAuth = true; // temporary variable
+  const isAuth = false; // temporary variable
 
   return isAuth;
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PositionsPage = () => {
-  return <div>PositionsPage</div>;
+  return <main>PositionsPage</main>;
 };
 
 export default PositionsPage;

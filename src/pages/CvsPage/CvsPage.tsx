@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CvsPage = () => {
-  return <div>CvsPage</div>;
+  return <main>CvsPage</main>;
 };
 
 export default CvsPage;
