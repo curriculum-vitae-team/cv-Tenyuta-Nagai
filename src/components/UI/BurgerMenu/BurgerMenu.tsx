@@ -14,6 +14,7 @@ import Groups3Icon from '@mui/icons-material/Groups3';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import { NavLink } from 'react-router-dom';
 import { RoutePath } from '../../../utils/routeVariables';
+import { CardBurgerMenu, ToolbarBurgerMenu } from './burgerMenu.styles';
 
 interface IBurgerMenuProps {
   open: boolean;
@@ -25,27 +26,14 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({ open, onClose }) => {
     onClose();
   };
 
+  const handleStopPropagation = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+  };
+
   return (
     <Drawer anchor="left" open={open} disableEscapeKeyDown onClick={handleClose}>
-      <Card
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: 250,
-          minHeight: '100vh',
-          borderRadius: 0,
-          boxShadow: 'none',
-        }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Toolbar
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            backgroundColor: 'primary.main',
-          }}
-        >
+      <CardBurgerMenu onClick={handleStopPropagation}>
+        <ToolbarBurgerMenu>
           <IconButton
             aria-label="close"
             onClick={handleClose}
@@ -55,7 +43,7 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({ open, onClose }) => {
           >
             <CloseIcon />
           </IconButton>
-        </Toolbar>
+        </ToolbarBurgerMenu>
         <CardContent>
           <MenuList dense>
             <MenuItem
@@ -131,7 +119,7 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({ open, onClose }) => {
             </MenuItem>
           </MenuList>
         </CardContent>
-      </Card>
+      </CardBurgerMenu>
     </Drawer>
   );
 };

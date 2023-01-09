@@ -1,13 +1,13 @@
 import { IconButton } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
-import Toolbar from '@mui/material/Toolbar';
 import React, { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useAuth } from '../../hooks/useAuth';
 import { AuthButtons } from '../UI/AuthButtons';
 import { ProfileButton } from '../UI/ProfileButton';
 import { BurgerMenu } from '../UI/BurgerMenu';
+import { ToolbarHeader } from './header.styles';
 
 export const Header = () => {
   const isAuth = useAuth();
@@ -24,14 +24,7 @@ export const Header = () => {
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
-        <Toolbar
-          disableGutters={true}
-          sx={{
-            display: 'flex',
-            justifyContent: isAuth ? 'space-between' : 'center',
-            alignItems: isAuth ? 'center' : 'end',
-          }}
-        >
+        <ToolbarHeader disableGutters={true} auth={isAuth.toString()}>
           {isAuth ? (
             <>
               <IconButton
@@ -50,7 +43,7 @@ export const Header = () => {
           ) : (
             <AuthButtons />
           )}
-        </Toolbar>
+        </ToolbarHeader>
       </Container>
     </AppBar>
   );

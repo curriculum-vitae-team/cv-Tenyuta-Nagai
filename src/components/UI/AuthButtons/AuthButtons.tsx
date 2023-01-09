@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import { NavLink, useLocation } from 'react-router-dom';
 import { RoutePath } from '../../../utils/routeVariables';
+import { TabAuthButtons, WrapAuthButtons } from './authButtons.styles';
 
 const FIRST_BUTTON_INDEX = 0;
 const SECOND_BUTTON_INDEX = 1;
@@ -27,7 +26,7 @@ export const AuthButtons = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', bgcolor: 'primary.main', color: 'green' }}>
+    <WrapAuthButtons>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -36,27 +35,9 @@ export const AuthButtons = () => {
         indicatorColor="secondary"
         sx={{ color: 'green' }}
       >
-        <Tab
-          component={NavLink}
-          label={RoutePath.LOGIN}
-          to={`/${RoutePath.LOGIN}`}
-          sx={{
-            minWidth: 150,
-            color: 'primary.contrastText',
-            fontWeight: 600,
-          }}
-        />
-        <Tab
-          component={NavLink}
-          label={RoutePath.SIGNUP}
-          to={`/${RoutePath.SIGNUP}`}
-          sx={{
-            minWidth: 150,
-            color: 'primary.contrastText',
-            fontWeight: 600,
-          }}
-        />
+        <TabAuthButtons component={NavLink} label={RoutePath.LOGIN} to={`/${RoutePath.LOGIN}`} />
+        <TabAuthButtons component={NavLink} label={RoutePath.SIGNUP} to={`/${RoutePath.SIGNUP}`} />
       </Tabs>
-    </Box>
+    </WrapAuthButtons>
   );
 };
