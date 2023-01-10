@@ -1,4 +1,4 @@
-import { IconButton } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
 import React, { useState } from 'react';
@@ -7,7 +7,8 @@ import { useAuth } from '../../hooks/useAuth';
 import { AuthButtons } from '../UI/AuthButtons';
 import { ProfileButton } from '../UI/ProfileButton';
 import { BurgerMenu } from '../UI/BurgerMenu';
-import { ToolbarHeader } from './header.styles';
+import { LanguageButton } from '../UI/LanguageButton';
+import { ToolbarHeader, WrapAuthBtnHeader } from './header.styles';
 
 export const Header = () => {
   const isAuth = useAuth();
@@ -37,11 +38,20 @@ export const Header = () => {
               >
                 <MenuIcon />
               </IconButton>
-              <ProfileButton />
+              <WrapAuthBtnHeader>
+                <ProfileButton />
+                <LanguageButton />
+              </WrapAuthBtnHeader>
               <BurgerMenu open={isOpenMenu} onClose={handleCloseMenu} />
             </>
           ) : (
-            <AuthButtons />
+            <>
+              <Box sx={{ width: 114 }}></Box>
+              <AuthButtons />
+              <Box sx={{ mb: { xs: 1, sm: 1.5 } }}>
+                <LanguageButton />
+              </Box>
+            </>
           )}
         </ToolbarHeader>
       </Container>

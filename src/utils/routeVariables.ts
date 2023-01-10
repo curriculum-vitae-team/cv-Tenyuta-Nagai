@@ -6,7 +6,7 @@ export enum RoutePath {
   PROJECTS = 'projects',
   CVS = 'cvs',
   DEPARTMENTS = 'departments',
-  POSITIONS = '.positions',
+  POSITIONS = 'positions',
   SKILLS = 'skills',
   LANGUAGES = 'languages',
   ERROR = 'error',

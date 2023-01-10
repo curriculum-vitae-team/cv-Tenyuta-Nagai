@@ -6,3 +6,9 @@ export const ToolbarHeader = styled(Toolbar)<IToolbarHeaderProps>(({ auth }) => 
   justifyContent: auth === 'true' ? 'space-between' : 'center',
   alignItems: auth === 'true' ? 'center' : 'end',
 }));
+
+export const WrapAuthBtnHeader = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  columnGap: 8,
+}));

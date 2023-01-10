@@ -1,4 +1,5 @@
 import { styled, Typography } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 
 export const WrapProfileButtons = styled('div')(() => ({
   display: 'flex',
@@ -6,12 +7,23 @@ export const WrapProfileButtons = styled('div')(() => ({
   textAlign: 'center',
 }));
 
-export const TypographyEmailProfileButtons = styled(Typography)(() => ({
+export const TypographyEmailProfileButtons = styled(Typography)(({ theme }) => ({
   minWidth: 100,
   maxWidth: 180,
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: 100,
+  },
+}));
+
+export const AvatarProfileButtons = styled(Avatar)(({ theme }) => ({
+  width: 32,
+  height: 32,
+  ml: 1,
+  backgroundColor: theme.palette.secondary.main,
 }));
 
 export const PaperPropsProfileButtons = {
@@ -37,4 +49,9 @@ export const PaperPropsProfileButtons = {
     transform: 'translateY(-50%) rotate(45deg)',
     zIndex: 0,
   },
+};
+
+export const IconStyleProfileButtons = {
+  color: 'secondary.contrastText',
+  mr: 2,
 };

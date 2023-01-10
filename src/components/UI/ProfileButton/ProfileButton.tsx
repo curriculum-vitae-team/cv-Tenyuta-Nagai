@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
@@ -9,6 +8,8 @@ import Logout from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {
+  AvatarProfileButtons,
+  IconStyleProfileButtons,
   PaperPropsProfileButtons,
   TypographyEmailProfileButtons,
   WrapProfileButtons,
@@ -39,9 +40,7 @@ export const ProfileButton = () => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32, ml: 1, backgroundColor: 'secondary.main' }}>
-              {email[0].toUpperCase()}
-            </Avatar>
+            <AvatarProfileButtons>{email[0].toUpperCase()}</AvatarProfileButtons>
           </IconButton>
         </Tooltip>
       </WrapProfileButtons>
@@ -59,19 +58,19 @@ export const ProfileButton = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <AccountCircleIcon sx={{ color: 'secondary.contrastText', mr: 2 }} />
+          <AccountCircleIcon sx={IconStyleProfileButtons} />
           Profile
         </MenuItem>
 
         <MenuItem>
-          <SettingsIcon sx={{ color: 'secondary.contrastText', mr: 2 }} />
+          <SettingsIcon sx={IconStyleProfileButtons} />
           Setting
         </MenuItem>
 
         <Divider />
 
         <MenuItem>
-          <Logout sx={{ color: 'secondary.contrastText', mr: 2 }} />
+          <Logout sx={IconStyleProfileButtons} />
           Logout
         </MenuItem>
       </Menu>
