@@ -34,6 +34,7 @@ export const AppRouter = () => {
               )
             }
           />
+
           <Route path={RoutePath.LOGIN} element={<PublicRoute>{<LogInPage />}</PublicRoute>} />
           <Route path={RoutePath.SIGNUP} element={<PublicRoute>{<SignUpPage />}</PublicRoute>} />
 
