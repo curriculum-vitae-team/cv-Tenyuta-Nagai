@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Tabs from '@mui/material/Tabs';
 import { NavLink, useLocation } from 'react-router-dom';
-import { RoutePath } from '../../../utils/routeVariables';
+import { RoutePath } from '../../../constants/routeVariables';
 import { TabAuthButtons, WrapAuthButtons } from './authButtons.styles';
 
 const FIRST_BUTTON_INDEX = 0;

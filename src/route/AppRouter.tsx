@@ -1,10 +1,9 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy } from 'react';
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import { Layout } from '../components/Layout';
-import { Spinner } from '../components/Spinner';
 import { useAuth } from '../hooks/useAuth';
 import ErrorPage from '../pages/ErrorPage';
-import { RoutePath } from '../utils/routeVariables';
+import { RoutePath } from '../constants/routeVariables';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 
@@ -28,17 +27,16 @@ export const AppRouter = () => {
           <Route
             index
             element={
-              <Suspense fallback={<Spinner />}>
-                {isAuth ? (
-                  <Navigate to={`/${RoutePath.EMPLOYEES}`} replace />
-                ) : (
-                  <Navigate to={`/${RoutePath.LOGIN}`} replace />
-                )}
-              </Suspense>
+              isAuth ? (
+                <Navigate to={`/${RoutePath.EMPLOYEES}`} replace />
+              ) : (
+                <Navigate to={`/${RoutePath.LOGIN}`} replace />
+              )
             }
           />
           <Route path={RoutePath.LOGIN} element={<PublicRoute>{<LogInPage />}</PublicRoute>} />
           <Route path={RoutePath.SIGNUP} element={<PublicRoute>{<SignUpPage />}</PublicRoute>} />
+
           <Route
             path={RoutePath.PROJECTS}
             element={<PrivateRoute>{<ProjectsPage />}</PrivateRoute>}
@@ -65,6 +63,7 @@ export const AppRouter = () => {
             path={RoutePath.LANGUAGES}
             element={<PrivateRoute>{<LanguagesPage />}</PrivateRoute>}
           />
+
           <Route path={RoutePath.ERROR} element={<ErrorPage />} />
           <Route
             path={RoutePath.GENERAL}

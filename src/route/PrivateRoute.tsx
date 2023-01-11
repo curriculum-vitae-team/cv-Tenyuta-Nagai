@@ -2,7 +2,7 @@ import React, { FC, Suspense } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Spinner } from '../components/Spinner';
 import { useAuth } from '../hooks/useAuth';
-import { RoutePath } from '../utils/routeVariables';
+import { RoutePath } from '../constants/routeVariables';
 
 interface IPrivateRouteProps {
   children: React.ReactNode | JSX.Element;
