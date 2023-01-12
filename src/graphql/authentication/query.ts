@@ -7,11 +7,6 @@ export const LOGIN = gql`
         id
         email
         role
-        profile {
-          id
-          full_name
-          avatar
-        }
       }
       access_token
     }

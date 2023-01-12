@@ -7,6 +7,8 @@ import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useReactiveVar } from '@apollo/client';
+import { authService } from '../../../graphql/authentication/authService';
 import {
   AvatarProfileButtons,
   IconStyleProfileButtons,
@@ -18,7 +20,7 @@ import {
 export const ProfileButton = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const email = 'TestEmail@gmail.com'; //TO-DO replace it
+  const currentUser = useReactiveVar(authService.user$);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -31,7 +33,7 @@ export const ProfileButton = () => {
   return (
     <>
       <WrapProfileButtons>
-        <TypographyEmailProfileButtons>{email}</TypographyEmailProfileButtons>
+        <TypographyEmailProfileButtons>{currentUser?.email}</TypographyEmailProfileButtons>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -40,7 +42,7 @@ export const ProfileButton = () => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <AvatarProfileButtons>{email[0].toUpperCase()}</AvatarProfileButtons>
+            <AvatarProfileButtons>{currentUser?.email[0].toUpperCase()}</AvatarProfileButtons>
           </IconButton>
         </Tooltip>
       </WrapProfileButtons>

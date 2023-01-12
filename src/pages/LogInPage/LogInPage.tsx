@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { RoutePath } from '../../constants/routeVariables';
-import { schema } from '../../constants/validationSchema';
+import { schema } from '../../utils/validationSchema';
 import {
   ButtonLinkForm,
   ButtonSubmitForm,
@@ -14,7 +14,7 @@ import {
   FormSign,
   ValidationError,
 } from '../SignUpPage/SignUp.styles';
-import { IFormInput } from './../SignUpPage/SignUp.interface';
+import { IFormInput } from '../../interfaces/input/IFormInput.interface';
 
 const LogInPage = () => {
   const [hiddenPassword, setHiddenPassword] = useState(true);
