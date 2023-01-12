@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Grid, InputAdornment, TextField, Typography } from '@mui/material';
+import { Button, Grid, InputAdornment, TextField, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { RoutePath } from '../../constants/routeVariables';
 import { schema } from '../../utils/validationSchema';
 import {
-  ButtonLinkForm,
   ButtonSubmitForm,
   GridContainer,
   PaperContainer,
@@ -85,11 +84,20 @@ const LogInPage = () => {
             <ButtonSubmitForm fullWidth type="submit" variant="contained">
               Sign in
             </ButtonSubmitForm>
-            <Link to={`/${RoutePath.SIGNUP}`}>
-              <ButtonLinkForm fullWidth variant="text">
-                I don`t have an account
-              </ButtonLinkForm>
-            </Link>
+            <Button
+              fullWidth
+              sx={{
+                height: '50px',
+                mt: '16px',
+                color: 'secondary.main',
+              }}
+              type="submit"
+              variant="text"
+              component={NavLink}
+              to={`/${RoutePath.SIGNUP}`}
+            >
+              I don`t have an account
+            </Button>
           </FormSign>
         </Grid>
       </PaperContainer>

@@ -1,7 +1,7 @@
-import { Grid, InputAdornment, TextField, Typography } from '@mui/material';
+import { Button, Grid, InputAdornment, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@apollo/client';
@@ -11,7 +11,6 @@ import { IFormInput } from '../../interfaces/input/IFormInput.interface';
 import { SIGNUP } from '../../graphql/authentication/mutation';
 import { authService } from '../../graphql/authentication/authService';
 import {
-  ButtonLinkForm,
   ButtonSubmitForm,
   FormSign,
   GridContainer,
@@ -97,11 +96,21 @@ const SignUpPage = () => {
             <ButtonSubmitForm fullWidth type="submit" variant="contained">
               Sign up
             </ButtonSubmitForm>
-            <Link to={`/${RoutePath.LOGIN}`}>
-              <ButtonLinkForm fullWidth type="submit" variant="text">
-                I have an account
-              </ButtonLinkForm>
-            </Link>
+
+            <Button
+              fullWidth
+              sx={{
+                height: '50px',
+                mt: '16px',
+                color: 'secondary.main',
+              }}
+              type="submit"
+              variant="text"
+              component={NavLink}
+              to={`/${RoutePath.LOGIN}`}
+            >
+              I have an account
+            </Button>
           </FormSign>
         </Grid>
       </PaperContainer>
