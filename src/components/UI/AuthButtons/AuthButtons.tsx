@@ -18,8 +18,7 @@ export const AuthButtons = () => {
     } else if (path === `/${RoutePath.SIGNUP}`) {
       setValue(SECOND_BUTTON_INDEX);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location.pathname]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
