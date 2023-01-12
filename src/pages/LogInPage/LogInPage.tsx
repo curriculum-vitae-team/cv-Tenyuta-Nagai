@@ -4,8 +4,8 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { RoutePath } from '../../utils/routeVariables';
-import { schema } from '../../utils/validationSchema';
+import { RoutePath } from '../../constants/routeVariables';
+import { schema } from '../../constants/validationSchema';
 import {
   ButtonLinkForm,
   ButtonSubmitForm,

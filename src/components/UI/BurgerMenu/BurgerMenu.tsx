@@ -12,7 +12,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import Groups3Icon from '@mui/icons-material/Groups3';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import { NavLink } from 'react-router-dom';
-import { RoutePath } from '../../../utils/routeVariables';
+import { RoutePath } from '../../../constants/routeVariables';
 import { CardBurgerMenu, ToolbarBurgerMenu } from './burgerMenu.styles';
 
 interface IBurgerMenuProps {

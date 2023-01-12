@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import TranslateIcon from '@mui/icons-material/Translate';
-import { Languages } from '../../../utils/variables';
+import { Languages } from '../../../constants/variables';
 import { PaperPropsLanguageButtons } from './languageButton.styles';
 
 export const LanguageButton = () => {

@@ -46,7 +46,7 @@ export const Header = () => {
             </>
           ) : (
             <>
-              <Box sx={{ width: 114 }}></Box>
+              <Box sx={{ width: 34 }}></Box>
               <AuthButtons />
               <Box sx={{ mb: { xs: 1, sm: 1.5 } }}>
                 <LanguageButton />
