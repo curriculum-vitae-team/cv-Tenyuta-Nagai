@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Grid, InputAdornment, TextField, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { useLazyQuery } from '@apollo/client';
 import { RoutePath } from '../../constants/routeVariables';
 import { schema } from '../../utils/validationSchema';
 import {
@@ -14,9 +15,13 @@ import {
   ValidationError,
 } from '../SignUpPage/SignUp.styles';
 import { IFormInput } from '../../interfaces/input/IFormInput.interface';
+import { LOGIN } from '../../graphql/authentication/query';
+import { authService } from '../../graphql/authentication/authService';
 
 const LogInPage = () => {
   const [hiddenPassword, setHiddenPassword] = useState(true);
+  const [login] = useLazyQuery(LOGIN);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -27,7 +32,14 @@ const LogInPage = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: IFormInput) => console.log(data);
+  const onSubmit = async (input: IFormInput) => {
+    const { data } = await login({ variables: input });
+    if (data) {
+      const { user, access_token } = data.login;
+      authService.writeUserToStorage(user, access_token);
+      navigate(`/${RoutePath.EMPLOYEES}`);
+    }
+  };
 
   const handleVisiblePassword = () => {
     setHiddenPassword((visability) => !visability);
