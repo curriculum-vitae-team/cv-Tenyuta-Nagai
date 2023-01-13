@@ -12,6 +12,7 @@ import { authService } from '../../graphql/authentication/authService';
 import { ISignupResult } from '../../graphql/authentication/authResult.interface.';
 import { IFormInput } from './formInput.interface';
 import {
+  ButtonLink,
   ButtonSubmitForm,
   FormSign,
   GridContainer,
@@ -100,20 +101,15 @@ const SignUpPage = () => {
                   Sign up
                 </ButtonSubmitForm>
 
-                <Button
+                <ButtonLink
                   fullWidth
-                  sx={{
-                    height: '50px',
-                    mt: '16px',
-                    color: 'secondary.main',
-                  }}
                   type="submit"
                   variant="text"
                   component={NavLink}
                   to={`/${RoutePath.LOGIN}`}
                 >
                   I have an account
-                </Button>
+                </ButtonLink>
               </FormSign>
             </Grid>
           </PaperContainer>

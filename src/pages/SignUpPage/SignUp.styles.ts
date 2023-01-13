@@ -28,6 +28,12 @@ export const ButtonSubmitForm = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
 }));
 
+export const ButtonLink = styled(Button)(({ theme }) => ({
+  height: '50px',
+  marginTop: '16px',
+  color: theme.palette.secondary.main,
+})) as typeof Button;
+
 export const ValidationError = styled(Typography)(({ theme }) => ({
   color: theme.palette.secondary.main,
   fontSize: '11px',

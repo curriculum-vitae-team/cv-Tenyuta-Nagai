@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Container, Grid, InputAdornment, TextField, Typography } from '@mui/material';
+import { Container, Grid, InputAdornment, TextField, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,6 +14,7 @@ import {
   FormSign,
   ValidationError,
   Main,
+  ButtonLink,
 } from '../SignUpPage/SignUp.styles';
 import { LOGIN } from '../../graphql/authentication/query';
 import { authService } from '../../graphql/authentication/authService';
@@ -99,20 +100,15 @@ const LogInPage = () => {
                 <ButtonSubmitForm fullWidth type="submit" variant="contained">
                   Sign in
                 </ButtonSubmitForm>
-                <Button
+                <ButtonLink
                   fullWidth
-                  sx={{
-                    height: '50px',
-                    mt: '16px',
-                    color: 'secondary.main',
-                  }}
                   type="submit"
                   variant="text"
                   component={NavLink}
                   to={`/${RoutePath.SIGNUP}`}
                 >
                   I don`t have an account
-                </Button>
+                </ButtonLink>
               </FormSign>
             </Grid>
           </PaperContainer>
