@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { NavLink, useLocation } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
-import { convertPathName } from '../../../utils/converPathName';
+import { convertPathName } from '../../../utils/convertPathName';
 import * as Styled from './NavBreadcrumbs.styles';
 
 export const NavBreadcrumbs = () => {
@@ -19,7 +19,7 @@ export const NavBreadcrumbs = () => {
           const isLast = index === pathnames.length - 1;
 
           return isLast ? (
-            <Typography key={name}>{name}</Typography>
+            <Typography key={name}>{convertPathName(name)}</Typography>
           ) : (
             <Styled.Link component={NavLink} key={name} to={routeTo}>
               {convertPathName(name)}
