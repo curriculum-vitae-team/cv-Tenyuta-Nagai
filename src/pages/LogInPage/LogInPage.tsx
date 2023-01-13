@@ -15,13 +15,14 @@ import {
   ValidationError,
   Main,
 } from '../SignUpPage/SignUp.styles';
-import { IFormInput } from '../../interfaces/input/IFormInput.interface';
 import { LOGIN } from '../../graphql/authentication/query';
 import { authService } from '../../graphql/authentication/authService';
+import { ILoginResult } from '../../graphql/authentication/authResult.interface.';
+import { IFormInput } from './../SignUpPage/formInput.interface';
 
 const LogInPage = () => {
   const [hiddenPassword, setHiddenPassword] = useState(true);
-  const [login] = useLazyQuery(LOGIN);
+  const [login] = useLazyQuery<ILoginResult>(LOGIN);
   const navigate = useNavigate();
 
   const {
