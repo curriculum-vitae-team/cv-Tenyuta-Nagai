@@ -1,10 +1,16 @@
 import { ReactiveVar } from '@apollo/client';
+import { AlertValues } from '../../constants/alert';
+
+export interface IAlert {
+  type: AlertValues.SUCCESS | AlertValues.ERROR;
+  message: string;
+  id: number;
+}
 
 export interface INotification {
-  isOpen$: ReactiveVar<boolean>;
-  type$: ReactiveVar<string>;
-  message$: ReactiveVar<string>;
+  alertArray$: ReactiveVar<IAlert[]>;
+  alertId: number;
   openErrorAlert(message?: string): void;
   openSuccessAlert(message?: string): void;
-  closeAlert(): void;
+  closeAlert(id: number): void;
 }
