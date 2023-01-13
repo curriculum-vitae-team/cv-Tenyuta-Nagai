@@ -30,6 +30,10 @@ export const ProfileButton = () => {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    authService.clearStorage();
+  };
+
   return (
     <>
       <WrapProfileButtons>
@@ -71,7 +75,7 @@ export const ProfileButton = () => {
 
         <Divider />
 
-        <MenuItem>
+        <MenuItem onClick={handleLogout}>
           <Logout sx={IconStyleProfileButtons} />
           Logout
         </MenuItem>
