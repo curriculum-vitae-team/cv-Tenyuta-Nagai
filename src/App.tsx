@@ -1,5 +1,14 @@
 import React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material';
+import { mainTheme } from './themes/mainTheme';
+import { AppRouter } from './route';
 
 export const App = () => {
-  return <div>test netlify</div>;
+  return (
+    <ThemeProvider theme={mainTheme}>
+      <CssBaseline />
+      <AppRouter />
+    </ThemeProvider>
+  );
 };

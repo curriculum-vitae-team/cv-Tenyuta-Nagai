@@ -1,0 +1,79 @@
+import React, { useState } from 'react';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import Logout from '@mui/icons-material/Logout';
+import SettingsIcon from '@mui/icons-material/Settings';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {
+  AvatarProfileButtons,
+  IconStyleProfileButtons,
+  PaperPropsProfileButtons,
+  TypographyEmailProfileButtons,
+  WrapProfileButtons,
+} from './profileButton.styles';
+
+export const ProfileButton = () => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const email = 'TestEmail@gmail.com'; //TO-DO replace it
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <>
+      <WrapProfileButtons>
+        <TypographyEmailProfileButtons>{email}</TypographyEmailProfileButtons>
+        <Tooltip title="Account settings">
+          <IconButton
+            onClick={handleClick}
+            size="small"
+            aria-controls={open ? 'account-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+          >
+            <AvatarProfileButtons>{email[0].toUpperCase()}</AvatarProfileButtons>
+          </IconButton>
+        </Tooltip>
+      </WrapProfileButtons>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: PaperPropsProfileButtons,
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <MenuItem>
+          <AccountCircleIcon sx={IconStyleProfileButtons} />
+          Profile
+        </MenuItem>
+
+        <MenuItem>
+          <SettingsIcon sx={IconStyleProfileButtons} />
+          Setting
+        </MenuItem>
+
+        <Divider />
+
+        <MenuItem>
+          <Logout sx={IconStyleProfileButtons} />
+          Logout
+        </MenuItem>
+      </Menu>
+    </>
+  );
+};
