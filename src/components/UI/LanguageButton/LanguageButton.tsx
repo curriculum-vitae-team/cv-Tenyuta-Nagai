@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
 import TranslateIcon from '@mui/icons-material/Translate';
 import { Languages } from '../../../constants/variables';
 import { PaperPropsLanguageButtons } from './languageButton.styles';
@@ -19,17 +18,15 @@ export const LanguageButton = () => {
   };
   return (
     <>
-      <Tooltip title="Account settings">
-        <IconButton
-          onClick={handleClick}
-          size="small"
-          aria-controls={open ? 'account-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-        >
-          <TranslateIcon color="secondary" />
-        </IconButton>
-      </Tooltip>
+      <IconButton
+        onClick={handleClick}
+        size="small"
+        aria-controls={open ? 'account-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+      >
+        <TranslateIcon color="secondary" />
+      </IconButton>
 
       <Menu
         anchorEl={anchorEl}

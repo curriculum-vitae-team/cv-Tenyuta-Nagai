@@ -1,4 +1,5 @@
 import { makeVar } from '@apollo/client';
+import { convertApolloError } from '../../utils/convertApolloError';
 import { INotification } from './notificationService.types';
 
 class Notification implements INotification {
@@ -8,11 +9,10 @@ class Notification implements INotification {
 
   openErrorAlert(errorMessage?: string) {
     if (errorMessage) {
-      this.message$(errorMessage);
+      this.message$(convertApolloError(errorMessage));
     } else {
       this.message$('Error');
     }
-
     this.type$('error');
     this.isOpen$(true);
   }
@@ -29,8 +29,6 @@ class Notification implements INotification {
 
   closeAlert() {
     this.isOpen$(false);
-    this.message$('');
-    this.type$('');
   }
 }
 

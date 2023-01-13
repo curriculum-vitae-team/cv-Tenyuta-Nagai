@@ -3,7 +3,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import Slide, { SlideProps } from '@mui/material/Slide';
 import { useReactiveVar } from '@apollo/client';
-import { notificationService } from '../../../graphql/nitification/notificationService';
+import { notificationService } from '../../../graphql/notification/notificationService';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="standard" {...props} />;
@@ -33,7 +33,7 @@ export const Notifier = () => {
     if (reason === 'clickaway') {
       return;
     }
-    notificationService.isOpen$(false);
+    notificationService.closeAlert();
   };
 
   return (
