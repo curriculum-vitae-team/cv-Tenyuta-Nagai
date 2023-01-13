@@ -33,6 +33,7 @@ export const Notifier = () => {
     if (reason === 'clickaway') {
       return;
     }
+    notificationService.isOpen$(false);
   };
 
   return (

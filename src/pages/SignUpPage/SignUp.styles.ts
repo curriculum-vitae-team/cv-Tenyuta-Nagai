@@ -16,13 +16,6 @@ export const PaperContainer = styled(Paper)({
   margin: '150px auto',
 });
 
-export const ButtonLinkForm = styled(Button)(({ theme }) => ({
-  height: 50,
-  marginTop: '12px',
-  fontFamily: 'Segoe UI',
-  color: theme.palette.secondary.main,
-}));
-
 export const ButtonSubmitForm = styled(Button)(({ theme }) => ({
   height: 50,
   marginTop: '16px',

@@ -1,23 +1,27 @@
-import { Grid, InputAdornment, TextField, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { Button, Grid, InputAdornment, TextField, Typography } from '@mui/material';
+import React, { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@apollo/client';
 import { RoutePath } from '../../constants/routeVariables';
-import { schema } from '../../constants/validationSchema';
+import { schema } from '../../utils/validationSchema';
+import { IFormInput } from '../../interfaces/input/IFormInput.interface';
+import { SIGNUP } from '../../graphql/authentication/mutation';
+import { authService } from '../../graphql/authentication/authService';
 import {
-  ButtonLinkForm,
   ButtonSubmitForm,
   FormSign,
   GridContainer,
   PaperContainer,
   ValidationError,
 } from './SignUp.styles';
-import { IFormInput } from './SignUp.interface';
 
 const SignUpPage = () => {
   const [hiddenPassword, setHiddenPassword] = useState(true);
+  const [signUp, { error, loading }] = useMutation(SIGNUP);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -32,7 +36,14 @@ const SignUpPage = () => {
     setHiddenPassword((visability) => !visability);
   };
 
-  const onSubmit = (data: IFormInput) => console.log(data);
+  const onSubmit = async (input: IFormInput) => {
+    const { data } = await signUp({ variables: input });
+    if (data) {
+      const { user, access_token } = data.signup;
+      authService.writeUserToStorage(user, access_token);
+      navigate(`/${RoutePath.EMPLOYEES}`);
+    }
+  };
 
   return (
     <GridContainer>
@@ -85,11 +96,21 @@ const SignUpPage = () => {
             <ButtonSubmitForm fullWidth type="submit" variant="contained">
               Sign up
             </ButtonSubmitForm>
-            <Link to={`/${RoutePath.LOGIN}`}>
-              <ButtonLinkForm fullWidth type="submit" variant="text">
-                I have an account
-              </ButtonLinkForm>
-            </Link>
+
+            <Button
+              fullWidth
+              sx={{
+                height: '50px',
+                mt: '16px',
+                color: 'secondary.main',
+              }}
+              type="submit"
+              variant="text"
+              component={NavLink}
+              to={`/${RoutePath.LOGIN}`}
+            >
+              I have an account
+            </Button>
           </FormSign>
         </Grid>
       </PaperContainer>

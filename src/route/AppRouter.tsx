@@ -1,9 +1,10 @@
 import React, { lazy } from 'react';
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
+import { useReactiveVar } from '@apollo/client';
 import { Layout } from '../components/Layout';
-import { useAuth } from '../hooks/useAuth';
 import ErrorPage from '../pages/ErrorPage';
 import { RoutePath } from '../constants/routeVariables';
+import { authService } from '../graphql/authentication/authService';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 
@@ -18,7 +19,7 @@ const LanguagesPage = lazy(() => import('../pages/LanguagesPage'));
 const SkillsPage = lazy(() => import('../pages/SkillsPage'));
 
 export const AppRouter = () => {
-  const isAuth = useAuth();
+  const isAuth = useReactiveVar(authService.access_token$);
 
   return (
     <BrowserRouter>
