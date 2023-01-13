@@ -20,7 +20,7 @@ import {
 
 const SignUpPage = () => {
   const [hiddenPassword, setHiddenPassword] = useState(true);
-  const [signUp, { error, loading }] = useMutation(SIGNUP);
+  const [signUp] = useMutation(SIGNUP);
   const navigate = useNavigate();
 
   const {
