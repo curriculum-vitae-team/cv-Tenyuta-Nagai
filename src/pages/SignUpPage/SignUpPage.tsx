@@ -16,6 +16,7 @@ import {
   ButtonSubmitForm,
   FormSign,
   GridContainer,
+  LoadingBtn,
   Main,
   PaperContainer,
   ValidationError,
@@ -23,7 +24,7 @@ import {
 
 const SignUpPage = () => {
   const [hiddenPassword, setHiddenPassword] = useState(true);
-  const [signUp] = useMutation<ISignupResult>(SIGNUP);
+  const [signUp, { loading }] = useMutation<ISignupResult>(SIGNUP);
   const navigate = useNavigate();
 
   const {
@@ -97,9 +98,13 @@ const SignUpPage = () => {
                 />
                 <ValidationError>{errors.password?.message}</ValidationError>
 
-                <ButtonSubmitForm fullWidth type="submit" variant="contained">
-                  Sign up
-                </ButtonSubmitForm>
+                {loading ? (
+                  <LoadingBtn fullWidth loading variant="contained" />
+                ) : (
+                  <ButtonSubmitForm fullWidth type="submit" variant="contained">
+                    Sign up
+                  </ButtonSubmitForm>
+                )}
 
                 <ButtonLink
                   fullWidth

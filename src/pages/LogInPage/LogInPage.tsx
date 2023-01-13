@@ -15,6 +15,7 @@ import {
   ValidationError,
   Main,
   ButtonLink,
+  LoadingBtn,
 } from '../SignUpPage/SignUp.styles';
 import { LOGIN } from '../../graphql/authentication/query';
 import { authService } from '../../graphql/authentication/authService';
@@ -23,7 +24,7 @@ import { IFormInput } from './../SignUpPage/formInput.interface';
 
 const LogInPage = () => {
   const [hiddenPassword, setHiddenPassword] = useState(true);
-  const [login] = useLazyQuery<ILoginResult>(LOGIN);
+  const [login, { loading }] = useLazyQuery<ILoginResult>(LOGIN);
   const navigate = useNavigate();
 
   const {
@@ -96,10 +97,14 @@ const LogInPage = () => {
                   }}
                 />
                 <ValidationError>{errors.password?.message}</ValidationError>
+                {loading ? (
+                  <LoadingBtn fullWidth loading variant="contained" />
+                ) : (
+                  <ButtonSubmitForm fullWidth type="submit" variant="contained">
+                    Sign in
+                  </ButtonSubmitForm>
+                )}
 
-                <ButtonSubmitForm fullWidth type="submit" variant="contained">
-                  Sign in
-                </ButtonSubmitForm>
                 <ButtonLink
                   fullWidth
                   type="submit"

@@ -1,4 +1,5 @@
 import { Button, Grid, Paper, styled, Typography } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 export const Main = styled('main')({
   marginTop: '65px',
@@ -38,6 +39,13 @@ export const ValidationError = styled(Typography)(({ theme }) => ({
   color: theme.palette.secondary.main,
   fontSize: '11px',
 }));
+
+export const LoadingBtn = styled(LoadingButton)({
+  height: 50,
+  marginTop: '16px',
+  color: 'white',
+  textDecoration: 'none',
+});
 
 export const FormSign = styled('form')({
   width: '100%',
