@@ -1,5 +1,4 @@
 import { makeVar, ReactiveVar } from '@apollo/client';
-import { StorageKeys } from '../../constants/storageKeys';
 import { IUser } from '../../interfaces/IUser.interface';
 
 interface IAuthService {
@@ -18,8 +17,8 @@ class AuthService implements IAuthService {
   }
 
   private getUserFromStorage() {
-    const user = this.storage.getItem(StorageKeys.User);
-    const access_token = this.storage.getItem(StorageKeys.AccessToken);
+    const user = this.storage.getItem('user');
+    const access_token = this.storage.getItem('access_token');
     if (user && access_token) {
       this.user$(JSON.parse(user));
       this.access_token$(access_token);
@@ -29,16 +28,16 @@ class AuthService implements IAuthService {
   writeUserToStorage(user: IUser, access_token: string) {
     this.user$(user);
     this.access_token$(access_token);
-    this.storage.setItem(StorageKeys.User, JSON.stringify(user));
-    this.storage.setItem(StorageKeys.AccessToken, access_token);
+    this.storage.setItem('user', JSON.stringify(user));
+    this.storage.setItem('access_token', access_token);
   }
 
   clearStorage() {
     this.user$(null);
     this.access_token$('');
-    this.storage.removeItem(StorageKeys.User);
-    this.storage.removeItem(StorageKeys.AccessToken);
+    this.storage.removeItem('user');
+    this.storage.removeItem('access_token');
   }
 }
 
-export const authService = new AuthService(sessionStorage);
+export const authService = new AuthService(localStorage);
