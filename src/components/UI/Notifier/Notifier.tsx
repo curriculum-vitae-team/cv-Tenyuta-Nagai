@@ -19,6 +19,7 @@ export const Notifier = () => {
   const open = useReactiveVar(notificationService.isOpen$);
   const type = useReactiveVar(notificationService.type$);
   const message = useReactiveVar(notificationService.message$);
+
   const [transition, setTransition] = useState<React.ComponentType<TransitionProps> | undefined>(
     undefined
   );
