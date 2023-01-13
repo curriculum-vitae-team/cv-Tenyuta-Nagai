@@ -3,9 +3,11 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { NavLink, useLocation } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
+import { convertPathName } from '../../../utils/converPathName';
 import * as Styled from './NavBreadcrumbs.styles';
 
 export const NavBreadcrumbs = () => {
+  //TO-DO need to convert userId
   const { pathname } = useLocation();
   const pathnames = pathname.includes(RoutePath.ERROR) ? [] : pathname.split('/').filter((x) => x);
 
@@ -20,7 +22,7 @@ export const NavBreadcrumbs = () => {
             <Typography key={name}>{name}</Typography>
           ) : (
             <Styled.Link component={NavLink} key={name} to={routeTo}>
-              {name}
+              {convertPathName(name)}
             </Styled.Link>
           );
         })}
