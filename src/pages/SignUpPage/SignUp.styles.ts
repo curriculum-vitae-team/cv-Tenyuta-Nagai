@@ -1,4 +1,4 @@
-import { Button, Grid, Paper, styled, Typography } from '@mui/material';
+import { Button, Grid, Paper, styled } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 export const Main = styled('main')({
@@ -34,11 +34,6 @@ export const ButtonLink = styled(Button)(({ theme }) => ({
   marginTop: '16px',
   color: theme.palette.secondary.main,
 })) as typeof Button;
-
-export const ValidationError = styled(Typography)(({ theme }) => ({
-  color: theme.palette.secondary.main,
-  fontSize: '11px',
-}));
 
 export const LoadingBtn = styled(LoadingButton)({
   height: 50,

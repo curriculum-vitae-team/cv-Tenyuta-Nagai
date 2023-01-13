@@ -1,4 +1,4 @@
-import { Button, Container, Grid, InputAdornment, TextField, Typography } from '@mui/material';
+import { Container, Grid, InputAdornment, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -19,7 +19,6 @@ import {
   LoadingBtn,
   Main,
   PaperContainer,
-  ValidationError,
 } from './SignUp.styles';
 
 const SignUpPage = () => {
@@ -72,8 +71,9 @@ const SignUpPage = () => {
                   color="secondary"
                   type="email"
                   {...register('email')}
+                  helperText={errors.email?.message}
+                  error={!!errors.email?.message}
                 />
-                <ValidationError>{errors.email?.message}</ValidationError>
 
                 <TextField
                   fullWidth
@@ -84,6 +84,8 @@ const SignUpPage = () => {
                   variant="outlined"
                   type={hiddenPassword ? 'password' : 'text'}
                   {...register('password')}
+                  helperText={errors.password?.message}
+                  error={!!errors.password?.message}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment
@@ -96,7 +98,6 @@ const SignUpPage = () => {
                     ),
                   }}
                 />
-                <ValidationError>{errors.password?.message}</ValidationError>
 
                 {loading ? (
                   <LoadingBtn fullWidth loading variant="contained" />

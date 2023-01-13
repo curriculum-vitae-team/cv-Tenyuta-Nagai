@@ -12,7 +12,6 @@ import {
   GridContainer,
   PaperContainer,
   FormSign,
-  ValidationError,
   Main,
   ButtonLink,
   LoadingBtn,
@@ -72,8 +71,9 @@ const LogInPage = () => {
                   color="secondary"
                   type="email"
                   {...register('email')}
+                  helperText={errors.email?.message}
+                  error={!!errors.email?.message}
                 />
-                <ValidationError>{errors.email?.message}</ValidationError>
 
                 <TextField
                   fullWidth
@@ -84,6 +84,8 @@ const LogInPage = () => {
                   variant="outlined"
                   type={hiddenPassword ? 'password' : 'text'}
                   {...register('password')}
+                  helperText={errors.password?.message}
+                  error={!!errors.password?.message}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment
@@ -96,7 +98,7 @@ const LogInPage = () => {
                     ),
                   }}
                 />
-                <ValidationError>{errors.password?.message}</ValidationError>
+
                 {loading ? (
                   <LoadingBtn fullWidth loading variant="contained" />
                 ) : (
