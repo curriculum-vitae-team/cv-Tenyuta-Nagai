@@ -7,9 +7,9 @@ import { convertPathName } from '../../../utils/convertPathName';
 import * as Styled from './NavBreadcrumbs.styles';
 
 export const NavBreadcrumbs = () => {
-  //TO-DO need to convert userId
   const { pathname } = useLocation();
   const pathnames = pathname.includes(RoutePath.ERROR) ? [] : pathname.split('/').filter((x) => x);
+  //TO-DO need to convert userId
 
   return (
     <Styled.WrapperBreadcrumbs role="presentation">
