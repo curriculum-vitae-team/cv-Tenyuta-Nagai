@@ -43,7 +43,7 @@ const LogInPage = () => {
   };
 
   const handleVisiblePassword = () => {
-    setHiddenPassword((visability) => !visability);
+    setHiddenPassword((visibility) => !visibility);
   };
 
   return (

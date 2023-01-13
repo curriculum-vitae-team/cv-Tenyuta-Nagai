@@ -35,7 +35,7 @@ const SignUpPage = () => {
   });
 
   const handleVisiblePassword = () => {
-    setHiddenPassword((visability) => !visability);
+    setHiddenPassword((visibility) => !visibility);
   };
 
   const onSubmit = async (input: IFormInput) => {

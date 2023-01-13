@@ -17,7 +17,7 @@ export const PaperContainer = styled(Paper)({
   padding: '10px',
   height: 450,
   width: 550,
-  margin: '40px auto',
+  margin: '90px auto',
 });
 
 export const ButtonSubmitForm = styled(Button)(({ theme }) => ({
