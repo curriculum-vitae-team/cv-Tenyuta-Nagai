@@ -8,7 +8,9 @@ import Logout from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useReactiveVar } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 import { authService } from '../../../graphql/authentication/authService';
+import { RoutePath } from '../../../constants/routeVariables';
 import {
   AvatarProfileButtons,
   IconStyleProfileButtons,
@@ -21,6 +23,7 @@ export const ProfileButton = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const currentUser = useReactiveVar(authService.user$);
+  const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -32,6 +35,7 @@ export const ProfileButton = () => {
 
   const handleLogout = () => {
     authService.clearStorage();
+    navigate(`/${RoutePath.LOGIN}`);
   };
 
   return (

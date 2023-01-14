@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Container, Grid, InputAdornment, TextField, Typography } from '@mui/material';
+import { Container, Grid, InputAdornment, TextField, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,8 +12,9 @@ import {
   GridContainer,
   PaperContainer,
   FormSign,
-  ValidationError,
   Main,
+  ButtonLink,
+  LoadingBtn,
 } from '../SignUpPage/SignUp.styles';
 import { LOGIN } from '../../graphql/authentication/query';
 import { authService } from '../../graphql/authentication/authService';
@@ -22,7 +23,7 @@ import { IFormInput } from './../SignUpPage/formInput.interface';
 
 const LogInPage = () => {
   const [hiddenPassword, setHiddenPassword] = useState(true);
-  const [login] = useLazyQuery<ILoginResult>(LOGIN);
+  const [login, { loading }] = useLazyQuery<ILoginResult>(LOGIN);
   const navigate = useNavigate();
 
   const {
@@ -43,7 +44,7 @@ const LogInPage = () => {
   };
 
   const handleVisiblePassword = () => {
-    setHiddenPassword((visability) => !visability);
+    setHiddenPassword((visibility) => !visibility);
   };
 
   return (
@@ -70,8 +71,9 @@ const LogInPage = () => {
                   color="secondary"
                   type="email"
                   {...register('email')}
+                  helperText={errors.email?.message}
+                  error={!!errors.email?.message}
                 />
-                <ValidationError>{errors.email?.message}</ValidationError>
 
                 <TextField
                   fullWidth
@@ -82,6 +84,8 @@ const LogInPage = () => {
                   variant="outlined"
                   type={hiddenPassword ? 'password' : 'text'}
                   {...register('password')}
+                  helperText={errors.password?.message}
+                  error={!!errors.password?.message}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment
@@ -94,25 +98,24 @@ const LogInPage = () => {
                     ),
                   }}
                 />
-                <ValidationError>{errors.password?.message}</ValidationError>
 
-                <ButtonSubmitForm fullWidth type="submit" variant="contained">
-                  Sign in
-                </ButtonSubmitForm>
-                <Button
+                {loading ? (
+                  <LoadingBtn fullWidth loading variant="contained" />
+                ) : (
+                  <ButtonSubmitForm fullWidth type="submit" variant="contained">
+                    Sign in
+                  </ButtonSubmitForm>
+                )}
+
+                <ButtonLink
                   fullWidth
-                  sx={{
-                    height: '50px',
-                    mt: '16px',
-                    color: 'secondary.main',
-                  }}
                   type="submit"
                   variant="text"
                   component={NavLink}
                   to={`/${RoutePath.SIGNUP}`}
                 >
                   I don`t have an account
-                </Button>
+                </ButtonLink>
               </FormSign>
             </Grid>
           </PaperContainer>

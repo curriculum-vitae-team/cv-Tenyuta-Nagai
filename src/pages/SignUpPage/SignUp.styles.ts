@@ -1,14 +1,15 @@
-import { Button, Grid, Paper, styled, Typography } from '@mui/material';
+import { Button, Grid, Paper, styled } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 export const Main = styled('main')({
   marginTop: '65px',
+  overflowX: 'hidden',
 });
 
 export const GridContainer = styled(Grid)({
   justifyContent: 'center',
   alignItems: 'center',
-  position: 'fixed',
-  margin: 'auto',
+  margin: '0',
   left: '0',
   right: '0',
 });
@@ -17,7 +18,7 @@ export const PaperContainer = styled(Paper)({
   padding: '10px',
   height: 450,
   width: 550,
-  margin: '40px auto',
+  margin: '80px auto',
 });
 
 export const ButtonSubmitForm = styled(Button)(({ theme }) => ({
@@ -28,10 +29,18 @@ export const ButtonSubmitForm = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
 }));
 
-export const ValidationError = styled(Typography)(({ theme }) => ({
+export const ButtonLink = styled(Button)(({ theme }) => ({
+  height: '50px',
+  marginTop: '16px',
   color: theme.palette.secondary.main,
-  fontSize: '11px',
-}));
+})) as typeof Button;
+
+export const LoadingBtn = styled(LoadingButton)({
+  height: 50,
+  marginTop: '16px',
+  color: 'white',
+  textDecoration: 'none',
+});
 
 export const FormSign = styled('form')({
   width: '100%',
