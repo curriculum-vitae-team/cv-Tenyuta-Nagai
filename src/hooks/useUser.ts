@@ -1,8 +1,8 @@
 import { useReactiveVar } from '@apollo/client';
 import { authService } from '../graphql/authentication/authService';
 
-export const useAuth = () => {
-  const token = useReactiveVar(authService.access_token$);
+export const useUser = () => {
+  const user = useReactiveVar(authService.user$);
 
-  return !!token;
+  return user;
 };

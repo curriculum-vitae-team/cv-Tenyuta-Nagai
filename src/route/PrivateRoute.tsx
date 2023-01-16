@@ -8,7 +8,7 @@ interface IPrivateRouteProps {
 }
 
 export const PrivateRoute: FC<IPrivateRouteProps> = ({ children }) => {
-  const { isAuth } = useAuth();
+  const isAuth = useAuth();
 
   if (!isAuth) {
     return <Navigate to={`/${RoutePath.LOGIN}`} replace />;

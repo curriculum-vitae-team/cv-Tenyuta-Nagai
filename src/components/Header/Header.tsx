@@ -12,7 +12,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { ToolbarHeader, WrapAuthBtnHeader } from './header.styles';
 
 export const Header = () => {
-  const { isAuth } = useAuth();
+  const isAuth = useAuth();
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const handleOpenMenu = () => {
     setIsOpenMenu(true);

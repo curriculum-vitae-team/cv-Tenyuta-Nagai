@@ -18,7 +18,7 @@ const LanguagesPage = lazy(() => import('../pages/LanguagesPage'));
 const SkillsPage = lazy(() => import('../pages/SkillsPage'));
 
 export const AppRouter = () => {
-  const { isAuth } = useAuth();
+  const isAuth = useAuth();
 
   return (
     <BrowserRouter>

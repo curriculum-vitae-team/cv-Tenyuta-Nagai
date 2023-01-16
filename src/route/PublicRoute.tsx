@@ -8,7 +8,7 @@ interface IPublicRouteProps {
 }
 
 export const PublicRoute: FC<IPublicRouteProps> = ({ children }) => {
-  const { isAuth } = useAuth();
+  const isAuth = useAuth();
 
   if (isAuth) {
     return <Navigate to={RoutePath.EMPLOYEES} replace />;
