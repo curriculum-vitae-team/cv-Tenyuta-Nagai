@@ -1,38 +1,37 @@
 import React, { FC } from 'react';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { Container, Grid, Typography, Link } from '@mui/material';
+import { Container, Grid, Link } from '@mui/material';
 import { RoutePath } from '../../constants/routeVariables';
-import { ErrorPageButton, ReloadButton } from './ErrorPage.styles';
+import { useAuth } from '../../hooks/useAuth';
+import { ErrorPageButton, Image, ReloadButton, TypographyStyled } from './ErrorPage.styles';
 import { IPropsPageNotFound } from './ErrorPage.interface';
 
 const ErrorPage: FC<IPropsPageNotFound> = ({ pageNotFound }) => {
+  const isAuth = useAuth();
+
+  const onHandleReload = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    window.location.reload();
+  };
+
   return (
     <main>
       <Container sx={{ mt: '85px' }}>
-        <Typography
-          sx={{
-            textAlign: 'center',
-            fontSize: '32px',
-            fontWeight: 'bold',
-            mb: '26px',
-          }}
-        >
+        <TypographyStyled>
           {pageNotFound ? 'Page not found..' : 'Something went wrong..'}
-        </Typography>
+        </TypographyStyled>
 
         <Grid container justifyContent="center">
-          {pageNotFound ? (
-            <img style={{ display: 'block', width: '500px' }} src="./404.png" alt="Error image" />
-          ) : (
-            <img
-              style={{ display: 'block', width: '500px' }}
-              src="./errorimage.png"
-              alt="Error image"
-            />
-          )}
+          <Grid item xs={5}>
+            {pageNotFound ? (
+              <Image src="./404.png" alt="Error image" />
+            ) : (
+              <Image src="./errorimage.png" alt="Error image" />
+            )}{' '}
+          </Grid>
         </Grid>
 
-        <Grid container justifyContent="center" columnGap={2} mt="40px">
+        <Grid container justifyContent="center" gap={2} mt="40px">
           {pageNotFound ? (
             ''
           ) : (
@@ -41,22 +40,15 @@ const ErrorPage: FC<IPropsPageNotFound> = ({ pageNotFound }) => {
                 size="large"
                 variant="contained"
                 component={Link}
-                href={RoutePath.LOGIN}
+                href={isAuth ? RoutePath.EMPLOYEES : RoutePath.LOGIN}
               >
-                Login page
+                {isAuth ? 'Main page' : 'Login page'}
               </ErrorPageButton>
             </Grid>
           )}
 
           <Grid item>
-            <ReloadButton
-              size="large"
-              variant="contained"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.reload();
-              }}
-            >
+            <ReloadButton size="large" variant="contained" onClick={onHandleReload}>
               <RefreshIcon />
             </ReloadButton>
           </Grid>
