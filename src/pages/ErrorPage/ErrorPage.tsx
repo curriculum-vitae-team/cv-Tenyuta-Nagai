@@ -27,14 +27,12 @@ const ErrorPage: FC<IPropsPageNotFound> = ({ pageNotFound }) => {
               <Image src="./404.png" alt="Error image" />
             ) : (
               <Image src="./errorimage.png" alt="Error image" />
-            )}{' '}
+            )}
           </Grid>
         </Grid>
 
         <Grid container justifyContent="center" gap={2} mt="40px">
-          {pageNotFound ? (
-            ''
-          ) : (
+          {!pageNotFound && (
             <Grid item>
               <ErrorPageButton
                 size="large"
