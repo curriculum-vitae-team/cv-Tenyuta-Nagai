@@ -3,19 +3,17 @@ import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
 import React, { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useReactiveVar } from '@apollo/client';
 import { AuthButtons } from '../UI/AuthButtons';
 import { ProfileButton } from '../UI/ProfileButton';
 import { BurgerMenu } from '../UI/BurgerMenu';
 import { LanguageButton } from '../UI/LanguageButton';
-import { authService } from '../../graphql/authentication/authService';
 import { NavBreadcrumbs } from '../UI/NavBreadcrumbs';
+import { useAuth } from '../../hooks/useAuth';
 import { ToolbarHeader, WrapAuthBtnHeader } from './header.styles';
 
 export const Header = () => {
-  const isAuth = Boolean(useReactiveVar(authService.access_token$));
+  const isAuth = useAuth();
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
-
   const handleOpenMenu = () => {
     setIsOpenMenu(true);
   };

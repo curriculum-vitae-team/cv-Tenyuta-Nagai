@@ -7,10 +7,10 @@ import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { useReactiveVar } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../../graphql/authentication/authService';
 import { RoutePath } from '../../../constants/routeVariables';
+import { useUser } from '../../../hooks/useUser';
 import {
   AvatarProfileButtons,
   IconStyleProfileButtons,
@@ -22,7 +22,7 @@ import {
 export const ProfileButton = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const currentUser = useReactiveVar(authService.user$);
+  const currentUser = useUser();
   const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
