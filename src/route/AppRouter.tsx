@@ -17,6 +17,7 @@ const DepartmentsPage = lazy(() => import('../pages/DepartmentsPage'));
 const PositionsPage = lazy(() => import('../pages/PositionsPage'));
 const LanguagesPage = lazy(() => import('../pages/LanguagesPage'));
 const SkillsPage = lazy(() => import('../pages/SkillsPage'));
+const EmployeesProfilePage = lazy(() => import('../pages/EmployeesProfilePage'));
 
 export const AppRouter = () => {
   const isAuth = useReactiveVar(authService.access_token$);
@@ -43,10 +44,16 @@ export const AppRouter = () => {
             path={RoutePath.PROJECTS}
             element={<PrivateRoute>{<ProjectsPage />}</PrivateRoute>}
           />
+
           <Route
             path={RoutePath.EMPLOYEES}
             element={<PrivateRoute>{<EmployeesPage />}</PrivateRoute>}
           />
+          <Route
+            path={`${RoutePath.EMPLOYEES}/:id/${RoutePath.PROFILE}`}
+            element={<PrivateRoute>{<EmployeesProfilePage />}</PrivateRoute>}
+          />
+
           <Route path={RoutePath.CVS} element={<PrivateRoute>{<CvsPage />}</PrivateRoute>} />
           <Route
             path={RoutePath.DEPARTMENTS}
