@@ -7,7 +7,7 @@ export const SearchInput = (props: TextFieldProps) => {
       color="secondary"
       placeholder="Search.."
       InputProps={{ startAdornment: <Search /> }}
-      size="medium"
+      size="small"
       inputProps={{ sx: { px: '10px' } }}
       sx={{ p: '5px', height: '30px' }}
       {...props}
