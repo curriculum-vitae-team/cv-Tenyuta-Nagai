@@ -5,7 +5,7 @@ import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
 import { RoutePath } from '../../../constants/routeVariables';
 import { chooseUserName, convertPathName } from '../../../utils/convertPathName';
-import { USER_NAME } from '../../../graphql/query/user';
+import { USER } from '../../../graphql/queries/user';
 import { IUserName, IUserNameResult } from '../../../interfaces/IUser.interface';
 import * as Styled from './NavBreadcrumbs.styles';
 
@@ -19,7 +19,7 @@ export const NavBreadcrumbs = () => {
     [location]
   );
   const { id: isUserNameInPath } = useParams();
-  const [userName] = useLazyQuery<IUserNameResult>(USER_NAME);
+  const [userName] = useLazyQuery<IUserNameResult>(USER);
   const [userData, setUserData] = useState<IUserName>({
     email: '',
     profile: {
