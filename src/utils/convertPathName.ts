@@ -25,13 +25,6 @@ export const convertPathName = (name: string) => {
   }
 };
 
-export const checkUSerNameInPath = (arr: string[]) => {
-  if (arr[arr.length - 1] === RoutePath.PROFILE) {
-    return true;
-  }
-  return false;
-};
-
 export const chooseUserName = (data: IUserName) => {
   if (data.profile.first_name && data.profile.last_name) {
     return `${data.profile.first_name} ${data?.profile.last_name}`;

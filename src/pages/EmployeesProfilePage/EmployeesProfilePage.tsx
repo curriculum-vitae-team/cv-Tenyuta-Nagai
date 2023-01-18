@@ -1,7 +1,7 @@
 import React from 'react';
 
 const EmployeesProfilePage = () => {
-  return <main>EmployeesProfilePage</main>;
+  return <div>EmployeesProfilePage</div>;
 };
 
 export default EmployeesProfilePage;
