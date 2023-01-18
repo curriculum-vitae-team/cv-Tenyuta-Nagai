@@ -4,6 +4,10 @@ import { Layout } from '../components/Layout';
 import ErrorPage from '../pages/ErrorPage';
 import { RoutePath } from '../constants/routeVariables';
 import { useAuth } from '../hooks/useAuth';
+import EmployeesProfilePage from '../pages/EmployeesProfilePage';
+import EmployeesSkillsPage from '../pages/EmployeesSkillsPage';
+import EmployeesLanguagePage from '../pages/EmployeesLanguagePage';
+import EmployeesCVsPage from '../pages/EmployeesCVsPage';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 
@@ -18,10 +22,6 @@ const SkillsPage = lazy(() => import('../pages/SkillsPage'));
 
 const EmployeesPage = lazy(() => import('../pages/EmployeesPage'));
 const EmployeesPrivatePage = lazy(() => import('../pages/EmployeesPrivatePage'));
-const EmployeesProfilePage = lazy(() => import('../pages/EmployeesProfilePage'));
-const EmployeesSkillsPage = lazy(() => import('../pages/EmployeesSkillsPage'));
-const EmployeesLanguagePage = lazy(() => import('../pages/EmployeesLanguagePage'));
-const EmployeesCVsPage = lazy(() => import('../pages/EmployeesCVsPage'));
 
 export const AppRouter = () => {
   const isAuth = useAuth();
@@ -52,22 +52,10 @@ export const AppRouter = () => {
           <Route path={RoutePath.EMPLOYEES} element={<Outlet />}>
             <Route index element={<PrivateRoute>{<EmployeesPage />}</PrivateRoute>} />
             <Route path=":id" element={<PrivateRoute>{<EmployeesPrivatePage />}</PrivateRoute>}>
-              <Route
-                path={RoutePath.PROFILE}
-                element={<PrivateRoute>{<EmployeesProfilePage />}</PrivateRoute>}
-              />
-              <Route
-                path={RoutePath.SKILLS}
-                element={<PrivateRoute>{<EmployeesSkillsPage />}</PrivateRoute>}
-              />
-              <Route
-                path={RoutePath.LANGUAGES}
-                element={<PrivateRoute>{<EmployeesLanguagePage />}</PrivateRoute>}
-              />
-              <Route
-                path={RoutePath.CVS}
-                element={<PrivateRoute>{<EmployeesCVsPage />}</PrivateRoute>}
-              />
+              <Route path={RoutePath.PROFILE} element={<EmployeesProfilePage />} />
+              <Route path={RoutePath.SKILLS} element={<EmployeesSkillsPage />} />
+              <Route path={RoutePath.LANGUAGES} element={<EmployeesLanguagePage />} />
+              <Route path={RoutePath.CVS} element={<EmployeesCVsPage />} />
             </Route>
           </Route>
 
