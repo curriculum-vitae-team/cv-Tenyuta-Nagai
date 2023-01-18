@@ -12,4 +12,4 @@ export const ButtonAddEmployee = styled(Button)(({ theme }) => ({
   ':hover': {
     backgroundColor: 'gray',
   },
-}));
+})) as typeof Button;

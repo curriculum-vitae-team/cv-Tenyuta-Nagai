@@ -1,19 +1,11 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Table as MuiTable, TableHead, TableRow, TableCell, Grid } from '@mui/material';
 import { SearchInput } from '../helpers/Search';
 import { AddEmployeeBtn } from '../helpers/AddEmployeeBtn';
+import { TableHeaderComponent } from '../TableHeader/TableHeaderComponent';
+import { TableProps } from './templateTable.types';
 
-// export type TableHead = {
-//   columnKey: string;
-//   columnName: string;
-//   isSortable: boolean;
-// }[];
-
-export type TableProps = {
-  TableHeaderComponent: FC;
-};
-
-const Table = ({ TableHeaderComponent }: TableProps) => {
+const Table = ({ header }: TableProps) => {
   return (
     <MuiTable>
       <TableHead>
@@ -26,12 +18,12 @@ const Table = ({ TableHeaderComponent }: TableProps) => {
           </TableCell>
         </TableRow>
 
-        <TableHeaderComponent />
+        <TableHeaderComponent columns={header} />
       </TableHead>
     </MuiTable>
   );
 };
 
-const TableComponent = Table;
+const TableComponent = memo(Table);
 
 export const createTable = (): FC<TableProps> => TableComponent;
