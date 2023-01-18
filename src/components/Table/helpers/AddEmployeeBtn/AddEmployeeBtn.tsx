@@ -1,4 +1,5 @@
 import React from 'react';
+import { UserRoles } from '../../../../constants/userRoles';
 import { useUser } from '../../../../hooks/useUser';
 import { ButtonAddEmployee } from './AddEmployeeBtn.styles';
 
@@ -7,7 +8,9 @@ export const AddEmployeeBtn = () => {
 
   return (
     <>
-      <ButtonAddEmployee disabled={user?.role == 'employee'}>Add employee</ButtonAddEmployee>
+      <ButtonAddEmployee disabled={user?.role == UserRoles.Employee}>
+        Add employee
+      </ButtonAddEmployee>
     </>
   );
 };
