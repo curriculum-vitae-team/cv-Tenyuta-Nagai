@@ -1,7 +1,7 @@
 import React from 'react';
 import { createTable } from '../../components/Table/template/templateTable';
 import { Main, TableGrid } from './EmployeesPage.styles';
-import { UsersTableHeader } from './TableData/UserTableHeader';
+import { UsersTableHeader } from './TableData/UsersTableHeader';
 
 const EmployeesPage = () => {
   const Table = createTable();
