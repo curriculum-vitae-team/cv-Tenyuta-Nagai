@@ -1,10 +1,9 @@
 import React, { lazy } from 'react';
 import { Routes, Route, Navigate, BrowserRouter, Outlet } from 'react-router-dom';
-import { useReactiveVar } from '@apollo/client';
 import { Layout } from '../components/Layout';
 import ErrorPage from '../pages/ErrorPage';
 import { RoutePath } from '../constants/routeVariables';
-import { authService } from '../graphql/authentication/authService';
+import { useAuth } from '../hooks/useAuth';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 
@@ -25,7 +24,7 @@ const EmployeesLanguagePage = lazy(() => import('../pages/EmployeesLanguagePage'
 const EmployeesCVsPage = lazy(() => import('../pages/EmployeesCVsPage'));
 
 export const AppRouter = () => {
-  const isAuth = useReactiveVar(authService.access_token$);
+  const isAuth = useAuth();
 
   return (
     <BrowserRouter>
