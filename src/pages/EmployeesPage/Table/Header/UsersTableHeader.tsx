@@ -1,15 +1,17 @@
-import { TableCell, TableRow } from '@mui/material';
+import { TableRow } from '@mui/material';
+import { TableCellStyled } from './UsersTableHeader.styles';
 
 const UsersTableHeader = () => {
   return (
     <TableRow>
-      <TableCell />
-      <TableCell>First Name</TableCell>
-      <TableCell>Last Name</TableCell>
-      <TableCell>Email</TableCell>
-      <TableCell>Department</TableCell>
-      <TableCell>Position</TableCell>
-      <TableCell />
+      <TableCellStyled />
+      <TableCellStyled />
+      <TableCellStyled>First Name</TableCellStyled>
+      <TableCellStyled>Last Name</TableCellStyled>
+      <TableCellStyled>Email</TableCellStyled>
+      <TableCellStyled>Department</TableCellStyled>
+      <TableCellStyled>Position</TableCellStyled>
+      <TableCellStyled />
     </TableRow>
   );
 };

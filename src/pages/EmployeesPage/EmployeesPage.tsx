@@ -7,9 +7,9 @@ const EmployeesPage = () => {
   const Table = createTable();
 
   return (
-    <main>
-      <Grid container sx={{ maxWidth: '1300px', margin: 'auto' }}>
-        <Table TableHeadComponent={UsersTableHeader} />
+    <main style={{ marginRight: '40px', marginLeft: '40px' }}>
+      <Grid container sx={{ maxWidth: '1400px', mx: 'auto' }}>
+        <Table TableHeaderComponent={UsersTableHeader} />
       </Grid>
     </main>
   );

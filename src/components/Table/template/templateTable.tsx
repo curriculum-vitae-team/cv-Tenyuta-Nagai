@@ -1,35 +1,37 @@
-import { FC, memo } from 'react';
-import { Table as MuiTable, TableHead, TableRow, TableCell, Box } from '@mui/material';
+import { FC } from 'react';
+import { Table as MuiTable, TableHead, TableRow, TableCell, Grid } from '@mui/material';
 import { SearchInput } from '../helpers/Search';
 import { AddEmployeeBtn } from '../helpers/AddEmployeeBtn';
 
-export type Item = {
-  id: string;
-};
+// export type TableHead = {
+//   columnKey: string;
+//   columnName: string;
+//   isSortable: boolean;
+// }[];
 
 export type TableProps = {
-  TableHeadComponent: FC;
+  TableHeaderComponent: FC;
 };
 
-const Table = ({ TableHeadComponent }: TableProps) => {
+const Table = ({ TableHeaderComponent }: TableProps) => {
   return (
-    <MuiTable stickyHeader>
+    <MuiTable>
       <TableHead>
         <TableRow>
-          <TableCell colSpan={20} sx={{ borderBottom: 'none' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <TableCell colSpan={10} sx={{ border: 'none' }}>
+            <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <SearchInput />
               <AddEmployeeBtn />
-            </Box>
+            </Grid>
           </TableCell>
         </TableRow>
 
-        <TableHeadComponent />
+        <TableHeaderComponent />
       </TableHead>
     </MuiTable>
   );
 };
 
-const TableComponent = memo(Table) as never;
+const TableComponent = Table;
 
 export const createTable = (): FC<TableProps> => TableComponent;
