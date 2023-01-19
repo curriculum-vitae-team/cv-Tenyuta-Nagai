@@ -8,8 +8,7 @@ import { getAllUsers } from './TableData/UsersTableRows';
 
 const EmployeesPage = () => {
   const Table = createTable();
-  const { data, loading, error } = useQuery(GET_ALL_USERS);
-  console.log(data, error);
+  const { data, loading } = useQuery(GET_ALL_USERS);
 
   return (
     <main>

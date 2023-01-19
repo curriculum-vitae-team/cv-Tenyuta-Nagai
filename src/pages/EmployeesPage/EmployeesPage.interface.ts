@@ -9,6 +9,7 @@ export interface IEmployeeTable {
   name: string;
   lastName: string;
   email: string;
+  avatar: string;
   department: string;
   position: string;
 }
