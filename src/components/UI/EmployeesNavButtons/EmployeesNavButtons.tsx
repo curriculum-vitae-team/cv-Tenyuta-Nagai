@@ -3,6 +3,7 @@ import React from 'react';
 import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import * as Styled from './EmployeesNavButtons.styles';
+import { tabsData } from './data/tabsData';
 
 export const EmployeesNavButtons = () => {
   const location = useLocation();
@@ -17,30 +18,15 @@ export const EmployeesNavButtons = () => {
         textColor="secondary"
         indicatorColor="secondary"
       >
-        <Styled.TabNav
-          value={`/${RoutePath.EMPLOYEES}/${id}/${RoutePath.PROFILE}`}
-          component={NavLink}
-          label={RoutePath.PROFILE}
-          to={RoutePath.PROFILE}
-        />
-        <Styled.TabNav
-          value={`/${RoutePath.EMPLOYEES}/${id}/${RoutePath.SKILLS}`}
-          component={NavLink}
-          label={RoutePath.SKILLS}
-          to={RoutePath.SKILLS}
-        />
-        <Styled.TabNav
-          value={`/${RoutePath.EMPLOYEES}/${id}/${RoutePath.LANGUAGES}`}
-          component={NavLink}
-          label={RoutePath.LANGUAGES}
-          to={RoutePath.LANGUAGES}
-        />
-        <Styled.TabNav
-          value={`/${RoutePath.EMPLOYEES}/${id}/${RoutePath.CVS}`}
-          component={NavLink}
-          label={RoutePath.CVS}
-          to={RoutePath.CVS}
-        />
+        {tabsData.map(({ value }) => (
+          <Styled.TabNav
+            key={value}
+            value={`/${RoutePath.EMPLOYEES}/${id}/${value}`}
+            component={NavLink}
+            label={value}
+            to={value}
+          />
+        ))}
       </Tabs>
     </Styled.Wrapper>
   );
