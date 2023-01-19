@@ -49,25 +49,13 @@ export const AppRouter = () => {
             element={<PrivateRoute>{<ProjectsPage />}</PrivateRoute>}
           />
 
-          <Route path={RoutePath.EMPLOYEES} element={<Outlet />}>
-            <Route index element={<PrivateRoute>{<EmployeesPage />}</PrivateRoute>} />
-            <Route path=":id" element={<PrivateRoute>{<EmployeesPrivatePage />}</PrivateRoute>}>
-              <Route
-                path={RoutePath.PROFILE}
-                element={<PrivateRoute>{<EmployeesProfilePage />}</PrivateRoute>}
-              />
-              <Route
-                path={RoutePath.SKILLS}
-                element={<PrivateRoute>{<EmployeesSkillsPage />}</PrivateRoute>}
-              />
-              <Route
-                path={RoutePath.LANGUAGES}
-                element={<PrivateRoute>{<EmployeesLanguagePage />}</PrivateRoute>}
-              />
-              <Route
-                path={RoutePath.CVS}
-                element={<PrivateRoute>{<EmployeesCVsPage />}</PrivateRoute>}
-              />
+          <Route path={RoutePath.EMPLOYEES} element={<PrivateRoute>{<Outlet />}</PrivateRoute>}>
+            <Route index element={<EmployeesPage />} />
+            <Route path=":id" element={<EmployeesPrivatePage />}>
+              <Route path={RoutePath.PROFILE} element={<EmployeesProfilePage />} />
+              <Route path={RoutePath.SKILLS} element={<EmployeesSkillsPage />} />
+              <Route path={RoutePath.LANGUAGES} element={<EmployeesLanguagePage />} />
+              <Route path={RoutePath.CVS} element={<EmployeesCVsPage />} />
             </Route>
           </Route>
 
