@@ -1,7 +1,14 @@
 import { styled, Paper, Typography, Avatar } from '@mui/material';
 
-export const PaperWrapper = styled(Paper)(() => ({
+export const PaperWrapper = styled(Paper)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
   padding: 20,
+
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    rowGap: 20,
+  },
 })) as typeof Paper;
 
 export const Wrapper = styled('div')(() => ({
@@ -33,7 +40,7 @@ export const RowWrapper = styled('div')(({ theme }) => ({
 
 export const RowTitleTypography = styled(Typography)(({ theme }) => ({
   fontSize: 22,
-  color: theme.palette.primary.main,
+  color: theme.palette.secondary.contrastText,
 
   [theme.breakpoints.down('sm')]: {
     fontSize: 18,
@@ -42,7 +49,7 @@ export const RowTitleTypography = styled(Typography)(({ theme }) => ({
 
 export const RowContentTypography = styled(Typography)(({ theme }) => ({
   fontSize: 22,
-  color: theme.palette.secondary.contrastText,
+  color: theme.palette.primary.main,
 
   [theme.breakpoints.down('sm')]: {
     display: 'flex',

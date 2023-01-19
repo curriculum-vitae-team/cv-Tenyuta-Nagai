@@ -2,8 +2,11 @@ import { useQuery } from '@apollo/client';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Spinner } from '../../components/Spinner';
+import { PrivateButton } from '../../components/UI/PrivateButton';
 import { RoutePath } from '../../constants/routeVariables';
+import { UserRoles } from '../../constants/userRoles';
 import { USER } from '../../graphql/queries/user';
+import { useUser } from '../../hooks/useUser';
 import { IUserAllResult } from '../../interfaces/IUser.interface';
 import { chooseAvatarLetter } from '../../utils/chooseAvatarLetter';
 import * as Styled from './EmployeesProfilePage.styles';
@@ -12,6 +15,7 @@ import { convertData } from './helpers/convertData';
 const EmployeesProfilePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const user = useUser();
   const { loading, error, data } = useQuery<IUserAllResult>(USER, {
     variables: { id },
   });
@@ -23,6 +27,10 @@ const EmployeesProfilePage = () => {
   if (error) {
     navigate(`/${RoutePath.EMPLOYEES}`, { replace: true });
   }
+
+  const handleEdit = () => {
+    console.log('Edit');
+  };
 
   return (
     <Styled.PaperWrapper elevation={3}>
@@ -72,6 +80,13 @@ const EmployeesProfilePage = () => {
           </Styled.RowWrapper>
         </Styled.InfoWrapper>
       </Styled.Wrapper>
+
+      <PrivateButton
+        isVisible={user?.id === id || user?.role === UserRoles.Admin}
+        onClick={handleEdit}
+      >
+        Edit
+      </PrivateButton>
     </Styled.PaperWrapper>
   );
 };
