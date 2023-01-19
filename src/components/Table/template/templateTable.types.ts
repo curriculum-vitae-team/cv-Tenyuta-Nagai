@@ -11,8 +11,9 @@ export type TableProps<T = Item> = {
 
 export type Item = {
   [key: string]: string | number;
-} & Id;
+  id: string;
+};
 
-export type Id = {
+export type Element = {
   id: string;
 };

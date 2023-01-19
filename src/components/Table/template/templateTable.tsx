@@ -13,7 +13,7 @@ import { AddEmployeeBtn } from '../helpers/AddEmployeeBtn';
 import { TableHeaderComponent } from '../TableHeader/TableHeaderComponent';
 import { TableRowComponent } from '../TableRows';
 import { TableRowItem } from '../TableRows/TableItemRow';
-import { Id, TableProps } from './templateTable.types';
+import { Element, TableProps } from './templateTable.types';
 
 const Table = ({ header, items }: TableProps) => {
   return (
@@ -55,4 +55,4 @@ const Table = ({ header, items }: TableProps) => {
   );
 };
 
-export const createTable = <T extends Id>(): FC<TableProps<T>> => memo(Table);
+export const createTable = (): FC<TableProps<Element>> => memo(Table);
