@@ -2,10 +2,10 @@ import { Tabs } from '@mui/material';
 import React from 'react';
 import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
-import * as Styled from './EmployeesNavButtons.styles';
+import * as Styled from './NavButtons.styles';
 import { tabsData } from './data/tabsData';
 
-export const EmployeesNavButtons = () => {
+export const NavButtons = () => {
   const location = useLocation();
   const { id } = useParams();
 
