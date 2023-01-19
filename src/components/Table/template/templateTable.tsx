@@ -1,11 +1,13 @@
 import { FC, memo } from 'react';
-import { Table as MuiTable, TableHead, TableRow, TableCell, Grid } from '@mui/material';
+import { Table as MuiTable, TableHead, TableRow, TableCell, Grid, TableBody } from '@mui/material';
 import { SearchInput } from '../helpers/Search';
 import { AddEmployeeBtn } from '../helpers/AddEmployeeBtn';
 import { TableHeaderComponent } from '../TableHeader/TableHeaderComponent';
-import { TableProps } from './templateTable.types';
+import { TableRowComponent } from '../TableRows';
+import { TableRowItem } from '../TableRows/TableItemRow';
+import { Id, TableProps } from './templateTable.types';
 
-const Table = ({ header }: TableProps) => {
+const Table = ({ header, items }: TableProps) => {
   return (
     <MuiTable>
       <TableHead>
@@ -20,10 +22,17 @@ const Table = ({ header }: TableProps) => {
 
         <TableHeaderComponent columns={header} />
       </TableHead>
+      <TableBody>
+        {items.map((item) => (
+          <TableRowComponent key={item.id}>
+            {header.map(({ columnKey }) => (
+              <TableRowItem key={columnKey} value={item[columnKey]} />
+            ))}
+          </TableRowComponent>
+        ))}
+      </TableBody>
     </MuiTable>
   );
 };
 
-const TableComponent = memo(Table);
-
-export const createTable = (): FC<TableProps> => TableComponent;
+export const createTable = <T extends Id>(): FC<TableProps<T>> => memo(Table);
