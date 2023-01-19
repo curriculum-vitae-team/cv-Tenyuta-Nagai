@@ -9,7 +9,7 @@ import { Id, TableProps } from './templateTable.types';
 
 const Table = ({ header, items }: TableProps) => {
   return (
-    <MuiTable>
+    <MuiTable stickyHeader>
       <TableHead>
         <TableRow>
           <TableCell colSpan={10} sx={{ border: 'none' }}>
