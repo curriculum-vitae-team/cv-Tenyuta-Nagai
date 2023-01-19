@@ -3,6 +3,7 @@ export enum RoutePath {
   LOGIN = 'login',
   SIGNUP = 'signup',
   EMPLOYEES = 'employees',
+  PROFILE = 'profile',
   PROJECTS = 'projects',
   CVS = 'cvs',
   DEPARTMENTS = 'departments',

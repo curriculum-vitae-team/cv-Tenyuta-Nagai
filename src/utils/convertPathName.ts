@@ -1,5 +1,6 @@
 import { BreadcrumbNames } from '../constants/breadcrumbNames';
 import { RoutePath } from '../constants/routeVariables';
+import { IUserName } from '../interfaces/IUser.interface';
 
 export const convertPathName = (name: string) => {
   switch (name) {
@@ -17,5 +18,18 @@ export const convertPathName = (name: string) => {
       return BreadcrumbNames.PROJECTS;
     case RoutePath.SKILLS:
       return BreadcrumbNames.SKILLS;
+    case RoutePath.PROFILE:
+      return BreadcrumbNames.PROFILE;
+    default:
+      return name;
   }
+};
+
+export const chooseUserName = (data: IUserName) => {
+  if (data.profile.first_name && data.profile.last_name) {
+    return `${data.profile.first_name} ${data?.profile.last_name}`;
+  } else if (data?.email) {
+    return data.email;
+  }
+  return '...';
 };
