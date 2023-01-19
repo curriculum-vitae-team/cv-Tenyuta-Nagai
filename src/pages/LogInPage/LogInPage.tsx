@@ -16,9 +16,9 @@ import {
   ButtonLink,
   LoadingBtn,
 } from '../SignUpPage/SignUp.styles';
-import { LOGIN } from '../../graphql/queries/auth';
 import { authService } from '../../graphql/authentication/authService';
 import { ILoginResult } from '../../graphql/authentication/authResult.interface.';
+import { LOGIN } from '../../graphql/queries/auth';
 import { IFormInput } from './../SignUpPage/formInput.interface';
 
 const LogInPage = () => {

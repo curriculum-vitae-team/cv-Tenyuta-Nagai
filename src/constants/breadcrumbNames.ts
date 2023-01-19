@@ -6,4 +6,5 @@ export enum BreadcrumbNames {
   POSITIONS = 'Positions',
   SKILLS = 'Skills',
   LANGUAGES = 'Languages',
+  PROFILE = 'Profile',
 }

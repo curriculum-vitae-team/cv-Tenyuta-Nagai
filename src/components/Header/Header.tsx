@@ -58,7 +58,11 @@ export const Header = () => {
         </Container>
       </AppBar>
 
-      {isAuth && <NavBreadcrumbs />}
+      {isAuth && (
+        <Container maxWidth="xl">
+          <NavBreadcrumbs />
+        </Container>
+      )}
     </>
   );
 };

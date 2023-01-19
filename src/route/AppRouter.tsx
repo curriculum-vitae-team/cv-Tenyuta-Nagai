@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, Navigate, BrowserRouter, Outlet } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import ErrorPage from '../pages/ErrorPage';
 import { RoutePath } from '../constants/routeVariables';
@@ -10,12 +10,18 @@ import { PublicRoute } from './PublicRoute';
 const LogInPage = lazy(() => import('../pages/LogInPage'));
 const SignUpPage = lazy(() => import('../pages/SignUpPage'));
 const ProjectsPage = lazy(() => import('../pages/ProjectsPage'));
-const EmployeesPage = lazy(() => import('../pages/EmployeesPage'));
 const CvsPage = lazy(() => import('../pages/CvsPage'));
 const DepartmentsPage = lazy(() => import('../pages/DepartmentsPage'));
 const PositionsPage = lazy(() => import('../pages/PositionsPage'));
 const LanguagesPage = lazy(() => import('../pages/LanguagesPage'));
 const SkillsPage = lazy(() => import('../pages/SkillsPage'));
+
+const EmployeesPage = lazy(() => import('../pages/EmployeesPage'));
+const EmployeesPrivatePage = lazy(() => import('../pages/EmployeesPrivatePage'));
+const EmployeesProfilePage = lazy(() => import('../pages/EmployeesProfilePage'));
+const EmployeesSkillsPage = lazy(() => import('../pages/EmployeesSkillsPage'));
+const EmployeesLanguagePage = lazy(() => import('../pages/EmployeesLanguagePage'));
+const EmployeesCVsPage = lazy(() => import('../pages/EmployeesCVsPage'));
 
 export const AppRouter = () => {
   const isAuth = useAuth();
@@ -42,10 +48,17 @@ export const AppRouter = () => {
             path={RoutePath.PROJECTS}
             element={<PrivateRoute>{<ProjectsPage />}</PrivateRoute>}
           />
-          <Route
-            path={RoutePath.EMPLOYEES}
-            element={<PrivateRoute>{<EmployeesPage />}</PrivateRoute>}
-          />
+
+          <Route path={RoutePath.EMPLOYEES} element={<PrivateRoute>{<Outlet />}</PrivateRoute>}>
+            <Route index element={<EmployeesPage />} />
+            <Route path=":id" element={<EmployeesPrivatePage />}>
+              <Route path={RoutePath.PROFILE} element={<EmployeesProfilePage />} />
+              <Route path={RoutePath.SKILLS} element={<EmployeesSkillsPage />} />
+              <Route path={RoutePath.LANGUAGES} element={<EmployeesLanguagePage />} />
+              <Route path={RoutePath.CVS} element={<EmployeesCVsPage />} />
+            </Route>
+          </Route>
+
           <Route path={RoutePath.CVS} element={<PrivateRoute>{<CvsPage />}</PrivateRoute>} />
           <Route
             path={RoutePath.DEPARTMENTS}
@@ -65,7 +78,7 @@ export const AppRouter = () => {
             element={<PrivateRoute>{<LanguagesPage />}</PrivateRoute>}
           />
 
-          <Route path={RoutePath.ERROR} element={<ErrorPage />} />
+          <Route path={RoutePath.ERROR} element={<ErrorPage pageNotFound />} />
           <Route
             path={RoutePath.GENERAL}
             element={

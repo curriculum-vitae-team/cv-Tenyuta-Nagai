@@ -9,7 +9,6 @@ export const SearchInput = (props: TextFieldProps) => {
       InputProps={{ startAdornment: <Search /> }}
       size="small"
       inputProps={{ sx: { px: '10px' } }}
-      sx={{ p: '5px', height: '30px' }}
       {...props}
     />
   );

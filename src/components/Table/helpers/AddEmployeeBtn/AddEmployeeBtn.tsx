@@ -7,10 +7,6 @@ export const AddEmployeeBtn = () => {
   const user = useUser();
 
   return (
-    <>
-      <ButtonAddEmployee disabled={user?.role == UserRoles.Employee}>
-        Add employee
-      </ButtonAddEmployee>
-    </>
+    <>{user?.role === UserRoles.Admin && <ButtonAddEmployee>Add employee</ButtonAddEmployee>}</>
   );
 };

@@ -1,8 +1,8 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
+import { Container, Grid } from '@mui/material';
 import { createTable } from '../../components/Table/template/templateTable';
 import { GET_ALL_USERS } from '../../graphql/queries/users';
-import { Main, TableGrid } from './EmployeesPage.styles';
 import { UsersTableHeader } from './TableData/UsersTableHeader';
 import { getAllUsers } from './TableData/UsersTableRows';
 
@@ -12,11 +12,13 @@ const EmployeesPage = () => {
   console.log(data, error);
 
   return (
-    <Main>
-      <TableGrid container>
-        <Table header={UsersTableHeader} items={getAllUsers(data?.users || [])} />{' '}
-      </TableGrid>
-    </Main>
+    <main>
+      <Container maxWidth="xl">
+        <Grid container>
+          <Table header={UsersTableHeader} items={getAllUsers(data?.users || [])} />
+        </Grid>
+      </Container>
+    </main>
   );
 };
 

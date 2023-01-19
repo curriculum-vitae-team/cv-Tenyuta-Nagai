@@ -13,7 +13,7 @@ const Table = ({ header, items }: TableProps) => {
       <TableHead>
         <TableRow>
           <TableCell colSpan={10} sx={{ border: 'none' }}>
-            <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Grid sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <SearchInput />
               <AddEmployeeBtn />
             </Grid>
