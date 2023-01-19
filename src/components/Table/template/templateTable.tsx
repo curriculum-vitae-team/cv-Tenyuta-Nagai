@@ -24,6 +24,4 @@ const Table = ({ header }: TableProps) => {
   );
 };
 
-const TableComponent = memo(Table);
-
-export const createTable = (): FC<TableProps> => TableComponent;
+export const createTable = (): FC<TableProps> => memo(Table);

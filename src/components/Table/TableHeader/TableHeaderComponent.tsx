@@ -8,8 +8,7 @@ const TableHeaderComponent = ({ columns }: TableHeaderComponentProps) => {
   return (
     <TableRow>
       <TableCellStyled />
-      {columns.map((col) => {
-        const { columnName } = col;
+      {columns.map(({ columnName }) => {
         return <TableHeaderCell name={columnName} key={columnName} />;
       })}
       <TableCellStyled />

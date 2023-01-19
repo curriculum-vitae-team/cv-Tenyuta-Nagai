@@ -1,17 +1,19 @@
+import { Container, Grid } from '@mui/material';
 import React from 'react';
 import { createTable } from '../../components/Table/template/templateTable';
-import { Main, TableGrid } from './EmployeesPage.styles';
 import { UsersTableHeader } from './TableData/UsersTableHeader';
 
 const EmployeesPage = () => {
   const Table = createTable();
 
   return (
-    <Main>
-      <TableGrid container>
-        <Table header={UsersTableHeader} />
-      </TableGrid>
-    </Main>
+    <main>
+      <Container maxWidth="xl">
+        <Grid container>
+          <Table header={UsersTableHeader} />
+        </Grid>
+      </Container>
+    </main>
   );
 };
 
