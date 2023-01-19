@@ -11,6 +11,7 @@ import { IUserAllResult } from '../../interfaces/IUser.interface';
 import { chooseAvatarLetter } from '../../utils/chooseAvatarLetter';
 import * as Styled from './EmployeesProfilePage.styles';
 import { convertData } from './helpers/convertData';
+import { Row } from './Row/Row';
 
 const EmployeesProfilePage = () => {
   const { id } = useParams();
@@ -44,46 +45,18 @@ const EmployeesProfilePage = () => {
         </Styled.RowWrapper>
 
         <Styled.InfoWrapper>
-          <Styled.RowWrapper>
-            <Styled.RowTitleTypography>First name:</Styled.RowTitleTypography>
-            <Styled.RowContentTypography>
-              {data?.user?.profile.first_name || '-'}
-            </Styled.RowContentTypography>
-          </Styled.RowWrapper>
-
-          <Styled.RowWrapper>
-            <Styled.RowTitleTypography>Last name:</Styled.RowTitleTypography>
-            <Styled.RowContentTypography>
-              {data?.user?.profile.last_name || '-'}
-            </Styled.RowContentTypography>
-          </Styled.RowWrapper>
-
-          <Styled.RowWrapper>
-            <Styled.RowTitleTypography>Position:</Styled.RowTitleTypography>
-            <Styled.RowContentTypography>
-              {data?.user?.position?.name || '-'}
-            </Styled.RowContentTypography>
-          </Styled.RowWrapper>
-
-          <Styled.RowWrapper>
-            <Styled.RowTitleTypography>Department:</Styled.RowTitleTypography>
-            <Styled.RowContentTypography>
-              {data?.user?.department?.name || '-'}
-            </Styled.RowContentTypography>
-          </Styled.RowWrapper>
-
-          <Styled.RowWrapper>
-            <Styled.RowTitleTypography>A member since</Styled.RowTitleTypography>
-            <Styled.RowContentTypography>
-              {convertData(data?.user?.created_at)}
-            </Styled.RowContentTypography>
-          </Styled.RowWrapper>
+          <Row title={'First name:'}>{data?.user?.profile.first_name || '-'}</Row>
+          <Row title={'Last name:'}>{data?.user?.profile.last_name || '-'}</Row>
+          <Row title={'Position:'}>{data?.user?.position?.name || '-'}</Row>
+          <Row title={'Department:'}>{data?.user?.department?.name || '-'}</Row>
+          <Row title={'A member since'}>{convertData(data?.user?.created_at)}</Row>
         </Styled.InfoWrapper>
       </Styled.Wrapper>
 
       <PrivateButton
         isVisible={user?.id === id || user?.role === UserRoles.Admin}
         onClick={handleEdit}
+        sx={{ minWidth: 140 }}
       >
         Edit
       </PrivateButton>
