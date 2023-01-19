@@ -16,3 +16,15 @@ export interface IUser {
   position_name?: string;
   role: string;
 }
+
+export interface IUserName {
+  email: string;
+  profile: {
+    first_name: string | null;
+    last_name: string | null;
+  };
+}
+
+export interface IUserNameResult {
+  user: IUserName;
+}

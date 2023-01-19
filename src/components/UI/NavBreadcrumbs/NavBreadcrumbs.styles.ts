@@ -14,3 +14,10 @@ export const Link = styled(Typography)(({ theme }) => ({
     cursor: 'pointer',
   },
 })) as typeof Typography;
+
+export const UserName = styled(Typography)(() => ({
+  maxWidth: 100,
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+}));
