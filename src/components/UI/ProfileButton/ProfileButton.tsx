@@ -38,6 +38,10 @@ export const ProfileButton = () => {
     navigate(`/${RoutePath.LOGIN}`);
   };
 
+  const handleGoToProfile = () => {
+    navigate(`/${RoutePath.EMPLOYEES}/${currentUser?.id}/${RoutePath.PROFILE}`);
+  };
+
   return (
     <>
       <WrapProfileButtons>
@@ -67,7 +71,7 @@ export const ProfileButton = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
+        <MenuItem onClick={handleGoToProfile}>
           <AccountCircleIcon sx={IconStyleProfileButtons} />
           Profile
         </MenuItem>
