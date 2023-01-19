@@ -16,7 +16,6 @@ import { TableRowItem } from '../TableRows/TableItemRow';
 import { Id, TableProps } from './templateTable.types';
 
 const Table = ({ header, items }: TableProps) => {
-  console.log(items);
   return (
     <MuiTable stickyHeader>
       <TableHead>

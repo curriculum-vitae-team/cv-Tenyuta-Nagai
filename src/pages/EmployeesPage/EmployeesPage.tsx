@@ -3,6 +3,7 @@ import React from 'react';
 import { Container, Grid } from '@mui/material';
 import { createTable } from '../../components/Table/template/templateTable';
 import { GET_ALL_USERS } from '../../graphql/queries/users';
+import { Spinner } from '../../components/Spinner';
 import { UsersTableHeader } from './TableData/UsersTableHeader';
 import { getAllUsers } from './TableData/UsersTableRows';
 
@@ -14,7 +15,11 @@ const EmployeesPage = () => {
     <main>
       <Container maxWidth="xl">
         <Grid container>
-          <Table header={UsersTableHeader} items={getAllUsers(data?.users || [])} />
+          {loading ? (
+            <Spinner />
+          ) : (
+            <Table header={UsersTableHeader} items={getAllUsers(data?.users || [])} />
+          )}
         </Grid>
       </Container>
     </main>
