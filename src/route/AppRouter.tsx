@@ -49,9 +49,9 @@ export const AppRouter = () => {
             element={<PrivateRoute>{<ProjectsPage />}</PrivateRoute>}
           />
 
-          <Route path={RoutePath.EMPLOYEES} element={<Outlet />}>
-            <Route index element={<PrivateRoute>{<EmployeesPage />}</PrivateRoute>} />
-            <Route path=":id" element={<PrivateRoute>{<EmployeesPrivatePage />}</PrivateRoute>}>
+          <Route path={RoutePath.EMPLOYEES} element={<PrivateRoute>{<Outlet />}</PrivateRoute>}>
+            <Route index element={<EmployeesPage />} />
+            <Route path=":id" element={<EmployeesPrivatePage />}>
               <Route path={RoutePath.PROFILE} element={<EmployeesProfilePage />} />
               <Route path={RoutePath.SKILLS} element={<EmployeesSkillsPage />} />
               <Route path={RoutePath.LANGUAGES} element={<EmployeesLanguagePage />} />
