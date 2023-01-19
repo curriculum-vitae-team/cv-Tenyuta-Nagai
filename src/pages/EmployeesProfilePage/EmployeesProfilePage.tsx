@@ -1,18 +1,18 @@
 import { useQuery } from '@apollo/client';
-import { Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Spinner } from '../../components/Spinner';
 import { RoutePath } from '../../constants/routeVariables';
-import { USER_NAME } from '../../graphql/query/user';
+import { USER } from '../../graphql/queries/user';
 import { IUserAllResult } from '../../interfaces/IUser.interface';
 import { chooseAvatarLetter } from '../../utils/chooseAvatarLetter';
 import * as Styled from './EmployeesProfilePage.styles';
+import { convertData } from './helpers/convertData';
 
 const EmployeesProfilePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { loading, error, data } = useQuery<IUserAllResult>(USER_NAME, {
+  const { loading, error, data } = useQuery<IUserAllResult>(USER, {
     variables: { id },
   });
 
@@ -26,22 +26,52 @@ const EmployeesProfilePage = () => {
 
   return (
     <Styled.PaperWrapper elevation={3}>
-      <Styled.AvatarWrapper>
-        <Styled.UserAvatar src={data?.user.profile.avatar} sx={{ width: 60, height: 60 }}>
-          {chooseAvatarLetter(data?.user)}
-        </Styled.UserAvatar>
-
-        <Styled.NameTypography>
-          {data?.user.profile.full_name || data?.user.email}
-        </Styled.NameTypography>
-      </Styled.AvatarWrapper>
-
-      <Styled.InfoWrapper>
+      <Styled.Wrapper>
         <Styled.RowWrapper>
-          <Typography>Department:</Typography>
-          <Typography>{data?.user?.department?.name || '-'}</Typography>
+          <Styled.UserAvatar src={data?.user.profile.avatar}>
+            {chooseAvatarLetter(data?.user)}
+          </Styled.UserAvatar>
+
+          <Styled.RowContentTypography>{data?.user.email || '-'}</Styled.RowContentTypography>
         </Styled.RowWrapper>
-      </Styled.InfoWrapper>
+
+        <Styled.InfoWrapper>
+          <Styled.RowWrapper>
+            <Styled.RowTitleTypography>First name:</Styled.RowTitleTypography>
+            <Styled.RowContentTypography>
+              {data?.user?.profile.first_name || '-'}
+            </Styled.RowContentTypography>
+          </Styled.RowWrapper>
+
+          <Styled.RowWrapper>
+            <Styled.RowTitleTypography>Last name:</Styled.RowTitleTypography>
+            <Styled.RowContentTypography>
+              {data?.user?.profile.last_name || '-'}
+            </Styled.RowContentTypography>
+          </Styled.RowWrapper>
+
+          <Styled.RowWrapper>
+            <Styled.RowTitleTypography>Position:</Styled.RowTitleTypography>
+            <Styled.RowContentTypography>
+              {data?.user?.position?.name || '-'}
+            </Styled.RowContentTypography>
+          </Styled.RowWrapper>
+
+          <Styled.RowWrapper>
+            <Styled.RowTitleTypography>Department:</Styled.RowTitleTypography>
+            <Styled.RowContentTypography>
+              {data?.user?.department?.name || '-'}
+            </Styled.RowContentTypography>
+          </Styled.RowWrapper>
+
+          <Styled.RowWrapper>
+            <Styled.RowTitleTypography>A member since</Styled.RowTitleTypography>
+            <Styled.RowContentTypography>
+              {convertData(data?.user?.created_at)}
+            </Styled.RowContentTypography>
+          </Styled.RowWrapper>
+        </Styled.InfoWrapper>
+      </Styled.Wrapper>
     </Styled.PaperWrapper>
   );
 };

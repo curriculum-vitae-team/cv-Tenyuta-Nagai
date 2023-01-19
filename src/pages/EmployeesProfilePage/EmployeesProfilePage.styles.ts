@@ -1,32 +1,19 @@
 import { styled, Paper, Typography, Avatar } from '@mui/material';
 
 export const PaperWrapper = styled(Paper)(() => ({
-  padding: 10,
+  padding: 20,
 })) as typeof Paper;
 
-export const AvatarWrapper = styled('div')(() => ({
+export const Wrapper = styled('div')(() => ({
   display: 'flex',
-  alignItems: 'center',
-  columnGap: 10,
+  flexDirection: 'column',
+  rowGap: 15,
 }));
 
-export const UserAvatar = styled(Avatar)(({ theme }) => ({
+export const UserAvatar = styled(Avatar)(() => ({
   width: 60,
   height: 60,
-
-  [theme.breakpoints.down('sm')]: {
-    width: 40,
-    height: 40,
-  },
 })) as typeof Avatar;
-
-export const NameTypography = styled(Typography)(({ theme }) => ({
-  fontSize: 22,
-
-  [theme.breakpoints.down('sm')]: {
-    fontSize: 18,
-  },
-}));
 
 export const InfoWrapper = styled('div')(() => ({
   display: 'flex',
@@ -34,8 +21,33 @@ export const InfoWrapper = styled('div')(() => ({
   rowGap: 10,
 }));
 
-export const RowWrapper = styled('div')(() => ({
+export const RowWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   columnGap: 10,
+
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+  },
 }));
+
+export const RowTitleTypography = styled(Typography)(({ theme }) => ({
+  fontSize: 22,
+  color: theme.palette.primary.main,
+
+  [theme.breakpoints.down('sm')]: {
+    fontSize: 18,
+  },
+})) as typeof Typography;
+
+export const RowContentTypography = styled(Typography)(({ theme }) => ({
+  fontSize: 22,
+  color: theme.palette.secondary.contrastText,
+
+  [theme.breakpoints.down('sm')]: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    fontSize: 18,
+  },
+})) as typeof Typography;

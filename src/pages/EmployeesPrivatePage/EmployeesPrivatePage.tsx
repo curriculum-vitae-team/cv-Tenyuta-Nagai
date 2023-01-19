@@ -1,9 +1,9 @@
-import { Container } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { EmployeesNavButtons } from '../../components/UI/EmployeesNavButtons';
 import { RoutePath } from '../../constants/routeVariables';
 import { checkIdRoute } from '../../utils/checkIdRoute';
+import * as Styled from './EmployeesPrivatePage.styles';
 
 const EmployeesPrivatePage = () => {
   const location = useLocation();
@@ -17,10 +17,10 @@ const EmployeesPrivatePage = () => {
 
   return (
     <main>
-      <Container maxWidth="xl">
+      <Styled.ContainerWrapper maxWidth="xl">
         <EmployeesNavButtons />
         <Outlet />
-      </Container>
+      </Styled.ContainerWrapper>
     </main>
   );
 };

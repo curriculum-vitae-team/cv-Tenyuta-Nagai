@@ -5,7 +5,7 @@ import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
 import { RoutePath } from '../../../constants/routeVariables';
 import { chooseUserName, convertPathName } from '../../../utils/convertPathName';
-import { USER_NAME } from '../../../graphql/query/user';
+import { USER } from '../../../graphql/queries/user';
 import { IUserName, IUserNameResult } from '../../../interfaces/IUser.interface';
 import * as Styled from './NavBreadcrumbs.styles';
 
@@ -18,8 +18,8 @@ export const NavBreadcrumbs = () => {
         : location.pathname.split('/').filter((x) => x),
     [location]
   );
-  const { id: isUserNameInPath } = useParams();
-  const [userName] = useLazyQuery<IUserNameResult>(USER_NAME);
+  const { id: pathId } = useParams();
+  const [userName] = useLazyQuery<IUserNameResult>(USER);
   const [userData, setUserData] = useState<IUserName>({
     email: '',
     profile: {
@@ -29,7 +29,7 @@ export const NavBreadcrumbs = () => {
   });
 
   useEffect(() => {
-    if (!!isUserNameInPath) {
+    if (!!pathId) {
       const getUserName = async () => {
         const userId = pathnames[pathnames.length - 2];
         const { data } = await userName({ variables: { id: userId } });
@@ -41,7 +41,7 @@ export const NavBreadcrumbs = () => {
       };
       getUserName();
     }
-  }, [isUserNameInPath, pathnames, userName]);
+  }, [pathId, pathnames, userName]);
 
   return (
     <Styled.WrapperBreadcrumbs role="presentation">
@@ -51,7 +51,7 @@ export const NavBreadcrumbs = () => {
           const isLast = index === pathnames.length - 1;
           const isPreLast = index === pathnames.length - 2;
 
-          if (!!isUserNameInPath && isPreLast) {
+          if (!!pathId && isPreLast) {
             return <Styled.UserName key={name}>{chooseUserName(userData)}</Styled.UserName>;
           } else if (isLast) {
             return <Typography key={name}>{convertPathName(name)}</Typography>;
