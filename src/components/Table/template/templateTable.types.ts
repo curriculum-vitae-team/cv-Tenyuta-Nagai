@@ -10,7 +10,7 @@ export type TableProps<T = Item> = {
 };
 
 export type Item = {
-  [key: string]: string | number;
+  [key: string]: string;
   id: string;
 };
 

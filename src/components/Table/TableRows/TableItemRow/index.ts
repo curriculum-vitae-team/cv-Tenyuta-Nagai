@@ -1,1 +1,0 @@
-export { TableRowItem } from './TableRowItem';

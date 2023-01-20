@@ -7,51 +7,48 @@ import {
   Grid,
   TableBody,
   Avatar,
+  TableContainer,
 } from '@mui/material';
 import { SearchInput } from '../helpers/Search';
 import { AddEmployeeBtn } from '../helpers/AddEmployeeBtn';
 import { TableHeaderComponent } from '../TableHeader/TableHeaderComponent';
 import { TableRowComponent } from '../TableRows';
-import { TableRowItem } from '../TableRows/TableItemRow';
 import { Element, TableProps } from './templateTable.types';
 
 const Table = ({ header, items }: TableProps) => {
   return (
-    <MuiTable stickyHeader>
-      <TableHead>
-        <TableRow>
-          <TableCell colSpan={10} sx={{ border: 'none' }}>
-            <Grid sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <SearchInput />
-              <AddEmployeeBtn />
-            </Grid>
-          </TableCell>
-        </TableRow>
+    <TableContainer>
+      <MuiTable>
+        <TableHead>
+          <TableRow>
+            <TableCell colSpan={10} sx={{ border: 'none' }}>
+              <Grid sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <SearchInput />
+                <AddEmployeeBtn />
+              </Grid>
+            </TableCell>
+          </TableRow>
 
-        <TableHeaderComponent columns={header} />
-      </TableHead>
-      <TableBody>
-        {items.map((item) => (
-          <TableRowComponent key={item.id}>
-            {item.email ? (
-              <TableCell>
-                <Avatar src={item.avatar.toString()}>
-                  {item.email
-                    .toString()
-                    .toUpperCase()
-                    .slice(0, 1)}
-                </Avatar>
-              </TableCell>
-            ) : (
-              <TableCell></TableCell>
-            )}
-            {header.map(({ columnKey }) => (
-              <TableRowItem key={columnKey} value={item[columnKey]} />
-            ))}
-          </TableRowComponent>
-        ))}
-      </TableBody>
-    </MuiTable>
+          <TableHeaderComponent columns={header} />
+        </TableHead>
+        <TableBody>
+          {items.map((item) => (
+            <TableRowComponent key={item.id}>
+              {item.email ? (
+                <TableCell>
+                  <Avatar src={item.avatar}>{item.email[0].toUpperCase()}</Avatar>
+                </TableCell>
+              ) : (
+                <TableCell></TableCell>
+              )}
+              {header.map(({ columnKey }) => (
+                <TableCell key={columnKey}>{item[columnKey]}</TableCell>
+              ))}
+            </TableRowComponent>
+          ))}
+        </TableBody>
+      </MuiTable>
+    </TableContainer>
   );
 };
 
