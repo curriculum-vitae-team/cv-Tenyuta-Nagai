@@ -2,6 +2,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
 import React, { FC } from 'react';
+import { Dialog } from '@mui/material';
 import { IModalWindowProps } from './ModalWindow.types';
 import * as Styled from './ModalWindow.styles';
 
@@ -13,7 +14,7 @@ export const ModalWindow: FC<IModalWindowProps> = ({ children, onClose, open, ti
   };
 
   return (
-    <Styled.WrapperTheme open={open} onClick={onClose} disableEscapeKeyDown>
+    <Dialog open={open} onClick={onClose} disableEscapeKeyDown>
       <DialogTitle sx={{ m: 0, p: 2 }} onClick={handleStopPropagation}>
         {title}
         {onClose && (
@@ -25,6 +26,6 @@ export const ModalWindow: FC<IModalWindowProps> = ({ children, onClose, open, ti
       <DialogContent sx={{ overflowX: 'hidden' }} onClick={handleStopPropagation}>
         {children}
       </DialogContent>
-    </Styled.WrapperTheme>
+    </Dialog>
   );
 };

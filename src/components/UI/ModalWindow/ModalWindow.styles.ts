@@ -1,10 +1,4 @@
-import { Dialog, IconButton, styled } from '@mui/material';
-
-export const WrapperTheme = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-  },
-}));
+import { IconButton, styled } from '@mui/material';
 
 export const IconButtonModalWindow = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
