@@ -1,0 +1,1 @@
+export { TableHeaderComponent } from './TableHeaderComponent';
