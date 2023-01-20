@@ -9,10 +9,7 @@ export type TableProps<T = Item> = {
   items: T[];
 };
 
-export type Item = {
-  [key: string]: string;
-  id: string;
-};
+export type Item = Record<string, string>;
 
 export type Element = {
   id: string;
