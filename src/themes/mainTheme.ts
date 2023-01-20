@@ -41,11 +41,21 @@ export const mainTheme = createTheme({
           position: 'relative',
           overflow: 'hidden',
         },
-
-        MuiDialogContent: {
-          root: {
-            padding: 18,
-          },
+      },
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          margin: 0,
+          padding: 18,
+        },
+      },
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          padding: 18,
+          overflowX: 'hidden',
         },
       },
     },
