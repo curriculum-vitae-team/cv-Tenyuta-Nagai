@@ -1,5 +1,5 @@
 import { RoutePath } from '../../../../constants/routeVariables';
-import { TTypesData } from '../EmployeesNavButtons.types';
+import { TTypesData } from '../NavButtons.types';
 
 export const tabsData: TTypesData[] = [
   {

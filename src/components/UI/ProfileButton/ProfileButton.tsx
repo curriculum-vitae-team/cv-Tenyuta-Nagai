@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { authService } from '../../../graphql/authentication/authService';
 import { RoutePath } from '../../../constants/routeVariables';
 import { useUser } from '../../../hooks/useUser';
+import { chooseAvatarLetter } from '../../../utils/chooseAvatarLetter';
 import {
   AvatarProfileButtons,
   IconStyleProfileButtons,
@@ -54,7 +55,7 @@ export const ProfileButton = () => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <AvatarProfileButtons>{currentUser?.email[0].toUpperCase()}</AvatarProfileButtons>
+            <AvatarProfileButtons>{chooseAvatarLetter(currentUser!)}</AvatarProfileButtons>
           </IconButton>
         </Tooltip>
       </WrapProfileButtons>
