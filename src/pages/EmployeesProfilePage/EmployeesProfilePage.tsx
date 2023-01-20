@@ -11,6 +11,7 @@ import { IUserAllResult } from '../../interfaces/IUser.interface';
 import { chooseAvatarLetter } from '../../utils/chooseAvatarLetter';
 import * as Styled from './EmployeesProfilePage.styles';
 import { convertData } from './helpers/convertData';
+import { ProfileModal } from './ProfileModal/ProfileModal';
 import { Row } from './Row/Row';
 
 const EmployeesProfilePage = () => {
@@ -34,33 +35,36 @@ const EmployeesProfilePage = () => {
   };
 
   return (
-    <Styled.PaperWrapper elevation={3}>
-      <Styled.Wrapper>
-        <Styled.RowWrapper>
-          <Styled.UserAvatar src={data?.user.profile.avatar}>
-            {chooseAvatarLetter(data?.user)}
-          </Styled.UserAvatar>
+    <>
+      <Styled.PaperWrapper elevation={3}>
+        <Styled.Wrapper>
+          <Styled.RowWrapper>
+            <Styled.UserAvatar src={data?.user.profile.avatar}>
+              {chooseAvatarLetter(data?.user)}
+            </Styled.UserAvatar>
 
-          <Styled.RowContentTypography>{data?.user.email || '-'}</Styled.RowContentTypography>
-        </Styled.RowWrapper>
+            <Styled.RowContentTypography>{data?.user.email || '-'}</Styled.RowContentTypography>
+          </Styled.RowWrapper>
 
-        <Styled.InfoWrapper>
-          <Row title={'First name:'}>{data?.user?.profile.first_name || '-'}</Row>
-          <Row title={'Last name:'}>{data?.user?.profile.last_name || '-'}</Row>
-          <Row title={'Position:'}>{data?.user?.position?.name || '-'}</Row>
-          <Row title={'Department:'}>{data?.user?.department?.name || '-'}</Row>
-          <Row title={'A member since'}>{convertData(data?.user?.created_at)}</Row>
-        </Styled.InfoWrapper>
-      </Styled.Wrapper>
+          <Styled.InfoWrapper>
+            <Row title={'First name:'}>{data?.user?.profile.first_name || '-'}</Row>
+            <Row title={'Last name:'}>{data?.user?.profile.last_name || '-'}</Row>
+            <Row title={'Position:'}>{data?.user?.position?.name || '-'}</Row>
+            <Row title={'Department:'}>{data?.user?.department?.name || '-'}</Row>
+            <Row title={'A member since'}>{convertData(data?.user?.created_at)}</Row>
+          </Styled.InfoWrapper>
+        </Styled.Wrapper>
 
-      <PrivateButton
-        isVisible={user?.id === id || user?.role === UserRoles.Admin}
-        onClick={handleEdit}
-        sx={{ minWidth: 140 }}
-      >
-        Edit
-      </PrivateButton>
-    </Styled.PaperWrapper>
+        <PrivateButton
+          isVisible={user?.id === id || user?.role === UserRoles.Admin}
+          onClick={handleEdit}
+          sx={{ minWidth: 140 }}
+        >
+          Edit
+        </PrivateButton>
+      </Styled.PaperWrapper>
+      <ProfileModal />
+    </>
   );
 };
 
