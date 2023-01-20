@@ -6,7 +6,6 @@ import { Spinner } from '../Spinner';
 import { ErrorBoundary } from '../ErrorBoundary';
 import { Notifier } from '../UI/Notifier';
 
-
 export const Layout = () => {
   return (
     <>
