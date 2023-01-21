@@ -3,3 +3,7 @@ export interface IProfileModalProps {
   userId: string;
   onClose: () => void;
 }
+
+export interface IProfileFormInput {
+  picture: FileList;
+}

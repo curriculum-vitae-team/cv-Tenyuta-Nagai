@@ -1,6 +1,8 @@
 import { useQuery } from '@apollo/client';
-import React, { FC, useEffect, useState } from 'react';
-import { Button, MenuItem, TextField } from '@mui/material';
+import React, { FC, useState } from 'react';
+import { Box, Button, MenuItem, TextField } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from '../../../components/Spinner';
 import { ModalWindow } from '../../../components/UI/ModalWindow';
 import { USER } from '../../../graphql/queries/user';
@@ -9,7 +11,8 @@ import { DEPARTMENTS } from '../../../graphql/queries/departments';
 import { IDepartmentReturn } from '../../../interfaces/IDepartment.interface';
 import { POSITIONS } from '../../../graphql/queries/positions';
 import { IPositionReturn } from '../../../interfaces/IPosition.interface';
-import { IProfileModalProps } from './ProfileModal.types';
+import { profileSchema } from '../../../utils/validationSchema';
+import { IProfileFormInput, IProfileModalProps } from './ProfileModal.types';
 import * as Styled from './ProfileModal.styles';
 
 export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) => {
@@ -25,17 +28,18 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
   const [department, setDepartment] = useState(data?.user.department_name || '');
   const [position, setPosition] = useState(data?.user.position_name || '');
 
-  useEffect(() => {
-    if (departmentsData) {
-      console.log(1, departmentsData);
-    }
-  }, [departmentsData]);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<IProfileFormInput>({
+    mode: 'onChange',
+    resolver: yupResolver(profileSchema),
+  });
 
-  useEffect(() => {
-    if (positionsData) {
-      console.log(2, positionsData);
-    }
-  }, [positionsData]);
+  const file = watch('picture');
 
   if (error || departmentsError || positionsError) {
     onClose();
@@ -49,9 +53,18 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
     setPosition(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (inputs: IProfileFormInput) => {
+    console.log(inputs.picture[0]);
+  };
+
+  const handlerDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    console.log(e.target);
+  };
+
+  const handlerOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files;
+    setValue('picture', file, { shouldValidate: true });
   };
 
   return (
@@ -59,8 +72,50 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
       {loading || departmentsLoading || positionsLoading ? (
         <Spinner />
       ) : (
-        <form onSubmit={handleSubmit}>
-          <Styled.UserAvatar src={data?.user.profile.avatar}></Styled.UserAvatar>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Styled.UserAvatar
+              sx={{ width: 80, height: 80 }}
+              src={
+                (!errors?.picture?.message &&
+                  file &&
+                  file.length &&
+                  URL.createObjectURL(file[0])) ||
+                data?.user.profile.avatar
+              }
+            />
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                p: 2,
+                border: '1px dashed #000',
+                borderRadius: '8px',
+                textAlign: 'center',
+              }}
+              onDragOver={handlerDragStart}
+              onDrop={handlerOnDrop}
+            >
+              <Box
+                component="label"
+                sx={{ color: 'secondary.main', fontSize: 20, ':hover': { cursor: 'pointer' } }}
+              >
+                {'Upload file'}
+                <input
+                  type="file"
+                  hidden
+                  accept="image/png, image/jpeg, image/jpg"
+                  {...register('picture')}
+                />
+              </Box>
+              <Box component="p">{'or drag and drop the file here'}</Box>
+              <Box component="p">
+                {errors?.picture?.message || 'JPG, JPEG, PNG no more than 5 MB'}
+              </Box>
+            </Box>
+          </Box>
 
           <TextField
             name={'First name'}
