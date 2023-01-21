@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Spinner } from '../../components/Spinner';
 import { PrivateButton } from '../../components/UI/PrivateButton';
@@ -21,6 +21,7 @@ const EmployeesProfilePage = () => {
   const { loading, error, data } = useQuery<IUserAllResult>(USER, {
     variables: { id },
   });
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   if (loading) {
     return <Spinner />;
@@ -31,7 +32,11 @@ const EmployeesProfilePage = () => {
   }
 
   const handleEdit = () => {
-    console.log('Edit');
+    setIsOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
   };
 
   return (
@@ -63,7 +68,7 @@ const EmployeesProfilePage = () => {
           Edit
         </PrivateButton>
       </Styled.PaperWrapper>
-      <ProfileModal />
+      {isOpenModal && <ProfileModal userId={id!} open={isOpenModal} onClose={handleCloseModal} />}
     </>
   );
 };

@@ -43,6 +43,14 @@ export const mainTheme = createTheme({
         },
       },
     },
+    MuiDialog: {
+      styleOverrides: {
+        root: {
+          minWidth: 250,
+          minHeight: 200,
+        },
+      },
+    },
     MuiDialogTitle: {
       styleOverrides: {
         root: {
@@ -54,6 +62,8 @@ export const mainTheme = createTheme({
     MuiDialogContent: {
       styleOverrides: {
         root: {
+          minWidth: 200,
+          minHeight: 200,
           padding: 18,
           overflowX: 'hidden',
         },
