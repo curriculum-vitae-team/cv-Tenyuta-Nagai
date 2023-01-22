@@ -12,14 +12,19 @@ export const schema = object({
 export const profileSchema = object().shape({
   picture: mixed()
     .test('type', 'The file must be JPG, JPEG or PNG', (image) => {
-      return (
-        image &&
-        (image[0].type === 'image/jpeg' ||
+      if (image?.length) {
+        return (
+          image[0].type === 'image/jpeg' ||
           image[0].type === 'image/jpg' ||
-          image[0].type === 'image/png')
-      );
+          image[0].type === 'image/png'
+        );
+      }
+      return true;
     })
     .test('fileSize', 'The file is too large', (image) => {
-      return image && image[0].size <= 5120000;
+      if (image?.length) {
+        return image[0].size <= 5120000;
+      }
+      return true;
     }),
 });

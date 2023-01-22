@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
-import React, { FC, useState } from 'react';
-import { Box, Button, MenuItem, TextField } from '@mui/material';
+import React, { FC } from 'react';
+import { Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from '../../../components/Spinner';
@@ -12,8 +12,13 @@ import { IDepartmentReturn } from '../../../interfaces/IDepartment.interface';
 import { POSITIONS } from '../../../graphql/queries/positions';
 import { IPositionReturn } from '../../../interfaces/IPosition.interface';
 import { profileSchema } from '../../../utils/validationSchema';
+import { FieldNameProfileForm } from '../../../constants/fieldNameProfileForm';
 import { IProfileFormInput, IProfileModalProps } from './ProfileModal.types';
 import * as Styled from './ProfileModal.styles';
+import { ROLE_DATA } from './data/roleData';
+import { InputText } from './InputText/InputText';
+import { InputSelect } from './InputSelect/InputSelect';
+import { InputFile } from './InputFile/InputFile';
 
 export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) => {
   const { loading, error, data } = useQuery<IUserAllResult>(USER, {
@@ -25,8 +30,6 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
   const { loading: positionsLoading, error: positionsError, data: positionsData } = useQuery<
     IPositionReturn
   >(POSITIONS);
-  const [department, setDepartment] = useState(data?.user.department_name || '');
-  const [position, setPosition] = useState(data?.user.position_name || '');
 
   const {
     register,
@@ -35,6 +38,10 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
     watch,
     formState: { errors },
   } = useForm<IProfileFormInput>({
+    defaultValues: {
+      firstName: data?.user.profile.first_name || '',
+      lastName: data?.user.profile.last_name || '',
+    },
     mode: 'onChange',
     resolver: yupResolver(profileSchema),
   });
@@ -45,16 +52,8 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
     onClose();
   }
 
-  const handleChangeDepartment = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setDepartment(e.target.value);
-  };
-
-  const handleChangePosition = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setPosition(e.target.value);
-  };
-
   const onSubmit = (inputs: IProfileFormInput) => {
-    console.log(inputs.picture[0]);
+    console.log(inputs);
   };
 
   const handlerDragStart = (e: React.DragEvent<HTMLDivElement>) => {
@@ -73,95 +72,66 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
         <Spinner />
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Styled.WrapperUserAvatar>
             <Styled.UserAvatar
-              sx={{ width: 80, height: 80 }}
               src={
-                (!errors?.picture?.message &&
-                  file &&
-                  file.length &&
-                  URL.createObjectURL(file[0])) ||
+                (!errors?.picture?.message && file?.length && URL.createObjectURL(file[0])) ||
                 data?.user.profile.avatar
               }
             />
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                p: 2,
-                border: '1px dashed #000',
-                borderRadius: '8px',
-                textAlign: 'center',
-              }}
-              onDragOver={handlerDragStart}
-              onDrop={handlerOnDrop}
-            >
-              <Box
-                component="label"
-                sx={{ color: 'secondary.main', fontSize: 20, ':hover': { cursor: 'pointer' } }}
-              >
+
+            <Styled.WrapperDropArea onDragOver={handlerDragStart} onDrop={handlerOnDrop}>
+              <InputFile registerName={FieldNameProfileForm.PICTURE} register={register}>
                 {'Upload file'}
-                <input
-                  type="file"
-                  hidden
-                  accept="image/png, image/jpeg, image/jpg"
-                  {...register('picture')}
-                />
-              </Box>
-              <Box component="p">{'or drag and drop the file here'}</Box>
-              <Box component="p">
-                {errors?.picture?.message || 'JPG, JPEG, PNG no more than 5 MB'}
-              </Box>
-            </Box>
-          </Box>
+              </InputFile>
 
-          <TextField
-            name={'First name'}
-            fullWidth
-            margin="normal"
-            label="First name"
-            defaultValue={data?.user.profile.first_name || ''}
+              <Styled.Paragraph>{'or drag and drop the file here'}</Styled.Paragraph>
+
+              {errors?.picture?.message ? (
+                <Styled.ErrorPicture>{errors?.picture?.message}</Styled.ErrorPicture>
+              ) : (
+                <Styled.Paragraph>{'JPG, JPEG, PNG no more than 5 MB'}</Styled.Paragraph>
+              )}
+            </Styled.WrapperDropArea>
+          </Styled.WrapperUserAvatar>
+
+          <InputText
+            name="First name"
+            registerName={FieldNameProfileForm.FIRST_NAME}
+            register={register}
           />
 
-          <TextField
-            name={'Last name'}
-            fullWidth
-            margin="normal"
-            label="Last name"
-            defaultValue={data?.user.profile.last_name || ''}
+          <InputText
+            name="Last name"
+            registerName={FieldNameProfileForm.LAST_NAME}
+            register={register}
           />
 
-          <TextField
-            value={position}
-            onChange={handleChangePosition}
-            fullWidth
-            margin="normal"
-            select
-            label="Position"
-          >
-            {positionsData?.positions.map(({ id, name }) => (
-              <MenuItem key={id} value={name}>
-                {name}
-              </MenuItem>
-            ))}
-          </TextField>
+          <InputSelect
+            label={'Position'}
+            registerName={FieldNameProfileForm.POSITION}
+            register={register}
+            defaultValue={data?.user.position_name || ''}
+            data={positionsData!.positions}
+          />
 
-          <TextField
-            value={department}
-            onChange={handleChangeDepartment}
-            fullWidth
-            margin="normal"
-            select
-            label="Department"
-          >
-            {departmentsData?.departments.map(({ id, name }) => (
-              <MenuItem key={id} value={name}>
-                {name}
-              </MenuItem>
-            ))}
-          </TextField>
+          <InputSelect
+            label={'Department'}
+            registerName={FieldNameProfileForm.DEPARTMENT}
+            register={register}
+            defaultValue={data?.user.department_name || ''}
+            data={departmentsData!.departments}
+          />
+
+          {data?.user.role === 'admin' && (
+            <InputSelect
+              label={'Role'}
+              registerName={FieldNameProfileForm.ROLE}
+              register={register}
+              defaultValue={data?.user.role || ''}
+              data={ROLE_DATA}
+            />
+          )}
 
           <Button variant="contained" type="submit">
             {'Save'}
