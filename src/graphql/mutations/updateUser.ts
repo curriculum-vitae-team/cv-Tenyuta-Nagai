@@ -1,28 +1,16 @@
 import { gql } from '@apollo/client';
 
-export const USER = gql`
-  query User($id: ID!) {
-    user(id: $id) {
+export const UPDATE_USER = gql`
+  mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
+    updateUser(id: $id, user: $user) {
       id
       created_at
       email
-      is_verified
-      cvs {
-        id
-      }
       profile {
         first_name
         last_name
         full_name
         avatar
-        skills {
-          skill_name
-          mastery
-        }
-        languages {
-          language_name
-          proficiency
-        }
       }
       department {
         id

@@ -4,13 +4,15 @@ export interface IProfileModalProps {
   onClose: () => void;
 }
 
+type TRole = 'employee' | 'admin';
+
 export interface IProfileFormInput {
   picture: FileList;
   firstName: string;
   lastName: string;
   position: string;
   department: string;
-  role?: 'employee' | 'admin';
+  role?: TRole;
 }
 
 export type TInputTextType = 'firstName' | 'lastName';

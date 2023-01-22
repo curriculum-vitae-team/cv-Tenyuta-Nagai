@@ -20,7 +20,7 @@ export const InputSelect: FC<IInputSelectProps> = ({
       defaultValue={defaultValue}
     >
       {data.map(({ id, name }) => (
-        <MenuItem key={id} value={name}>
+        <MenuItem key={id} value={id}>
           {name}
         </MenuItem>
       ))}

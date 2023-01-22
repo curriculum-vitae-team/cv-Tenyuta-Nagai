@@ -1,18 +1,16 @@
-import { useQuery } from '@apollo/client';
 import React, { FC } from 'react';
-import { Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@apollo/client';
 import { Spinner } from '../../../components/Spinner';
 import { ModalWindow } from '../../../components/UI/ModalWindow';
-import { USER } from '../../../graphql/queries/user';
-import { IUserAllResult } from '../../../interfaces/IUser.interface';
-import { DEPARTMENTS } from '../../../graphql/queries/departments';
-import { IDepartmentReturn } from '../../../interfaces/IDepartment.interface';
-import { POSITIONS } from '../../../graphql/queries/positions';
-import { IPositionReturn } from '../../../interfaces/IPosition.interface';
 import { profileSchema } from '../../../utils/validationSchema';
 import { FieldNameProfileForm } from '../../../constants/fieldNameProfileForm';
+import { useProfileFormData } from '../../../hooks/useProfileFormData';
+import { UPDATE_USER } from '../../../graphql/mutations/updateUser';
+import { IUserAllResult } from '../../../interfaces/IUser.interface';
+import { UPLOAD_AVATAR } from '../../../graphql/mutations/uploadAvatar';
+import { convertToBase64 } from '../helpers/convertToBase64';
 import { IProfileFormInput, IProfileModalProps } from './ProfileModal.types';
 import * as Styled from './ProfileModal.styles';
 import { ROLE_DATA } from './data/roleData';
@@ -21,40 +19,28 @@ import { InputSelect } from './InputSelect/InputSelect';
 import { InputFile } from './InputFile/InputFile';
 
 export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) => {
-  const { loading, error, data } = useQuery<IUserAllResult>(USER, {
-    variables: { id: userId },
-  });
-  const { loading: departmentsLoading, error: departmentsError, data: departmentsData } = useQuery<
-    IDepartmentReturn
-  >(DEPARTMENTS);
-  const { loading: positionsLoading, error: positionsError, data: positionsData } = useQuery<
-    IPositionReturn
-  >(POSITIONS);
-
+  const { loading, error, userData, positionsData, departmentsData } = useProfileFormData(userId);
+  const [updateUser, { loading: updateLoading }] = useMutation<IUserAllResult>(UPDATE_USER);
+  const [uploadAvatar, { loading: avatarLoading }] = useMutation(UPLOAD_AVATAR);
   const {
     register,
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<IProfileFormInput>({
     defaultValues: {
-      firstName: data?.user.profile.first_name || '',
-      lastName: data?.user.profile.last_name || '',
+      firstName: userData?.user.profile.first_name || '',
+      lastName: userData?.user.profile.last_name || '',
     },
     mode: 'onChange',
     resolver: yupResolver(profileSchema),
   });
-
   const file = watch('picture');
 
-  if (error || departmentsError || positionsError) {
+  if (error) {
     onClose();
   }
-
-  const onSubmit = (inputs: IProfileFormInput) => {
-    console.log(inputs);
-  };
 
   const handlerDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -62,21 +48,59 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
 
   const handlerOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const file = e.dataTransfer.files;
-    setValue('picture', file, { shouldValidate: true });
+    setValue('picture', e.dataTransfer.files, { shouldValidate: true });
+  };
+
+  const onSubmit = async (inputs: IProfileFormInput) => {
+    console.log(inputs);
+    console.log(userData);
+    // try {
+    //   const picture = await convertToBase64(inputs.picture[0]);
+    //   const avatar = await uploadAvatar({
+    //     variables: {
+    //       id: userId,
+    //       avatar: {
+    //         base64: picture,
+    //         size: inputs.picture[0].size,
+    //         type: inputs.picture[0].type,
+    //       },
+    //     },
+    //   });
+    //   console.log(avatar?.data!.uploadAvatar as string);
+
+    //   const res = await updateUser({
+    //     variables: {
+    //       id: userId,
+    //       user: {
+    //         profile: {
+    //           first_name: inputs.firstName,
+    //           last_name: inputs.lastName,
+    //           skills: userData?.user.profile.skills,
+    //           languages: userData?.user.profile.languages,
+    //           avatar: avatar!.data!.uploadAvatar as string,
+    //         },
+    //         departmentId: inputs.department,
+    //         positionId: inputs.position,
+    //         cvsIds: [],
+    //       },
+    //     },
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   return (
     <ModalWindow title={'Edit profile'} onClose={onClose} open={open}>
-      {loading || departmentsLoading || positionsLoading ? (
+      {loading ? (
         <Spinner />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <Styled.WrapperUserAvatar>
             <Styled.UserAvatar
               src={
                 (!errors?.picture?.message && file?.length && URL.createObjectURL(file[0])) ||
-                data?.user.profile.avatar
+                userData?.user.profile.avatar
               }
             />
 
@@ -111,7 +135,7 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
             label={'Position'}
             registerName={FieldNameProfileForm.POSITION}
             register={register}
-            defaultValue={data?.user.position_name || ''}
+            defaultValue={userData?.user.position?.id || ''}
             data={positionsData!.positions}
           />
 
@@ -119,23 +143,30 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
             label={'Department'}
             registerName={FieldNameProfileForm.DEPARTMENT}
             register={register}
-            defaultValue={data?.user.department_name || ''}
+            defaultValue={userData?.user.department?.id || ''}
             data={departmentsData!.departments}
           />
 
-          {data?.user.role === 'admin' && (
+          {userData?.user.role === 'admin' && (
             <InputSelect
               label={'Role'}
               registerName={FieldNameProfileForm.ROLE}
               register={register}
-              defaultValue={data?.user.role || ''}
+              defaultValue={userData?.user.role || ''}
               data={ROLE_DATA}
             />
           )}
 
-          <Button variant="contained" type="submit">
+          <Styled.ButtonSubmit
+            loading={updateLoading || avatarLoading}
+            type="submit"
+            variant="contained"
+            fullWidth
+            size="large"
+            disabled={!isValid}
+          >
             {'Save'}
-          </Button>
+          </Styled.ButtonSubmit>
         </form>
       )}
     </ModalWindow>

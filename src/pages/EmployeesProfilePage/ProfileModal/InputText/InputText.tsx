@@ -6,6 +6,7 @@ export const InputText: FC<IInputTextProps> = ({ name, register, registerName })
   return (
     <TextField
       inputProps={register(registerName)}
+      autoComplete=""
       name={name}
       fullWidth
       size="small"
