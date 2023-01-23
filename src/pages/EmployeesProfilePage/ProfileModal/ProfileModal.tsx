@@ -11,9 +11,10 @@ import { UPDATE_USER } from '../../../graphql/mutations/updateUser';
 import { IUserAllResult } from '../../../interfaces/IUser.interface';
 import { UPLOAD_AVATAR } from '../../../graphql/mutations/uploadAvatar';
 import { convertToBase64 } from '../helpers/convertToBase64';
+import { IAvatarReturn } from '../../../interfaces/IAvatar';
+import { notificationService } from '../../../graphql/notification/notificationService';
 import { IProfileFormInput, IProfileModalProps } from './ProfileModal.types';
 import * as Styled from './ProfileModal.styles';
-import { ROLE_DATA } from './data/roleData';
 import { InputText } from './InputText/InputText';
 import { InputSelect } from './InputSelect/InputSelect';
 import { InputFile } from './InputFile/InputFile';
@@ -21,7 +22,7 @@ import { InputFile } from './InputFile/InputFile';
 export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) => {
   const { loading, error, userData, positionsData, departmentsData } = useProfileFormData(userId);
   const [updateUser, { loading: updateLoading }] = useMutation<IUserAllResult>(UPDATE_USER);
-  const [uploadAvatar, { loading: avatarLoading }] = useMutation(UPLOAD_AVATAR);
+  const [uploadAvatar, { loading: avatarLoading }] = useMutation<IAvatarReturn>(UPLOAD_AVATAR);
   const {
     register,
     handleSubmit,
@@ -54,40 +55,47 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
   const onSubmit = async (inputs: IProfileFormInput) => {
     console.log(inputs);
     console.log(userData);
-    // try {
-    //   const picture = await convertToBase64(inputs.picture[0]);
-    //   const avatar = await uploadAvatar({
-    //     variables: {
-    //       id: userId,
-    //       avatar: {
-    //         base64: picture,
-    //         size: inputs.picture[0].size,
-    //         type: inputs.picture[0].type,
-    //       },
-    //     },
-    //   });
-    //   console.log(avatar?.data!.uploadAvatar as string);
+    try {
+      if (inputs?.picture?.length) {
+        const picture = await convertToBase64(inputs.picture[0]);
+        const avatar = await uploadAvatar({
+          variables: {
+            id: userId,
+            avatar: {
+              base64: picture,
+              size: inputs.picture[0].size,
+              type: inputs.picture[0].type,
+            },
+          },
+        });
+        console.log(avatar);
+      }
 
-    //   const res = await updateUser({
-    //     variables: {
-    //       id: userId,
-    //       user: {
-    //         profile: {
-    //           first_name: inputs.firstName,
-    //           last_name: inputs.lastName,
-    //           skills: userData?.user.profile.skills,
-    //           languages: userData?.user.profile.languages,
-    //           avatar: avatar!.data!.uploadAvatar as string,
-    //         },
-    //         departmentId: inputs.department,
-    //         positionId: inputs.position,
-    //         cvsIds: [],
-    //       },
-    //     },
-    //   });
-    // } catch (err) {
-    //   console.log(err);
-    // }
+      const res = await updateUser({
+        variables: {
+          id: userId,
+          user: {
+            profile: {
+              first_name: inputs.firstName,
+              last_name: inputs.lastName,
+              skills: userData?.user.profile.skills,
+              languages: userData?.user.profile.languages,
+            },
+            departmentId: inputs.department,
+            positionId: inputs.position,
+            cvsIds: [],
+          },
+        },
+      });
+
+      if (res) {
+        notificationService.openSuccessAlert('Saved');
+        onClose();
+      }
+    } catch (err) {
+      console.log(err);
+      onClose();
+    }
   };
 
   return (
@@ -106,7 +114,7 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
 
             <Styled.WrapperDropArea onDragOver={handlerDragStart} onDrop={handlerOnDrop}>
               <InputFile registerName={FieldNameProfileForm.PICTURE} register={register}>
-                {'Upload file'}
+                {'Upload avatar'}
               </InputFile>
 
               <Styled.Paragraph>{'or drag and drop the file here'}</Styled.Paragraph>
@@ -147,18 +155,8 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
             data={departmentsData!.departments}
           />
 
-          {userData?.user.role === 'admin' && (
-            <InputSelect
-              label={'Role'}
-              registerName={FieldNameProfileForm.ROLE}
-              register={register}
-              defaultValue={userData?.user.role || ''}
-              data={ROLE_DATA}
-            />
-          )}
-
           <Styled.ButtonSubmit
-            loading={updateLoading || avatarLoading}
+            loading={updateLoading}
             type="submit"
             variant="contained"
             fullWidth
