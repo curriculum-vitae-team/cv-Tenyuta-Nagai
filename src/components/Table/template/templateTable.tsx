@@ -13,6 +13,7 @@ import { SearchInput } from '../helpers/Search';
 import { AddEmployeeBtn } from '../helpers/AddEmployeeBtn';
 import { TableHeaderComponent } from '../TableHeader/TableHeaderComponent';
 import { TableRowComponent } from '../TableRows';
+import { AvatarImage } from '../Avatar';
 import { Element, TableProps } from './templateTable.types';
 
 const Table = ({ header, items }: TableProps) => {
@@ -34,15 +35,14 @@ const Table = ({ header, items }: TableProps) => {
         <TableBody>
           {items.map((item) => (
             <TableRowComponent key={item.id}>
-              {item.email ? (
-                <TableCell>
-                  <Avatar src={item.avatar}>{item.email[0].toUpperCase()}</Avatar>
-                </TableCell>
-              ) : (
-                <TableCell></TableCell>
-              )}
               {header.map(({ columnKey }) => (
-                <TableCell key={columnKey}>{item[columnKey]}</TableCell>
+                <>
+                  {columnKey === 'avatar' ? (
+                    <AvatarImage source={item.avatar} value={item.email[0].toUpperCase()} />
+                  ) : (
+                    <TableCell key={columnKey}>{item[columnKey]}</TableCell>
+                  )}
+                </>
               ))}
             </TableRowComponent>
           ))}
