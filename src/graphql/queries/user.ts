@@ -11,6 +11,7 @@ export const USER = gql`
         id
       }
       profile {
+        id
         first_name
         last_name
         full_name

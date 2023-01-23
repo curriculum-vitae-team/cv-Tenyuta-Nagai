@@ -5,7 +5,6 @@ export interface IProfileModalProps {
 }
 
 export interface IProfileFormInput {
-  picture: FileList;
   firstName: string;
   lastName: string;
   position: string;

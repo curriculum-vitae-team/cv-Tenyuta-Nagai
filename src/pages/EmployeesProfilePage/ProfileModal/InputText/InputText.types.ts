@@ -5,4 +5,6 @@ export interface IInputTextProps {
   name: string;
   registerName: TInputTextType;
   register: UseFormRegister<IProfileFormInput>;
+  error?: boolean;
+  helperText?: string;
 }
