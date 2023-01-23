@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TableSortLabel } from '@mui/material';
 import { TableCellStyled } from '../TableHeaderComponent.styles';
 import { TableHeaderCellProps } from './TableHeaderCell.types';
 
 const TableHeaderCell = ({
   name,
-  sortingIsAsc,
   active,
+  direction,
   isSortable,
   handleSetSortingDirection,
   itemName,
 }: TableHeaderCellProps) => {
-  const [direction, setDirection] = useState<'asc' | 'desc'>('desc');
-
   const handleSorting = () => {
     handleSetSortingDirection(itemName);
-    sortingIsAsc ? setDirection('asc') : setDirection('desc');
   };
 
   return (

@@ -14,18 +14,21 @@ import { AddEmployeeBtn } from '../helpers/AddEmployeeBtn';
 import { TableHeaderComponent } from '../TableHeader/TableHeaderComponent';
 import { TableRowComponent } from '../TableRows';
 import { sortingColumns } from '../helpers/Sorting/sortingColumns';
+import { Directions } from '../../../constants/sortingDirections';
 import { Element, Item, TableProps } from './templateTable.types';
 
 const Table = ({ header, items, searchParameter }: TableProps) => {
   const [searchString, setSearchString] = useState('');
   const [sortingBy, setSortingBy] = useState(header[0].columnKey);
   const [sortingIsAsc, setSortingIsAsc] = useState(true);
+  const [direction, setDirection] = useState<Directions>(Directions.Desc);
 
   const handleSetSearchString = (str: string) => {
     setSearchString(str);
   };
 
   const handleSetSortingDirection = (columnName: string) => {
+    sortingIsAsc ? setDirection(Directions.Asc) : setDirection(Directions.Desc);
     if (columnName === sortingBy) {
       setSortingIsAsc((asc) => !asc);
     } else {
@@ -54,7 +57,7 @@ const Table = ({ header, items, searchParameter }: TableProps) => {
             columns={header}
             sortingBy={sortingBy}
             handleSetSortingDirection={handleSetSortingDirection}
-            sortingIsAsc={sortingIsAsc}
+            direction={direction}
           />
         </TableHead>
         <TableBody>

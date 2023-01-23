@@ -1,14 +1,13 @@
 import { TableRow } from '@mui/material';
 import { TableHeaderComponentProps } from './TableHeaderComponent.types';
-
 import { TableHeaderCell } from './TableHeaderCell';
 import { TableCellStyled } from './TableHeaderComponent.styles';
 
 const TableHeaderComponent = ({
   columns,
   sortingBy,
+  direction,
   handleSetSortingDirection,
-  sortingIsAsc,
 }: TableHeaderComponentProps) => {
   return (
     <TableRow>
@@ -16,10 +15,10 @@ const TableHeaderComponent = ({
       {columns.map(({ columnName, columnKey, isSortable }) => {
         return (
           <TableHeaderCell
+            direction={direction}
             name={columnName}
             key={columnName}
             active={sortingBy === columnKey}
-            sortingIsAsc={sortingIsAsc}
             isSortable={isSortable}
             handleSetSortingDirection={handleSetSortingDirection}
             itemName={columnKey}
