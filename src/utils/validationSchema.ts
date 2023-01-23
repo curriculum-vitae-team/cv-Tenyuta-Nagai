@@ -8,3 +8,8 @@ export const schema = object({
     .required()
     .min(5),
 }).required();
+
+export const profileSchema = object({
+  firstName: string().matches(/^[a-zA-Z]*$/gms, 'Only a-z, A-Z'),
+  lastName: string().matches(/^[a-zA-Z]*$/gms, 'Only a-z, A-Z'),
+});
