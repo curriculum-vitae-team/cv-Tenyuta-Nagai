@@ -7,6 +7,7 @@ export type TableHeader = {
 export type TableProps<T = Item> = {
   header: TableHeader;
   items: T[];
+  searchParameter: string;
 };
 
 export type Item = Record<string, string>;
