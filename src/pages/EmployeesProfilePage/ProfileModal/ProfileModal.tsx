@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { FieldValues } from 'react-hook-form/dist/types';
 import { Spinner } from '../../../components/Spinner';
 import { ModalWindow } from '../../../components/UI/ModalWindow';
 import { FieldNameProfileForm } from '../../../constants/fieldNameProfileForm';
@@ -9,10 +10,12 @@ import { useProfileFormData } from '../../../hooks/useProfileFormData';
 import { UPDATE_USER } from '../../../graphql/mutations/updateUser';
 import { IUserAllResult } from '../../../interfaces/IUser.interface';
 import { profileSchema } from '../../../utils/validationSchema';
+import { InputText } from '../../../components/UI/InputText/InputText';
+import { InputSelect } from '../../../components/UI/InputSelect/InputSelect';
+import { TFormSubmit } from '../../../types/formTypes';
+import { TError } from '../../../types/errorTypes';
 import { IProfileFormInput, IProfileModalProps } from './ProfileModal.types';
 import * as Styled from './ProfileModal.styles';
-import { InputText } from './InputText/InputText';
-import { InputSelect } from './InputSelect/InputSelect';
 
 export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) => {
   const { loading, error, userData, positionsData, departmentsData } = useProfileFormData(userId);
@@ -21,7 +24,7 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<IProfileFormInput>({
+  } = useForm<FieldValues>({
     defaultValues: {
       firstName: userData?.user.profile.first_name || '',
       lastName: userData?.user.profile.last_name || '',
@@ -53,7 +56,7 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
         },
       });
     } catch (err) {
-      console.error(err);
+      console.error((err as TError).message);
     } finally {
       onClose();
     }
@@ -64,13 +67,13 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
       {loading ? (
         <Spinner />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit as TFormSubmit)} autoComplete="off">
           <InputText
             name="First name"
             registerName={FieldNameProfileForm.FIRST_NAME}
             register={register}
             error={!!errors.firstName}
-            helperText={errors.firstName?.message}
+            helperText={errors.firstName?.message as string}
           />
 
           <InputText
@@ -78,7 +81,7 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
             registerName={FieldNameProfileForm.LAST_NAME}
             register={register}
             error={!!errors.lastName}
-            helperText={errors.lastName?.message}
+            helperText={errors.lastName?.message as string}
           />
 
           <InputSelect

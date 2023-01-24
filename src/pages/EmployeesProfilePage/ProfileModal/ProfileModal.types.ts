@@ -10,6 +10,3 @@ export interface IProfileFormInput {
   position: string;
   department: string;
 }
-
-export type TInputTextType = 'firstName' | 'lastName';
-export type TInputSelectType = 'position' | 'department';
