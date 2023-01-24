@@ -164,7 +164,7 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
               {errors?.picture?.message ? (
                 <Styled.ErrorPicture>{errors?.picture?.message}</Styled.ErrorPicture>
               ) : (
-                <Styled.Paragraph>{'JPG, JPEG, PNG no more than 5 MB'}</Styled.Paragraph>
+                <Styled.Paragraph>{'JPG, JPEG, PNG no more than 500 Kb'}</Styled.Paragraph>
               )}
             </Styled.WrapperDropArea>
           </Styled.WrapperUserAvatar>

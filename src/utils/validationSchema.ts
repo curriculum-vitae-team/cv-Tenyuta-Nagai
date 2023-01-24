@@ -28,7 +28,7 @@ export const avatarSchema = object().shape({
     })
     .test('fileSize', 'The file is too large', (image) => {
       if (image?.length) {
-        return image[0].size <= 5000000;
+        return image[0].size <= 500000;
       }
       return true;
     }),
