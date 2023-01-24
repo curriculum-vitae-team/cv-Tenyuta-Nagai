@@ -8,7 +8,6 @@ import { FieldNameProfileForm } from '../../../constants/fieldNameProfileForm';
 import { useProfileFormData } from '../../../hooks/useProfileFormData';
 import { UPDATE_USER } from '../../../graphql/mutations/updateUser';
 import { IUserAllResult } from '../../../interfaces/IUser.interface';
-import { notificationService } from '../../../graphql/notification/notificationService';
 import { profileSchema } from '../../../utils/validationSchema';
 import { IProfileFormInput, IProfileModalProps } from './ProfileModal.types';
 import * as Styled from './ProfileModal.styles';
@@ -37,7 +36,7 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
 
   const onSubmit = async (inputs: IProfileFormInput) => {
     try {
-      const res = await updateUser({
+      await updateUser({
         variables: {
           id: userId,
           user: {
@@ -53,13 +52,9 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
           },
         },
       });
-
-      if (res) {
-        notificationService.openSuccessAlert('Saved');
-        onClose();
-      }
     } catch (err) {
-      console.log(err);
+      console.error(err);
+    } finally {
       onClose();
     }
   };

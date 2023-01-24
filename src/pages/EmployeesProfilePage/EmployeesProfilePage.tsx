@@ -22,6 +22,7 @@ const EmployeesProfilePage = () => {
     variables: { id },
   });
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const isVisible = user?.id === id || user?.role === UserRoles.Admin;
 
   if (loading) {
     return <Spinner />;
@@ -60,11 +61,7 @@ const EmployeesProfilePage = () => {
           </Styled.InfoWrapper>
         </Styled.Wrapper>
 
-        <PrivateButton
-          isVisible={user?.id === id || user?.role === UserRoles.Admin}
-          onClick={handleEdit}
-          sx={{ minWidth: 140 }}
-        >
+        <PrivateButton isVisible={isVisible} onClick={handleEdit} sx={{ minWidth: 140 }}>
           Edit
         </PrivateButton>
       </Styled.PaperWrapper>
