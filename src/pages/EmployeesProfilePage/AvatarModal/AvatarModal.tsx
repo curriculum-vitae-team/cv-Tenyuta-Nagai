@@ -31,7 +31,6 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
       cache.writeQuery({
         query: USER,
         data: {
-          ...dataUser,
           user: {
             ...dataUser?.user,
             profile: {
@@ -59,7 +58,6 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
       cache.writeQuery({
         query: USER,
         data: {
-          ...dataUser,
           user: {
             ...dataUser?.user,
             profile: {
@@ -120,7 +118,7 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
   const onSubmit = async (inputs: IAvatarForm) => {
     try {
       const picture = await convertToBase64(inputs.picture[0]);
-      const res = await uploadAvatar({
+      await uploadAvatar({
         variables: {
           id: userId,
           avatar: {
@@ -130,7 +128,6 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
           },
         },
       });
-      console.log(res);
     } catch (err) {
       console.log(err);
     } finally {

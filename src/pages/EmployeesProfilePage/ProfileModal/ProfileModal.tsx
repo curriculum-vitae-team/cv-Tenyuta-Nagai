@@ -53,7 +53,7 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
         },
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     } finally {
       onClose();
     }
