@@ -69,8 +69,8 @@ export const DeleteButton = styled(IconButton)(() => ({
   position: 'absolute',
   top: '50%',
   left: '50%',
+  zIndex: 999999,
   display: 'none',
   transform: 'translate(-50%, -50%)',
-  zIndex: 999999,
   color: '#000000',
 }));
