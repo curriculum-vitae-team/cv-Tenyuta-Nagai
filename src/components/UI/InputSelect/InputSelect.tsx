@@ -8,11 +8,14 @@ export const InputSelect: FC<IInputSelectProps> = ({
   register,
   registerName,
   data,
+  size = 'small',
+  ...props
 }) => {
   return (
     <TextField
+      {...props}
       fullWidth
-      size="small"
+      size={size}
       margin="normal"
       select
       label={label}
