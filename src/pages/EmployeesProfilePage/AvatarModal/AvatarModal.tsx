@@ -129,7 +129,7 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
         },
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     } finally {
       onClose();
     }
