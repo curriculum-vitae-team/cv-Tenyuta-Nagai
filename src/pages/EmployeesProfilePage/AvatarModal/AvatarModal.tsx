@@ -11,6 +11,7 @@ import { convertToBase64 } from '../helpers/convertToBase64';
 import { USER } from '../../../graphql/queries/user';
 import { IUserAllResult } from '../../../interfaces/IUser.interface';
 import { Spinner } from '../../../components/Spinner';
+import { TError } from '../../../types/errorTypes';
 import { IAvatarForm, IAvatarModal } from './AvatarModal.types';
 import { InputFile } from './InputFile/InputFile';
 import * as Styled from './AvatarModal.styles';
@@ -111,7 +112,7 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
         });
       }
     } catch (err) {
-      console.error(err);
+      console.error((err as TError).message);
     }
   };
 
@@ -129,7 +130,7 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
         },
       });
     } catch (err) {
-      console.error(err);
+      console.error((err as TError).message);
     } finally {
       onClose();
     }
