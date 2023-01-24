@@ -1,7 +1,11 @@
+import { FC } from 'react';
+import { ColumnCellComponentProps } from '../../../pages/EmployeesPage/TableData/UsersTableHeader';
+
 export type TableHeader = {
   columnKey: string;
   columnName: string;
   isSortable: boolean;
+  ColumnCellComponent: FC<ColumnCellComponentProps> | unknown;
 }[];
 
 export type TableProps<T = Item> = {
