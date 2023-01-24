@@ -8,6 +8,6 @@ export interface IColumn {
 }
 
 export interface IColumnCellComponentProps {
-  item?: Item;
-  columnKey?: string;
+  item: Item;
+  columnKey: string;
 }
