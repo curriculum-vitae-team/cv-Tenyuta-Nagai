@@ -1,11 +1,11 @@
 import { TableCell, Avatar } from '@mui/material';
-import React from 'react';
-import { IAvatarImageProps } from './Avatar.interface';
+import React, { FC } from 'react';
+import { IColumnCellComponentProps } from '../../../../pages/EmployeesPage/TableData/TableData.interface';
 
-const AvatarImage = ({ source, value }: IAvatarImageProps) => {
+const AvatarImage: FC<IColumnCellComponentProps> = (props) => {
   return (
     <TableCell>
-      <Avatar src={source}>{value}</Avatar>
+      <Avatar src={props.item?.avatar}>{props.item?.email[0].toUpperCase()}</Avatar>
     </TableCell>
   );
 };

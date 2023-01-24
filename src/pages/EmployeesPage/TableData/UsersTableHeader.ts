@@ -1,39 +1,32 @@
-import { TableCell } from '@mui/material';
-import { FC, ReactNode } from 'react';
-import { AvatarImage } from '../../../components/Table/helpers/Avatar/Avatar';
-import { IAvatarImageProps } from '../../../components/Table/helpers/Avatar/Avatar.interface';
-
-export interface IColumn {
-  columnKey: string;
-  columnName: string;
-  isSortable: boolean;
-  ColumnCellComponent: FC<ColumnCellComponentProps> | unknown;
-}
-
-export type ColumnCellComponentProps = {
-  [key: string]: unknown;
-};
+import { AvatarImage } from '../../../components/Table/helpers/Avatar';
+import { TableRowCell } from '../../../components/Table/TableRows/TableRowCell';
+import { IColumn } from './TableData.interface';
 
 export const UsersTableHeader: IColumn[] = [
   { columnKey: 'avatar', columnName: ' ', isSortable: false, ColumnCellComponent: AvatarImage },
-  { columnKey: 'name', columnName: 'First Name', isSortable: true, ColumnCellComponent: TableCell },
+  {
+    columnKey: 'name',
+    columnName: 'First Name',
+    isSortable: true,
+    ColumnCellComponent: TableRowCell,
+  },
   {
     columnKey: 'lastName',
     columnName: 'Last Name',
     isSortable: true,
-    ColumnCellComponent: TableCell,
+    ColumnCellComponent: TableRowCell,
   },
-  { columnKey: 'email', columnName: 'Email', isSortable: true, ColumnCellComponent: TableCell },
+  { columnKey: 'email', columnName: 'Email', isSortable: true, ColumnCellComponent: TableRowCell },
   {
     columnKey: 'department',
     columnName: 'Department',
     isSortable: true,
-    ColumnCellComponent: TableCell,
+    ColumnCellComponent: TableRowCell,
   },
   {
     columnKey: 'position',
     columnName: 'Position',
     isSortable: true,
-    ColumnCellComponent: TableCell,
+    ColumnCellComponent: TableRowCell,
   },
 ];

@@ -6,14 +6,12 @@ import {
   TableCell,
   Grid,
   TableBody,
-  Avatar,
   TableContainer,
 } from '@mui/material';
 import { SearchInput } from '../helpers/Search';
 import { AddEmployeeBtn } from '../helpers/AddEmployeeBtn';
 import { TableHeaderComponent } from '../TableHeader/TableHeaderComponent';
 import { TableRowComponent } from '../TableRows';
-import { AvatarImage } from '../helpers/Avatar/Avatar';
 import { Element, TableProps } from './templateTable.types';
 
 const Table = ({ header, items }: TableProps) => {
@@ -36,14 +34,7 @@ const Table = ({ header, items }: TableProps) => {
           {items.map((item) => (
             <TableRowComponent key={item.id}>
               {header.map(({ columnKey, ColumnCellComponent }) => (
-                <>
-                  {columnKey === 'avatar' ? (
-                    <AvatarImage source={item.avatar} value={item.email[0].toUpperCase()} />
-                  ) : (
-                    // ColumnCellComponent
-                    <TableCell key={columnKey}>{item[columnKey]}</TableCell>
-                  )}
-                </>
+                <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />
               ))}
             </TableRowComponent>
           ))}
