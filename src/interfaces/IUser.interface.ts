@@ -17,6 +17,10 @@ export interface IUser {
   role: string;
 }
 
+export interface IUserAllResult {
+  user: IUser;
+}
+
 export interface IUserName {
   email: string;
   profile: {

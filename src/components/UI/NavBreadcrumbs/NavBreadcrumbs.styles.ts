@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography';
 
 export const WrapperBreadcrumbs = styled('div')(() => ({
   marginTop: '68px',
-  marginLeft: '10px',
 }));
 
 export const Link = styled(Typography)(({ theme }) => ({
