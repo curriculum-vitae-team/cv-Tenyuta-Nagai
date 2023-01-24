@@ -1,8 +1,8 @@
 import { Directions } from '../../../constants/sortingDirections';
-import { TableHeader } from '../template/templateTable.types';
+import { IColumn } from '../../../pages/EmployeesPage/TableData/TableData.interface';
 
 export type TableHeaderComponentProps = {
-  columns: TableHeader;
+  columns: IColumn[];
   sortingBy: string;
   handleSetSortingDirection: (columnName: string) => void;
   direction: Directions;

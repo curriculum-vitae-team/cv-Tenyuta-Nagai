@@ -1,11 +1,7 @@
-export type TableHeader = {
-  columnKey: string;
-  columnName: string;
-  isSortable: boolean;
-}[];
+import { IColumn } from './../../../pages/EmployeesPage/TableData/TableData.interface';
 
 export type TableProps<T = Item> = {
-  header: TableHeader;
+  header: IColumn[];
   items: T[];
   searchParameter: string;
 };

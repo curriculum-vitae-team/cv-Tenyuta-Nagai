@@ -11,7 +11,6 @@ const TableHeaderComponent = ({
 }: TableHeaderComponentProps) => {
   return (
     <TableRow>
-      <TableCellStyled />
       {columns.map(({ columnName, columnKey, isSortable }) => {
         return (
           <TableHeaderCell

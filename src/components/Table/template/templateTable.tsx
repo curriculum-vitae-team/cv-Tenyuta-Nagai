@@ -6,7 +6,6 @@ import {
   TableCell,
   Grid,
   TableBody,
-  Avatar,
   TableContainer,
 } from '@mui/material';
 import { SearchInput } from '../helpers/Search';
@@ -71,15 +70,8 @@ const Table = ({ header, items, searchParameter }: TableProps) => {
 
             .map((item) => (
               <TableRowComponent key={item.id}>
-                {item.email ? (
-                  <TableCell>
-                    <Avatar src={item.avatar}>{item.email[0].toUpperCase()}</Avatar>
-                  </TableCell>
-                ) : (
-                  <TableCell></TableCell>
-                )}
-                {header.map(({ columnKey }) => (
-                  <TableCell key={columnKey}>{item[columnKey]}</TableCell>
+                {header.map(({ columnKey, ColumnCellComponent }) => (
+                  <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />
                 ))}
               </TableRowComponent>
             ))}
