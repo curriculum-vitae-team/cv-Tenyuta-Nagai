@@ -6,11 +6,24 @@ export const USER = gql`
       id
       created_at
       email
+      is_verified
+      cvs {
+        id
+      }
       profile {
+        id
         first_name
         last_name
         full_name
         avatar
+        skills {
+          skill_name
+          mastery
+        }
+        languages {
+          language_name
+          proficiency
+        }
       }
       cvs {
         id

@@ -9,7 +9,7 @@ export const PaperWrapper = styled(Paper)(({ theme }) => ({
     flexDirection: 'column',
     rowGap: 20,
   },
-})) as typeof Paper;
+}));
 
 export const Wrapper = styled('div')(() => ({
   display: 'flex',
@@ -45,7 +45,7 @@ export const RowTitleTypography = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     fontSize: 18,
   },
-})) as typeof Typography;
+}));
 
 export const RowContentTypography = styled(Typography)(({ theme }) => ({
   fontSize: 22,
@@ -57,4 +57,4 @@ export const RowContentTypography = styled(Typography)(({ theme }) => ({
     textAlign: 'center',
     fontSize: 18,
   },
-})) as typeof Typography;
+}));

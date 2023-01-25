@@ -49,7 +49,9 @@ const EmployeesCVsPage = () => {
             </Button>
           </Box>
 
-          {isOpenCvModal && <CvModal open={isOpenCvModal} onClose={handleCloseCvModal} />}
+          {isOpenCvModal && (
+            <CvModal userData={data!} open={isOpenCvModal} onClose={handleCloseCvModal} />
+          )}
         </>
       )}
     </>

@@ -14,3 +14,7 @@ export interface ICv {
   languages: ILanguageProficiency[];
   is_template: boolean;
 }
+
+export interface ICvResult {
+  data: ICv;
+}
