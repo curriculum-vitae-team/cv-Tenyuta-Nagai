@@ -9,6 +9,7 @@ import { USER } from '../../graphql/queries/user';
 import { useUser } from '../../hooks/useUser';
 import { IUserAllResult } from '../../interfaces/IUser.interface';
 import { chooseAvatarLetter } from '../../utils/chooseAvatarLetter';
+import { AvatarModal } from './AvatarModal/AvatarModal';
 import * as Styled from './EmployeesProfilePage.styles';
 import { convertData } from './helpers/convertData';
 import { ProfileModal } from './ProfileModal/ProfileModal';
@@ -22,6 +23,7 @@ const EmployeesProfilePage = () => {
     variables: { id },
   });
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenAvatarModal, setIsOpenAvatarModal] = useState(false);
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
 
   if (loading) {
@@ -40,12 +42,24 @@ const EmployeesProfilePage = () => {
     setIsOpenModal(false);
   };
 
+  const handleOpenAvatarModal = () => {
+    setIsOpenAvatarModal(true);
+  };
+
+  const handleCloseAvatarModal = () => {
+    setIsOpenAvatarModal(false);
+  };
+
   return (
     <>
       <Styled.PaperWrapper elevation={3}>
         <Styled.Wrapper>
           <Styled.RowWrapper>
-            <Styled.UserAvatar src={data?.user.profile.avatar}>
+            <Styled.UserAvatar
+              src={data?.user.profile.avatar}
+              onClick={isVisible ? handleOpenAvatarModal : undefined}
+              sx={{ ':hover': { cursor: isVisible ? 'pointer' : 'default' } }}
+            >
               {chooseAvatarLetter(data?.user)}
             </Styled.UserAvatar>
 
@@ -65,7 +79,11 @@ const EmployeesProfilePage = () => {
           Edit
         </PrivateButton>
       </Styled.PaperWrapper>
+
       {isOpenModal && <ProfileModal userId={id!} open={isOpenModal} onClose={handleCloseModal} />}
+      {isOpenAvatarModal && (
+        <AvatarModal userId={id!} open={isOpenAvatarModal} onClose={handleCloseAvatarModal} />
+      )}
     </>
   );
 };

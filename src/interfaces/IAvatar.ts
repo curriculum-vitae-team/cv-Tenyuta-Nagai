@@ -1,5 +1,3 @@
 export interface IAvatarReturn {
-  data: {
-    uploadAvatar: string;
-  };
+  uploadAvatar: string;
 }
