@@ -1,16 +1,13 @@
-import { get, Path } from 'react-hook-form';
-
-export const sortingColumns = <T>(orderBy: Path<T>, sortingIsAsc: boolean) => (a: T, b: T) => {
-  const fieldA = get(a, orderBy);
-  const fieldB = get(b, orderBy);
-  if (!fieldA) {
+export const sortingColumns = <T>(orderBy: keyof T, sortingIsAsc: boolean) => (a: T, b: T) => {
+  if (!a[orderBy]) {
     return 1;
   }
-  if (!fieldB) {
+  if (!b[orderBy]) {
     return -1;
   }
   if (sortingIsAsc) {
-    return fieldA < fieldB ? 1 : -1;
+    return a[orderBy] < b[orderBy] ? 1 : -1;
   }
-  return fieldA > fieldB ? 1 : -1;
+
+  return b[orderBy] < a[orderBy] ? 1 : -1;
 };
