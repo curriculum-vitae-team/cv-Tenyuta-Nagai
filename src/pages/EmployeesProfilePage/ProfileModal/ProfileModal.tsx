@@ -10,10 +10,10 @@ import { useProfileFormData } from '../../../hooks/useProfileFormData';
 import { UPDATE_USER } from '../../../graphql/mutations/updateUser';
 import { IUserAllResult } from '../../../interfaces/IUser.interface';
 import { profileSchema } from '../../../utils/validationSchema';
-import { InputText } from '../../../components/UI/InputText/InputText';
-import { InputSelect } from '../../../components/UI/InputSelect/InputSelect';
 import { TFormSubmit } from '../../../types/formTypes';
 import { TError } from '../../../types/errorTypes';
+import { InputText } from '../../../components/UI/InputText';
+import { InputSelect } from '../../../components/UI/InputSelect';
 import { IProfileFormInput, IProfileModalProps } from './ProfileModal.types';
 import * as Styled from './ProfileModal.styles';
 
