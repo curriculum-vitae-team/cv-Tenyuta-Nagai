@@ -107,7 +107,7 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
         reset();
         await deleteAvatar({
           variables: {
-            id: userId,
+            id: userData?.user.profile.id,
           },
         });
       }
@@ -121,7 +121,7 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
       const picture = await convertToBase64(inputs.picture[0]);
       await uploadAvatar({
         variables: {
-          id: userId,
+          id: userData?.user.profile.id,
           avatar: {
             base64: picture,
             size: inputs.picture[0].size,
