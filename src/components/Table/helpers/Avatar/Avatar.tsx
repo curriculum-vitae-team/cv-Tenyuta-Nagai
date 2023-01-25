@@ -5,7 +5,9 @@ import { IColumnCellComponentProps } from '../../../../pages/EmployeesPage/Table
 const AvatarImage: FC<IColumnCellComponentProps> = ({ item }) => {
   return (
     <TableCell>
-      <Avatar src={item?.avatar}>{item?.email[0].toUpperCase()}</Avatar>
+      <Avatar src={item?.avatar}>
+        {item.name ? item.name[0].toUpperCase() : item?.email[0].toUpperCase()}
+      </Avatar>
     </TableCell>
   );
 };

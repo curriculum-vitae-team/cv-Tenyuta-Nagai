@@ -4,7 +4,7 @@ export interface IColumn {
   columnKey: string;
   columnName: string;
   isSortable: boolean;
-  ColumnCellComponent: React.FC<IColumnCellComponentProps>;
+  ColumnCellComponent?: React.FC<IColumnCellComponentProps>;
 }
 
 export interface IColumnCellComponentProps {

@@ -12,6 +12,7 @@ import { SearchInput } from '../helpers/Search';
 import { AddEmployeeBtn } from '../helpers/AddEmployeeBtn';
 import { TableHeaderComponent } from '../TableHeader/TableHeaderComponent';
 import { TableRowComponent } from '../TableRows';
+import { TableRowCell } from '../TableRows/TableRowCell';
 import { Element, TableProps } from './templateTable.types';
 
 const Table = ({ header, items }: TableProps) => {
@@ -33,7 +34,7 @@ const Table = ({ header, items }: TableProps) => {
         <TableBody>
           {items.map((item) => (
             <TableRowComponent key={item.id}>
-              {header.map(({ columnKey, ColumnCellComponent }) => (
+              {header.map(({ columnKey, ColumnCellComponent = TableRowCell }) => (
                 <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />
               ))}
             </TableRowComponent>
