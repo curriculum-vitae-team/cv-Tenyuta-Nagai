@@ -1,5 +1,5 @@
-import { TableHeader } from '../template/templateTable.types';
+import { IColumn } from '../../../pages/EmployeesPage/TableData/TableData.interface';
 
 export type TableHeaderComponentProps = {
-  columns: TableHeader;
+  columns: IColumn[];
 };

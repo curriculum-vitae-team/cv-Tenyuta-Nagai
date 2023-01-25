@@ -7,7 +7,6 @@ import { TableCellStyled } from './TableHeaderComponent.styles';
 const TableHeaderComponent = ({ columns }: TableHeaderComponentProps) => {
   return (
     <TableRow>
-      <TableCellStyled />
       {columns.map(({ columnName }) => {
         return <TableHeaderCell name={columnName} key={columnName} />;
       })}
