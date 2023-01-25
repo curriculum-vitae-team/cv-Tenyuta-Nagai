@@ -8,3 +8,8 @@ export const schema = object({
     .required()
     .min(5),
 }).required();
+
+export const CreateCvSchema = object({
+  name: string().required(),
+  description: string().required(),
+}).required();

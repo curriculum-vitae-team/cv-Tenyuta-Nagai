@@ -12,6 +12,21 @@ export const USER = gql`
         full_name
         avatar
       }
+      cvs {
+        id
+        created_at
+        name
+        description
+        skills {
+          skill_name
+          mastery
+        }
+        languages {
+          language_name
+          proficiency
+        }
+        is_template
+      }
       department {
         id
         created_at
