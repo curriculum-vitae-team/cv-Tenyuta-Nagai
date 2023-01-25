@@ -12,8 +12,10 @@ import { SearchInput } from '../helpers/Search';
 import { AddEmployeeBtn } from '../helpers/AddEmployeeBtn';
 import { TableHeaderComponent } from '../TableHeader/TableHeaderComponent';
 import { TableRowComponent } from '../TableRows';
+
 import { sortingColumns } from '../helpers/Sorting/sortingColumns';
 import { Directions } from '../../../constants/sortingDirections';
+import { TableRowCell } from '../TableRows/TableRowCell';
 import { Element, Item, TableProps } from './templateTable.types';
 
 const Table = ({ header, items, searchParameter }: TableProps) => {
@@ -70,7 +72,7 @@ const Table = ({ header, items, searchParameter }: TableProps) => {
 
             .map((item) => (
               <TableRowComponent key={item.id}>
-                {header.map(({ columnKey, ColumnCellComponent }) => (
+                {header.map(({ columnKey, ColumnCellComponent = TableRowCell }) => (
                   <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />
                 ))}
               </TableRowComponent>
