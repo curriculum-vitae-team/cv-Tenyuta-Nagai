@@ -3,10 +3,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { FieldValues } from 'react-hook-form/dist/types';
+import { Checkbox } from '@mui/material';
 import { InputText } from '../../../components/UI/InputText';
 import { ModalWindow } from '../../../components/UI/ModalWindow';
 import { TFormSubmit } from '../../../types/formTypes';
-import { CreateCvSchema } from '../../../utils/validationSchema';
+import { editCvSchema } from '../../../utils/validationSchema';
 import { ICvResult } from '../../../interfaces/ICv.interface';
 import { CREATE_CV } from '../../../graphql/mutations/cv';
 import { ICvModalProps, IFormCreateCv } from './CvModal.types';
@@ -20,7 +21,7 @@ export const CvModal: FC<ICvModalProps> = ({ open, onClose, userData }) => {
     formState: { errors, isValid },
   } = useForm<FieldValues>({
     mode: 'onChange',
-    resolver: yupResolver(CreateCvSchema),
+    resolver: yupResolver(editCvSchema),
   });
 
   const onSubmit = async (inputs: IFormCreateCv) => {

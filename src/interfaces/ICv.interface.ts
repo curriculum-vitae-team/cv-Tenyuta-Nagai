@@ -16,5 +16,5 @@ export interface ICv {
 }
 
 export interface ICvResult {
-  data: ICv;
+  updateCv: ICv;
 }

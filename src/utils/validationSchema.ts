@@ -34,7 +34,7 @@ export const avatarSchema = object().shape({
     }),
 });
 
-export const CreateCvSchema = object({
+export const editCvSchema = object({
   name: string().required(),
   description: string().required(),
 }).required();

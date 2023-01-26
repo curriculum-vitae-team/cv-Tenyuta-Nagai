@@ -1,4 +1,9 @@
-import { Button, styled, Typography } from '@mui/material';
+import { Button, Paper as MuiPaper, styled, Typography } from '@mui/material';
+
+export const Paper = styled(MuiPaper)(() => ({
+  minWidth: '100%',
+  minHeight: 300,
+}));
 
 export const WrapperCvsButton = styled('div')(() => ({
   display: 'flex',
@@ -8,7 +13,7 @@ export const WrapperCvsButton = styled('div')(() => ({
 }));
 
 export const CvsButton = styled(Button)(() => ({
-  ontSize: 18,
+  fontSize: 18,
   fontWeight: 500,
 }));
 

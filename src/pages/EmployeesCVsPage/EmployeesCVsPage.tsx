@@ -1,17 +1,5 @@
 import { useQuery } from '@apollo/client';
-import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  Divider,
-  Drawer,
-  Grid,
-  MenuItem,
-  MenuList,
-  Paper,
-} from '@mui/material';
-import StyledEngine from '@mui/styled-engine';
+import { Box, Button, Container, Divider, Paper } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Spinner } from '../../components/Spinner';
@@ -25,6 +13,7 @@ import { CvModal } from './CvModal/CvModal';
 import { CvsMenu } from './CvsMenu/CvsMenu';
 import { ICvData } from './EmployeesCVsPage.types';
 import * as Styled from './EmployeesCVsPage.styles';
+import { CvEditModal } from './CvEditModal/CvEditModal';
 
 const EmployeesCVsPage = () => {
   const user = useUser();
@@ -35,11 +24,14 @@ const EmployeesCVsPage = () => {
   });
   const navigate = useNavigate();
   const [cvData, setCvData] = useState<ICvData>({
+    id: '',
     name: '',
     description: '',
   });
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isDataCv, setIsDataCv] = useState(false);
+
+  const [isOpenEditModal, setIsOpenEditModal] = useState(false);
 
   if (error) {
     navigate(`/${RoutePath.EMPLOYEES}`);
@@ -52,7 +44,7 @@ const EmployeesCVsPage = () => {
   const showCvData = (id: string) => {
     const cv = data?.user.cvs?.filter((x) => x.id === id)[0];
     if (cv) {
-      setCvData({ name: cv.name, description: cv.description });
+      setCvData({ id: cv.id, name: cv.name, description: cv.description });
       setIsDataCv(true);
       setIsOpenMenu(false);
     }
@@ -66,19 +58,22 @@ const EmployeesCVsPage = () => {
     setIsOpenMenu(false);
   };
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    setIsOpenEditModal(true);
+  };
 
   const handlePreview = () => {};
 
+  const handleCloseEditModal = (data?: ICvData) => {
+    if (data) {
+      setCvData(data);
+    }
+    setIsOpenEditModal(false);
+  };
+
   return (
     <>
-      <Paper
-        elevation={3}
-        sx={{
-          minWidth: '100%',
-          minHeight: 300,
-        }}
-      >
+      <Styled.Paper elevation={3}>
         {loading ? (
           <Spinner />
         ) : (
@@ -118,8 +113,16 @@ const EmployeesCVsPage = () => {
             )}
           </Container>
         )}
-      </Paper>
+      </Styled.Paper>
       <CvsMenu data={data!} open={isOpenMenu} showCvData={showCvData} onClose={handleCloseMenu} />
+      {isOpenEditModal && (
+        <CvEditModal
+          cvId={cvData.id}
+          userData={data!}
+          open={isOpenEditModal}
+          onClose={handleCloseEditModal}
+        />
+      )}
     </>
   );
 };
