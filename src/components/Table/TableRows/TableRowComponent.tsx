@@ -5,8 +5,6 @@ import UpdateIcon from '@mui/icons-material/Update';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useUser } from '../../../hooks/useUser';
 import { UserRoles } from '../../../constants/userRoles';
-
-import { ProfileModal } from '../../../pages/EmployeesProfilePage/ProfileModal/ProfileModal';
 import { TableRowProps } from './TableRowComponent.types';
 import {
   ActionsMenuRowIconsProps,
@@ -14,7 +12,7 @@ import {
   ActionsMenuRowProps,
 } from './TableRowComponent.styles';
 
-const TableRowComponent = ({ children, handleDelete, id }: TableRowProps) => {
+const TableRowComponent = ({ children, handleDelete, id, TableUpdateModal }: TableRowProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const user = useUser();
@@ -83,7 +81,9 @@ const TableRowComponent = ({ children, handleDelete, id }: TableRowProps) => {
           </MenuItem>
         )}
       </Menu>
-      {isOpenModal && <ProfileModal userId={id!} open={isOpenModal} onClose={handleCloseModal} />}
+      {isOpenModal && (
+        <TableUpdateModal userId={id!} open={isOpenModal} onClose={handleCloseModal} />
+      )}
     </>
   );
 };

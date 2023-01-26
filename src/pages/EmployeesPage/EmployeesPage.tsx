@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { createTable } from '../../components/Table/template/templateTable';
@@ -11,6 +11,7 @@ import {
   DeleteUserResult,
 } from '../../graphql/mutations/deleteUser/deleteUser.types';
 import { DELETE_USER } from '../../graphql/mutations/deleteUser/deleteUser';
+import { ProfileModal } from '../EmployeesProfilePage/ProfileModal/ProfileModal';
 import { UsersTableHeader } from './TableData/UsersTableHeader';
 import { getAllUsers } from './TableData/UsersTableRows';
 import { IUsersResult } from './EmployeesPage.interface';
@@ -57,6 +58,7 @@ const EmployeesPage = () => {
             handleDelete={handleUserDelete}
             searchParameter="name"
             textAddBtn="Add employee"
+            TableUpdateModal={ProfileModal}
           />
         </Grid>
       </Container>

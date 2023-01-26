@@ -21,7 +21,14 @@ import { useUser } from '../../../hooks/useUser';
 import { UserRoles } from '../../../constants/userRoles';
 import { Element, Item, TableProps } from './templateTable.types';
 
-const Table = ({ header, items, searchParameter, handleDelete, textAddBtn }: TableProps) => {
+const Table = ({
+  header,
+  items,
+  searchParameter,
+  handleDelete,
+  textAddBtn,
+  TableUpdateModal,
+}: TableProps) => {
   const [searchString, setSearchString] = useState('');
   const [sortingBy, setSortingBy] = useState(header[0].columnKey);
   const [sortingIsAsc, setSortingIsAsc] = useState(true);
@@ -78,7 +85,12 @@ const Table = ({ header, items, searchParameter, handleDelete, textAddBtn }: Tab
             .sort(sortingColumns<Item>(sortingBy, sortingIsAsc))
 
             .map((item) => (
-              <TableRowComponent key={item.id} id={item.id} handleDelete={handleDelete}>
+              <TableRowComponent
+                key={item.id}
+                id={item.id}
+                handleDelete={handleDelete}
+                TableUpdateModal={TableUpdateModal}
+              >
                 {header.map(({ columnKey, ColumnCellComponent = TableRowCell }) => (
                   <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />
                 ))}

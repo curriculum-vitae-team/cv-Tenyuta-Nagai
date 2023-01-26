@@ -1,3 +1,4 @@
+import { IProfileModalProps } from '../../../pages/EmployeesProfilePage/ProfileModal/ProfileModal.types';
 import { IColumn } from './../../../pages/EmployeesPage/TableData/TableData.interface';
 
 export type TableProps<T = Item> = {
@@ -6,6 +7,7 @@ export type TableProps<T = Item> = {
   handleDelete: (id: string) => void;
   searchParameter: string;
   textAddBtn: string;
+  TableUpdateModal: React.FC<IProfileModalProps>;
 };
 
 export type Item = Record<string, string>;
