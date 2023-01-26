@@ -56,6 +56,7 @@ const EmployeesPage = () => {
             items={getAllUsers(data?.users || [])}
             handleDelete={handleUserDelete}
             searchParameter="name"
+            textAddBtn="Add employee"
           />
         </Grid>
       </Container>

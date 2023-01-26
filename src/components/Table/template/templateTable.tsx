@@ -9,20 +9,25 @@ import {
   TableContainer,
 } from '@mui/material';
 import { SearchInput } from '../helpers/Search';
-import { AddEmployeeBtn } from '../helpers/AddEmployeeBtn';
+
 import { TableHeaderComponent } from '../TableHeader/TableHeaderComponent';
 import { TableRowComponent } from '../TableRows';
 
 import { sortingColumns } from '../helpers/Sorting/sortingColumns';
 import { Directions } from '../../../constants/sortingDirections';
 import { TableRowCell } from '../TableRows/TableRowCell';
+import { PrivateButton } from '../../UI/PrivateButton';
+import { useUser } from '../../../hooks/useUser';
+import { UserRoles } from '../../../constants/userRoles';
 import { Element, Item, TableProps } from './templateTable.types';
 
-const Table = ({ header, items, searchParameter, handleDelete }: TableProps) => {
+const Table = ({ header, items, searchParameter, handleDelete, textAddBtn }: TableProps) => {
   const [searchString, setSearchString] = useState('');
   const [sortingBy, setSortingBy] = useState(header[0].columnKey);
   const [sortingIsAsc, setSortingIsAsc] = useState(true);
   const [direction, setDirection] = useState<Directions>(Directions.Desc);
+  const user = useUser();
+  const isVisible = user?.role === UserRoles.Admin;
 
   const handleSetSearchString = (str: string) => {
     setSearchString(str);
@@ -49,7 +54,9 @@ const Table = ({ header, items, searchParameter, handleDelete }: TableProps) => 
                   handleSetSearchString={handleSetSearchString}
                   searchString={searchString}
                 />
-                <AddEmployeeBtn />
+                <PrivateButton isVisible={isVisible} onClick={() => console.log('clicked add btn')}>
+                  {textAddBtn}
+                </PrivateButton>
               </Grid>
             </TableCell>
           </TableRow>

@@ -5,6 +5,7 @@ export type TableProps<T = Item> = {
   items: T[];
   handleDelete: (id: string) => void;
   searchParameter: string;
+  textAddBtn: string;
 };
 
 export type Item = Record<string, string>;
