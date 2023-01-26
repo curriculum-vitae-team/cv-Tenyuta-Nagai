@@ -69,7 +69,11 @@ const TableRowComponent = ({ children, handleDelete, id, TableUpdateModal }: Tab
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem sx={ActionsMenuRowItemProps} onClick={handleEdit}>
+        <MenuItem
+          sx={ActionsMenuRowItemProps}
+          onClick={handleEdit}
+          disabled={user?.id !== id && user?.role !== UserRoles.Admin}
+        >
           <UpdateIcon sx={ActionsMenuRowIconsProps} />
           Update
         </MenuItem>
