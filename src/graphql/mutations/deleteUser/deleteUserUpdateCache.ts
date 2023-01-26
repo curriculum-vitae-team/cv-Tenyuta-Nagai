@@ -1,10 +1,11 @@
-import { ApolloCache, NormalizedCacheObject } from '@apollo/client';
+import { ApolloCache } from '@apollo/client';
+import { IUser } from '../../../interfaces/IUser.interface';
 import { IUsersResult } from '../../../pages/EmployeesPage/EmployeesPage.interface';
 import { GET_ALL_USERS } from '../../queries/users';
 import { DeleteUserResult } from './deleteUser.types';
 
 export const updateCacheAfterDeleteUser = (
-  cache: ApolloCache<NormalizedCacheObject>,
+  cache: ApolloCache<IUser>,
   id: string,
   data: DeleteUserResult
 ) => {
