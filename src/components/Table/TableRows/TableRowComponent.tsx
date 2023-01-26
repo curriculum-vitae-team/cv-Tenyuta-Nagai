@@ -17,6 +17,7 @@ const TableRowComponent = ({ children, handleDelete, id, TableUpdateModal }: Tab
   const open = Boolean(anchorEl);
   const user = useUser();
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const isAdmin = user?.role === UserRoles.Admin;
 
   const handleEdit = () => {
     setIsOpenModal(true);
@@ -76,10 +77,14 @@ const TableRowComponent = ({ children, handleDelete, id, TableUpdateModal }: Tab
           <UpdateIcon sx={ActionsMenuRowIconsProps} />
           Update
         </MenuItem>
-        {user?.role === UserRoles.Admin && <Divider />}
+        {isAdmin && <Divider />}
 
-        {user?.role === UserRoles.Admin && (
-          <MenuItem onClick={handleDeleteItem} sx={ActionsMenuRowItemProps}>
+        {isAdmin && (
+          <MenuItem
+            onClick={handleDeleteItem}
+            sx={ActionsMenuRowItemProps}
+            disabled={user?.id === id && isAdmin}
+          >
             <DeleteOutlineIcon sx={ActionsMenuRowIconsProps} />
             Delete
           </MenuItem>
