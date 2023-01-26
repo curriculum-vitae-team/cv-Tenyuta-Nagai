@@ -6,6 +6,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useUser } from '../../../hooks/useUser';
 import { UserRoles } from '../../../constants/userRoles';
 
+import { ProfileModal } from '../../../pages/EmployeesProfilePage/ProfileModal/ProfileModal';
 import { TableRowProps } from './TableRowComponent.types';
 import {
   ActionsMenuRowIconsProps,
@@ -17,6 +18,15 @@ const TableRowComponent = ({ children, handleDelete, id }: TableRowProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const user = useUser();
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const handleEdit = () => {
+    setIsOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -61,7 +71,7 @@ const TableRowComponent = ({ children, handleDelete, id }: TableRowProps) => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem sx={ActionsMenuRowItemProps}>
+        <MenuItem sx={ActionsMenuRowItemProps} onClick={handleEdit}>
           <UpdateIcon sx={ActionsMenuRowIconsProps} />
           Update
         </MenuItem>
@@ -73,6 +83,7 @@ const TableRowComponent = ({ children, handleDelete, id }: TableRowProps) => {
           </MenuItem>
         )}
       </Menu>
+      {isOpenModal && <ProfileModal userId={id!} open={isOpenModal} onClose={handleCloseModal} />}
     </>
   );
 };

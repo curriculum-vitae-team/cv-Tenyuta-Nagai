@@ -54,7 +54,7 @@ const Table = ({ header, items, searchParameter, handleDelete, textAddBtn }: Tab
                   handleSetSearchString={handleSetSearchString}
                   searchString={searchString}
                 />
-                <PrivateButton isVisible={isVisible} onClick={() => console.log('clicked add btn')}>
+                <PrivateButton isVisible={isVisible} onClick={() => console.log('Add employee')}>
                   {textAddBtn}
                 </PrivateButton>
               </Grid>
