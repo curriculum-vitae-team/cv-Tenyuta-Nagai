@@ -3,6 +3,7 @@ import { IColumn } from './../../../pages/EmployeesPage/TableData/TableData.inte
 export type TableProps<T = Item> = {
   header: IColumn[];
   items: T[];
+  searchParameter: string;
 };
 
 export type Item = Record<string, string>;

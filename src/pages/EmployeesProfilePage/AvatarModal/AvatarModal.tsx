@@ -107,7 +107,7 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
         reset();
         await deleteAvatar({
           variables: {
-            id: userData?.user.profile.id,
+            id: userData.user.profile.id,
           },
         });
       }

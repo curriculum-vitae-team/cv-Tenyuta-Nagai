@@ -26,7 +26,11 @@ const EmployeesPage = () => {
     <main>
       <Container maxWidth="xl">
         <Grid container>
-          <Table header={UsersTableHeader} items={getAllUsers(data?.users || [])} />
+          <Table
+            header={UsersTableHeader}
+            items={getAllUsers(data?.users || [])}
+            searchParameter="name"
+          />
         </Grid>
       </Container>
     </main>
