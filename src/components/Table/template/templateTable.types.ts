@@ -3,6 +3,7 @@ import { IColumn } from './../../../pages/EmployeesPage/TableData/TableData.inte
 export type TableProps<T = Item> = {
   header: IColumn[];
   items: T[];
+  handleDelete: (id: string) => void;
 };
 
 export type Item = Record<string, string>;

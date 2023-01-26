@@ -19,7 +19,7 @@ export const ActionsMenuRowProps = {
 };
 
 export const ActionsMenuRowItemProps = {
-  height: '25px',
+  height: '30px',
 };
 
 export const ActionsMenuRowIconsProps = {

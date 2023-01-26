@@ -15,7 +15,7 @@ import { TableRowComponent } from '../TableRows';
 import { TableRowCell } from '../TableRows/TableRowCell';
 import { Element, TableProps } from './templateTable.types';
 
-const Table = ({ header, items }: TableProps) => {
+const Table = ({ header, items, handleDelete }: TableProps) => {
   return (
     <TableContainer>
       <MuiTable>
@@ -33,7 +33,7 @@ const Table = ({ header, items }: TableProps) => {
         </TableHead>
         <TableBody>
           {items.map((item) => (
-            <TableRowComponent key={item.id}>
+            <TableRowComponent key={item.id} id={item.id} handleDelete={handleDelete}>
               {header.map(({ columnKey, ColumnCellComponent = TableRowCell }) => (
                 <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />
               ))}

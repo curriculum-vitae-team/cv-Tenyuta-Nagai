@@ -13,7 +13,7 @@ import {
   ActionsMenuRowProps,
 } from './TableRowComponent.styles';
 
-const TableRowComponent = ({ children }: TableRowProps) => {
+const TableRowComponent = ({ children, handleDelete, id }: TableRowProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const user = useUser();
@@ -24,6 +24,11 @@ const TableRowComponent = ({ children }: TableRowProps) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleDeleteUser = (): void => {
+    handleDelete(id);
+    console.log('deleted');
   };
 
   return (
@@ -62,13 +67,10 @@ const TableRowComponent = ({ children }: TableRowProps) => {
         </MenuItem>
 
         {user?.role === UserRoles.Admin && (
-          <>
-            <Divider />
-            <MenuItem sx={ActionsMenuRowItemProps}>
-              <DeleteOutlineIcon sx={ActionsMenuRowIconsProps} />
-              Delete
-            </MenuItem>
-          </>
+          <MenuItem onClick={handleDeleteUser} sx={ActionsMenuRowItemProps}>
+            <DeleteOutlineIcon sx={ActionsMenuRowIconsProps} />
+            Delete
+          </MenuItem>
         )}
       </Menu>
     </>
