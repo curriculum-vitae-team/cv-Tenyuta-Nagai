@@ -55,6 +55,7 @@ const EmployeesPage = () => {
             header={UsersTableHeader}
             items={getAllUsers(data?.users || [])}
             handleDelete={handleUserDelete}
+            searchParameter="name"
           />
         </Grid>
       </Container>

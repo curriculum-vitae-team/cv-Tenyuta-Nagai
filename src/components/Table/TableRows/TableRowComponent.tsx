@@ -1,5 +1,5 @@
 import { MoreVert } from '@mui/icons-material';
-import { Divider, IconButton, Menu, MenuItem, TableCell, TableRow } from '@mui/material';
+import { IconButton, Menu, MenuItem, TableCell, TableRow } from '@mui/material';
 import React, { useState } from 'react';
 import UpdateIcon from '@mui/icons-material/Update';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
