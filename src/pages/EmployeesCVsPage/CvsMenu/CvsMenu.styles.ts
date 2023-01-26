@@ -1,8 +1,7 @@
 import { Card, MenuList, styled, Toolbar } from '@mui/material';
 
 export const CardMenu = styled(Card)(({ theme }) => ({
-  width: '100%',
-  maxWidth: '500px',
+  width: '500px',
   minHeight: '100vh',
   borderRadius: 0,
   boxShadow: 'none',
@@ -12,7 +11,7 @@ export const CardMenu = styled(Card)(({ theme }) => ({
   },
 
   [theme.breakpoints.down('sm')]: {
-    maxWidth: '250px',
+    width: '250px',
   },
 }));
 

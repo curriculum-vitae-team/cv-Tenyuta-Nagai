@@ -11,16 +11,20 @@ import {
   MenuList,
   Paper,
 } from '@mui/material';
+import StyledEngine from '@mui/styled-engine';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Spinner } from '../../components/Spinner';
+import { PrivateButton } from '../../components/UI/PrivateButton';
 import { RoutePath } from '../../constants/routeVariables';
 import { UserRoles } from '../../constants/userRoles';
 import { USER } from '../../graphql/queries/user';
 import { useUser } from '../../hooks/useUser';
 import { IUserAllResult } from '../../interfaces/IUser.interface';
+import { CvModal } from './CvModal/CvModal';
 import { CvsMenu } from './CvsMenu/CvsMenu';
 import { ICvData } from './EmployeesCVsPage.types';
+import * as Styled from './EmployeesCVsPage.styles';
 
 const EmployeesCVsPage = () => {
   const user = useUser();
@@ -35,6 +39,7 @@ const EmployeesCVsPage = () => {
     description: '',
   });
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [isDataCv, setIsDataCv] = useState(false);
 
   if (error) {
     navigate(`/${RoutePath.EMPLOYEES}`);
@@ -48,6 +53,8 @@ const EmployeesCVsPage = () => {
     const cv = data?.user.cvs?.filter((x) => x.id === id)[0];
     if (cv) {
       setCvData({ name: cv.name, description: cv.description });
+      setIsDataCv(true);
+      setIsOpenMenu(false);
     }
   };
 
@@ -58,6 +65,10 @@ const EmployeesCVsPage = () => {
   const handleCloseMenu = () => {
     setIsOpenMenu(false);
   };
+
+  const handleEdit = () => {};
+
+  const handlePreview = () => {};
 
   return (
     <>
@@ -72,19 +83,39 @@ const EmployeesCVsPage = () => {
           <Spinner />
         ) : (
           <Container maxWidth="xl">
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Button variant="outlined" onClick={handleOpenMenu}>
+            <Styled.WrapperCvsButton>
+              <Styled.CvsButton variant="outlined" color="secondary" onClick={handleOpenMenu}>
                 Cvs list
-              </Button>
-            </Box>
+              </Styled.CvsButton>
+            </Styled.WrapperCvsButton>
 
             <Divider />
-            <Box>
-              <Box>{'Name:'}</Box>
-              <Box>{cvData.name}</Box>
-              <Box>{'Description:'}</Box>
-              <Box>{cvData.description}</Box>
-            </Box>
+
+            {isDataCv && (
+              <Styled.Wrapper>
+                <Styled.ContentWrapper>
+                  <Styled.TopicWrapper>
+                    <Styled.RowTitleTypography>{'Name:'}</Styled.RowTitleTypography>
+                    <Styled.RowContentTypography>{cvData.name}</Styled.RowContentTypography>
+                  </Styled.TopicWrapper>
+
+                  <Styled.TopicWrapper>
+                    <Styled.RowTitleTypography>{'Description:'}</Styled.RowTitleTypography>
+                    <Styled.RowContentTypography>{cvData.description}</Styled.RowContentTypography>
+                  </Styled.TopicWrapper>
+                </Styled.ContentWrapper>
+
+                <Styled.ButtonWrapper>
+                  <PrivateButton isVisible={isDataCv} onClick={handleEdit}>
+                    Edit
+                  </PrivateButton>
+
+                  <PrivateButton isVisible={isDataCv} onClick={handlePreview}>
+                    Preview
+                  </PrivateButton>
+                </Styled.ButtonWrapper>
+              </Styled.Wrapper>
+            )}
           </Container>
         )}
       </Paper>
