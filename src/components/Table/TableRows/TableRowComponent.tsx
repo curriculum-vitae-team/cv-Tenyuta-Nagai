@@ -34,9 +34,8 @@ const TableRowComponent = ({ children, handleDelete, id, TableUpdateModal }: Tab
     setAnchorEl(null);
   };
 
-  const handleDeleteUser = (): void => {
+  const handleDeleteItem = (): void => {
     handleDelete(id);
-    console.log('deleted');
   };
 
   return (
@@ -80,7 +79,7 @@ const TableRowComponent = ({ children, handleDelete, id, TableUpdateModal }: Tab
         {user?.role === UserRoles.Admin && <Divider />}
 
         {user?.role === UserRoles.Admin && (
-          <MenuItem onClick={handleDeleteUser} sx={ActionsMenuRowItemProps}>
+          <MenuItem onClick={handleDeleteItem} sx={ActionsMenuRowItemProps}>
             <DeleteOutlineIcon sx={ActionsMenuRowIconsProps} />
             Delete
           </MenuItem>

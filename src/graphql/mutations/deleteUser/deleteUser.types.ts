@@ -7,3 +7,7 @@ export type DeleteUserResult = {
     affected: number;
   };
 };
+
+export type DeleteResult = {
+  affected: number;
+};

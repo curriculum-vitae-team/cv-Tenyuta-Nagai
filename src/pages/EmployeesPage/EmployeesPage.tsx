@@ -12,9 +12,9 @@ import {
 } from '../../graphql/mutations/deleteUser/deleteUser.types';
 import { DELETE_USER } from '../../graphql/mutations/deleteUser/deleteUser';
 import { ProfileModal } from '../EmployeesProfilePage/ProfileModal/ProfileModal';
+import { updateCacheAfterDeleteUser } from '../../graphql/mutations/deleteUser/deleteUserUpdateCache';
 import { UsersTableHeader } from './TableData/UsersTableHeader';
 import { getAllUsers } from './TableData/UsersTableRows';
-import { IUsersResult } from './EmployeesPage.interface';
 
 const EmployeesPage = () => {
   const Table = createTable();
@@ -34,16 +34,7 @@ const EmployeesPage = () => {
     deleteUser({
       variables: { id },
       update(cache, { data }) {
-        const allUsers = cache.readQuery<IUsersResult>({ query: GET_ALL_USERS });
-
-        if (allUsers && data?.deleteUser.affected) {
-          cache.writeQuery({
-            query: GET_ALL_USERS,
-            data: {
-              users: allUsers.users.filter((user) => user?.id !== id),
-            },
-          });
-        }
+        updateCacheAfterDeleteUser(cache, id, data as DeleteUserResult);
       },
     });
   };
