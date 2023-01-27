@@ -32,8 +32,8 @@ const EmployeesPage = () => {
   const handleUserDelete = (id: string) => {
     deleteUser({
       variables: { id },
-      update(cache, { data }) {
-        updateCacheAfterDeleteUser(cache, id, data as DeleteUserResult);
+      update(cache) {
+        updateCacheAfterDeleteUser(cache, id);
       },
     });
   };
