@@ -14,6 +14,7 @@ import { IProfileFormInput } from '../../EmployeesProfilePage/ProfileModal/Profi
 import { FieldNameProfileForm } from '../../../constants/fieldNameProfileForm';
 import { TFormSubmit } from '../../../types/formTypes';
 import { useEmployeesFormData } from '../../../hooks/useEmployeesFormData';
+import { TError } from '../../../types/errorTypes';
 import { IEmployeesFormInput, IEmployeesModalProps } from './EmployeesModal.interface';
 import * as Styled from './EmployeesModal.styles';
 
@@ -33,12 +34,12 @@ export const EmployeesModal: FC<IEmployeesModalProps> = ({ open, onClose }) => {
     onClose();
   }
 
-  const onSubmit = async (inputs: IProfileFormInput) => {
-    await createUser({
+  const onSubmit = (inputs: IProfileFormInput) => {
+    createUser({
       variables: {
         user: {
           auth: {
-            email: ' ',
+            email: 'test@gm.com',
             password: ' ',
           },
           profile: {
@@ -53,7 +54,9 @@ export const EmployeesModal: FC<IEmployeesModalProps> = ({ open, onClose }) => {
           role: 'employee',
         },
       },
-    });
+    })
+      .catch((err) => console.error((err as TError).message))
+      .finally(() => onClose());
   };
 
   return (

@@ -14,6 +14,7 @@ import { DELETE_USER } from '../../graphql/mutations/deleteUser/deleteUser';
 import { updateCacheAfterDeleteUser } from '../../graphql/mutations/deleteUser/deleteUserUpdateCache';
 import { UsersTableHeader } from './TableData/UsersTableHeader';
 import { getAllUsers } from './TableData/UsersTableRows';
+import { EmployeesModal } from './EmployeesModal';
 
 const EmployeesPage = () => {
   const Table = createTable();
@@ -46,6 +47,7 @@ const EmployeesPage = () => {
             header={UsersTableHeader}
             items={getAllUsers(data?.users || [])}
             handleDelete={handleUserDelete}
+            ModalForCreating={EmployeesModal}
             searchParameter="name"
             textAddBtn="Add employee"
             buttonUpdateTitle="Profile"

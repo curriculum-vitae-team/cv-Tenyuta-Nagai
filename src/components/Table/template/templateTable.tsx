@@ -17,7 +17,6 @@ import { TableRowCell } from '../TableRows/TableRowCell';
 import { PrivateButton } from '../../UI/PrivateButton';
 import { useUser } from '../../../hooks/useUser';
 import { UserRoles } from '../../../constants/userRoles';
-import { EmployeesModal } from '../../../pages/EmployeesPage/EmployeesModal/EmployeesModal';
 import { Element, Item, TableProps } from './templateTable.types';
 
 const Table = ({
@@ -28,6 +27,7 @@ const Table = ({
   textAddBtn,
   buttonUpdateTitle,
   buttonUpdatePagePath,
+  ModalForCreating,
 }: TableProps) => {
   const [searchString, setSearchString] = useState('');
   const [sortingBy, setSortingBy] = useState(header[0].columnKey);
@@ -113,7 +113,7 @@ const Table = ({
           </TableBody>
         </MuiTable>
       </TableContainer>
-      {isOpenModal && <EmployeesModal open={isOpenModal} onClose={handleCloseModal} />}
+      {isOpenModal && <ModalForCreating open={isOpenModal} onClose={handleCloseModal} />}
     </>
   );
 };

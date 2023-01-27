@@ -1,4 +1,5 @@
 import { RoutePath } from '../../../constants/routeVariables';
+import { IEmployeesModalProps } from '../../../pages/EmployeesPage/EmployeesModal/EmployeesModal.interface';
 import { IColumn } from './../../../pages/EmployeesPage/TableData/TableData.interface';
 
 export type TableProps<T = Item> = {
@@ -9,6 +10,7 @@ export type TableProps<T = Item> = {
   textAddBtn: string;
   buttonUpdateTitle: string;
   buttonUpdatePagePath: RoutePath;
+  ModalForCreating: React.FC<IEmployeesModalProps>;
 };
 
 export type Item = Record<string, string>;
