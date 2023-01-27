@@ -15,7 +15,9 @@ import { FieldNameProfileForm } from '../../../constants/fieldNameProfileForm';
 import { TFormSubmit } from '../../../types/formTypes';
 import { useEmployeesFormData } from '../../../hooks/useEmployeesFormData';
 import { TError } from '../../../types/errorTypes';
-import { IEmployeesFormInput, IEmployeesModalProps } from './EmployeesModal.interface';
+import { CreateUserResult } from '../../../graphql/mutations/createUser/createUser.types';
+import { updateCacheAfterCreatingUser } from '../../../graphql/mutations/createUser/createUserUpdateCache';
+import { IEmployeesModalProps } from './EmployeesModal.interface';
 import * as Styled from './EmployeesModal.styles';
 
 export const EmployeesModal: FC<IEmployeesModalProps> = ({ open, onClose }) => {
@@ -39,8 +41,7 @@ export const EmployeesModal: FC<IEmployeesModalProps> = ({ open, onClose }) => {
       variables: {
         user: {
           auth: {
-            email: 'test@gm.com',
-            password: ' ',
+            email: 'testеrrr@gm.com',
           },
           profile: {
             first_name: inputs.firstName,
@@ -53,6 +54,9 @@ export const EmployeesModal: FC<IEmployeesModalProps> = ({ open, onClose }) => {
           cvsIds: [],
           role: 'employee',
         },
+      },
+      update(cache, { data }) {
+        updateCacheAfterCreatingUser(cache, (data as unknown) as CreateUserResult);
       },
     })
       .catch((err) => console.error((err as TError).message))
