@@ -101,7 +101,7 @@ const EmployeesCVsPage = () => {
                       Edit
                     </PrivateButton>
 
-                    <PrivateButton isVisible={isDataCv} onClick={handlePreview}>
+                    <PrivateButton isVisible={isDataCv} onClick={handlePreview} disabled>
                       Preview
                     </PrivateButton>
                   </Styled.ButtonWrapper>
