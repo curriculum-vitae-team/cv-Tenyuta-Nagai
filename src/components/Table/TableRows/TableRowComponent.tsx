@@ -3,8 +3,10 @@ import { Divider, IconButton, Menu, MenuItem, TableCell, TableRow } from '@mui/m
 import React, { useState } from 'react';
 import UpdateIcon from '@mui/icons-material/Update';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../../hooks/useUser';
 import { UserRoles } from '../../../constants/userRoles';
+import { RoutePath } from '../../../constants/routeVariables';
 import { TableRowProps } from './TableRowComponent.types';
 import {
   ActionsMenuRowIconsProps,
@@ -12,20 +14,18 @@ import {
   ActionsMenuRowProps,
 } from './TableRowComponent.styles';
 
-const TableRowComponent = ({ children, handleDelete, id, TableUpdateModal }: TableRowProps) => {
+const TableRowComponent = ({
+  children,
+  handleDelete,
+  id,
+  buttonUpdateTitle,
+  buttonUpdatePagePath,
+}: TableRowProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const user = useUser();
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const isAdmin = user?.role === UserRoles.Admin;
-
-  const handleEdit = () => {
-    setIsOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
-  };
+  const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -37,6 +37,10 @@ const TableRowComponent = ({ children, handleDelete, id, TableUpdateModal }: Tab
 
   const handleDeleteItem = (): void => {
     handleDelete(id);
+  };
+
+  const handleGoToProfile = () => {
+    navigate(`/${RoutePath.EMPLOYEES}/${id}/${buttonUpdatePagePath}`);
   };
 
   return (
@@ -71,11 +75,11 @@ const TableRowComponent = ({ children, handleDelete, id, TableUpdateModal }: Tab
       >
         <MenuItem
           sx={ActionsMenuRowItemProps}
-          onClick={handleEdit}
-          disabled={user?.id !== id && user?.role !== UserRoles.Admin}
+          onClick={handleGoToProfile}
+          disabled={user?.id !== id && !isAdmin}
         >
           <UpdateIcon sx={ActionsMenuRowIconsProps} />
-          Update
+          {buttonUpdateTitle}
         </MenuItem>
         {isAdmin && <Divider />}
 
@@ -90,9 +94,6 @@ const TableRowComponent = ({ children, handleDelete, id, TableUpdateModal }: Tab
           </MenuItem>
         )}
       </Menu>
-      {isOpenModal && (
-        <TableUpdateModal userId={id!} open={isOpenModal} onClose={handleCloseModal} />
-      )}
     </>
   );
 };
