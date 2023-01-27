@@ -1,4 +1,4 @@
-import { Button, MenuItem, MenuList, Paper as MuiPaper, styled } from '@mui/material';
+import { Button, Paper as MuiPaper, styled } from '@mui/material';
 
 export const Paper = styled(MuiPaper)(() => ({
   minWidth: '100%',
@@ -44,16 +44,4 @@ export const ButtonWrapper = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     justifyContent: 'center',
   },
-}));
-
-export const ItemMenu = styled(MenuItem)(() => ({
-  whiteSpace: 'pre-wrap',
-  wordWrap: 'break-word',
-  wordBreak: 'break-word',
-}));
-
-export const ListMenu = styled(MenuList)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  rowGap: 18,
 }));

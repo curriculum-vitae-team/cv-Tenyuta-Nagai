@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { Checkbox } from '@mui/material';
+import { Checkbox, Typography } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import { InputText } from '../../../components/UI/InputText';
 import { ModalWindow } from '../../../components/UI/ModalWindow';
@@ -116,7 +116,7 @@ export const CvEditModal: FC<ICvEditModalProps> = ({ open, onClose, cvId, userDa
         />
 
         <Styled.CheckboxWrap>
-          Template
+          <Typography>Template</Typography>
           <Checkbox
             {...register('template')}
             {...Styled.checkboxLabel}
