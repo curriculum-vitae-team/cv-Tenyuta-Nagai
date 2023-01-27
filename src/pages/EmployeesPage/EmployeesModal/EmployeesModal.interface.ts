@@ -1,6 +1,5 @@
 export interface IEmployeesModalProps {
   open: boolean;
-  userId: string;
   onClose: () => void;
 }
 

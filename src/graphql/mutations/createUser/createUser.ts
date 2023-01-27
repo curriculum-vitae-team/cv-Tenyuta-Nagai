@@ -18,7 +18,7 @@ export const CREATE_USER = gql`
           mastery
         }
         languages {
-          languages_name
+          language_name
           proficiency
         }
       }
