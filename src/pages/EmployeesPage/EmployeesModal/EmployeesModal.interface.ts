@@ -8,4 +8,6 @@ export interface IEmployeesFormInput {
   lastName: string;
   position: string;
   department: string;
+  email: string;
+  password: string;
 }
