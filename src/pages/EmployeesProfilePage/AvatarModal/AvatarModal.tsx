@@ -6,16 +6,13 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { ModalWindow } from '../../../components/UI/ModalWindow';
 import { avatarSchema } from '../../../utils/validationSchema';
 import { IAvatarReturn } from '../../../interfaces/IAvatar';
-import {
-  DELETE_AVATAR,
-  updateUserCacheAfterAvatarMutation,
-  UPLOAD_AVATAR,
-} from '../../../graphql/mutations/avatar';
+import { DELETE_AVATAR, UPLOAD_AVATAR } from '../../../graphql/mutations/avatar/avatar';
 import { convertToBase64 } from '../helpers/convertToBase64';
 import { USER } from '../../../graphql/queries/user';
 import { IUserAllResult } from '../../../interfaces/IUser.interface';
 import { Spinner } from '../../../components/Spinner';
 import { TError } from '../../../types/errorTypes';
+import { updateUserCacheAfterAvatarMutation } from '../../../graphql/mutations/avatar/avatar.cache';
 import { IAvatarForm, IAvatarModal } from './AvatarModal.types';
 import { InputFile } from './InputFile/InputFile';
 import * as Styled from './AvatarModal.styles';
