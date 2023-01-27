@@ -1,4 +1,4 @@
-import { Button, MenuItem, MenuList, Paper as MuiPaper, styled, Typography } from '@mui/material';
+import { Button, MenuItem, MenuList, Paper as MuiPaper, styled } from '@mui/material';
 
 export const Paper = styled(MuiPaper)(() => ({
   minWidth: '100%',
@@ -35,33 +35,6 @@ export const ContentWrapper = styled('div')(() => ({
   whiteSpace: 'pre-wrap',
   wordWrap: 'break-word',
   wordBreak: 'break-word',
-}));
-
-export const TopicWrapper = styled('div')(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  rowGap: 10,
-}));
-
-export const RowTitleTypography = styled(Typography)(({ theme }) => ({
-  fontSize: 22,
-  color: theme.palette.secondary.contrastText,
-
-  [theme.breakpoints.down('sm')]: {
-    fontSize: 18,
-  },
-}));
-
-export const RowContentTypography = styled(Typography)(({ theme }) => ({
-  fontSize: 22,
-  color: theme.palette.primary.main,
-
-  [theme.breakpoints.down('sm')]: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    textAlign: 'center',
-    fontSize: 18,
-  },
 }));
 
 export const ButtonWrapper = styled('div')(({ theme }) => ({

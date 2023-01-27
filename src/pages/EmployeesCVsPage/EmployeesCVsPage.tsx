@@ -14,6 +14,8 @@ import { CvsMenu } from './CvsMenu/CvsMenu';
 import { ICvData } from './EmployeesCVsPage.types';
 import * as Styled from './EmployeesCVsPage.styles';
 import { CvEditModal } from './CvEditModal/CvEditModal';
+import { Row } from './Row/Row';
+import { CvsList } from './CvsList/CvsList';
 
 const EmployeesCVsPage = () => {
   const user = useUser();
@@ -99,17 +101,8 @@ const EmployeesCVsPage = () => {
                 <Divider />
                 <Styled.Wrapper>
                   <Styled.ContentWrapper>
-                    <Styled.TopicWrapper>
-                      <Styled.RowTitleTypography>{'Name:'}</Styled.RowTitleTypography>
-                      <Styled.RowContentTypography>{cvData.name}</Styled.RowContentTypography>
-                    </Styled.TopicWrapper>
-
-                    <Styled.TopicWrapper>
-                      <Styled.RowTitleTypography>{'Description:'}</Styled.RowTitleTypography>
-                      <Styled.RowContentTypography>
-                        {cvData.description}
-                      </Styled.RowContentTypography>
-                    </Styled.TopicWrapper>
+                    <Row title={'Name:'} content={cvData.name} />
+                    <Row title={'Description:'} content={cvData.description} />
                   </Styled.ContentWrapper>
 
                   <Styled.ButtonWrapper>
@@ -124,13 +117,7 @@ const EmployeesCVsPage = () => {
                 </Styled.Wrapper>
               </>
             ) : (
-              <Styled.ListMenu>
-                {data?.user?.cvs?.map(({ id, name }) => (
-                  <Styled.ItemMenu key={id} onClick={showCv(id)}>
-                    {name}
-                  </Styled.ItemMenu>
-                ))}
-              </Styled.ListMenu>
+              <CvsList data={data?.user?.cvs || []} onClick={showCv} />
             )}
           </Container>
         )}
@@ -149,6 +136,8 @@ const EmployeesCVsPage = () => {
     </>
   );
 };
+
+// TO-DO remove CvModal and remove it ------------->
 
 // const EmployeesCVsPage = () => {
 //   const user = useUser();
