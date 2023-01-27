@@ -1,4 +1,4 @@
-import { IProfileModalProps } from '../../../pages/EmployeesProfilePage/ProfileModal/ProfileModal.types';
+import { RoutePath } from '../../../constants/routeVariables';
 import { IColumn } from './../../../pages/EmployeesPage/TableData/TableData.interface';
 
 export type TableProps<T = Item> = {
@@ -7,7 +7,8 @@ export type TableProps<T = Item> = {
   handleDelete: (id: string) => void;
   searchParameter: string;
   textAddBtn: string;
-  TableUpdateModal: React.FC<IProfileModalProps>;
+  buttonUpdateTitle: string;
+  buttonUpdatePagePath: RoutePath;
 };
 
 export type Item = Record<string, string>;

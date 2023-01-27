@@ -1,8 +1,9 @@
-import { IProfileModalProps } from '../../../pages/EmployeesProfilePage/ProfileModal/ProfileModal.types';
+import { RoutePath } from '../../../constants/routeVariables';
 
 export type TableRowProps = {
   children: React.ReactNode;
   handleDelete: (id: string) => void;
   id: string;
-  TableUpdateModal: React.FC<IProfileModalProps>;
+  buttonUpdateTitle: string;
+  buttonUpdatePagePath: RoutePath;
 };

@@ -27,7 +27,8 @@ const Table = ({
   searchParameter,
   handleDelete,
   textAddBtn,
-  TableUpdateModal,
+  buttonUpdateTitle,
+  buttonUpdatePagePath,
 }: TableProps) => {
   const [searchString, setSearchString] = useState('');
   const [sortingBy, setSortingBy] = useState(header[0].columnKey);
@@ -89,7 +90,8 @@ const Table = ({
                 key={item.id}
                 id={item.id}
                 handleDelete={handleDelete}
-                TableUpdateModal={TableUpdateModal}
+                buttonUpdateTitle={buttonUpdateTitle}
+                buttonUpdatePagePath={buttonUpdatePagePath}
               >
                 {header.map(({ columnKey, ColumnCellComponent = TableRowCell }) => (
                   <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />

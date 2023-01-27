@@ -11,7 +11,6 @@ import {
   DeleteUserResult,
 } from '../../graphql/mutations/deleteUser/deleteUser.types';
 import { DELETE_USER } from '../../graphql/mutations/deleteUser/deleteUser';
-import { ProfileModal } from '../EmployeesProfilePage/ProfileModal/ProfileModal';
 import { updateCacheAfterDeleteUser } from '../../graphql/mutations/deleteUser/deleteUserUpdateCache';
 import { UsersTableHeader } from './TableData/UsersTableHeader';
 import { getAllUsers } from './TableData/UsersTableRows';
@@ -33,8 +32,8 @@ const EmployeesPage = () => {
   const handleUserDelete = (id: string) => {
     deleteUser({
       variables: { id },
-      update(cache, { data }) {
-        updateCacheAfterDeleteUser(cache, id, data as DeleteUserResult);
+      update(cache) {
+        updateCacheAfterDeleteUser(cache, id);
       },
     });
   };
@@ -49,7 +48,8 @@ const EmployeesPage = () => {
             handleDelete={handleUserDelete}
             searchParameter="name"
             textAddBtn="Add employee"
-            TableUpdateModal={ProfileModal}
+            buttonUpdateTitle="Profile"
+            buttonUpdatePagePath={RoutePath.PROFILE}
           />
         </Grid>
       </Container>
