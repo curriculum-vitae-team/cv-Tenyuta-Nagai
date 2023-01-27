@@ -1,6 +1,7 @@
-import { Drawer, IconButton, MenuItem } from '@mui/material';
+import { Drawer, IconButton } from '@mui/material';
 import React, { FC } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
+import { ItemMenu, ListMenu } from '../EmployeesCVsPage.styles';
 import { ICvsMenuProps } from './CvsMenu.types';
 import * as Styled from './CvsMenu.styles';
 
@@ -31,21 +32,13 @@ export const CvsMenu: FC<ICvsMenuProps> = ({ data, open, showCvData, onClose }) 
             <CloseIcon />
           </IconButton>
         </Styled.ToolbarMenu>
-        <Styled.ListMenu>
-          {data?.user.cvs?.map(({ id, name }) => (
-            <MenuItem
-              key={id}
-              onClick={setCvData(id)}
-              sx={{
-                whiteSpace: 'pre-wrap',
-                wordWrap: 'break-word',
-                wordBreak: 'break-word',
-              }}
-            >
+        <ListMenu>
+          {data?.user?.cvs?.map(({ id, name }) => (
+            <ItemMenu key={id} onClick={setCvData(id)}>
               {name}
-            </MenuItem>
+            </ItemMenu>
           ))}
-        </Styled.ListMenu>
+        </ListMenu>
       </Styled.CardMenu>
     </Drawer>
   );

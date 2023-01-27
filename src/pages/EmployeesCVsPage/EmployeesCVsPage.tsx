@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Box, Button, Container, Divider, Paper } from '@mui/material';
+import { Container, Divider } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Spinner } from '../../components/Spinner';
@@ -50,6 +50,10 @@ const EmployeesCVsPage = () => {
     }
   };
 
+  const showCv = (id: string) => {
+    return () => showCvData(id);
+  };
+
   const handleOpenMenu = () => {
     setIsOpenMenu(true);
   };
@@ -67,7 +71,9 @@ const EmployeesCVsPage = () => {
   const handleCloseEditModal = (data?: ICvData) => {
     if (data) {
       setCvData(data);
+      !data.id && setIsDataCv(false);
     }
+
     setIsOpenEditModal(false);
   };
 
@@ -78,43 +84,56 @@ const EmployeesCVsPage = () => {
           <Spinner />
         ) : (
           <Container maxWidth="xl">
-            <Styled.WrapperCvsButton>
-              <Styled.CvsButton variant="outlined" color="secondary" onClick={handleOpenMenu}>
-                Cvs list
-              </Styled.CvsButton>
-            </Styled.WrapperCvsButton>
+            {isDataCv ? (
+              <>
+                <Styled.WrapperCvsButton>
+                  <Styled.CvsButton variant="outlined" color="secondary" onClick={handleOpenMenu}>
+                    Cvs list
+                  </Styled.CvsButton>
+                </Styled.WrapperCvsButton>
 
-            <Divider />
+                <Divider />
+                <Styled.Wrapper>
+                  <Styled.ContentWrapper>
+                    <Styled.TopicWrapper>
+                      <Styled.RowTitleTypography>{'Name:'}</Styled.RowTitleTypography>
+                      <Styled.RowContentTypography>{cvData.name}</Styled.RowContentTypography>
+                    </Styled.TopicWrapper>
 
-            {isDataCv && (
-              <Styled.Wrapper>
-                <Styled.ContentWrapper>
-                  <Styled.TopicWrapper>
-                    <Styled.RowTitleTypography>{'Name:'}</Styled.RowTitleTypography>
-                    <Styled.RowContentTypography>{cvData.name}</Styled.RowContentTypography>
-                  </Styled.TopicWrapper>
+                    <Styled.TopicWrapper>
+                      <Styled.RowTitleTypography>{'Description:'}</Styled.RowTitleTypography>
+                      <Styled.RowContentTypography>
+                        {cvData.description}
+                      </Styled.RowContentTypography>
+                    </Styled.TopicWrapper>
+                  </Styled.ContentWrapper>
 
-                  <Styled.TopicWrapper>
-                    <Styled.RowTitleTypography>{'Description:'}</Styled.RowTitleTypography>
-                    <Styled.RowContentTypography>{cvData.description}</Styled.RowContentTypography>
-                  </Styled.TopicWrapper>
-                </Styled.ContentWrapper>
+                  <Styled.ButtonWrapper>
+                    <PrivateButton isVisible={isDataCv} onClick={handleEdit}>
+                      Edit
+                    </PrivateButton>
 
-                <Styled.ButtonWrapper>
-                  <PrivateButton isVisible={isDataCv} onClick={handleEdit}>
-                    Edit
-                  </PrivateButton>
-
-                  <PrivateButton isVisible={isDataCv} onClick={handlePreview}>
-                    Preview
-                  </PrivateButton>
-                </Styled.ButtonWrapper>
-              </Styled.Wrapper>
+                    <PrivateButton isVisible={isDataCv} onClick={handlePreview}>
+                      Preview
+                    </PrivateButton>
+                  </Styled.ButtonWrapper>
+                </Styled.Wrapper>
+              </>
+            ) : (
+              <Styled.ListMenu>
+                {data?.user?.cvs?.map(({ id, name }) => (
+                  <Styled.ItemMenu key={id} onClick={showCv(id)}>
+                    {name}
+                  </Styled.ItemMenu>
+                ))}
+              </Styled.ListMenu>
             )}
           </Container>
         )}
       </Styled.Paper>
+
       <CvsMenu data={data!} open={isOpenMenu} showCvData={showCvData} onClose={handleCloseMenu} />
+
       {isOpenEditModal && (
         <CvEditModal
           cvId={cvData.id}

@@ -1,16 +1,7 @@
-import { Button, styled } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import { styled } from '@mui/material';
+import { LoadingButton as MuiLoadingButton } from '@mui/lab';
 
-export const ButtonSubmit = styled(LoadingButton)(({ theme }) => ({
-  marginTop: 16,
-  backgroundColor: theme.palette.secondary.main,
-
-  [theme.breakpoints.down('sm')]: {
-    fontSize: 14,
-  },
-}));
-
-export const ButtonUnBind = styled(Button)(({ theme }) => ({
+export const Button = styled(MuiLoadingButton)(({ theme }) => ({
   marginTop: 16,
   backgroundColor: theme.palette.secondary.main,
 
