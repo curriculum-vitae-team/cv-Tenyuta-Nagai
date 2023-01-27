@@ -18,3 +18,7 @@ export interface ICv {
 export interface ICvResult {
   updateCv: ICv;
 }
+
+export interface ICvUnbindResult {
+  unbindCv: ICv;
+}

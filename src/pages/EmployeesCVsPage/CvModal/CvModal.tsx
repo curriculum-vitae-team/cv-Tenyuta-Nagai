@@ -9,7 +9,7 @@ import { ModalWindow } from '../../../components/UI/ModalWindow';
 import { TFormSubmit } from '../../../types/formTypes';
 import { editCvSchema } from '../../../utils/validationSchema';
 import { ICvResult } from '../../../interfaces/ICv.interface';
-import { CREATE_CV } from '../../../graphql/mutations/cv';
+import { CREATE_CV } from '../../../graphql/mutations/cv/cv';
 import { ICvModalProps, IFormCreateCv } from './CvModal.types';
 import * as Styled from './CvModal.styles';
 

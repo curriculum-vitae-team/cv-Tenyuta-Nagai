@@ -7,21 +7,26 @@ import { InputText } from '../../../components/UI/InputText';
 import { ModalWindow } from '../../../components/UI/ModalWindow';
 import { TFormSubmit } from '../../../types/formTypes';
 import { editCvSchema } from '../../../utils/validationSchema';
-import { ICvResult } from '../../../interfaces/ICv.interface';
-import { UNBIND_CV, UPDATE_CV } from '../../../graphql/mutations/cv';
+import { ICvResult, ICvUnbindResult } from '../../../interfaces/ICv.interface';
+import { UNBIND_CV, UPDATE_CV } from '../../../graphql/mutations/cv/cv';
 import { TError } from '../../../types/errorTypes';
+import { updateUserCacheAfterCvUnbindMutation } from '../../../graphql/mutations/cv/cv.cache';
 import { ICvEditModalProps, IFormEditCv } from './CvEditModal.types';
 import * as Styled from './CvEditModal.styles';
 
 export const CvEditModal: FC<ICvEditModalProps> = ({ open, onClose, cvId, userData }) => {
-  const cv = userData?.user?.cvs?.filter((x) => x.id === cvId)[0];
+  const cv = userData?.user?.cvs?.filter((cv) => cv.id === cvId)[0];
   const [isTemplate, setIsTemplate] = useState(cv?.is_template);
   const [updateCV, { loading: updateCvLoading, error: updateCvError }] = useMutation<ICvResult>(
     UPDATE_CV
   );
-  const [unbindCV, { loading: unbindCvLoading, error: unbindCvError }] = useMutation<ICvResult>(
-    UNBIND_CV
-  );
+  const [unbindCV, { loading: unbindCvLoading, error: unbindCvError }] = useMutation<
+    ICvUnbindResult
+  >(UNBIND_CV, {
+    update(cache, { data }) {
+      updateUserCacheAfterCvUnbindMutation(cache, userData.user.id, data!);
+    },
+  });
 
   if (updateCvError || unbindCvError) {
     onClose();

@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Container, Divider } from '@mui/material';
+import { Box, Button, Container, Divider } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Spinner } from '../../components/Spinner';
@@ -32,6 +32,10 @@ const EmployeesCVsPage = () => {
   const [isDataCv, setIsDataCv] = useState(false);
 
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+
+  if (data) {
+    console.log('data', data);
+  }
 
   if (error) {
     navigate(`/${RoutePath.EMPLOYEES}`);
