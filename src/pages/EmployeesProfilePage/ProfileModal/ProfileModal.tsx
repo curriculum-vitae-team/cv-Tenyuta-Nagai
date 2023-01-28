@@ -51,7 +51,7 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
             },
             departmentId: inputs.department,
             positionId: inputs.position,
-            cvsIds: [],
+            cvsIds: userData?.user?.cvs?.map(({ id }) => id) || [],
           },
         },
       });

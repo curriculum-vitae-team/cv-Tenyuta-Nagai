@@ -7,4 +7,5 @@ export interface IPrivateButtonProps {
   onClick: () => void;
   size?: 'small' | 'medium' | 'large' | undefined;
   sx?: SxProps;
+  disabled?: boolean;
 }
