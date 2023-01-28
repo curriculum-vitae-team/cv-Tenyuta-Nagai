@@ -22,9 +22,9 @@ export const InputSelect: FC<IInputSelectProps> = ({
       inputProps={register(registerName)}
       defaultValue={defaultValue}
     >
-      {data.map(({ id, name }) => (
+      {data.map(({ id, name, nameRole }) => (
         <MenuItem key={id} value={id}>
-          {name}
+          {name || nameRole}
         </MenuItem>
       ))}
     </TextField>

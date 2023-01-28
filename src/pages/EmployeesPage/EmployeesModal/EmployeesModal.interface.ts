@@ -10,4 +10,5 @@ export interface IEmployeesFormInput {
   department: string;
   email: string;
   password: string;
+  role: string;
 }

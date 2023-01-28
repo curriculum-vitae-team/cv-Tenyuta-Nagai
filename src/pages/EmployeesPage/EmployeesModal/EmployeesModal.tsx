@@ -19,7 +19,7 @@ import { IEmployeesFormInput, IEmployeesModalProps } from './EmployeesModal.inte
 import * as Styled from './EmployeesModal.styles';
 
 export const EmployeesModal: FC<IEmployeesModalProps> = ({ open, onClose }) => {
-  const { loading, error, positionsData, departmentsData } = useEmployeesFormData();
+  const { loading, error, positionsData, departmentsData, rolesData } = useEmployeesFormData();
   const [createUser, { loading: updateLoading }] = useMutation<IUserAllResult>(CREATE_USER);
   const {
     register,
@@ -29,8 +29,6 @@ export const EmployeesModal: FC<IEmployeesModalProps> = ({ open, onClose }) => {
     mode: 'onChange',
     resolver: yupResolver(employeesSchema),
   });
-
-  const Role = 'employee';
 
   if (error) {
     onClose();
@@ -53,11 +51,11 @@ export const EmployeesModal: FC<IEmployeesModalProps> = ({ open, onClose }) => {
           departmentId: inputs.department,
           positionId: inputs.position,
           cvsIds: [],
-          role: 'employee',
+          role: inputs.role,
         },
       },
       update(cache, { data }) {
-        updateCacheAfterCreatingUser(cache, Role, (data as unknown) as CreateUserResult);
+        updateCacheAfterCreatingUser(cache, inputs.role, (data as unknown) as CreateUserResult);
       },
     })
       .catch((err) => console.error((err as TError).message))
@@ -117,6 +115,14 @@ export const EmployeesModal: FC<IEmployeesModalProps> = ({ open, onClose }) => {
             register={register}
             defaultValue={''}
             data={departmentsData!.departments}
+          />
+
+          <InputSelect
+            label={'User role'}
+            registerName={FieldNameEmployeesForm.ROLE}
+            register={register}
+            defaultValue={''}
+            data={rolesData}
           />
 
           <Styled.ButtonSubmit
