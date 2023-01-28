@@ -30,6 +30,8 @@ export const EmployeesModal: FC<IEmployeesModalProps> = ({ open, onClose }) => {
     resolver: yupResolver(employeesSchema),
   });
 
+  const Role = 'employee';
+
   if (error) {
     onClose();
   }
@@ -55,7 +57,7 @@ export const EmployeesModal: FC<IEmployeesModalProps> = ({ open, onClose }) => {
         },
       },
       update(cache, { data }) {
-        updateCacheAfterCreatingUser(cache, (data as unknown) as CreateUserResult);
+        updateCacheAfterCreatingUser(cache, Role, (data as unknown) as CreateUserResult);
       },
     })
       .catch((err) => console.error((err as TError).message))

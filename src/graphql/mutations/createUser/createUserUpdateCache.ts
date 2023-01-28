@@ -5,15 +5,25 @@ import { CreateUserResult } from './createUser.types';
 
 export const updateCacheAfterCreatingUser = (
   cache: ApolloCache<NormalizedCacheObject>,
+  role: string,
   data?: CreateUserResult
 ) => {
   const allUsers = cache.readQuery<IUsersResult>({ query: GET_ALL_USERS });
+
+  const newUser = {
+    ...data?.createUser,
+    profile: {
+      ...data?.createUser.profile,
+      created_at: new Date(),
+    },
+    role,
+  };
 
   if (allUsers) {
     cache.writeQuery({
       query: GET_ALL_USERS,
       data: {
-        users: [data?.createUser.user, ...allUsers.users],
+        users: [newUser, ...allUsers.users],
       },
     });
   }

@@ -13,7 +13,5 @@ export type CreateUserInput = {
 };
 
 export type CreateUserResult = {
-  createUser: {
-    user: IUser;
-  };
+  createUser: IUser;
 };
