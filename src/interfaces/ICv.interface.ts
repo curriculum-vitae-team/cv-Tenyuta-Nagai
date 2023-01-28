@@ -22,3 +22,7 @@ export interface ICvResult {
 export interface ICvUnbindResult {
   unbindCv: ICv;
 }
+
+export interface ICvsResult {
+  cvs: ICv[];
+}

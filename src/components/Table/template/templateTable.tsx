@@ -65,13 +65,16 @@ const Table = ({ header, items, searchParameter }: TableProps) => {
           {items
             .filter(
               searchString
-                ? (item) => item[searchParameter].toLowerCase().includes(searchString.toLowerCase())
+                ? (item) =>
+                    (item[searchParameter] as string)
+                      .toLowerCase()
+                      .includes(searchString.toLowerCase())
                 : (item) => item
             )
             .sort(sortingColumns<Item>(sortingBy, sortingIsAsc))
 
             .map((item) => (
-              <TableRowComponent key={item.id}>
+              <TableRowComponent key={item.id as string}>
                 {header.map(({ columnKey, ColumnCellComponent = TableRowCell }) => (
                   <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />
                 ))}

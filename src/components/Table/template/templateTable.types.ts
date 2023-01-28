@@ -6,7 +6,7 @@ export type TableProps<T = Item> = {
   searchParameter: string;
 };
 
-export type Item = Record<string, string>;
+export type Item = Record<string, string | boolean | number>;
 
 export type Element = {
   id: string;

@@ -1,10 +1,13 @@
 import { IColumn } from '../../EmployeesPage/TableData/TableData.interface';
+import { DescriptionCvsTable } from '../CvsCustomTableCells/DescriptionCvsTable';
+import { TemplateCvsTable } from '../CvsCustomTableCells/TemplateCvsTable';
 
 export const CvsTableHeader: IColumn[] = [
   {
     columnKey: 'template',
     columnName: 'Template',
     isSortable: false,
+    ColumnCellComponent: TemplateCvsTable,
   },
   {
     columnKey: 'name',
@@ -15,6 +18,12 @@ export const CvsTableHeader: IColumn[] = [
     columnKey: 'description',
     columnName: 'Description',
     isSortable: false,
+    ColumnCellComponent: DescriptionCvsTable,
   },
   { columnKey: 'employee', columnName: 'Employee', isSortable: true },
+  {
+    columnKey: 'projects',
+    columnName: 'Projects',
+    isSortable: false,
+  },
 ];
