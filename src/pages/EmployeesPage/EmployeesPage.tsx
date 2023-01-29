@@ -12,6 +12,8 @@ import {
 } from '../../graphql/mutations/deleteUser/deleteUser.types';
 import { DELETE_USER } from '../../graphql/mutations/deleteUser/deleteUser';
 import { updateCacheAfterDeleteUser } from '../../graphql/mutations/deleteUser/deleteUserUpdateCache';
+import { useUser } from '../../hooks/useUser';
+import { UserRoles } from '../../constants/userRoles';
 import { UsersTableHeader } from './TableData/UsersTableHeader';
 import { getAllUsers } from './TableData/UsersTableRows';
 import { EmployeesModal } from './EmployeesModal';
@@ -21,6 +23,8 @@ const EmployeesPage = () => {
   const navigate = useNavigate();
   const { data, loading, error } = useQuery(GET_ALL_USERS);
   const [deleteUser] = useMutation<DeleteUserResult, DeleteUserInput>(DELETE_USER);
+  const user = useUser();
+  const isCreateBtnVisible = user?.role === UserRoles.Admin;
 
   if (loading) {
     return <Spinner />;
@@ -49,9 +53,10 @@ const EmployeesPage = () => {
             handleDelete={handleUserDelete}
             ModalForCreating={EmployeesModal}
             searchParameter="name"
-            textAddBtn="Add employee"
-            buttonUpdateTitle="Profile"
-            buttonUpdatePagePath={RoutePath.PROFILE}
+            titleCreateBtn="Add employee"
+            buttonNavigateTitle="Profile"
+            buttonNavigatePagePath={RoutePath.PROFILE}
+            isCreateBtnVisible={isCreateBtnVisible}
           />
         </Grid>
       </Container>

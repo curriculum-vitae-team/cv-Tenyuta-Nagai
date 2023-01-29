@@ -18,8 +18,8 @@ const TableRowComponent = ({
   children,
   handleDelete,
   id,
-  buttonUpdateTitle,
-  buttonUpdatePagePath,
+  buttonNavigateTitle,
+  buttonNavigatePagePath,
 }: TableRowProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -40,7 +40,7 @@ const TableRowComponent = ({
   };
 
   const handleGoToProfile = () => {
-    navigate(`/${RoutePath.EMPLOYEES}/${id}/${buttonUpdatePagePath}`);
+    navigate(`/${RoutePath.EMPLOYEES}/${id}/${buttonNavigatePagePath}`);
   };
 
   return (
@@ -75,7 +75,7 @@ const TableRowComponent = ({
       >
         <MenuItem sx={ActionsMenuRowItemProps} onClick={handleGoToProfile}>
           <UpdateIcon sx={ActionsMenuRowIconsProps} />
-          {buttonUpdateTitle}
+          {buttonNavigateTitle}
         </MenuItem>
 
         {isAdmin && <Divider />}
