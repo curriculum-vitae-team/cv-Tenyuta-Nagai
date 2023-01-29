@@ -23,6 +23,7 @@ export const employeesSchema = object({
   password: string()
     .required()
     .min(5),
+  role: string().required(),
 });
 
 export const avatarSchema = object().shape({

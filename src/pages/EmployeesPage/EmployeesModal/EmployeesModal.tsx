@@ -121,7 +121,7 @@ export const EmployeesModal: FC<IEmployeesModalProps> = ({ open, onClose }) => {
             label={'User role'}
             registerName={FieldNameEmployeesForm.ROLE}
             register={register}
-            defaultValue={''}
+            defaultValue={'employee'}
             data={rolesData}
           />
 
