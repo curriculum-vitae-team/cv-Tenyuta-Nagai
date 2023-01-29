@@ -4,7 +4,7 @@ import { IAuthInput } from '../../authentication/authResult.interface.';
 
 export type CreateUserInput = {
   user: {
-    auth?: IAuthInput;
+    auth: IAuthInput;
     profile: IProfileInput;
     cvsIds: string[];
     departmentId: string;
