@@ -6,9 +6,10 @@ export type TableProps<T = Item> = {
   items: T[];
   handleDelete: (id: string) => void;
   searchParameter: string;
-  textAddBtn: string;
-  buttonUpdateTitle: string;
-  buttonUpdatePagePath: RoutePath;
+  titleCreateBtn: string;
+  buttonNavigateTitle: string;
+  buttonNavigatePagePath: RoutePath;
+  isCreateBtnVisible: boolean;
 };
 
 export type Item = Record<string, string>;
