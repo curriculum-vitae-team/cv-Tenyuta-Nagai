@@ -73,11 +73,7 @@ const TableRowComponent = ({
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem
-          sx={ActionsMenuRowItemProps}
-          onClick={handleGoToProfile}
-          disabled={user?.id !== id && !isAdmin}
-        >
+        <MenuItem sx={ActionsMenuRowItemProps} onClick={handleGoToProfile}>
           <UpdateIcon sx={ActionsMenuRowIconsProps} />
           {buttonUpdateTitle}
         </MenuItem>
