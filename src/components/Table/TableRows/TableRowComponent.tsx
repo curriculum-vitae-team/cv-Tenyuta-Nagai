@@ -4,6 +4,7 @@ import React from 'react';
 import { TableRowProps } from './TableRowComponent.types';
 
 const TableRowComponent = ({ children }: TableRowProps) => {
+  console.log(children);
   return (
     <>
       <TableRow>
