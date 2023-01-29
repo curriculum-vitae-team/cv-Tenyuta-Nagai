@@ -1,8 +1,7 @@
 import { UseFormRegister, FieldValues } from 'react-hook-form';
 import { SxProps } from '@mui/system';
-import { UserRoles } from './../../../constants/userRoles';
 
-type TData = { id: string | UserRoles; name?: string; nameRole?: UserRoles };
+type TData = { id: string; name: string };
 
 export interface IInputSelectProps {
   label: string;

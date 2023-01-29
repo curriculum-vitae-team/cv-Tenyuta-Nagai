@@ -13,8 +13,8 @@ export const useEmployeesFormData = () => {
     IPositionReturn
   >(POSITIONS);
   const rolesData = [
-    { id: UserRoles.Admin, nameRole: UserRoles.Admin },
-    { id: UserRoles.Employee, nameRole: UserRoles.Employee },
+    { id: UserRoles.Admin as string, name: UserRoles.Admin as string },
+    { id: UserRoles.Employee as string, name: UserRoles.Employee as string },
   ];
 
   return {
