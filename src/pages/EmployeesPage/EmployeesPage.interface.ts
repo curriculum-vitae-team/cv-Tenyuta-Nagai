@@ -1,6 +1,6 @@
 import { IUser } from '../../interfaces/IUser.interface';
 
-export interface UsersResult {
+export interface IUsersResult {
   users: IUser[];
 }
 

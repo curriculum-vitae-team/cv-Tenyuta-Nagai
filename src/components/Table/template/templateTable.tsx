@@ -9,16 +9,27 @@ import {
   TableContainer,
 } from '@mui/material';
 import { SearchInput } from '../helpers/Search';
-import { AddEmployeeBtn } from '../helpers/AddEmployeeBtn';
+
 import { TableHeaderComponent } from '../TableHeader/TableHeaderComponent';
 import { TableRowComponent } from '../TableRows';
 
 import { sortingColumns } from '../helpers/Sorting/sortingColumns';
 import { Directions } from '../../../constants/sortingDirections';
 import { TableRowCell } from '../TableRows/TableRowCell';
+import { PrivateButton } from '../../UI/PrivateButton';
+
 import { Element, Item, TableProps } from './templateTable.types';
 
-const Table = ({ header, items, searchParameter }: TableProps) => {
+const Table = ({
+  header,
+  items,
+  searchParameter,
+  handleDelete,
+  titleCreateBtn,
+  buttonNavigateTitle,
+  buttonNavigatePagePath,
+  isCreateBtnVisible,
+}: TableProps) => {
   const [searchString, setSearchString] = useState('');
   const [sortingBy, setSortingBy] = useState(header[0].columnKey);
   const [sortingIsAsc, setSortingIsAsc] = useState(true);
@@ -49,7 +60,12 @@ const Table = ({ header, items, searchParameter }: TableProps) => {
                   handleSetSearchString={handleSetSearchString}
                   searchString={searchString}
                 />
-                <AddEmployeeBtn />
+                <PrivateButton
+                  isVisible={isCreateBtnVisible}
+                  onClick={() => console.log('Add employee')}
+                >
+                  {titleCreateBtn}
+                </PrivateButton>
               </Grid>
             </TableCell>
           </TableRow>
@@ -74,7 +90,13 @@ const Table = ({ header, items, searchParameter }: TableProps) => {
             .sort(sortingColumns<Item>(sortingBy, sortingIsAsc))
 
             .map((item) => (
-              <TableRowComponent key={item.id as string}>
+              <TableRowComponent
+                key={item.id as string}
+                id={item.id as string}
+                handleDelete={handleDelete}
+                buttonNavigateTitle={buttonNavigateTitle}
+                buttonNavigatePagePath={buttonNavigatePagePath}
+              >
                 {header.map(({ columnKey, ColumnCellComponent = TableRowCell }) => (
                   <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />
                 ))}
