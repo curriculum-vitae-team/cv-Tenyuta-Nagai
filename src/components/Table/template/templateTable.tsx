@@ -22,11 +22,9 @@ const Table = ({
   header,
   items,
   searchParameter,
-  handleDelete,
   ModalForCreating,
   titleCreateBtn,
-  buttonNavigateTitle,
-  buttonNavigatePagePath,
+  AdditionalButtons,
   isCreateBtnVisible,
 }: TableProps) => {
   const [searchString, setSearchString] = useState('');
@@ -97,13 +95,7 @@ const Table = ({
               .sort(sortingColumns<Item>(sortingBy, sortingIsAsc))
 
               .map((item) => (
-                <TableRowComponent
-                  key={item.id}
-                  id={item.id}
-                  handleDelete={handleDelete}
-                  buttonNavigateTitle={buttonNavigateTitle}
-                  buttonNavigatePagePath={buttonNavigatePagePath}
-                >
+                <TableRowComponent key={item.id} id={item.id} AdditionalButtons={AdditionalButtons}>
                   {header.map(({ columnKey, ColumnCellComponent = TableRowCell }) => (
                     <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />
                   ))}
