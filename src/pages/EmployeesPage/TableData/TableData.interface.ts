@@ -10,4 +10,6 @@ export interface IColumn {
 export interface IColumnCellComponentProps {
   item: Item;
   columnKey: string;
+  handleDelete?: (id: string) => void;
+  id?: string;
 }

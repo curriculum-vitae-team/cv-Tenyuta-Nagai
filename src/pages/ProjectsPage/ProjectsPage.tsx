@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useQuery } from '@apollo/client';
 import React from 'react';
 import { Container, Grid } from '@mui/material';
@@ -29,11 +30,11 @@ const ProjectsPage = () => {
     <main>
       <Container maxWidth="xl">
         <Grid container>
-          <Table
+          {/* <Table
             header={ProjectsTableHeader}
             items={getProjects(data.projects)}
-            searchParameter="name"
-          />
+            searchParameter="name" 
+          /> */}
         </Grid>
       </Container>
     </main>
