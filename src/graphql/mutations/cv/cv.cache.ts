@@ -56,3 +56,12 @@ export const updateCvsCacheAfterCvCreateMutation = (
     });
   }
 };
+
+export const updateCvsCacheAfterCvDeleteMutation = (
+  cache: ApolloCache<NormalizedCacheObject>,
+  cvId: string
+) => {
+  const id = cache.identify({ id: cvId, __typename: 'Cv' });
+  cache.evict({ id });
+  cache.gc();
+};
