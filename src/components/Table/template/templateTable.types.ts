@@ -1,16 +1,14 @@
-import { RoutePath } from '../../../constants/routeVariables';
+import { IAdditionalButtonsProps } from '../TableRows/TableRowComponent.types';
 import { IColumn } from './../../../pages/EmployeesPage/TableData/TableData.interface';
 
 export type TableProps<T = Item> = {
   header: IColumn[];
   items: T[];
-  handleDelete: (id: string) => void;
   searchParameter: string;
   ModalForCreating: React.FC<IModalForCreatingProps>;
   titleCreateBtn: string;
-  buttonNavigateTitle: string;
-  buttonNavigatePagePath: RoutePath;
   isCreateBtnVisible: boolean;
+  AdditionalButtons: React.FC<IAdditionalButtonsProps>;
 };
 
 export type Item = Record<string, string | boolean | number>;

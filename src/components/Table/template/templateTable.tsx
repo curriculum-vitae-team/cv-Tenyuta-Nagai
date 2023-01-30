@@ -22,11 +22,9 @@ const Table = ({
   header,
   items,
   searchParameter,
-  handleDelete,
   ModalForCreating,
   titleCreateBtn,
-  buttonNavigateTitle,
-  buttonNavigatePagePath,
+  AdditionalButtons,
   isCreateBtnVisible,
 }: TableProps) => {
   const [searchString, setSearchString] = useState('');
@@ -102,9 +100,7 @@ const Table = ({
                 <TableRowComponent
                   key={item.id as string}
                   id={item.id as string}
-                  handleDelete={handleDelete}
-                  buttonNavigateTitle={buttonNavigateTitle}
-                  buttonNavigatePagePath={buttonNavigatePagePath}
+                  AdditionalButtons={AdditionalButtons}
                 >
                   {header.map(({ columnKey, ColumnCellComponent = TableRowCell }) => (
                     <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />
