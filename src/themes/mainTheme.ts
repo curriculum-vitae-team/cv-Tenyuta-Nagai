@@ -30,6 +30,7 @@ export const mainTheme = createTheme({
           minHeight: '100vh',
           margin: '0 auto',
         },
+
         header: {
           flexGrow: 0,
         },
@@ -66,6 +67,15 @@ export const mainTheme = createTheme({
           minHeight: 200,
           padding: 18,
           overflowX: 'hidden',
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          '&:-webkit-autofill': {
+            WebkitBoxShadow: '0 0 0 100px #ffffff inset',
+          },
         },
       },
     },
