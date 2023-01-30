@@ -6,6 +6,7 @@ import { createTable } from '../../components/Table/template';
 import { RoutePath } from '../../constants/routeVariables';
 import { CVS } from '../../graphql/queries/cvs';
 import { ICvsResult } from '../../interfaces/ICv.interface';
+import { CreateCvModal } from './CreateCvModal/CreateCvModal';
 import { CvsTableHeader } from './data/cvsTableHeader';
 import { createCvRowData } from './helpers/createCvRowData';
 
@@ -33,6 +34,7 @@ const CvsPage = () => {
               handleDelete={handleDeleteCv}
               titleCreateBtn="Create CV"
               isCreateBtnVisible={true}
+              ModalForCreating={CreateCvModal}
             />
           </Grid>
         )}

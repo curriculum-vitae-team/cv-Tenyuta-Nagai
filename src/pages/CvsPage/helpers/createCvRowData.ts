@@ -7,6 +7,6 @@ export function createCvRowData(data: ICv[]) {
     description: cv.description || '',
     template: cv.is_template,
     employee: cv.user?.email || '',
-    projects: cv.projects?.reduce((acc, item) => (acc += `${item.name}, `), '').slice(0, -2),
+    projects: cv.projects?.reduce((acc, item) => (acc += `${item.name}, `), '').slice(0, -2), // TO-DO think about it
   }));
 }

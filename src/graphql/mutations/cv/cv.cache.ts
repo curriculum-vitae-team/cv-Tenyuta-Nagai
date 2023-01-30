@@ -1,6 +1,7 @@
 import { ApolloCache, NormalizedCacheObject } from '@apollo/client';
-import { ICvUnbindResult } from '../../../interfaces/ICv.interface';
+import { ICvsCreateResult, ICvsResult, ICvUnbindResult } from '../../../interfaces/ICv.interface';
 import { IUserAllResult } from '../../../interfaces/IUser.interface';
+import { CVS } from '../../queries/cvs';
 import { USER } from '../../queries/user';
 
 export const updateUserCacheAfterCvUnbindMutation = (
@@ -27,4 +28,31 @@ export const updateUserCacheAfterCvUnbindMutation = (
       id: userId,
     },
   });
+};
+
+export const updateCvsCacheAfterCvCreateMutation = (
+  cache: ApolloCache<NormalizedCacheObject>,
+  data: ICvsCreateResult,
+  userData: IUserAllResult
+) => {
+  const oldSvs = cache.readQuery<ICvsResult>({
+    query: CVS,
+  });
+
+  const newCv = {
+    ...data?.createCv,
+    user: {
+      ...userData?.user,
+    },
+    projects: [], // TO-DO change it
+  };
+
+  if (oldSvs?.cvs) {
+    cache.writeQuery({
+      query: CVS,
+      data: {
+        cvs: [newCv, ...oldSvs!.cvs],
+      },
+    });
+  }
 };

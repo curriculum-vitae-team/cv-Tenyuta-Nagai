@@ -7,6 +7,7 @@ export const InputText: FC<IInputTextProps> = ({
   register,
   registerName,
   size = 'small',
+  type,
   ...props
 }) => {
   return (
@@ -18,6 +19,7 @@ export const InputText: FC<IInputTextProps> = ({
       size={size}
       margin="normal"
       label={name}
+      type={type}
     />
   );
 };

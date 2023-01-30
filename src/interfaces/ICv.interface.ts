@@ -26,3 +26,6 @@ export interface ICvUnbindResult {
 export interface ICvsResult {
   cvs: ICv[];
 }
+export interface ICvsCreateResult {
+  createCv: ICv;
+}

@@ -16,6 +16,7 @@ import { useUser } from '../../hooks/useUser';
 import { UserRoles } from '../../constants/userRoles';
 import { UsersTableHeader } from './TableData/UsersTableHeader';
 import { getAllUsers } from './TableData/UsersTableRows';
+import { EmployeesModal } from './EmployeesModal';
 
 const EmployeesPage = () => {
   const Table = createTable();
@@ -50,6 +51,7 @@ const EmployeesPage = () => {
             header={UsersTableHeader}
             items={getAllUsers(data?.users || [])}
             handleDelete={handleUserDelete}
+            ModalForCreating={EmployeesModal}
             searchParameter="name"
             titleCreateBtn="Add employee"
             buttonNavigateTitle="Profile"

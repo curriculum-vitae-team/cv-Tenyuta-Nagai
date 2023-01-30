@@ -77,6 +77,7 @@ const TableRowComponent = ({
           <UpdateIcon sx={ActionsMenuRowIconsProps} />
           {buttonNavigateTitle}
         </MenuItem>
+
         {isAdmin && <Divider />}
 
         {isAdmin && (
