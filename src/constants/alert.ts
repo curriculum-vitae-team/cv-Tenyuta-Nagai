@@ -8,4 +8,4 @@ export enum AlertDefaultMessage {
   ERROR = 'Error',
 }
 
-export const ALERT_DURATION = 3000;
+export const ALERT_DURATION = 5000;

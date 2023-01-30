@@ -12,7 +12,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 export const Notifier = () => {
   const alertArray = useReactiveVar(notificationService.alertArray$);
   const containerRef = useRef(null);
-
   const handleClose = (id: number) => {
     return () => notificationService.closeAlert(id);
   };

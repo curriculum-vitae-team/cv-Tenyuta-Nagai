@@ -8,10 +8,13 @@ import Logout from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { USER } from '../../../graphql/queries/user';
 import { authService } from '../../../graphql/authentication/authService';
 import { RoutePath } from '../../../constants/routeVariables';
 import { useUser } from '../../../hooks/useUser';
 import { chooseAvatarLetter } from '../../../utils/chooseAvatarLetter';
+import { IUserAllResult } from '../../../interfaces/IUser.interface';
 import {
   AvatarProfileButtons,
   IconStyleProfileButtons,
@@ -25,6 +28,9 @@ export const ProfileButton = () => {
   const open = Boolean(anchorEl);
   const currentUser = useUser();
   const navigate = useNavigate();
+  const { data: userData } = useQuery<IUserAllResult>(USER, {
+    variables: { id: currentUser?.id },
+  });
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -55,7 +61,9 @@ export const ProfileButton = () => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <AvatarProfileButtons>{chooseAvatarLetter(currentUser!)}</AvatarProfileButtons>
+            <AvatarProfileButtons src={userData?.user?.profile?.avatar}>
+              {chooseAvatarLetter(currentUser!)}
+            </AvatarProfileButtons>
           </IconButton>
         </Tooltip>
       </WrapProfileButtons>
