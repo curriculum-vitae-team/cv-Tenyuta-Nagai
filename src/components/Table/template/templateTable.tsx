@@ -99,7 +99,7 @@ const Table = ({
               .map((item) => (
                 <TableRowComponent
                   key={item.id as string}
-                  id={item.id as string}
+                  item={item}
                   AdditionalButtons={AdditionalButtons}
                 >
                   {header.map(({ columnKey, ColumnCellComponent = TableRowCell }) => (

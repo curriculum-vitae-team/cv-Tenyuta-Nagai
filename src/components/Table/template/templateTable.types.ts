@@ -11,7 +11,7 @@ export type TableProps<T = Item> = {
   AdditionalButtons: React.FC<IAdditionalButtonsProps>;
 };
 
-export type Item = Record<string, string | boolean | number>;
+export type Item = Record<string, string | number | boolean>;
 
 export type Element = {
   id: string;

@@ -16,7 +16,9 @@ import {
 } from '../../../graphql/mutations/deleteUser/deleteUser.types';
 import * as Styled from './CvsAdditionalButtons.styles';
 
-export const CvsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ id }) => {
+export const CvsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
+  console.log('item', item);
+  const { id } = item;
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
   const navigate = useNavigate();
