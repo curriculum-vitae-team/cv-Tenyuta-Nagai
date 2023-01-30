@@ -16,11 +16,9 @@ const TableHeaderCell = ({
   };
 
   return (
-    <TableCellStyled>
+    <TableCellStyled onClick={handleSorting}>
       {name}
-      {isSortable && (
-        <TableSortLabel direction={direction} active={active} onClick={handleSorting} />
-      )}
+      {isSortable && <TableSortLabel direction={direction} active={active} />}
     </TableCellStyled>
   );
 };
