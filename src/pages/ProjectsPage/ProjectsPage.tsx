@@ -9,10 +9,10 @@ import { RoutePath } from '../../constants/routeVariables';
 import { GET_ALL_PROJECTS } from '../../graphql/queries/projects';
 import { useUser } from '../../hooks/useUser';
 import { UserRoles } from '../../constants/userRoles';
-import { EmployeesModal } from '../EmployeesPage/EmployeesModal';
 import { ProjectsTableHeader } from './TableData/ProjectsTableHeader';
 import { getProjects } from './TableData/ProjectsTableRows';
 import { ProjectsAdditionalButtons } from './ProjectsAdditionalButtons/ProjectsAdditionalButtons';
+import { ProjectCreateModal } from './ProjectsCreateModal';
 
 const ProjectsPage = () => {
   const Table = createTable();
@@ -29,8 +29,6 @@ const ProjectsPage = () => {
     navigate(`/${RoutePath.LOGIN}`, { replace: true });
   }
 
-  console.log(data.projects);
-
   return (
     <main>
       <Container maxWidth="xl">
@@ -38,7 +36,7 @@ const ProjectsPage = () => {
           <Table
             header={ProjectsTableHeader}
             items={getProjects(data.projects)}
-            ModalForCreating={EmployeesModal}
+            ModalForCreating={ProjectCreateModal}
             searchParameter="name"
             titleCreateBtn="Add project"
             isCreateBtnVisible={isCreateBtnVisible}
