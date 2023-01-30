@@ -10,4 +10,5 @@ export interface IInputTextProps {
   sx?: SxProps;
   size?: 'small' | 'medium' | undefined;
   defaultValue?: string;
+  type?: string;
 }
