@@ -22,11 +22,9 @@ const Table = ({
   header,
   items,
   searchParameter,
-  handleDelete,
   ModalForCreating,
   titleCreateBtn,
-  buttonNavigateTitle,
-  buttonNavigatePagePath,
+  AdditionalButtons,
   isCreateBtnVisible,
 }: TableProps) => {
   const [searchString, setSearchString] = useState('');
@@ -91,18 +89,18 @@ const Table = ({
               .filter(
                 searchString
                   ? (item) =>
-                      item[searchParameter].toLowerCase().includes(searchString.toLowerCase())
+                      (item[searchParameter] as string)
+                        .toLowerCase()
+                        .includes(searchString.toLowerCase())
                   : (item) => item
               )
               .sort(sortingColumns<Item>(sortingBy, sortingIsAsc))
 
               .map((item) => (
                 <TableRowComponent
-                  key={item.id}
-                  id={item.id}
-                  handleDelete={handleDelete}
-                  buttonNavigateTitle={buttonNavigateTitle}
-                  buttonNavigatePagePath={buttonNavigatePagePath}
+                  key={item.id as string}
+                  item={item}
+                  AdditionalButtons={AdditionalButtons}
                 >
                   {header.map(({ columnKey, ColumnCellComponent = TableRowCell }) => (
                     <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />

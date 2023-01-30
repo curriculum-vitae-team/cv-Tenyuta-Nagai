@@ -1,9 +1,11 @@
-import { RoutePath } from '../../../constants/routeVariables';
+import { Item } from '../template/templateTable.types';
+
+export interface IAdditionalButtonsProps {
+  item: Item;
+}
 
 export type TableRowProps = {
   children: React.ReactNode;
-  handleDelete: (id: string) => void;
-  id: string;
-  buttonNavigateTitle: string;
-  buttonNavigatePagePath: RoutePath;
+  AdditionalButtons: React.FC<IAdditionalButtonsProps>;
+  item: Item;
 };
