@@ -16,7 +16,8 @@ import {
 } from '../../../graphql/mutations/deleteUser/deleteUser.types';
 import * as Styled from './EmployeesAdditionalButtons.styles';
 
-export const EmployeesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ id }) => {
+export const EmployeesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
+  const { id } = item;
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
   const navigate = useNavigate();
@@ -24,9 +25,9 @@ export const EmployeesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ id }) 
 
   const handleUserDelete = () => {
     deleteUser({
-      variables: { id },
+      variables: { id: id as string },
       update(cache) {
-        updateCacheAfterDeleteUser(cache, id);
+        updateCacheAfterDeleteUser(cache, id as string);
       },
     });
   };

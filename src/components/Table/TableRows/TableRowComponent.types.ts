@@ -1,9 +1,11 @@
+import { Item } from '../template/templateTable.types';
+
 export interface IAdditionalButtonsProps {
-  id: string;
+  item: Item;
 }
 
 export type TableRowProps = {
   children: React.ReactNode;
   AdditionalButtons: React.FC<IAdditionalButtonsProps>;
-  id: string;
+  item: Item;
 };
