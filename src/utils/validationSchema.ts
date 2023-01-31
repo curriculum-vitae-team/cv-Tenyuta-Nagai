@@ -45,3 +45,10 @@ export const avatarSchema = object().shape({
       return true;
     }),
 });
+
+export const editCvSchema = object({
+  name: string()
+    .max(30)
+    .required(),
+  description: string().required(),
+}).required();
