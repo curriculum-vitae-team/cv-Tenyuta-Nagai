@@ -26,9 +26,10 @@ const Table = ({
   titleCreateBtn,
   AdditionalButtons,
   isCreateBtnVisible,
+  defaultSortingBy,
 }: TableProps) => {
   const [searchString, setSearchString] = useState('');
-  const [sortingBy, setSortingBy] = useState(header[0].columnKey);
+  const [sortingBy, setSortingBy] = useState(defaultSortingBy);
   const [sortingIsAsc, setSortingIsAsc] = useState(true);
   const [direction, setDirection] = useState<Directions>(Directions.Desc);
 
