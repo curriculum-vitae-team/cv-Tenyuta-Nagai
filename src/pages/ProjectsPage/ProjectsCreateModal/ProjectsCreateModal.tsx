@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from '../../../components/Spinner';
 import { InputText } from '../../../components/UI/InputText';
 import { IUserAllResult } from '../../../interfaces/IUser.interface';
@@ -9,6 +10,7 @@ import { TFormSubmit } from '../../../types/formTypes';
 import { TError } from '../../../types/errorTypes';
 import { CREATE_PROJECT } from '../../../graphql/mutations/createProject/createProject';
 import { FieldNameProjectsForm } from '../../../constants/FieldNameProjectsForm';
+import { projectsSchema } from '../../../utils/validationSchema';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
 import { IProjectsFormInput, IProjectsModalProps } from './ProjectsCreateModal.interface';
 
@@ -20,6 +22,7 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
     formState: { errors, isValid },
   } = useForm({
     mode: 'onChange',
+    resolver: yupResolver(projectsSchema),
   });
 
   const onSubmit = (inputs: IProjectsFormInput) => {
