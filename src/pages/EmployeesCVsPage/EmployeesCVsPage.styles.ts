@@ -26,6 +26,7 @@ export const Wrapper = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
   flexGrow: 1,
   maxHeight: '70vh',
+  marginTop: 5,
   padding: 16,
   overflowY: 'scroll',
   '::-webkit-scrollbar': {
@@ -48,10 +49,14 @@ export const ContentWrapper = styled('div')(() => ({
 }));
 
 export const ButtonWrapper = styled('div')(({ theme }) => ({
+  position: 'absolute',
+  top: 10,
+  right: 0,
   display: 'flex',
   columnGap: 18,
 
   [theme.breakpoints.down('sm')]: {
+    position: 'static',
     justifyContent: 'center',
   },
 }));
@@ -80,4 +85,9 @@ export const DriverLine = styled(Divider)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     display: 'flex',
   },
+}));
+
+export const PositionWrapper = styled('div')(() => ({
+  position: 'relative',
+  display: 'flex',
 }));

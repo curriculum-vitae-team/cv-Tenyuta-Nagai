@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client';
 import { Container } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Box } from '@mui/system';
 import { Spinner } from '../../components/Spinner';
 import { PrivateButton } from '../../components/UI/PrivateButton';
 import { RoutePath } from '../../constants/routeVariables';
@@ -90,7 +89,7 @@ const EmployeesCVsPage = () => {
 
             <Styled.DriverLine />
 
-            <Box sx={{ display: 'flex' }}>
+            <Styled.PositionWrapper>
               <Styled.CvsListWrapper>
                 <CvsList data={data?.user?.cvs || []} onClick={showCv} />
               </Styled.CvsListWrapper>
@@ -113,7 +112,7 @@ const EmployeesCVsPage = () => {
                   </Styled.ButtonWrapper>
                 </Styled.Wrapper>
               )}
-            </Box>
+            </Styled.PositionWrapper>
           </Container>
         )}
       </Styled.Paper>
