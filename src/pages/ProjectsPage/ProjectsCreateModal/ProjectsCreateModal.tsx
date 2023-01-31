@@ -13,12 +13,14 @@ import { FieldNameProjectsForm } from '../../../constants/FieldNameProjectsForm'
 import { projectsSchema } from '../../../utils/validationSchema';
 import { CreateProjectResult } from '../../../graphql/mutations/createProject/createProject.types';
 import { updateCacheAfterCreatingProject } from '../../../graphql/mutations/createProject/createProject.cache';
+import { DatePickerInput } from '../../../components/UI/DatePicker';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
 import { IProjectsFormInput, IProjectsModalProps } from './ProjectsCreateModal.interface';
 
 export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) => {
   const [createProject, { loading }] = useMutation<IUserAllResult>(CREATE_PROJECT);
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors, isValid },
@@ -97,21 +99,13 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
             helperText={errors.teamSize?.message as string}
           />
 
-          <InputText
-            type="date"
-            registerName={FieldNameProjectsForm.START_DATE}
-            register={register}
-            error={!!errors.startDate}
-            helperText={errors.startDate?.message as string}
+          <DatePickerInput
+            control={control}
+            label="Start date"
+            name="startDate"
+            required={'Please, specify the correct date'}
           />
-
-          <InputText
-            type="date"
-            registerName={FieldNameProjectsForm.END_DATE}
-            register={register}
-            error={!!errors.endDate}
-            helperText={errors.endDate?.message as string}
-          />
+          <DatePickerInput control={control} label="End date" name="endDate" />
 
           <Styled.ButtonSubmit
             loading={loading}

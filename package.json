@@ -19,6 +19,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/lab": "^5.0.0-alpha.114",
     "@mui/material": "^5.11.2",
+    "@mui/x-date-pickers": "^5.0.16",
     "graphql": "^16.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
