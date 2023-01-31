@@ -1,6 +1,6 @@
 import { BreadcrumbNames } from '../constants/breadcrumbNames';
 import { RoutePath } from '../constants/routeVariables';
-import { IUserName } from '../interfaces/IUser.interface';
+import { IUserName } from '../graphql/types/results/user';
 
 export const convertPathName = (name: string) => {
   switch (name) {

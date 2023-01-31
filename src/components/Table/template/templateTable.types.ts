@@ -1,6 +1,6 @@
-import { IEmployeesModalProps } from '../../../pages/EmployeesPage/EmployeesModal/EmployeesModal.interface';
 import { IAdditionalButtonsProps } from '../TableRows/TableRowComponent.types';
-import { IColumn } from './../../../pages/EmployeesPage/TableData/TableData.interface';
+import { IColumn } from '../../pages/EmployeesPage/TableData/TableData.interface';
+import { IEmployeesModalProps } from '../../pages/EmployeesPage/EmployeesModal/EmployeesModal.interface';
 
 export type TableProps<T = Item> = {
   header: IColumn[];

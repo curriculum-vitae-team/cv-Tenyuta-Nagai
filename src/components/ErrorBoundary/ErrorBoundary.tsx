@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ErrorPage from '../../pages/ErrorPage';
+import ErrorPage from '../pages/ErrorPage';
 import { IErrorProps, IErrorState } from './ErrorBoundary.interface';
 
 export class ErrorBoundary extends Component<IErrorProps, IErrorState> {

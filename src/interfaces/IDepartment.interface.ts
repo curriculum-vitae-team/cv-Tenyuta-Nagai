@@ -3,7 +3,3 @@ export interface IDepartment {
   created_at: string;
   name: string;
 }
-
-export interface IDepartmentReturn {
-  departments: IDepartment[];
-}

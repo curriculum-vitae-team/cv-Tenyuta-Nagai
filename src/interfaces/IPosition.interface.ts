@@ -3,7 +3,3 @@ export interface IPosition {
   created_at: string;
   name: string;
 }
-
-export interface IPositionReturn {
-  positions: IPosition[];
-}

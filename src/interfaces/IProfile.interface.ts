@@ -11,10 +11,3 @@ export interface IProfile {
   skills: ISkillMastery[];
   languages: ILanguageProficiency[];
 }
-
-export interface IProfileInput {
-  first_name: string;
-  last_name: string;
-  skills: ISkillMastery[];
-  languages: ILanguageProficiency[];
-}

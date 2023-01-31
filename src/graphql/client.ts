@@ -1,8 +1,8 @@
 import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
-import { authService } from './authentication/authService';
-import { notificationService } from './notification/notificationService';
+import { authService } from './service/authentication/authService';
+import { notificationService } from './service/notification/notificationService';
 
 const httpLink = new HttpLink({
   uri: 'https://cv-project-js.inno.ws/api/graphql',
