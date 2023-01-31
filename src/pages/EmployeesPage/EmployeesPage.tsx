@@ -40,6 +40,7 @@ const EmployeesPage = () => {
             titleCreateBtn="Add employee"
             isCreateBtnVisible={isCreateBtnVisible}
             AdditionalButtons={EmployeesAdditionalButtons}
+            defaultSortingBy="name"
           />
         </Grid>
       </Container>

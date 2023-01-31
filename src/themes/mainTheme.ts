@@ -14,6 +14,16 @@ export const mainTheme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
+        '::-webkit-scrollbar': {
+          width: 10,
+          height: 10,
+        },
+        '::-webkit-scrollbar-thumb': {
+          backgroundColor: '#bdbdbd',
+        },
+        '::-webkit-scrollbar-track': {
+          backgroundColor: '#f5f5f7',
+        },
         '*': {
           margin: 0,
           padding: 0,
@@ -30,6 +40,7 @@ export const mainTheme = createTheme({
           minHeight: '100vh',
           margin: '0 auto',
         },
+
         header: {
           flexGrow: 0,
         },
@@ -67,6 +78,15 @@ export const mainTheme = createTheme({
           minHeight: 200,
           padding: 18,
           overflowX: 'hidden',
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          '&:-webkit-autofill': {
+            WebkitBoxShadow: '0 0 0 100px #ffffff inset',
+          },
         },
       },
     },

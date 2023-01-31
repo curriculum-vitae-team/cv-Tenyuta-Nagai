@@ -29,6 +29,7 @@ const CvsPage = () => {
               isCreateBtnVisible={true}
               ModalForCreating={CreateCvModal}
               AdditionalButtons={CvsAdditionalButtons}
+              defaultSortingBy="name"
             />
           </Grid>
         )}

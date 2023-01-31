@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Container, Divider } from '@mui/material';
+import { Container } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Spinner } from '../../components/Spinner';
@@ -81,15 +81,20 @@ const EmployeesCVsPage = () => {
           <Spinner />
         ) : (
           <Container maxWidth="xl">
-            {isDataCv ? (
-              <>
-                <Styled.WrapperCvsButton>
-                  <Styled.CvsButton variant="outlined" color="secondary" onClick={handleOpenMenu}>
-                    Cvs list
-                  </Styled.CvsButton>
-                </Styled.WrapperCvsButton>
+            <Styled.WrapperCvsButton>
+              <Styled.CvsButton variant="outlined" color="secondary" onClick={handleOpenMenu}>
+                Cvs list
+              </Styled.CvsButton>
+            </Styled.WrapperCvsButton>
 
-                <Divider />
+            <Styled.DriverLine />
+
+            <Styled.PositionWrapper>
+              <Styled.CvsListWrapper>
+                <CvsList data={data?.user?.cvs || []} onClick={showCv} />
+              </Styled.CvsListWrapper>
+
+              {isDataCv && (
                 <Styled.Wrapper>
                   <Styled.ContentWrapper>
                     <Row title={'Name:'} content={cvData.name} />
@@ -106,10 +111,8 @@ const EmployeesCVsPage = () => {
                     </PrivateButton>
                   </Styled.ButtonWrapper>
                 </Styled.Wrapper>
-              </>
-            ) : (
-              <CvsList data={data?.user?.cvs || []} onClick={showCv} />
-            )}
+              )}
+            </Styled.PositionWrapper>
           </Container>
         )}
       </Styled.Paper>
