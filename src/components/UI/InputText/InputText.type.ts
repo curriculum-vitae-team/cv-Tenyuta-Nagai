@@ -2,7 +2,7 @@ import { UseFormRegister, FieldValues } from 'react-hook-form';
 import { SxProps } from '@mui/system';
 
 export interface IInputTextProps {
-  name: string;
+  name?: string;
   registerName: string;
   register: UseFormRegister<FieldValues>;
   error?: boolean;

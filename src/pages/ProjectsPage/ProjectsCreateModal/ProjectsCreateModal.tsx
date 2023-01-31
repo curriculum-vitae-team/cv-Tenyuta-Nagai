@@ -11,6 +11,8 @@ import { TError } from '../../../types/errorTypes';
 import { CREATE_PROJECT } from '../../../graphql/mutations/createProject/createProject';
 import { FieldNameProjectsForm } from '../../../constants/FieldNameProjectsForm';
 import { projectsSchema } from '../../../utils/validationSchema';
+import { CreateProjectResult } from '../../../graphql/mutations/createProject/createProject.types';
+import { updateCacheAfterCreatingProject } from '../../../graphql/mutations/createProject/createProject.cache';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
 import { IProjectsFormInput, IProjectsModalProps } from './ProjectsCreateModal.interface';
 
@@ -40,6 +42,9 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
           end_date: inputs.endDate,
           skillsIds: [],
         },
+      },
+      update(cache, { data }) {
+        updateCacheAfterCreatingProject(cache, (data as unknown) as CreateProjectResult);
       },
     })
       .catch((err) => console.error((err as TError).message))
@@ -93,7 +98,6 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
           />
 
           <InputText
-            name="Start date"
             type="date"
             registerName={FieldNameProjectsForm.START_DATE}
             register={register}
@@ -102,9 +106,7 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
           />
 
           <InputText
-            name="End date"
             type="date"
-            defaultValue=""
             registerName={FieldNameProjectsForm.END_DATE}
             register={register}
             error={!!errors.endDate}
