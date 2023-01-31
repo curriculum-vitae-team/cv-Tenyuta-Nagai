@@ -1,6 +1,5 @@
 import { Divider, MenuItem } from '@mui/material';
 import React, { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useMutation } from '@apollo/client';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -18,7 +17,6 @@ export const CvsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
   const isOwnerCv = user?.email === employee;
-  const navigate = useNavigate();
   const [deleteCv] = useMutation<ICvsDeleteResult>(DELETE_CV, {
     update(cache) {
       updateCvsCacheAfterCvDeleteMutation(cache, id as string);
@@ -34,7 +32,7 @@ export const CvsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
   };
 
   const handleGoToDetails = () => {
-    console.log('details', id, employee);
+    console.log('details');
   };
 
   const disableDeleteButton = () => {

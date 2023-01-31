@@ -25,6 +25,7 @@ export const CreateCvModal: FC<IModalForCreatingProps> = ({ open, onClose }) => 
   const { loading, error, data: userData } = useQuery<IUserAllResult>(USER, {
     variables: { id: user?.id },
   });
+
   const [createCV, { loading: createCvLoading }] = useMutation<ICvsCreateResult>(CREATE_CV, {
     update(cache, { data }) {
       updateCvsCacheAfterCvCreateMutation(cache, data!, userData!);
