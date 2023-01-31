@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import { Container, Divider } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Box } from '@mui/system';
 import { Spinner } from '../../components/Spinner';
 import { PrivateButton } from '../../components/UI/PrivateButton';
 import { RoutePath } from '../../constants/routeVariables';
@@ -83,29 +84,42 @@ const EmployeesCVsPage = () => {
           <Container maxWidth="xl">
             {isDataCv ? (
               <>
-                <Styled.WrapperCvsButton>
+                <Styled.WrapperCvsButton sx={{ display: { xs: 'flex', sm: 'flex', md: 'none' } }}>
                   <Styled.CvsButton variant="outlined" color="secondary" onClick={handleOpenMenu}>
                     Cvs list
                   </Styled.CvsButton>
                 </Styled.WrapperCvsButton>
 
-                <Divider />
-                <Styled.Wrapper>
-                  <Styled.ContentWrapper>
-                    <Row title={'Name:'} content={cvData.name} />
-                    <Row title={'Description:'} content={cvData.description} />
-                  </Styled.ContentWrapper>
+                <Divider sx={{ display: { xs: 'flex', sm: 'flex', md: 'none' } }} />
+                <Box sx={{ display: 'flex' }}>
+                  <Box
+                    sx={{
+                      display: { xs: 'none', sm: 'none', md: 'flex' },
+                      maxWidth: 300,
+                      overflowY: 'scroll',
+                      maxHeight: '100%',
+                    }}
+                  >
+                    <CvsList data={data?.user?.cvs || []} onClick={showCv} />
+                  </Box>
 
-                  <Styled.ButtonWrapper>
-                    <PrivateButton isVisible={isDataCv} onClick={handleEdit}>
-                      Edit
-                    </PrivateButton>
+                  <Styled.Wrapper sx={{ flexGrow: 1 }}>
+                    <Styled.ContentWrapper>
+                      <Row title={'Name:'} content={cvData.name} />
+                      <Row title={'Description:'} content={cvData.description} />
+                    </Styled.ContentWrapper>
 
-                    <PrivateButton isVisible={isDataCv} onClick={handlePreview} disabled>
-                      Preview
-                    </PrivateButton>
-                  </Styled.ButtonWrapper>
-                </Styled.Wrapper>
+                    <Styled.ButtonWrapper>
+                      <PrivateButton isVisible={isDataCv} onClick={handleEdit}>
+                        Edit
+                      </PrivateButton>
+
+                      <PrivateButton isVisible={isDataCv} onClick={handlePreview} disabled>
+                        Preview
+                      </PrivateButton>
+                    </Styled.ButtonWrapper>
+                  </Styled.Wrapper>
+                </Box>
               </>
             ) : (
               <CvsList data={data?.user?.cvs || []} onClick={showCv} />

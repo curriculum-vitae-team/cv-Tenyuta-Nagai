@@ -14,6 +14,18 @@ export const profileSchema = object({
   lastName: string().matches(/^[a-zA-Z]*$/gms, 'Only a-z, A-Z'),
 });
 
+export const employeesSchema = object({
+  firstName: string().matches(/^[a-zA-Z]*$/gms, 'Only a-z, A-Z'),
+  lastName: string().matches(/^[a-zA-Z]*$/gms, 'Only a-z, A-Z'),
+  email: string()
+    .email()
+    .required(),
+  password: string()
+    .required()
+    .min(5),
+  role: string().required(),
+});
+
 export const avatarSchema = object().shape({
   picture: mixed()
     .test('type', 'The file must be JPG, JPEG or PNG', (image) => {

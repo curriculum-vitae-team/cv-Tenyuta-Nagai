@@ -6,12 +6,13 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { ModalWindow } from '../../../components/UI/ModalWindow';
 import { avatarSchema } from '../../../utils/validationSchema';
 import { IAvatarReturn } from '../../../interfaces/IAvatar';
-import { DELETE_AVATAR, UPLOAD_AVATAR } from '../../../graphql/mutations/avatar';
+import { DELETE_AVATAR, UPLOAD_AVATAR } from '../../../graphql/mutations/avatar/avatar';
 import { convertToBase64 } from '../helpers/convertToBase64';
 import { USER } from '../../../graphql/queries/user';
 import { IUserAllResult } from '../../../interfaces/IUser.interface';
 import { Spinner } from '../../../components/Spinner';
 import { TError } from '../../../types/errorTypes';
+import { updateUserCacheAfterAvatarMutation } from '../../../graphql/mutations/avatar/avatar.cache';
 import { IAvatarForm, IAvatarModal } from './AvatarModal.types';
 import { InputFile } from './InputFile/InputFile';
 import * as Styled from './AvatarModal.styles';
@@ -22,55 +23,13 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
   });
   const [uploadAvatar, { loading: avatarLoading }] = useMutation<IAvatarReturn>(UPLOAD_AVATAR, {
     update(cache, { data }) {
-      const dataUser = cache.readQuery<IUserAllResult>({
-        query: USER,
-        variables: {
-          id: userId,
-        },
-      });
-
-      cache.writeQuery({
-        query: USER,
-        data: {
-          user: {
-            ...dataUser?.user,
-            profile: {
-              ...dataUser?.user.profile,
-              avatar: data!.uploadAvatar,
-            },
-          },
-        },
-        variables: {
-          id: userId,
-        },
-      });
+      updateUserCacheAfterAvatarMutation(cache, userId, data as IAvatarReturn);
     },
   });
 
   const [deleteAvatar, { loading: deleteLoading }] = useMutation(DELETE_AVATAR, {
     update(cache) {
-      const dataUser = cache.readQuery<IUserAllResult>({
-        query: USER,
-        variables: {
-          id: userId,
-        },
-      });
-
-      cache.writeQuery({
-        query: USER,
-        data: {
-          user: {
-            ...dataUser?.user,
-            profile: {
-              ...dataUser?.user.profile,
-              avatar: null,
-            },
-          },
-        },
-        variables: {
-          id: userId,
-        },
-      });
+      updateUserCacheAfterAvatarMutation(cache, userId);
     },
   });
 
@@ -101,39 +60,33 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
     setValue('picture', e.dataTransfer.files, { shouldValidate: true });
   };
 
-  const handleRemove = async () => {
-    try {
-      if (userData?.user.profile.avatar) {
-        reset();
-        await deleteAvatar({
-          variables: {
-            id: userData.user.profile.id,
-          },
-        });
-      }
-    } catch (err) {
-      console.error((err as TError).message);
+  const handleRemove = () => {
+    if (userData?.user?.profile?.avatar) {
+      reset();
+      deleteAvatar({
+        variables: {
+          id: userData.user.profile.id,
+        },
+      }).catch((err) => console.error((err as TError).message));
     }
   };
 
-  const onSubmit = async (inputs: IAvatarForm) => {
-    try {
-      const picture = await convertToBase64(inputs.picture[0]);
-      await uploadAvatar({
-        variables: {
-          id: userData?.user.profile.id,
-          avatar: {
-            base64: picture,
-            size: inputs.picture[0].size,
-            type: inputs.picture[0].type,
+  const onSubmit = (inputs: IAvatarForm) => {
+    convertToBase64(inputs.picture[0])
+      .then((picture) =>
+        uploadAvatar({
+          variables: {
+            id: userData?.user.profile.id,
+            avatar: {
+              base64: picture,
+              size: inputs.picture[0].size,
+              type: inputs.picture[0].type,
+            },
           },
-        },
-      });
-    } catch (err) {
-      console.error((err as TError).message);
-    } finally {
-      onClose();
-    }
+        })
+      )
+      .catch((err) => console.error((err as TError).message))
+      .finally(() => onClose());
   };
 
   return (

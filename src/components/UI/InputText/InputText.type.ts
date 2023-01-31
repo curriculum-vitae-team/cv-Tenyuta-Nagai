@@ -12,4 +12,5 @@ export interface IInputTextProps {
   defaultValue?: string;
   multiline?: boolean;
   maxRows?: number;
+  type?: string;
 }

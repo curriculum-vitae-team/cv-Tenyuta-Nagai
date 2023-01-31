@@ -12,3 +12,8 @@ export interface ILoginResult {
 export interface ISignupResult {
   signup: IAuthResult;
 }
+
+export interface IAuthInput {
+  email: string;
+  password: string;
+}
