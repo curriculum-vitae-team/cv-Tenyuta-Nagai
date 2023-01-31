@@ -14,6 +14,16 @@ export const mainTheme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
+        '::-webkit-scrollbar': {
+          width: 10,
+          height: 10,
+        },
+        '::-webkit-scrollbar-thumb': {
+          backgroundColor: '#bdbdbd',
+        },
+        '::-webkit-scrollbar-track': {
+          backgroundColor: '#f5f5f7',
+        },
         '*': {
           margin: 0,
           padding: 0,

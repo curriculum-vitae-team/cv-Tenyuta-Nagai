@@ -7,19 +7,19 @@ export const TopicWrapper = styled('div')(() => ({
 }));
 
 export const RowTitleTypography = styled(Typography)(({ theme }) => ({
-  fontSize: 22,
+  fontSize: 20,
   color: theme.palette.secondary.contrastText,
 
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     fontSize: 18,
   },
 }));
 
 export const RowContentTypography = styled(Typography)(({ theme }) => ({
-  fontSize: 22,
+  fontSize: 20,
   color: theme.palette.primary.main,
 
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     display: 'flex',
     flexWrap: 'wrap',
     textAlign: 'center',
