@@ -21,7 +21,7 @@ const TableRowComponent = ({ children, AdditionalButtons, item }: TableRowProps)
       <TableRow>
         {children}
 
-        <TableCell>
+        <TableCell align="right" sx={{ minWidth: '50px' }}>
           <IconButton
             onClick={handleClick}
             size="small"

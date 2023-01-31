@@ -24,7 +24,7 @@ const TableHeaderComponent = ({
           />
         );
       })}
-      <TableCellStyled />
+      <TableCellStyled sx={{ minWidth: '50px' }} />
     </TableRow>
   );
 };
