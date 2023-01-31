@@ -10,11 +10,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { USER } from '../../../graphql/queries/user';
-import { authService } from '../../../graphql/authentication/authService';
 import { RoutePath } from '../../../constants/routeVariables';
 import { useUser } from '../../../hooks/useUser';
 import { chooseAvatarLetter } from '../../../utils/chooseAvatarLetter';
-import { IUserAllResult } from '../../../interfaces/IUser.interface';
+import { IUserAllResult } from '../../../graphql/types/results/userTypeResult';
+import { authService } from '../../../graphql/service/authentication/authService';
 import {
   AvatarProfileButtons,
   IconStyleProfileButtons,

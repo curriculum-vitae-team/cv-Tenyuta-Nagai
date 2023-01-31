@@ -1,4 +1,4 @@
-import { IUser } from '../../interfaces/IUser.interface';
+import { IUser } from '../../../interfaces/IUser.interface';
 
 export interface IAuthResult {
   user: IUser;

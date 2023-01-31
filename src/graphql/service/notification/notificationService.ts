@@ -1,6 +1,6 @@
 import { makeVar } from '@apollo/client';
-import { AlertDefaultMessage, AlertValues, ALERT_DURATION } from '../../constants/alert';
-import { convertApolloError } from '../../utils/convertApolloError';
+import { AlertDefaultMessage, AlertValues, ALERT_DURATION } from '../../../constants/alert';
+import { convertApolloError } from '../../../utils/convertApolloError';
 import { IAlert, INotification } from './notificationService.types';
 
 class Notification implements INotification {

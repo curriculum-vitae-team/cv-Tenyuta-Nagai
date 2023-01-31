@@ -16,10 +16,10 @@ import {
   ButtonLink,
   LoadingBtn,
 } from '../SignUpPage/SignUp.styles';
-import { authService } from '../../../graphql/authentication/authService';
-import { ILoginResult } from '../../../graphql/authentication/authResult.interface.';
+import { ILoginResult } from '../../../graphql/service/authentication/authResult.interface.';
 import { LOGIN } from '../../../graphql/queries/auth';
 import { IFormInput } from '../SignUpPage/formInput.interface';
+import { authService } from '../../../graphql/service/authentication/authService';
 
 const LogInPage = () => {
   const [hiddenPassword, setHiddenPassword] = useState(true);

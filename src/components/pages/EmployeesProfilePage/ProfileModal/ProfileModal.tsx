@@ -4,7 +4,6 @@ import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues } from 'react-hook-form/dist/types';
 import { useProfileFormData } from '../../../../hooks/useProfileFormData';
-import { IUserAllResult } from '../../../../interfaces/IUser.interface';
 import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
 import { profileSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
@@ -14,6 +13,7 @@ import { TFormSubmit } from '../../../../types/formTypes';
 import { InputText } from '../../../UI/InputText';
 import { FieldNameProfileForm } from '../../../../constants/fieldNameProfileForm';
 import { InputSelect } from '../../../UI/InputSelect';
+import { IUserAllResult } from '../../../../graphql/types/results/userTypeResult';
 import { IProfileFormInput, IProfileModalProps } from './ProfileModal.types';
 import * as Styled from './ProfileModal.styles';
 

@@ -1,12 +1,12 @@
 import { ApolloCache, NormalizedCacheObject } from '@apollo/client';
-import { IAvatarReturn } from '../../../interfaces/IAvatar';
-import { IUserAllResult } from '../../../interfaces/IUser.interface';
-import { USER } from '../../queries/user';
+import { USER } from '../queries/user';
+import { ICvUnbindResult } from '../types/results/cvTypeResult';
+import { IUserAllResult } from '../types/results/userTypeResult';
 
-export const updateUserCacheAfterAvatarMutation = (
+export const updateUserCacheAfterCvUnbindMutation = (
   cache: ApolloCache<NormalizedCacheObject>,
   userId: string,
-  data?: IAvatarReturn
+  data?: ICvUnbindResult
 ) => {
   const dataUser = cache.readQuery<IUserAllResult>({
     query: USER,
@@ -20,10 +20,7 @@ export const updateUserCacheAfterAvatarMutation = (
     data: {
       user: {
         ...dataUser?.user,
-        profile: {
-          ...dataUser?.user.profile,
-          avatar: data ? data!.uploadAvatar : null,
-        },
+        cvs: dataUser?.user.cvs?.filter((cv) => cv.id !== data?.unbindCv?.id),
       },
     },
     variables: {

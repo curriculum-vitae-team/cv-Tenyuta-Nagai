@@ -8,12 +8,10 @@ import { RoutePath } from '../../../../constants/routeVariables';
 import { UserRoles } from '../../../../constants/userRoles';
 import { useUser } from '../../../../hooks/useUser';
 import { IAdditionalButtonsProps } from '../../../Table/TableRows/TableRowComponent.types';
-import { updateCacheAfterDeleteUser } from '../../../../graphql/mutations/deleteUser/deleteUserUpdateCache';
-import { DELETE_USER } from '../../../../graphql/mutations/deleteUser/deleteUser';
-import {
-  DeleteUserInput,
-  DeleteUserResult,
-} from '../../../../graphql/mutations/deleteUser/deleteUser.types';
+import { updateCacheAfterDeleteUser } from '../../../../graphql/cache/deleteUser.cache';
+import { DELETE_USER } from '../../../../graphql/mutations/deleteUser';
+import { DeleteUserResult } from '../../../../graphql/types/results/userTypeResult';
+import { DeleteUserInput } from '../../../../graphql/types/inputs/userTypeInput';
 import * as Styled from './EmployeesAdditionalButtons.styles';
 
 export const EmployeesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {

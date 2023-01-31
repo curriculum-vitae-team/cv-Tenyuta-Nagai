@@ -7,8 +7,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@apollo/client';
 import { RoutePath } from '../../../constants/routeVariables';
 import { schema } from '../../../utils/validationSchema';
-import { authService } from '../../../graphql/authentication/authService';
-import { ISignupResult } from '../../../graphql/authentication/authResult.interface.';
+import { authService } from '../../../graphql/service/authentication/authService';
+import { ISignupResult } from '../../../graphql/service/authentication/authResult.interface.';
 import { SIGNUP } from '../../../graphql/mutations/auth';
 import { IFormInput } from './formInput.interface';
 import {

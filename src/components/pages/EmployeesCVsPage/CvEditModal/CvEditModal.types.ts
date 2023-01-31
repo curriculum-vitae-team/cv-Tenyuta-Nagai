@@ -1,4 +1,4 @@
-import { IUserAllResult } from '../../../../interfaces/IUser.interface';
+import { IUserAllResult } from '../../../../graphql/types/results/userTypeResult';
 import { ICvData } from '../EmployeesCVsPage.types';
 
 export interface ICvEditModalProps {

@@ -1,5 +1,5 @@
 import { ReactiveVar } from '@apollo/client';
-import { AlertValues } from '../../constants/alert';
+import { AlertValues } from '../../../constants/alert';
 
 export interface IAlert {
   type: AlertValues.SUCCESS | AlertValues.ERROR;
