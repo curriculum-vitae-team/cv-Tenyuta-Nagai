@@ -94,6 +94,7 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
 
           <InputText
             name="Start date"
+            type="date"
             registerName={FieldNameProjectsForm.START_DATE}
             register={register}
             error={!!errors.startDate}
@@ -102,6 +103,8 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
 
           <InputText
             name="End date"
+            type="date"
+            defaultValue=""
             registerName={FieldNameProjectsForm.END_DATE}
             register={register}
             error={!!errors.endDate}
