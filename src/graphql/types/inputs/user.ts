@@ -1,5 +1,5 @@
 import { IAuthInput } from '../../service/authentication/authResult.interface.';
-import { IProfileInput } from './profileTypeInput';
+import { IProfileInput } from './profile';
 
 export type CreateUserInput = {
   user: {

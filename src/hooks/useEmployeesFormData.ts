@@ -1,8 +1,8 @@
 import { useQuery } from '@apollo/client';
 import { DEPARTMENTS } from '../graphql/queries/departments';
 import { POSITIONS } from '../graphql/queries/positions';
-import { IDepartmentReturn } from '../graphql/types/results/departmentTypeResult';
-import { IPositionReturn } from '../graphql/types/results/positionTypeResult';
+import { IDepartmentReturn } from '../graphql/types/results/department';
+import { IPositionReturn } from '../graphql/types/results/position';
 import { UserRoles } from './../constants/userRoles';
 
 export const useEmployeesFormData = () => {

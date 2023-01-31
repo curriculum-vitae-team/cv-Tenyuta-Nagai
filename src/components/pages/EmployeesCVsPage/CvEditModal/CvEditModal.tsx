@@ -4,13 +4,13 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { Checkbox, Typography } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import { UNBIND_CV, UPDATE_CV } from '../../../../graphql/mutations/cv';
-import { updateUserCacheAfterCvUnbindMutation } from '../../../../graphql/cache/cv.cache';
+import { updateUserCacheAfterCvUnbindMutation } from '../../../../graphql/cache/cv';
 import { editCvSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
 import { ModalWindow } from '../../../UI/ModalWindow';
 import { TFormSubmit } from '../../../../types/formTypes';
 import { InputText } from '../../../UI/InputText';
-import { ICvResult, ICvUnbindResult } from '../../../../graphql/types/results/cvTypeResult';
+import { ICvResult, ICvUnbindResult } from '../../../../graphql/types/results/cv';
 import * as Styled from './CvEditModal.styles';
 import { ICvEditModalProps, IFormEditCv } from './CvEditModal.types';
 

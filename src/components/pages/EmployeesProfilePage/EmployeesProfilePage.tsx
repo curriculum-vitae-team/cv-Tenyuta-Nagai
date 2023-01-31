@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
 import { USER } from '../../../graphql/queries/user';
-import { IUserAllResult } from '../../../graphql/types/results/userTypeResult';
+import { IUserAllResult } from '../../../graphql/types/results/user';
 import { useUser } from '../../../hooks/useUser';
 import { chooseAvatarLetter } from '../../../utils/chooseAvatarLetter';
 import { Spinner } from '../../Spinner';

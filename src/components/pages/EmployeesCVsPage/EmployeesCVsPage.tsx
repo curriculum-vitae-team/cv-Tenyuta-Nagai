@@ -8,7 +8,7 @@ import { USER } from '../../../graphql/queries/user';
 import { RoutePath } from '../../../constants/routeVariables';
 import { Spinner } from '../../Spinner';
 import { PrivateButton } from '../../UI/PrivateButton';
-import { IUserAllResult } from '../../../graphql/types/results/userTypeResult';
+import { IUserAllResult } from '../../../graphql/types/results/user';
 import { CvsList } from './CvsList/CvsList';
 import { Row } from './Row/Row';
 import { CvEditModal } from './CvEditModal/CvEditModal';

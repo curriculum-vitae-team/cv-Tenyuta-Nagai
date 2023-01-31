@@ -13,7 +13,7 @@ import { USER } from '../../../graphql/queries/user';
 import { RoutePath } from '../../../constants/routeVariables';
 import { useUser } from '../../../hooks/useUser';
 import { chooseAvatarLetter } from '../../../utils/chooseAvatarLetter';
-import { IUserAllResult } from '../../../graphql/types/results/userTypeResult';
+import { IUserAllResult } from '../../../graphql/types/results/user';
 import { authService } from '../../../graphql/service/authentication/authService';
 import {
   AvatarProfileButtons,

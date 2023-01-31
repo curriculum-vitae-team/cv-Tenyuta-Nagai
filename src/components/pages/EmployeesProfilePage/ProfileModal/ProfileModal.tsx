@@ -13,7 +13,7 @@ import { TFormSubmit } from '../../../../types/formTypes';
 import { InputText } from '../../../UI/InputText';
 import { FieldNameProfileForm } from '../../../../constants/fieldNameProfileForm';
 import { InputSelect } from '../../../UI/InputSelect';
-import { IUserAllResult } from '../../../../graphql/types/results/userTypeResult';
+import { IUserAllResult } from '../../../../graphql/types/results/user';
 import { IProfileFormInput, IProfileModalProps } from './ProfileModal.types';
 import * as Styled from './ProfileModal.styles';
 

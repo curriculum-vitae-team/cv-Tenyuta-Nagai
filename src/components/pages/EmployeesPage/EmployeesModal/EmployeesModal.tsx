@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { FieldNameEmployeesForm } from '../../../../constants/FieldNameEmployeesForm';
 import { CREATE_USER } from '../../../../graphql/mutations/createUser';
-import { updateCacheAfterCreatingUser } from '../../../../graphql/cache/createUser.cache';
+import { updateCacheAfterCreatingUser } from '../../../../graphql/cache/createUser';
 import { useEmployeesFormData } from '../../../../hooks/useEmployeesFormData';
 import { TError } from '../../../../types/errorTypes';
 import { TFormSubmit } from '../../../../types/formTypes';
@@ -13,7 +13,7 @@ import { Spinner } from '../../../Spinner';
 import { InputSelect } from '../../../UI/InputSelect';
 import { InputText } from '../../../UI/InputText';
 import { ModalWindow } from '../../../UI/ModalWindow';
-import { CreateUserResult, IUserAllResult } from '../../../../graphql/types/results/userTypeResult';
+import { CreateUserResult, IUserAllResult } from '../../../../graphql/types/results/user';
 import { IEmployeesFormInput, IEmployeesModalProps } from './EmployeesModal.interface';
 import * as Styled from './EmployeesModal.styles';
 

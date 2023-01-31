@@ -1,7 +1,7 @@
 import { ApolloCache, NormalizedCacheObject } from '@apollo/client';
 import { IUsersResult } from '../../components/pages/EmployeesPage/EmployeesPage.interface';
 import { GET_ALL_USERS } from '../queries/users';
-import { CreateUserResult } from '../types/results/userTypeResult';
+import { CreateUserResult } from '../types/results/user';
 
 export const updateCacheAfterCreatingUser = (
   cache: ApolloCache<NormalizedCacheObject>,
