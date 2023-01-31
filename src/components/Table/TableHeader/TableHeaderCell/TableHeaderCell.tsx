@@ -12,7 +12,9 @@ const TableHeaderCell = ({
   itemName,
 }: TableHeaderCellProps) => {
   const handleSorting = () => {
-    handleSetSortingDirection(itemName);
+    if (isSortable) {
+      handleSetSortingDirection(itemName);
+    }
   };
 
   return (

@@ -4,7 +4,7 @@ export const TableCellStyled = styled(TableCell)(({ theme }) => ({
   backgroundColor: theme.palette.primary.contrastText,
   fontWeight: 'bold',
   minWidth: '120px',
-  cursor: 'pointer',
+  cursor: 'default',
   '&:hover': {
     color: theme.palette.secondary.contrastText,
   },
