@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { format } from 'date-fns';
 import { Spinner } from '../../../components/Spinner';
 import { InputText } from '../../../components/UI/InputText';
 import { IUserAllResult } from '../../../interfaces/IUser.interface';
@@ -40,8 +41,8 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
           domain: inputs.domain,
 
           team_size: Number(inputs.teamSize),
-          start_date: inputs.startDate,
-          end_date: inputs.endDate,
+          start_date: format(new Date(inputs.startDate), 'yyyy-MM-dd'),
+          end_date: inputs.endDate ? format(new Date(inputs.endDate), 'yyyy-MM-dd') : null,
           skillsIds: [],
         },
       },
@@ -102,10 +103,14 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
           <DatePickerInput
             control={control}
             label="Start date"
-            name="startDate"
+            name={FieldNameProjectsForm.START_DATE}
             required={'Please, specify the correct date'}
           />
-          <DatePickerInput control={control} label="End date" name="endDate" />
+          <DatePickerInput
+            control={control}
+            label="End date"
+            name={FieldNameProjectsForm.END_DATE}
+          />
 
           <Styled.ButtonSubmit
             loading={loading}

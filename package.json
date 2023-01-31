@@ -20,6 +20,8 @@
     "@mui/lab": "^5.0.0-alpha.114",
     "@mui/material": "^5.11.2",
     "@mui/x-date-pickers": "^5.0.16",
+    "date-fns": "^2.29.3",
+    "dayjs": "^1.11.7",
     "graphql": "^16.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

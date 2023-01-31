@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { TextField } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { Controller, FieldValues } from 'react-hook-form';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePickerInputProps } from './DatePicker.types';
 
 export const DatePickerInput = <T extends FieldValues>({
@@ -19,20 +19,21 @@ export const DatePickerInput = <T extends FieldValues>({
         required,
       }}
       render={({ field, fieldState }) => (
-        // <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DatePicker
-          {...field}
-          label={label}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={label}
-              helperText={fieldState.error?.message || ' '}
-              error={!!fieldState.error}
-            />
-          )}
-        />
-        // </LocalizationProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            {...field}
+            inputFormat="YYYY/MM/DD"
+            label={label}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={label}
+                helperText={fieldState.error?.message || ' '}
+                error={!!fieldState.error}
+              />
+            )}
+          />
+        </LocalizationProvider>
       )}
     />
   );
