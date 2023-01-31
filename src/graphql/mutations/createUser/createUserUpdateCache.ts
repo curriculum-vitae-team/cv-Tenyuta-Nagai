@@ -1,5 +1,5 @@
 import { ApolloCache, NormalizedCacheObject } from '@apollo/client';
-import { IUsersResult } from '../../../pages/EmployeesPage/EmployeesPage.interface';
+import { IUsersResult } from '../../../components/pages/EmployeesPage/EmployeesPage.interface';
 import { GET_ALL_USERS } from '../../queries/users';
 import { CreateUserResult } from './createUser.types';
 
