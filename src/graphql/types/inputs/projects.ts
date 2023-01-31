@@ -1,4 +1,7 @@
-import { IProject } from './../../../interfaces/IProject.interface';
+export type DeleteProjectInput = {
+  id: string;
+};
+
 export interface ProjectInput {
   name: string;
   internal_name: string;
@@ -12,16 +15,4 @@ export interface ProjectInput {
 
 export interface CreateProjectInput {
   project: ProjectInput;
-}
-
-export interface IProjectsResult {
-  projects: IProject[];
-}
-
-export interface CreateProjectResult {
-  createProject: {
-    id: string;
-    project: ProjectInput;
-    affected: number;
-  };
 }

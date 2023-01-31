@@ -4,17 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import UpdateIcon from '@mui/icons-material/Update';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useMutation } from '@apollo/client';
-import { RoutePath } from '../../../constants/routeVariables';
-import { UserRoles } from '../../../constants/userRoles';
-import { useUser } from '../../../hooks/useUser';
-import { IAdditionalButtonsProps } from '../../../components/Table/TableRows/TableRowComponent.types';
-import {
-  DeleteProjectInput,
-  DeleteProjectResult,
-} from '../../../graphql/mutations/deleteProject/deleteProject.types';
-import { DELETE_PROJECT } from '../../../graphql/mutations/deleteProject/deleteProject';
-import { updateCacheAfterDeleteProject } from '../../../graphql/mutations/deleteProject/deleteProject.cache';
+
 import * as Styled from '../../EmployeesPage/EmployeesAdditionalButtons/EmployeesAdditionalButtons.styles';
+import { RoutePath } from '../../../../constants/routeVariables';
+import { useUser } from '../../../../hooks/useUser';
+import { IAdditionalButtonsProps } from '../../../Table/TableRows/TableRowComponent.types';
+import { UserRoles } from '../../../../constants/userRoles';
+import { DeleteProjectResult } from '../../../../graphql/types/results/projects';
+import { DeleteProjectInput } from '../../../../graphql/types/inputs/projects';
+import { DELETE_PROJECT } from '../../../../graphql/mutations/deleteProject';
+import { updateCacheAfterDeleteProject } from '../../../../graphql/cache/deleteProject';
 
 export const ProjectsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
   const { id } = item;
@@ -30,7 +29,6 @@ export const ProjectsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item })
         updateCacheAfterDeleteProject(cache, id as string);
       },
     });
-    console.log('deleted');
   };
 
   const handleGoToProject = () => {

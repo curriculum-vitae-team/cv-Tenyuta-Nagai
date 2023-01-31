@@ -1,6 +1,6 @@
 import { ApolloCache, NormalizedCacheObject } from '@apollo/client';
-import { GET_ALL_PROJECTS } from './../../queries/projects';
-import { CreateProjectResult, IProjectsResult } from './createProject.types';
+import { GET_ALL_PROJECTS } from '../queries/projects';
+import { CreateProjectResult, IProjectsResult } from '../types/results/projects';
 
 export const updateCacheAfterCreatingProject = (
   cache: ApolloCache<NormalizedCacheObject>,

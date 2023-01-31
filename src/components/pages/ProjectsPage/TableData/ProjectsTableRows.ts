@@ -1,4 +1,4 @@
-import { IProject } from '../../../interfaces/IProject.interface';
+import { IProject } from '../../../../interfaces/IProject.interface';
 
 export function getProjects(projects: IProject[]) {
   return projects.map((project) => ({
