@@ -40,7 +40,7 @@ export const EmployeesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }
     <>
       <MenuItem sx={Styled.ActionsMenuRowItemProps} onClick={handleGoToProfile}>
         <UpdateIcon sx={Styled.ActionsMenuRowIconsProps} />
-        Update
+        Profile
       </MenuItem>
 
       {isAdmin && <Divider />}
