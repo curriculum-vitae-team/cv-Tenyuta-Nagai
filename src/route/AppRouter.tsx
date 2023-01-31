@@ -83,9 +83,9 @@ export const AppRouter = () => {
             path={RoutePath.GENERAL}
             element={
               isAuth ? (
-                <Navigate to={RoutePath.ERROR} replace />
+                <Navigate to={`/${RoutePath.ERROR}`} replace />
               ) : (
-                <Navigate to={RoutePath.LOGIN} replace />
+                <Navigate to={`/${RoutePath.LOGIN}`} replace />
               )
             }
           />

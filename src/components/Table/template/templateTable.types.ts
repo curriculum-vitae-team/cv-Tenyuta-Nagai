@@ -10,6 +10,7 @@ export type TableProps<T = Item> = {
   titleCreateBtn: string;
   isCreateBtnVisible: boolean;
   AdditionalButtons: React.FC<IAdditionalButtonsProps>;
+  defaultSortingBy: string;
 };
 
 export type Item = Record<string, string | number | boolean>;

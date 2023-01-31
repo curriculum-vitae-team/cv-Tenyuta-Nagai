@@ -41,6 +41,7 @@ const ProjectsPage = () => {
             titleCreateBtn="Add project"
             isCreateBtnVisible={isCreateBtnVisible}
             AdditionalButtons={ProjectsAdditionalButtons}
+            defaultSortingBy="name"
           />
         </Grid>
       </Container>

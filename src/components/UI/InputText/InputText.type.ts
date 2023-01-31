@@ -10,5 +10,7 @@ export interface IInputTextProps {
   sx?: SxProps;
   size?: 'small' | 'medium' | undefined;
   defaultValue?: string;
+  multiline?: boolean;
+  maxRows?: number;
   type?: string;
 }
