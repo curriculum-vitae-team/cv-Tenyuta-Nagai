@@ -8,15 +8,11 @@ export const updateCacheAfterCreatingProject = (
 ) => {
   const allProjects = cache.readQuery<IProjectsResult>({ query: GET_ALL_PROJECTS });
 
-  const newProject = {
-    ...data?.createProject,
-  };
-
   if (allProjects) {
     cache.writeQuery({
       query: GET_ALL_PROJECTS,
       data: {
-        projects: [newProject, ...allProjects.projects],
+        projects: [data?.createProject, ...allProjects.projects],
       },
     });
   }
