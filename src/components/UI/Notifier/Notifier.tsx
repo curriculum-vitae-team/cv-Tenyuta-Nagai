@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { useReactiveVar } from '@apollo/client';
 import Slide from '@mui/material/Slide';
-import { notificationService } from '../../../graphql/notification/notificationService';
+import { notificationService } from '../../../graphql/service/notification/notificationService';
 import * as Styled from './Notifier.styles';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {

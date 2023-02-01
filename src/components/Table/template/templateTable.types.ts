@@ -1,5 +1,5 @@
 import { IAdditionalButtonsProps } from '../TableRows/TableRowComponent.types';
-import { IColumn } from './../../../pages/EmployeesPage/TableData/TableData.interface';
+import { IColumn } from '../../pages/EmployeesPage/TableData/TableData.interface';
 
 export type TableProps<T = Item> = {
   header: IColumn[];
