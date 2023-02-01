@@ -84,6 +84,7 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
             register={register}
             error={!!errors.description}
             helperText={errors.description?.message as string}
+            multiline
           />
 
           <InputText

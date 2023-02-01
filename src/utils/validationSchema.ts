@@ -27,10 +27,8 @@ export const employeesSchema = object({
 });
 
 export const projectsSchema = object({
-  name: string()
-    .matches(/^[a-zA-Z]*$/gms, 'Only a-z, A-Z')
-    .required(),
-  internalName: string().matches(/^[a-zA-Z]*$/gms, 'Only a-z, A-Z'),
+  name: string().required(),
+  internalName: string(),
   description: string().required(),
   domain: string().required(),
   startDate: string().required(),
