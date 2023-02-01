@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { TextField } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { Controller, FieldValues } from 'react-hook-form';
@@ -22,11 +22,13 @@ export const DatePickerInput = <T extends FieldValues>({
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             {...field}
-            inputFormat="YYYY/MM/DD"
+            disableHighlightToday={true}
+            inputFormat="DD/MM/YYYY"
             label={label}
             renderInput={(params) => (
               <TextField
                 {...params}
+                fullWidth
                 label={label}
                 helperText={fieldState.error?.message || ' '}
                 error={!!fieldState.error}

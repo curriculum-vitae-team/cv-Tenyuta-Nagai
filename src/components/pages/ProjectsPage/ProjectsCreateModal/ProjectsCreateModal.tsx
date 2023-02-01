@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { format } from 'date-fns';
 
+import { Grid } from '@mui/material';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { IUserAllResult } from '../../../../graphql/types/results/user';
@@ -100,18 +101,19 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
             error={!!errors.teamSize}
             helperText={errors.teamSize?.message as string}
           />
-
-          <DatePickerInput
-            control={control}
-            label="Start date"
-            name={FieldNameProjectsForm.START_DATE}
-            required={'Please, specify the correct date'}
-          />
-          <DatePickerInput
-            control={control}
-            label="End date"
-            name={FieldNameProjectsForm.END_DATE}
-          />
+          <Grid sx={{ mt: '15px' }}>
+            <DatePickerInput
+              control={control}
+              label="Start date"
+              name={FieldNameProjectsForm.START_DATE}
+              required={'Please, specify the correct date'}
+            />
+            <DatePickerInput
+              control={control}
+              label="End date"
+              name={FieldNameProjectsForm.END_DATE}
+            />
+          </Grid>
 
           <Styled.ButtonSubmit
             loading={loading}
