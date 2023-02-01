@@ -36,7 +36,6 @@ export const projectsSchema = object({
   endDate: string().test('date_compare', `endDate must be bigger than startDate`, function(
     endDate: string | undefined
   ): boolean {
-    console.log(endDate);
     return endDate
       ? format(new Date(endDate), 'yyyy-MM-dd') >
           format(new Date(this.parent.startDate), 'yyyy-MM-dd')

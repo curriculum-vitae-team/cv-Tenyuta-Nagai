@@ -22,8 +22,6 @@ export const DatePickerInput = <T extends FieldValues>({
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             {...field}
-            disableHighlightToday={true}
-            inputFormat="YYYY/MM/DD"
             label={label}
             renderInput={(params) => (
               <TextField
