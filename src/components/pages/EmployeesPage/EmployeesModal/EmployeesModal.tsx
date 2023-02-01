@@ -14,10 +14,11 @@ import { InputSelect } from '../../../UI/InputSelect';
 import { InputText } from '../../../UI/InputText';
 import { ModalWindow } from '../../../UI/ModalWindow';
 import { CreateUserResult, IUserAllResult } from '../../../../graphql/types/results/user';
-import { IEmployeesFormInput, IEmployeesModalProps } from './EmployeesModal.interface';
+import { IModalForCreatingProps } from '../../../Table/template/templateTable.types';
+import { IEmployeesFormInput } from './EmployeesModal.interface';
 import * as Styled from './EmployeesModal.styles';
 
-export const EmployeesModal: FC<IEmployeesModalProps> = ({ open, onClose }) => {
+export const EmployeesModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
   const { loading, error, positionsData, departmentsData, rolesData } = useEmployeesFormData();
   const [createUser, { loading: updateLoading }] = useMutation<IUserAllResult>(CREATE_USER);
   const {

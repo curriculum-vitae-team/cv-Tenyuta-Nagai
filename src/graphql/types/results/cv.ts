@@ -7,3 +7,15 @@ export interface ICvResult {
 export interface ICvUnbindResult {
   unbindCv: ICv;
 }
+
+export interface ICvsResult {
+  cvs: ICv[];
+}
+
+export interface ICvsCreateResult {
+  createCv: ICv;
+}
+
+export interface ICvsDeleteResult {
+  deleteCv: number;
+}
