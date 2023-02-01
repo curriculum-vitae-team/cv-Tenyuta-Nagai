@@ -1,12 +1,9 @@
 import { Divider, MenuItem } from '@mui/material';
 import React, { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
 import UpdateIcon from '@mui/icons-material/Update';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useMutation } from '@apollo/client';
-
 import * as Styled from '../../EmployeesPage/EmployeesAdditionalButtons/EmployeesAdditionalButtons.styles';
-import { RoutePath } from '../../../../constants/routeVariables';
 import { useUser } from '../../../../hooks/useUser';
 import { IAdditionalButtonsProps } from '../../../Table/TableRows/TableRowComponent.types';
 import { UserRoles } from '../../../../constants/userRoles';
@@ -19,7 +16,6 @@ export const ProjectsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item })
   const { id } = item;
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
-  const navigate = useNavigate();
   const [deleteProject] = useMutation<DeleteProjectResult, DeleteProjectInput>(DELETE_PROJECT);
 
   const handleProjectDelete = () => {
@@ -32,7 +28,7 @@ export const ProjectsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item })
   };
 
   const handleGoToProject = () => {
-    navigate(`/${RoutePath.PROJECTS}/${id}`);
+    console.log('project');
   };
 
   return (
