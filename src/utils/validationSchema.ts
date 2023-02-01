@@ -32,6 +32,11 @@ export const projectsSchema = object({
   description: string().required(),
   domain: string().required(),
   startDate: string().required(),
+  endDate: string().test('date_compare', `endDate must be bigger than startDate`, function(
+    endDate: string | undefined
+  ): boolean {
+    return endDate ? endDate > this.parent.startDate : true;
+  }),
   teamSize: number()
     .min(2)
     .max(100)
