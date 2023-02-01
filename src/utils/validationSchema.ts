@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { mixed, number, object, string } from 'yup';
 
 export const schema = object({
@@ -35,7 +36,11 @@ export const projectsSchema = object({
   endDate: string().test('date_compare', `endDate must be bigger than startDate`, function(
     endDate: string | undefined
   ): boolean {
-    return endDate ? endDate > this.parent.startDate : true;
+    console.log(endDate);
+    return endDate
+      ? format(new Date(endDate), 'yyyy-MM-dd') >
+          format(new Date(this.parent.startDate), 'yyyy-MM-dd')
+      : true;
   }),
   teamSize: number()
     .min(2)

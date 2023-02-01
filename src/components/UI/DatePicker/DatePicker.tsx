@@ -23,7 +23,7 @@ export const DatePickerInput = <T extends FieldValues>({
           <DatePicker
             {...field}
             disableHighlightToday={true}
-            inputFormat="DD/MM/YYYY"
+            inputFormat="YYYY/MM/DD"
             label={label}
             renderInput={(params) => (
               <TextField
