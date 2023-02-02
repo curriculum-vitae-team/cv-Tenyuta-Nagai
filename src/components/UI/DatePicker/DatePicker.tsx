@@ -9,25 +9,27 @@ export const DatePickerInput = <T extends FieldValues>({
   label,
   control,
   name,
-  required,
+  trigger,
 }: DatePickerInputProps<T>) => {
   return (
     <Controller
       control={control}
       name={name}
-      rules={{
-        required,
-      }}
       render={({ field, fieldState }) => (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             {...field}
             value={field.value || null}
-            onChange={field.onChange}
+            onChange={(date) => {
+              field.onChange(date);
+              trigger!('endDate');
+            }}
             label={label}
             renderInput={(params) => (
               <TextField
                 {...params}
+                margin="normal"
+                size="small"
                 fullWidth
                 label={label}
                 helperText={fieldState.error?.message || ' '}

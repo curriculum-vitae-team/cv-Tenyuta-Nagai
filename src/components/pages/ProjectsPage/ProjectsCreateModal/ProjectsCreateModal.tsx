@@ -3,9 +3,7 @@ import React, { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { format } from 'date-fns';
-
 import { Grid } from '@mui/material';
-import dayjs from 'dayjs';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { IUserAllResult } from '../../../../graphql/types/results/user';
@@ -26,23 +24,13 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
   const {
     control,
     register,
-    watch,
-    setValue,
+    trigger,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(projectsSchema),
   });
-
-  const startDate = watch('startDate');
-  const endDate = watch('endDate');
-
-  useEffect(() => {
-    if (endDate) {
-      setValue('endDate', endDate, { shouldValidate: true });
-    }
-  }, [setValue, startDate]);
 
   const onSubmit = (inputs: IProjectsFormInput) => {
     createProject({
@@ -114,19 +102,18 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
             error={!!errors.teamSize}
             helperText={errors.teamSize?.message as string}
           />
-          <Grid sx={{ mt: '15px' }}>
-            <DatePickerInput
-              control={control}
-              label="Start date"
-              name={FieldNameProjectsForm.START_DATE}
-              required={'Start date is required'}
-            />
-            <DatePickerInput
-              control={control}
-              label="End date"
-              name={FieldNameProjectsForm.END_DATE}
-            />
-          </Grid>
+
+          <DatePickerInput
+            control={control}
+            label="Start date"
+            name={FieldNameProjectsForm.START_DATE}
+            trigger={trigger}
+          />
+          <DatePickerInput
+            control={control}
+            label="End date"
+            name={FieldNameProjectsForm.END_DATE}
+          />
 
           <Styled.ButtonSubmit
             loading={loading}

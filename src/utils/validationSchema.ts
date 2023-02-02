@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import { date, mixed, number, object, string } from 'yup';
 
 export const schema = object({
@@ -28,10 +27,16 @@ export const employeesSchema = object({
 });
 
 export const projectsSchema = object().shape({
-  name: string().required(),
-  internalName: string(),
-  description: string().required(),
-  domain: string().required(),
+  name: string()
+    .required()
+    .max(20),
+  internalName: string().max(20),
+  description: string()
+    .required()
+    .max(150),
+  domain: string()
+    .required()
+    .max(20),
   startDate: date().required(),
   endDate: date().when('startDate', (startDate, schema) => startDate && schema.min(startDate)),
   teamSize: number()
