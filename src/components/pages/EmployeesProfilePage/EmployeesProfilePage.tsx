@@ -7,13 +7,13 @@ import { USER } from '../../../graphql/queries/user';
 import { IUserAllResult } from '../../../graphql/types/results/user';
 import { useUser } from '../../../hooks/useUser';
 import { chooseAvatarLetter } from '../../../utils/chooseAvatarLetter';
+import { Row } from '../../Row';
 import { Spinner } from '../../Spinner';
 import { PrivateButton } from '../../UI/PrivateButton';
 import { AvatarModal } from './AvatarModal/AvatarModal';
 import * as Styled from './EmployeesProfilePage.styles';
 import { convertData } from './helpers/convertData';
 import { ProfileModal } from './ProfileModal/ProfileModal';
-import { Row } from './Row/Row';
 
 const EmployeesProfilePage = () => {
   const { id } = useParams();

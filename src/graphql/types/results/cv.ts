@@ -19,3 +19,7 @@ export interface ICvsCreateResult {
 export interface ICvsDeleteResult {
   deleteCv: number;
 }
+
+export interface ICvQueryResult {
+  cv: ICv;
+}
