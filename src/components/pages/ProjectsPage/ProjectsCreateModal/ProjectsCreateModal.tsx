@@ -1,9 +1,8 @@
 import { useMutation } from '@apollo/client';
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { format } from 'date-fns';
-import { Grid } from '@mui/material';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { IUserAllResult } from '../../../../graphql/types/results/user';
