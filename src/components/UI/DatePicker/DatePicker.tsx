@@ -22,6 +22,8 @@ export const DatePickerInput = <T extends FieldValues>({
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             {...field}
+            value={field.value || null}
+            onChange={field.onChange}
             label={label}
             renderInput={(params) => (
               <TextField

@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { mixed, number, object, string } from 'yup';
+import { date, mixed, number, object, string } from 'yup';
 
 export const schema = object({
   email: string()
@@ -27,20 +27,13 @@ export const employeesSchema = object({
   role: string().required(),
 });
 
-export const projectsSchema = object({
+export const projectsSchema = object().shape({
   name: string().required(),
   internalName: string(),
   description: string().required(),
   domain: string().required(),
-  startDate: string().required(),
-  endDate: string().test('date_compare', `endDate must be bigger than startDate`, function(
-    endDate: string | undefined
-  ): boolean {
-    return endDate
-      ? format(new Date(endDate), 'yyyy-MM-dd') >
-          format(new Date(this.parent.startDate), 'yyyy-MM-dd')
-      : true;
-  }),
+  startDate: date().required(),
+  endDate: date().when('startDate', (startDate, schema) => startDate && schema.min(startDate)),
   teamSize: number()
     .min(2)
     .max(100)
