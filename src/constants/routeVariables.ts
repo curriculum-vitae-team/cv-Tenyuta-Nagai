@@ -12,4 +12,5 @@ export enum RoutePath {
   LANGUAGES = 'languages',
   ERROR = 'error',
   GENERAL = '*',
+  DETAILS = 'details',
 }
