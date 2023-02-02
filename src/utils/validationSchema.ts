@@ -38,7 +38,11 @@ export const projectsSchema = object().shape({
     .required()
     .max(20),
   startDate: date().required(),
-  endDate: date().when('startDate', (startDate, schema) => startDate && schema.min(startDate)),
+  endDate: date().when(
+    'startDate',
+    (startDate, schema) =>
+      startDate && schema.min(startDate, 'End date must be bigger than start date')
+  ),
   teamSize: number()
     .min(2)
     .max(100)

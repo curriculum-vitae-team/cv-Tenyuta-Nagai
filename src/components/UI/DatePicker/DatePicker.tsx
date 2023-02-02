@@ -22,7 +22,7 @@ export const DatePickerInput = <T extends FieldValues>({
             value={field.value || null}
             onChange={(date) => {
               field.onChange(date);
-              trigger!('endDate');
+              trigger && trigger('endDate');
             }}
             label={label}
             renderInput={(params) => (
@@ -32,7 +32,7 @@ export const DatePickerInput = <T extends FieldValues>({
                 size="small"
                 fullWidth
                 label={label}
-                helperText={fieldState.error?.message || ' '}
+                helperText={fieldState.error?.message}
                 error={!!fieldState.error}
               />
             )}
