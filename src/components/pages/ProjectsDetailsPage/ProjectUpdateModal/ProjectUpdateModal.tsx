@@ -5,10 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { format } from 'date-fns';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
-import { IUserAllResult } from '../../../../graphql/types/results/user';
 import { ModalWindow } from '../../../UI/ModalWindow';
 import { DatePickerInput } from '../../../UI/DatePicker';
-import { CREATE_PROJECT } from '../../../../graphql/mutations/createProject';
 import { projectsSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
 import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsForm';
@@ -19,7 +17,7 @@ import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.sty
 import { IProjectsModalProps } from './ProjectUpdateModal.types';
 
 export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, projectData }) => {
-  const [updateProject, { loading, error }] = useMutation<IUserAllResult>(UPDATE_PROJECT);
+  const [updateProject, { loading, error }] = useMutation(UPDATE_PROJECT);
   const {
     control,
     register,
@@ -53,7 +51,6 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
           internal_name: inputs.internalName,
           description: inputs.description,
           domain: inputs.domain,
-
           team_size: Number(inputs.teamSize),
           start_date: format(new Date(inputs.startDate), 'yyyy-MM-dd'),
           end_date: inputs.endDate ? format(new Date(inputs.endDate), 'yyyy-MM-dd') : null,
