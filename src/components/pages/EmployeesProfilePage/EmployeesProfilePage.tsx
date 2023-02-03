@@ -9,11 +9,11 @@ import { useUser } from '../../../hooks/useUser';
 import { chooseAvatarLetter } from '../../../utils/chooseAvatarLetter';
 import { Spinner } from '../../Spinner';
 import { PrivateButton } from '../../UI/PrivateButton';
+import { Row } from '../../Row/Row';
 import { AvatarModal } from './AvatarModal/AvatarModal';
 import * as Styled from './EmployeesProfilePage.styles';
 import { convertData } from './helpers/convertData';
 import { ProfileModal } from './ProfileModal/ProfileModal';
-import { Row } from './Row/Row';
 
 const EmployeesProfilePage = () => {
   const { id } = useParams();

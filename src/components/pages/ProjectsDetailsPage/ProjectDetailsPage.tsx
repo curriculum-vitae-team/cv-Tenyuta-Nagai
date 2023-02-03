@@ -6,11 +6,11 @@ import { UserRoles } from '../../../constants/userRoles';
 import { GET_PROJECT } from '../../../graphql/queries/project';
 import { IProjectResult } from '../../../graphql/types/results/projects';
 import { useUser } from '../../../hooks/useUser';
+import { Row } from '../../Row';
 import { Spinner } from '../../Spinner';
 import { PrivateButton } from '../../UI/PrivateButton';
 import * as Styled from './ProjectsDetailsPage.styles';
 import { ProjectUpdateModal } from './ProjectUpdateModal';
-import { Row } from './Row/Row';
 
 const ProjectsDetailsPage = () => {
   const { id } = useParams();
