@@ -5,13 +5,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { format } from 'date-fns';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
-import { IUserAllResult } from '../../../../graphql/types/results/user';
 import { ModalWindow } from '../../../UI/ModalWindow';
 import { DatePickerInput } from '../../../UI/DatePicker';
 import { updateCacheAfterCreatingProject } from '../../../../graphql/cache/createProject';
 import { CREATE_PROJECT } from '../../../../graphql/mutations/createProject';
 import { projectsSchema } from '../../../../utils/validationSchema';
-import { CreateProjectResult } from '../../../../graphql/types/results/projects';
+import { CreateProjectResult, IProjectsResult } from '../../../../graphql/types/results/projects';
 import { TError } from '../../../../types/errorTypes';
 import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsForm';
 import { TFormSubmit } from '../../../../types/formTypes';
@@ -19,7 +18,7 @@ import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.sty
 import { IProjectsFormInput, IProjectsModalProps } from './ProjectsCreateModal.interface';
 
 export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) => {
-  const [createProject, { loading }] = useMutation<IUserAllResult>(CREATE_PROJECT);
+  const [createProject, { loading }] = useMutation<IProjectsResult>(CREATE_PROJECT);
   const {
     control,
     register,
