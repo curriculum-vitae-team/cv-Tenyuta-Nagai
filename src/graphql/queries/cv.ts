@@ -9,6 +9,7 @@ export const CV = gql`
       description
       user {
         id
+        email
         position_name
         profile {
           full_name
@@ -16,11 +17,16 @@ export const CV = gql`
       }
       skills {
         skill_name
+        mastery
       }
       languages {
         language_name
         proficiency
       }
+      projects {
+        id
+      }
+      is_template
     }
   }
 `;
