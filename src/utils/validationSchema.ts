@@ -74,4 +74,11 @@ export const editCvSchema = object({
     .max(30)
     .required(),
   description: string().required(),
-}).required();
+});
+
+export const editCvDetailsSchema = object({
+  name: string()
+    .max(30)
+    .required(),
+  description: string().required(),
+});

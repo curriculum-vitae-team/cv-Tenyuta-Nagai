@@ -43,7 +43,7 @@ export const UPDATE_CV = gql`
 export const DELETE_CV = gql`
   mutation DeleteCv($id: ID!) {
     deleteCv(id: $id) {
-      id
+      affected
     }
   }
 `;

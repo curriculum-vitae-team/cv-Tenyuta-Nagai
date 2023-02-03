@@ -1,5 +1,5 @@
-import { RoutePath } from '../../../../../constants/routeVariables';
-import { TTypesData } from '../NavButtons.types';
+import { RoutePath } from '../../../../constants/routeVariables';
+import { TTypesData } from '../../../UI/NavButtonsPrivatePage/NavButtonsPrivatePage.types';
 
 export const tabsData: TTypesData[] = [
   {

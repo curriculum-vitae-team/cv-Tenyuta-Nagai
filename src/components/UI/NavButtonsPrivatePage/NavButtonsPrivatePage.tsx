@@ -1,11 +1,10 @@
 import { Tabs } from '@mui/material';
-import React from 'react';
+import React, { FC } from 'react';
 import { NavLink, useLocation, useParams } from 'react-router-dom';
-import { RoutePath } from '../../../../constants/routeVariables';
-import { tabsData } from './data/tabsData';
-import * as Styled from './NavButtons.styles';
+import { INavButtonsPrivatePageProps } from './NavButtonsPrivatePage.types';
+import * as Styled from './NavButtonsPrivatePage.styles';
 
-export const NavButtons = () => {
+export const NavButtonsPrivatePage: FC<INavButtonsPrivatePageProps> = ({ data, startPath }) => {
   const location = useLocation();
   const { id } = useParams();
 
@@ -18,10 +17,10 @@ export const NavButtons = () => {
         textColor="secondary"
         indicatorColor="secondary"
       >
-        {tabsData.map(({ value }) => (
+        {data.map(({ value }) => (
           <Styled.TabNav
             key={value}
-            value={`/${RoutePath.EMPLOYEES}/${id}/${value}`}
+            value={`/${startPath}/${id}/${value}`}
             component={NavLink}
             label={value}
             to={value}
