@@ -1,4 +1,4 @@
-import { styled, Paper, Typography, Avatar, Container } from '@mui/material';
+import { styled, Paper, Typography, Container } from '@mui/material';
 
 export const PaperWrapper = styled(Paper)(({ theme }) => ({
   display: 'flex',
@@ -22,11 +22,6 @@ export const Wrapper = styled('div')(() => ({
   flexDirection: 'column',
   rowGap: 15,
 }));
-
-export const UserAvatar = styled(Avatar)(() => ({
-  width: 60,
-  height: 60,
-})) as typeof Avatar;
 
 export const InfoWrapper = styled('div')(() => ({
   display: 'flex',
