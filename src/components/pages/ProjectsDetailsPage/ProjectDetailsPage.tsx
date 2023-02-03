@@ -8,6 +8,7 @@ import { IProjectResult } from '../../../graphql/types/results/projects';
 import { useUser } from '../../../hooks/useUser';
 import { Spinner } from '../../Spinner';
 import { PrivateButton } from '../../UI/PrivateButton';
+import { convertData } from '../EmployeesProfilePage/helpers/convertData';
 import { ProfileModal } from '../EmployeesProfilePage/ProfileModal/ProfileModal';
 import * as Styled from './ProjectsDetailsPage.styles';
 import { Row } from './Row/Row';
@@ -40,25 +41,35 @@ const ProjectsDetailsPage = () => {
 
   return (
     <>
-      <Styled.PaperWrapper elevation={3}>
-        <Styled.Wrapper>
-          <Styled.RowWrapper>
-            <Styled.RowContentTypography>{data?.project.name || '-'}</Styled.RowContentTypography>
-          </Styled.RowWrapper>
+      <main>
+        <Styled.ContainerWrapper maxWidth="xl">
+          <Styled.PaperWrapper elevation={3}>
+            <Styled.Wrapper>
+              <Styled.RowWrapper>
+                <Styled.RowContentTypography>
+                  {data?.project.name || '-'}
+                </Styled.RowContentTypography>
+              </Styled.RowWrapper>
 
-          <Styled.InfoWrapper>
-            <Row title={'Internal name:'}>{data?.project?.name || '-'}</Row>
-            <Row title={'Description:'}>{data?.project?.internal_name || '-'}</Row>
-            <Row title={'Domain:'}>{data?.project?.description || '-'}</Row>
-            <Row title={'Start date:'}>{data?.project?.domain || '-'}</Row>
-            <Row title={'End date:'}>{data?.project?.start_date}</Row>
-          </Styled.InfoWrapper>
-        </Styled.Wrapper>
+              <Styled.InfoWrapper>
+                <Row title={'Internal name:'}>{data?.project?.internal_name || '-'}</Row>
+                <Row title={'Description:'}>
+                  {data!.project.description.length > 100
+                    ? `${data?.project?.description.slice(0, 100)}...`
+                    : data?.project?.description || '-'}
+                </Row>
+                <Row title={'Domain:'}>{data?.project?.domain || '-'}</Row>
+                <Row title={'Start date:'}>{data?.project?.start_date}</Row>
+                <Row title={'End date:'}>{data?.project?.end_date}</Row>
+              </Styled.InfoWrapper>
+            </Styled.Wrapper>
 
-        <PrivateButton isVisible={isVisible} onClick={handleEdit} sx={{ minWidth: 140 }}>
-          Edit
-        </PrivateButton>
-      </Styled.PaperWrapper>
+            <PrivateButton isVisible={isVisible} onClick={handleEdit} sx={{ minWidth: 140 }}>
+              Edit
+            </PrivateButton>
+          </Styled.PaperWrapper>
+        </Styled.ContainerWrapper>
+      </main>
 
       {isOpenModal && <ProfileModal userId={id!} open={isOpenModal} onClose={handleCloseModal} />}
     </>

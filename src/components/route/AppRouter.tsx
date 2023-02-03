@@ -23,7 +23,7 @@ const SkillsPage = lazy(() => import('../pages/SkillsPage'));
 const EmployeesPage = lazy(() => import('../pages/EmployeesPage'));
 const EmployeesPrivatePage = lazy(() => import('../pages/EmployeesPrivatePage'));
 
-const ProjectsPrivatePage = lazy(() => import('../pages/ProjectsPrivatePage'));
+const ProjectsDetailsPage = lazy(() => import('../pages/ProjectsDetailsPage'));
 
 export const AppRouter = () => {
   const isAuth = useAuth();
@@ -48,7 +48,7 @@ export const AppRouter = () => {
 
           <Route path={RoutePath.PROJECTS} element={<PrivateRoute>{<Outlet />}</PrivateRoute>}>
             <Route index element={<ProjectsPage />} />
-            <Route path=":id" element={<ProjectsPrivatePage />} />
+            <Route path=":id" element={<ProjectsDetailsPage />}></Route>
           </Route>
 
           <Route path={RoutePath.EMPLOYEES} element={<PrivateRoute>{<Outlet />}</PrivateRoute>}>

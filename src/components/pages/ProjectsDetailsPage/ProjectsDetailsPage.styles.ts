@@ -1,4 +1,4 @@
-import { styled, Paper, Typography, Avatar } from '@mui/material';
+import { styled, Paper, Typography, Avatar, Container } from '@mui/material';
 
 export const PaperWrapper = styled(Paper)(({ theme }) => ({
   display: 'flex',
@@ -10,6 +10,12 @@ export const PaperWrapper = styled(Paper)(({ theme }) => ({
     rowGap: 20,
   },
 }));
+
+export const ContainerWrapper = styled(Container)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  rowGap: 12,
+})) as typeof Container;
 
 export const Wrapper = styled('div')(() => ({
   display: 'flex',
