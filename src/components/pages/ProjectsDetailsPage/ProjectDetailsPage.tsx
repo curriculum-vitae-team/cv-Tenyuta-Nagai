@@ -8,7 +8,6 @@ import { IProjectResult } from '../../../graphql/types/results/projects';
 import { useUser } from '../../../hooks/useUser';
 import { Spinner } from '../../Spinner';
 import { PrivateButton } from '../../UI/PrivateButton';
-import { convertData } from '../EmployeesProfilePage/helpers/convertData';
 import { ProfileModal } from '../EmployeesProfilePage/ProfileModal/ProfileModal';
 import * as Styled from './ProjectsDetailsPage.styles';
 import { Row } from './Row/Row';
