@@ -73,7 +73,7 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
             registerName={FieldNameProjectsForm.INTERNAL_NAME}
             register={register}
             error={!!errors.internalName?.message}
-            helperText={errors.internal_name?.message as string}
+            helperText={errors.internalName?.message as string}
           />
 
           <InputText
