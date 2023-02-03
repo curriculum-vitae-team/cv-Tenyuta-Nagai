@@ -14,11 +14,12 @@ import { TError } from '../../../../types/errorTypes';
 import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsForm';
 import { TFormSubmit } from '../../../../types/formTypes';
 import { IProjectsFormInput } from '../../ProjectsPage/ProjectsCreateModal/ProjectsCreateModal.interface';
+import { UPDATE_PROJECT } from '../../../../graphql/mutations/updateProject';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
 import { IProjectsModalProps } from './ProjectUpdateModal.types';
 
 export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, projectData }) => {
-  const [updateProject, { loading, error }] = useMutation<IUserAllResult>(CREATE_PROJECT);
+  const [updateProject, { loading, error }] = useMutation<IUserAllResult>(UPDATE_PROJECT);
   const {
     control,
     register,

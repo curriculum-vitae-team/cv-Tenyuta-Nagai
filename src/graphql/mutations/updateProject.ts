@@ -9,7 +9,7 @@ export const UPDATE_PROJECT = gql`
       description
       domain
       start_date
-      end_dates
+      end_date
       team_size
       tech_stack {
         id
