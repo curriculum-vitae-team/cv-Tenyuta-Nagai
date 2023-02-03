@@ -81,7 +81,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
             registerName={FieldNameProjectsForm.INTERNAL_NAME}
             register={register}
             error={!!errors.internalName?.message}
-            helperText={errors.internal_name?.message as string}
+            helperText={errors.internalName?.message as string}
           />
 
           <InputText
