@@ -16,3 +16,13 @@ export interface ProjectInput {
 export interface CreateProjectInput {
   project: ProjectInput;
 }
+
+export interface IProjectsFormInput {
+  name: string;
+  internalName: string;
+  description: string;
+  domain: string;
+  startDate: string;
+  endDate: string;
+  teamSize: number;
+}

@@ -8,8 +8,8 @@ import { IProjectResult } from '../../../graphql/types/results/projects';
 import { useUser } from '../../../hooks/useUser';
 import { Spinner } from '../../Spinner';
 import { PrivateButton } from '../../UI/PrivateButton';
-import { ProfileModal } from '../EmployeesProfilePage/ProfileModal/ProfileModal';
 import * as Styled from './ProjectsDetailsPage.styles';
+import { ProjectUpdateModal } from './ProjectUpdateModal';
 import { Row } from './Row/Row';
 
 const ProjectsDetailsPage = () => {
@@ -70,7 +70,9 @@ const ProjectsDetailsPage = () => {
         </Styled.ContainerWrapper>
       </main>
 
-      {isOpenModal && <ProfileModal userId={id!} open={isOpenModal} onClose={handleCloseModal} />}
+      {isOpenModal && (
+        <ProjectUpdateModal open={isOpenModal} onClose={handleCloseModal} projectData={data!} />
+      )}
     </>
   );
 };
