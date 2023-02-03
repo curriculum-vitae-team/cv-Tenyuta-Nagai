@@ -40,9 +40,6 @@ export const CvEditDetailsModal: FC<ICvEditModalProps> = ({ open, onClose, cvDat
   };
 
   const onSubmit = (inputs: IFormEditDetailsCv) => {
-    console.log(111, cvData?.cv.languages);
-    console.log(222, cvData?.cv.skills);
-
     updateCV({
       variables: {
         id: cvData?.cv.id,
