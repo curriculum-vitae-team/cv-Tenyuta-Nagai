@@ -52,11 +52,7 @@ const ProjectsDetailsPage = () => {
 
               <Styled.InfoWrapper>
                 <Row title={'Internal name:'}>{data?.project?.internal_name || '-'}</Row>
-                <Row title={'Description:'}>
-                  {data!.project.description.length > 100
-                    ? `${data?.project?.description.slice(0, 100)}...`
-                    : data?.project?.description || '-'}
-                </Row>
+                <Row title={'Description:'}>{data?.project?.description || '-'}</Row>
                 <Row title={'Domain:'}>{data?.project?.domain || '-'}</Row>
                 <Row title={'Start date:'}>{data?.project?.start_date}</Row>
                 <Row title={'End date:'}>{data?.project?.end_date}</Row>

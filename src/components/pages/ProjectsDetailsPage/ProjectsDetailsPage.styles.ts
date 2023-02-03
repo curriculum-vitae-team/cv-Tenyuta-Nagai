@@ -27,6 +27,9 @@ export const InfoWrapper = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
   rowGap: 10,
+  whiteSpace: 'pre-wrap',
+  wordWrap: 'break-word',
+  wordBreak: 'break-word',
 }));
 
 export const RowWrapper = styled('div')(({ theme }) => ({
