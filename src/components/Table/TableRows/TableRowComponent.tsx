@@ -22,7 +22,7 @@ const TableRowComponent = ({ children, AdditionalButtons, item }: TableRowProps)
         {children}
 
         {AdditionalButtons && (
-          <TableCell>
+          <TableCell align="right" sx={{ minWidth: '50px' }}>
             <IconButton
               onClick={handleClick}
               size="small"
@@ -35,6 +35,7 @@ const TableRowComponent = ({ children, AdditionalButtons, item }: TableRowProps)
           </TableCell>
         )}
       </TableRow>
+
       {AdditionalButtons && (
         <AdditionalButtonsMenu open={open} onClose={handleClose} anchorEl={anchorEl}>
           <AdditionalButtons item={item} />
