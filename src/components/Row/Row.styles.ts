@@ -13,6 +13,7 @@ export const RowWrapper = styled('div')(({ theme }) => ({
 export const RowTitle = styled('div')(({ theme }) => ({
   fontSize: 22,
   color: theme.palette.secondary.contrastText,
+  whiteSpace: 'nowrap',
 
   [theme.breakpoints.down('sm')]: {
     fontSize: 18,
