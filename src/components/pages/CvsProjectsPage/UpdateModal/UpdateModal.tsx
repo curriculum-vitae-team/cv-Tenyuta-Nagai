@@ -68,7 +68,7 @@ export const UpdateModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
           name: cvData?.cv.name,
           description: cvData?.cv.description,
           userId: cvData?.cv.user?.id,
-          skills: createArrayForSkills(cvData?.cv.skills),
+          skills: createArrayForSkills(cvData?.cv?.skills),
           projectsIds: projectsIds,
           languages: createArrayForLanguages(cvData?.cv?.languages),
           is_template: cvData?.cv.is_template,

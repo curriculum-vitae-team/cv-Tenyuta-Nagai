@@ -26,6 +26,9 @@ export const ContentWrapper = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
   rowGap: 15,
+  whiteSpace: 'pre-wrap',
+  wordWrap: 'break-word',
+  wordBreak: 'break-word',
 }));
 
 export const BtnWrapper = styled('div')(({ theme }) => ({

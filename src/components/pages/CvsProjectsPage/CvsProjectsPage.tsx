@@ -22,7 +22,6 @@ const CvsProjectsPage = () => {
   const { loading, error, data } = useQuery<ICvQueryResult>(CV, {
     variables: { id },
   });
-  console.log('cv', data);
 
   if (loading) {
     return <Spinner />;
