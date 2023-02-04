@@ -10,6 +10,8 @@ import { ModalWindow } from '../../../UI/ModalWindow';
 import { UPDATE_CV } from '../../../../graphql/mutations/cv';
 import { ICvResult } from '../../../../graphql/types/results/cv';
 import { TError } from '../../../../types/errorTypes';
+import { createArrayForLanguages } from '../../../../utils/createArrayForLanguages';
+import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
 import { ICvEditModalProps, IFormEditDetailsCv } from './CvEditDetailsModal.types';
 import * as Styled from './CvEditDetailsModal.styles';
 
@@ -47,13 +49,9 @@ export const CvEditDetailsModal: FC<ICvEditModalProps> = ({ open, onClose, cvDat
           name: inputs.name,
           description: inputs.description,
           userId: cvData?.cv.user?.id,
-          skills: cvData?.cv.skills.map(({ skill_name, mastery }) => {
-            return { skill_name, mastery };
-          }),
+          skills: createArrayForSkills(cvData?.cv.skills),
           projectsIds: cvData?.cv?.projects?.map((project) => project.id),
-          languages: cvData?.cv.languages.map(({ language_name, proficiency }) => {
-            return { language_name, proficiency };
-          }),
+          languages: createArrayForLanguages(cvData?.cv?.languages),
           is_template: inputs.template,
         },
       },
