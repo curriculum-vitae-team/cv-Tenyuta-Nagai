@@ -7,16 +7,23 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { IAdditionalButtonsProps } from '../../../Table/TableRows/TableRowComponent.types';
 import { UserRoles } from '../../../../constants/userRoles';
 import { useUser } from '../../../../hooks/useUser';
+import { DELETE_DEPARTMENT } from '../../../../graphql/mutations/departments';
+import { updateCacheAfterDeleteDepartment } from '../../../../graphql/cache/departments';
 import * as Styled from './DepartmentsAdditionalBtns.styles';
 
 export const DepartmentsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
   const { id } = item;
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
-  //const [deleteDepartment] = useMutation(DELETE_DEPARTMENT);
+  const [deleteDepartment] = useMutation(DELETE_DEPARTMENT);
 
   const handleDepartmentDelete = () => {
-    console.log('delete');
+    deleteDepartment({
+      variables: { id: id },
+      update(cache) {
+        updateCacheAfterDeleteDepartment(cache, id as string);
+      },
+    });
   };
 
   const handleDepartmentUpdate = () => {
