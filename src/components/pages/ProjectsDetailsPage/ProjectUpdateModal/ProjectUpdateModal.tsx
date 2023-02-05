@@ -1,53 +1,61 @@
 import { useMutation } from '@apollo/client';
 import React, { FC } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { format } from 'date-fns';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { ModalWindow } from '../../../UI/ModalWindow';
 import { DatePickerInput } from '../../../UI/DatePicker';
-import { updateCacheAfterCreatingProject } from '../../../../graphql/cache/createProject';
-import { CREATE_PROJECT } from '../../../../graphql/mutations/createProject';
 import { projectsSchema } from '../../../../utils/validationSchema';
-import { CreateProjectResult, IProjectsResult } from '../../../../graphql/types/results/projects';
 import { TError } from '../../../../types/errorTypes';
 import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsForm';
 import { TFormSubmit } from '../../../../types/formTypes';
+import { IProjectsFormInput } from '../../ProjectsPage/ProjectsCreateModal/ProjectsCreateModal.interface';
+import { UPDATE_PROJECT } from '../../../../graphql/mutations/updateProject';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
-import { IProjectsFormInput, IProjectsModalProps } from './ProjectsCreateModal.interface';
+import { IProjectsModalProps } from './ProjectUpdateModal.types';
 
-export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) => {
-  const [createProject, { loading }] = useMutation<IProjectsResult>(CREATE_PROJECT);
+export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, projectData }) => {
+  const [updateProject, { loading, error }] = useMutation(UPDATE_PROJECT);
   const {
     control,
     register,
     trigger,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({
+  } = useForm<FieldValues>({
+    defaultValues: {
+      name: projectData?.project?.name,
+      internalName: projectData?.project?.internal_name,
+      description: projectData?.project?.description,
+      domain: projectData?.project?.domain,
+      teamSize: projectData?.project?.team_size,
+      startDate: projectData?.project?.start_date,
+      endDate: projectData?.project?.end_date,
+    },
     mode: 'onChange',
     resolver: yupResolver(projectsSchema),
   });
 
+  if (error) {
+    onClose();
+  }
+
   const onSubmit = (inputs: IProjectsFormInput) => {
-    createProject({
+    updateProject({
       variables: {
+        id: projectData?.project.id,
         project: {
           name: inputs.name,
           internal_name: inputs.internalName,
-
           description: inputs.description,
           domain: inputs.domain,
-
           team_size: Number(inputs.teamSize),
           start_date: format(new Date(inputs.startDate), 'yyyy-MM-dd'),
           end_date: inputs.endDate ? format(new Date(inputs.endDate), 'yyyy-MM-dd') : null,
           skillsIds: [],
         },
-      },
-      update(cache, { data }) {
-        updateCacheAfterCreatingProject(cache, (data as unknown) as CreateProjectResult);
       },
     })
       .catch((err) => console.error((err as TError).message))
@@ -55,7 +63,7 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
   };
 
   return (
-    <ModalWindow title={'Create new project'} onClose={onClose} open={open}>
+    <ModalWindow title={'Update project'} onClose={onClose} open={open}>
       {loading ? (
         <Spinner />
       ) : (
