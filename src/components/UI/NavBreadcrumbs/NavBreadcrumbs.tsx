@@ -7,6 +7,8 @@ import { RoutePath } from '../../../constants/routeVariables';
 import { chooseUserName, convertPathName } from '../../../utils/convertPathName';
 import { USER } from '../../../graphql/queries/user';
 import { IUserName, IUserNameResult } from '../../../graphql/types/results/user';
+import { CV } from '../../../graphql/queries/cv';
+import { ICvQueryResult } from '../../../graphql/types/results/cv';
 import * as Styled from './NavBreadcrumbs.styles';
 
 export const NavBreadcrumbs = () => {
@@ -19,6 +21,8 @@ export const NavBreadcrumbs = () => {
     [location]
   );
   const { id: pathId } = useParams();
+
+  const isEmployees = pathnames[0] === RoutePath.EMPLOYEES;
   const [userName] = useLazyQuery<IUserNameResult>(USER);
   const [userData, setUserData] = useState<IUserName>({
     email: '',
@@ -28,20 +32,26 @@ export const NavBreadcrumbs = () => {
     },
   });
 
-  useEffect(() => {
-    if (!!pathId) {
-      const getUserName = async () => {
-        const userId = pathnames[pathnames.length - 2];
-        const { data } = await userName({ variables: { id: userId } });
+  const isCvs = pathnames[0] === RoutePath.CVS;
+  const [cvName] = useLazyQuery<ICvQueryResult>(CV);
+  const [cvData, setCvData] = useState('...');
 
+  useEffect(() => {
+    if (!!pathId && isEmployees) {
+      userName({ variables: { id: pathId } }).then(({ data }) => {
         if (data?.user) {
           const { email, profile } = data.user;
           setUserData({ email, profile });
         }
-      };
-      getUserName();
+      });
+    } else if (!!pathId && isCvs) {
+      cvName({ variables: { id: pathId } }).then(({ data }) => {
+        if (data?.cv) {
+          setCvData(data.cv.name);
+        }
+      });
     }
-  }, [pathId, pathnames, userName]);
+  }, [cvName, isCvs, isEmployees, pathId, pathnames, userName]);
 
   return (
     <Styled.WrapperBreadcrumbs role="presentation">
@@ -51,8 +61,10 @@ export const NavBreadcrumbs = () => {
           const isLast = index === pathnames.length - 1;
           const isPreLast = index === pathnames.length - 2;
 
-          if (!!pathId && isPreLast) {
-            return <Styled.UserName key={name}>{chooseUserName(userData)}</Styled.UserName>;
+          if (!!pathId && isPreLast && isEmployees) {
+            return <Styled.IdName key={name}>{chooseUserName(userData)}</Styled.IdName>;
+          } else if (!!pathId && isPreLast && isCvs) {
+            return <Styled.IdName key={name}>{cvData}</Styled.IdName>;
           } else if (isLast) {
             return <Typography key={name}>{convertPathName(name)}</Typography>;
           }

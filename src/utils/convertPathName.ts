@@ -20,6 +20,8 @@ export const convertPathName = (name: string) => {
       return BreadcrumbNames.SKILLS;
     case RoutePath.PROFILE:
       return BreadcrumbNames.PROFILE;
+    case RoutePath.DETAILS:
+      return BreadcrumbNames.DETAILS;
     default:
       return name;
   }
