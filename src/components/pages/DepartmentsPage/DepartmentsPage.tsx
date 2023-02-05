@@ -8,7 +8,7 @@ import { DEPARTMENTS } from '../../../graphql/queries/departments';
 import { useUser } from '../../../hooks/useUser';
 import { Spinner } from '../../Spinner';
 import { createTable } from '../../Table/template';
-import { EmployeesModal } from '../EmployeesPage/EmployeesModal';
+import { DepartmentsCreateModal } from './DepartmentCreate';
 import { DepartmentsAdditionalButtons } from './DepartmentsAdditionalBtns/DepartmentsAdditionalBtns';
 import { getAllDepartments } from './TableData/DepartmentsRows';
 import { DepartmentsTableHeader } from './TableData/DepartmentsTableHeader';
@@ -35,9 +35,9 @@ const DepartmentsPage = () => {
           <Table
             header={DepartmentsTableHeader}
             items={getAllDepartments(data?.departments || [])}
-            ModalForCreating={EmployeesModal}
+            ModalForCreating={DepartmentsCreateModal}
             searchParameter="name"
-            titleCreateBtn="Add employee"
+            titleCreateBtn="Add department"
             isCreateBtnVisible={isCreateBtnVisible}
             AdditionalButtons={DepartmentsAdditionalButtons}
             defaultSortingBy="name"

@@ -1,1 +1,1 @@
-export {};
+export { DepartmentsCreateModal } from './DepartmentCreateModal';

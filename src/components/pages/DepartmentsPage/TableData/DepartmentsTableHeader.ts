@@ -1,4 +1,4 @@
-import { IColumn } from '../../EmployeesPage/TableData/TableData.interface';
+import { IColumn } from '../../../Table/template/templateTable.types';
 
 export const DepartmentsTableHeader: IColumn[] = [
   {

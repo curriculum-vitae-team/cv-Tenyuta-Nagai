@@ -1,5 +1,4 @@
 import { IAdditionalButtonsProps } from '../TableRows/TableRowComponent.types';
-import { IColumn } from '../../pages/EmployeesPage/TableData/TableData.interface';
 
 export type TableProps<T = Item> = {
   header: IColumn[];
@@ -21,4 +20,18 @@ export type Element = {
 export interface IModalForCreatingProps {
   open: boolean;
   onClose: () => void;
+}
+
+export interface IColumn {
+  columnKey: string;
+  columnName: string;
+  isSortable: boolean;
+  ColumnCellComponent?: React.FC<IColumnCellComponentProps>;
+}
+
+export interface IColumnCellComponentProps {
+  item: Item;
+  columnKey: string;
+  handleDelete?: (id: string) => void;
+  id?: string;
 }
