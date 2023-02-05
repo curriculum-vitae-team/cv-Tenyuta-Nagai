@@ -9,10 +9,14 @@ export const CVS = gql`
       description
       user {
         id
+        email
       }
       skills {
         skill_name
         mastery
+      }
+      projects {
+        name
       }
       languages {
         language_name

@@ -6,7 +6,7 @@ import { useLazyQuery } from '@apollo/client';
 import { RoutePath } from '../../../constants/routeVariables';
 import { chooseUserName, convertPathName } from '../../../utils/convertPathName';
 import { USER } from '../../../graphql/queries/user';
-import { IUserName, IUserNameResult } from '../../../interfaces/IUser.interface';
+import { IUserName, IUserNameResult } from '../../../graphql/types/results/user';
 import * as Styled from './NavBreadcrumbs.styles';
 
 export const NavBreadcrumbs = () => {
