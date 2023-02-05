@@ -7,7 +7,7 @@ export type TableProps<T = Item> = {
   ModalForCreating: React.FC<IModalForCreatingProps>;
   titleCreateBtn: string;
   isCreateBtnVisible: boolean;
-  AdditionalButtons: React.FC<IAdditionalButtonsProps>;
+  AdditionalButtons?: React.FC<IAdditionalButtonsProps>;
   defaultSortingBy: string;
 };
 

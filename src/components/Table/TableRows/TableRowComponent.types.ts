@@ -6,6 +6,6 @@ export interface IAdditionalButtonsProps {
 
 export type TableRowProps = {
   children: React.ReactNode;
-  AdditionalButtons: React.FC<IAdditionalButtonsProps>;
+  AdditionalButtons?: React.FC<IAdditionalButtonsProps>;
   item: Item;
 };
