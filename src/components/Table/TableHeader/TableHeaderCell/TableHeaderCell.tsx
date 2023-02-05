@@ -18,7 +18,7 @@ const TableHeaderCell = ({
   };
 
   return (
-    <TableCellStyled onClick={handleSorting}>
+    <TableCellStyled onClick={handleSorting} isSortable={isSortable}>
       {name}
       {isSortable && <TableSortLabel direction={direction} active={active} />}
     </TableCellStyled>

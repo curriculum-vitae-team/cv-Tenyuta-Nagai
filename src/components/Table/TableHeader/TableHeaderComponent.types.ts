@@ -7,3 +7,7 @@ export type TableHeaderComponentProps = {
   handleSetSortingDirection: (columnName: string) => void;
   direction: Directions;
 };
+
+export interface ITableCellStyled {
+  isSortable?: boolean;
+}
