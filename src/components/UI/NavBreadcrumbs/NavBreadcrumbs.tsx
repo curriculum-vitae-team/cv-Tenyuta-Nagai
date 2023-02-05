@@ -6,13 +6,18 @@ import { useLazyQuery } from '@apollo/client';
 import { RoutePath } from '../../../constants/routeVariables';
 import { chooseUserName, convertPathName } from '../../../utils/convertPathName';
 import { USER } from '../../../graphql/queries/user';
-import { IUserName, IUserNameResult } from '../../../graphql/types/results/user';
+import { IUserNameResult } from '../../../graphql/types/results/user';
 import { CV } from '../../../graphql/queries/cv';
 import { ICvQueryResult } from '../../../graphql/types/results/cv';
+import { GET_PROJECT } from '../../../graphql/queries/project';
+import { IProjectResult } from '../../../graphql/types/results/projects';
 import * as Styled from './NavBreadcrumbs.styles';
 
 export const NavBreadcrumbs = () => {
   const location = useLocation();
+  const [userName] = useLazyQuery<IUserNameResult>(USER);
+  const [cvName] = useLazyQuery<ICvQueryResult>(CV);
+  const [projectName] = useLazyQuery<IProjectResult>(GET_PROJECT);
   const pathnames = useMemo(
     () =>
       location.pathname.includes(RoutePath.ERROR)
@@ -21,37 +26,32 @@ export const NavBreadcrumbs = () => {
     [location]
   );
   const { id: pathId } = useParams();
-
+  const [pathName, setPathName] = useState('...');
   const isEmployees = pathnames[0] === RoutePath.EMPLOYEES;
-  const [userName] = useLazyQuery<IUserNameResult>(USER);
-  const [userData, setUserData] = useState<IUserName>({
-    email: '',
-    profile: {
-      first_name: '',
-      last_name: '',
-    },
-  });
-
   const isCvs = pathnames[0] === RoutePath.CVS;
-  const [cvName] = useLazyQuery<ICvQueryResult>(CV);
-  const [cvData, setCvData] = useState('...');
+  const isProjects = pathnames[0] === RoutePath.PROJECTS;
 
   useEffect(() => {
-    if (!!pathId && isEmployees) {
+    if (pathId && isEmployees) {
       userName({ variables: { id: pathId } }).then(({ data }) => {
         if (data?.user) {
-          const { email, profile } = data.user;
-          setUserData({ email, profile });
+          setPathName(chooseUserName(data.user));
         }
       });
-    } else if (!!pathId && isCvs) {
+    } else if (pathId && isCvs) {
       cvName({ variables: { id: pathId } }).then(({ data }) => {
         if (data?.cv) {
-          setCvData(data.cv.name);
+          setPathName(data.cv.name);
+        }
+      });
+    } else if (pathId && isProjects) {
+      projectName({ variables: { id: pathId } }).then(({ data }) => {
+        if (data?.project) {
+          setPathName(data.project.name);
         }
       });
     }
-  }, [cvName, isCvs, isEmployees, pathId, pathnames, userName]);
+  }, [cvName, isCvs, isEmployees, isProjects, pathId, pathnames, projectName, userName]);
 
   return (
     <Styled.WrapperBreadcrumbs role="presentation">
@@ -61,10 +61,12 @@ export const NavBreadcrumbs = () => {
           const isLast = index === pathnames.length - 1;
           const isPreLast = index === pathnames.length - 2;
 
-          if (!!pathId && isPreLast && isEmployees) {
-            return <Styled.IdName key={name}>{chooseUserName(userData)}</Styled.IdName>;
-          } else if (!!pathId && isPreLast && isCvs) {
-            return <Styled.IdName key={name}>{cvData}</Styled.IdName>;
+          if (pathId && isPreLast && isEmployees) {
+            return <Styled.IdName key={name}>{pathName}</Styled.IdName>;
+          } else if (pathId && isPreLast && isCvs) {
+            return <Styled.IdName key={name}>{pathName}</Styled.IdName>;
+          } else if (isLast && pathId && isProjects) {
+            return <Typography key={name}>{pathName}</Typography>;
           } else if (isLast) {
             return <Typography key={name}>{convertPathName(name)}</Typography>;
           }

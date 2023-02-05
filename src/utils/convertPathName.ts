@@ -30,8 +30,6 @@ export const convertPathName = (name: string) => {
 export const chooseUserName = (data: IUserName) => {
   if (data.profile.first_name && data.profile.last_name) {
     return `${data.profile.first_name} ${data?.profile.last_name}`;
-  } else if (data?.email) {
-    return data.email;
   }
-  return '...';
+  return data.email;
 };
