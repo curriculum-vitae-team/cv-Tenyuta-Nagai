@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { Divider, MenuItem } from '@mui/material';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import UpdateIcon from '@mui/icons-material/Update';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
@@ -9,12 +9,14 @@ import { UserRoles } from '../../../../constants/userRoles';
 import { useUser } from '../../../../hooks/useUser';
 import { DELETE_DEPARTMENT } from '../../../../graphql/mutations/departments';
 import { updateCacheAfterDeleteDepartment } from '../../../../graphql/cache/departments';
+import { DepartmentUpdateModal } from '../DepartmentUpdate';
 import * as Styled from './DepartmentsAdditionalBtns.styles';
 
 export const DepartmentsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
   const { id } = item;
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [deleteDepartment] = useMutation(DELETE_DEPARTMENT);
 
   const handleDepartmentDelete = () => {
@@ -26,13 +28,17 @@ export const DepartmentsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item
     });
   };
 
-  const handleDepartmentUpdate = () => {
-    console.log('update');
+  const handleUpdate = () => {
+    setIsOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
   };
 
   return (
     <>
-      <MenuItem sx={Styled.ActionsMenuRowItemProps} onClick={handleDepartmentUpdate}>
+      <MenuItem sx={Styled.ActionsMenuRowItemProps} onClick={handleUpdate}>
         <UpdateIcon sx={Styled.ActionsMenuRowIconsProps} />
         Update
       </MenuItem>
@@ -48,6 +54,14 @@ export const DepartmentsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item
           <DeleteOutlineIcon sx={Styled.ActionsMenuRowIconsProps} />
           Delete
         </MenuItem>
+      )}
+
+      {isOpenModal && (
+        <DepartmentUpdateModal
+          departmentData={item}
+          open={isOpenModal}
+          onClose={handleCloseModal}
+        />
       )}
     </>
   );
