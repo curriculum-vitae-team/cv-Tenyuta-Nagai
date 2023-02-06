@@ -3,10 +3,7 @@ import { Divider, MenuItem } from '@mui/material';
 import { FC } from 'react';
 import UpdateIcon from '@mui/icons-material/Update';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-
 import { IAdditionalButtonsProps } from '../../../Table/TableRows/TableRowComponent.types';
-import { UserRoles } from '../../../../constants/userRoles';
-import { useUser } from '../../../../hooks/useUser';
 import { DELETE_DEPARTMENT } from '../../../../graphql/mutations/departments';
 import { updateCacheAfterDeleteDepartment } from '../../../../graphql/cache/departments';
 import * as Styled from './DepartmentsAdditionalBtns.styles';
@@ -17,8 +14,6 @@ export const DepartmentsAdditionalButtons: FC<IAdditionalButtonsProps> = ({
   setItem,
 }) => {
   const { id, name } = item;
-  const user = useUser();
-  const isAdmin = user?.role === UserRoles.Admin;
   const [deleteDepartment] = useMutation(DELETE_DEPARTMENT);
 
   const handleDepartmentDelete = () => {
@@ -45,18 +40,12 @@ export const DepartmentsAdditionalButtons: FC<IAdditionalButtonsProps> = ({
         Update
       </MenuItem>
 
-      {isAdmin && <Divider />}
+      <Divider />
 
-      {isAdmin && (
-        <MenuItem
-          onClick={handleDepartmentDelete}
-          sx={Styled.ActionsMenuRowItemProps}
-          disabled={user?.id === id && isAdmin}
-        >
-          <DeleteOutlineIcon sx={Styled.ActionsMenuRowIconsProps} />
-          Delete
-        </MenuItem>
-      )}
+      <MenuItem onClick={handleDepartmentDelete} sx={Styled.ActionsMenuRowItemProps}>
+        <DeleteOutlineIcon sx={Styled.ActionsMenuRowIconsProps} />
+        Delete
+      </MenuItem>
     </>
   );
 };

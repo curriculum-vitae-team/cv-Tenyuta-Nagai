@@ -55,6 +55,6 @@ export const editCvSchema = object({
 
 export const departmentsSchema = object({
   name: string()
-    .max(25)
+    .max(35)
     .required(),
 });

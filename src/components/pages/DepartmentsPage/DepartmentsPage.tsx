@@ -19,7 +19,7 @@ const DepartmentsPage = () => {
   const navigate = useNavigate();
   const { data, loading, error } = useQuery(DEPARTMENTS);
   const user = useUser();
-  const isCreateBtnVisible = user?.role === UserRoles.Admin;
+  const isAdmin = user?.role === UserRoles.Admin;
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const [department, setDepartment] = useState({
@@ -31,6 +31,10 @@ const DepartmentsPage = () => {
     setIsOpenModal(true);
   };
 
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+  };
+
   if (loading) {
     return <Spinner />;
   }
@@ -38,10 +42,6 @@ const DepartmentsPage = () => {
   if (error) {
     navigate(`/${RoutePath.LOGIN}`, { replace: true });
   }
-
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
-  };
 
   return (
     <main>
@@ -53,8 +53,8 @@ const DepartmentsPage = () => {
             ModalForCreating={DepartmentsCreateModal}
             searchParameter="name"
             titleCreateBtn="Add department"
-            isCreateBtnVisible={isCreateBtnVisible}
-            AdditionalButtons={DepartmentsAdditionalButtons}
+            isCreateBtnVisible={isAdmin}
+            AdditionalButtons={isAdmin ? DepartmentsAdditionalButtons : undefined}
             defaultSortingBy="name"
             handleUpdate={handleUpdateDepartment}
             setItem={setDepartment}
