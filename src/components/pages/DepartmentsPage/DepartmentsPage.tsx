@@ -52,7 +52,7 @@ const DepartmentsPage = () => {
             items={getAllDepartments(data?.departments || [])}
             ModalForCreating={DepartmentsCreateModal}
             searchParameter="name"
-            titleCreateBtn="Add department"
+            titleCreateBtn="Create"
             isCreateBtnVisible={isAdmin}
             AdditionalButtons={isAdmin ? DepartmentsAdditionalButtons : undefined}
             defaultSortingBy="name"

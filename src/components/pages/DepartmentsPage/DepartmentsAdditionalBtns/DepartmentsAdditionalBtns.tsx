@@ -29,7 +29,7 @@ export const DepartmentsAdditionalButtons: FC<IAdditionalButtonsProps> = ({
     setItem!({
       name: name as string,
       id: id as string,
-    })!;
+    });
     handleUpdate();
   };
 

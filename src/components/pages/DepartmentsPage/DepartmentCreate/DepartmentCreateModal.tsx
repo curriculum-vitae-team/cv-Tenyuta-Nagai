@@ -47,7 +47,7 @@ export const DepartmentsCreateModal: FC<IModalForCreatingProps> = ({ open, onClo
   };
 
   return (
-    <ModalWindow title={'Create new department'} onClose={onClose} open={open}>
+    <ModalWindow title={'Create department'} onClose={onClose} open={open}>
       {loading ? (
         <Spinner />
       ) : (
