@@ -9,6 +9,13 @@ export type TableProps<T = Item> = {
   isCreateBtnVisible: boolean;
   AdditionalButtons?: React.FC<IAdditionalButtonsProps>;
   defaultSortingBy: string;
+  handleUpdate?: () => void;
+  setItem?: React.Dispatch<
+    React.SetStateAction<{
+      name: string;
+      id: string;
+    }>
+  >;
 };
 
 export type Item = Record<string, string | number | boolean>;

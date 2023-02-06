@@ -17,7 +17,7 @@ import { IDepartmentUpdateModalProps } from './DepartmentUpdateModal.interface';
 export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
   open,
   onClose,
-  departmentData,
+  department,
 }) => {
   const [updateDepartment, { loading, error }] = useMutation(UPDATE_DEPARTMENT);
   const {
@@ -26,7 +26,7 @@ export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
     formState: { errors, isValid },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: departmentData.name,
+      name: department.name,
     },
     mode: 'onChange',
     resolver: yupResolver(departmentsSchema),
@@ -39,7 +39,7 @@ export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
   const onSubmit = (inputs: DepartmentsInput) => {
     updateDepartment({
       variables: {
-        id: departmentData.id,
+        id: department.id,
         department: {
           name: inputs.name,
         },

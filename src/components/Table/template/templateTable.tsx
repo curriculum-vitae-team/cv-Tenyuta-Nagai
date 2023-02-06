@@ -27,6 +27,8 @@ const Table = ({
   AdditionalButtons,
   isCreateBtnVisible,
   defaultSortingBy,
+  handleUpdate,
+  setItem,
 }: TableProps) => {
   const [searchString, setSearchString] = useState('');
   const [sortingBy, setSortingBy] = useState(defaultSortingBy);
@@ -103,6 +105,8 @@ const Table = ({
                   key={item.id as string}
                   item={item}
                   AdditionalButtons={AdditionalButtons}
+                  handleUpdate={handleUpdate!}
+                  setItem={setItem}
                 >
                   {header.map(({ columnKey, ColumnCellComponent = TableRowCell }) => (
                     <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />

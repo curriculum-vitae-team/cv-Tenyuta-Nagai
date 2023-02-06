@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Container, Grid } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -10,6 +10,7 @@ import { Spinner } from '../../Spinner';
 import { createTable } from '../../Table/template';
 import { DepartmentsCreateModal } from './DepartmentCreate';
 import { DepartmentsAdditionalButtons } from './DepartmentsAdditionalBtns/DepartmentsAdditionalBtns';
+import { DepartmentUpdateModal } from './DepartmentUpdate';
 import { getAllDepartments } from './TableData/DepartmentsRows';
 import { DepartmentsTableHeader } from './TableData/DepartmentsTableHeader';
 
@@ -19,6 +20,16 @@ const DepartmentsPage = () => {
   const { data, loading, error } = useQuery(DEPARTMENTS);
   const user = useUser();
   const isCreateBtnVisible = user?.role === UserRoles.Admin;
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const [department, setDepartment] = useState({
+    name: '',
+    id: '',
+  });
+
+  const handleUpdateDepartment = () => {
+    setIsOpenModal(true);
+  };
 
   if (loading) {
     return <Spinner />;
@@ -27,6 +38,10 @@ const DepartmentsPage = () => {
   if (error) {
     navigate(`/${RoutePath.LOGIN}`, { replace: true });
   }
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+  };
 
   return (
     <main>
@@ -41,9 +56,18 @@ const DepartmentsPage = () => {
             isCreateBtnVisible={isCreateBtnVisible}
             AdditionalButtons={DepartmentsAdditionalButtons}
             defaultSortingBy="name"
+            handleUpdate={handleUpdateDepartment}
+            setItem={setDepartment}
           />
         </Grid>
       </Container>
+      {isOpenModal && (
+        <DepartmentUpdateModal
+          open={isOpenModal}
+          onClose={handleCloseModal}
+          department={department}
+        />
+      )}
     </main>
   );
 };
