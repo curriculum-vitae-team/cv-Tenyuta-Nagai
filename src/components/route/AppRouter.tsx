@@ -8,13 +8,14 @@ import EmployeesProfilePage from '../pages/EmployeesProfilePage';
 import EmployeesSkillsPage from '../pages/EmployeesSkillsPage';
 import EmployeesLanguagePage from '../pages/EmployeesLanguagePage';
 import EmployeesCVsPage from '../pages/EmployeesCVsPage';
+import CvsDetailsPage from '../pages/CvsDetailsPage';
+import CvsProjectsPage from '../pages/CvsProjectsPage';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 
 const LogInPage = lazy(() => import('../pages/LogInPage'));
 const SignUpPage = lazy(() => import('../pages/SignUpPage'));
 const ProjectsPage = lazy(() => import('../pages/ProjectsPage'));
-const CvsPage = lazy(() => import('../pages/CvsPage'));
 const DepartmentsPage = lazy(() => import('../pages/DepartmentsPage'));
 const PositionsPage = lazy(() => import('../pages/PositionsPage'));
 const LanguagesPage = lazy(() => import('../pages/LanguagesPage'));
@@ -22,6 +23,9 @@ const SkillsPage = lazy(() => import('../pages/SkillsPage'));
 
 const EmployeesPage = lazy(() => import('../pages/EmployeesPage'));
 const EmployeesPrivatePage = lazy(() => import('../pages/EmployeesPrivatePage'));
+
+const CvsPage = lazy(() => import('../pages/CvsPage'));
+const CvsPrivatePage = lazy(() => import('../pages/CvsPrivatePage'));
 
 export const AppRouter = () => {
   const isAuth = useAuth();
@@ -59,7 +63,14 @@ export const AppRouter = () => {
             </Route>
           </Route>
 
-          <Route path={RoutePath.CVS} element={<PrivateRoute>{<CvsPage />}</PrivateRoute>} />
+          <Route path={RoutePath.CVS} element={<PrivateRoute>{<Outlet />}</PrivateRoute>}>
+            <Route index element={<CvsPage />} />
+            <Route path=":id" element={<CvsPrivatePage />}>
+              <Route path={RoutePath.DETAILS} element={<CvsDetailsPage />} />
+              <Route path={RoutePath.PROJECTS} element={<CvsProjectsPage />} />
+            </Route>
+          </Route>
+
           <Route
             path={RoutePath.DEPARTMENTS}
             element={<PrivateRoute>{<DepartmentsPage />}</PrivateRoute>}
