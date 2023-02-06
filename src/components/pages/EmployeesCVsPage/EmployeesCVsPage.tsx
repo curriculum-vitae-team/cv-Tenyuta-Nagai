@@ -20,7 +20,8 @@ const EmployeesCVsPage = () => {
   const user = useUser();
   const { id } = useParams();
   const navigate = useNavigate();
-  const currentId = user?.role === UserRoles.Admin ? id : user?.id;
+  const isAdmin = user?.role === UserRoles.Admin;
+  const currentId = isAdmin ? id : user?.id;
   const { loading, error, data } = useQuery<IUserAllResult>(USER, {
     variables: { id: currentId },
   });
@@ -32,6 +33,10 @@ const EmployeesCVsPage = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isDataCv, setIsDataCv] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+
+  if (user?.id !== id && !isAdmin) {
+    return null;
+  }
 
   if (error) {
     navigate(`/${RoutePath.EMPLOYEES}`);
