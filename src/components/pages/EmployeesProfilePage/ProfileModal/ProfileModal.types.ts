@@ -5,6 +5,7 @@ export interface IProfileModalProps {
 }
 
 export interface IProfileFormInput {
+  [key: string]: string;
   firstName: string;
   lastName: string;
   position: string;

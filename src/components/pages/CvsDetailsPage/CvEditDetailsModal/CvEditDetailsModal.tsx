@@ -1,9 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Checkbox, Typography } from '@mui/material';
 import React, { FC, useState } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
-import { TFormSubmit } from '../../../../types/formTypes';
 import { editCvDetailsSchema } from '../../../../utils/validationSchema';
 import { InputText } from '../../../UI/InputText';
 import { ModalWindow } from '../../../UI/ModalWindow';
@@ -20,7 +19,7 @@ export const CvEditDetailsModal: FC<ICvEditModalProps> = ({ open, onClose, cvDat
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FieldValues>({
+  } = useForm<IFormEditDetailsCv>({
     defaultValues: {
       name: cvData?.cv?.name,
       description: cvData?.cv?.description,
@@ -62,13 +61,13 @@ export const CvEditDetailsModal: FC<ICvEditModalProps> = ({ open, onClose, cvDat
 
   return (
     <ModalWindow title={'Edit CV'} onClose={onClose} open={open}>
-      <form onSubmit={handleSubmit(onSubmit as TFormSubmit)} autoComplete="off">
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <InputText
           name="Name"
           registerName={'name'}
           register={register}
           error={!!errors.name}
-          helperText={errors.name?.message as string}
+          helperText={errors.name?.message || ''}
         />
 
         <InputText
@@ -78,7 +77,7 @@ export const CvEditDetailsModal: FC<ICvEditModalProps> = ({ open, onClose, cvDat
           maxRows={4}
           register={register}
           error={!!errors.description}
-          helperText={errors.description?.message as string}
+          helperText={errors.description?.message || ''}
         />
 
         <Styled.CheckboxWrap>
