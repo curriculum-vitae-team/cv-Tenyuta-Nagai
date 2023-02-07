@@ -1,4 +1,4 @@
-import { mixed, object, string } from 'yup';
+import { date, mixed, number, object, string } from 'yup';
 
 export const schema = object({
   email: string()
@@ -24,6 +24,29 @@ export const employeesSchema = object({
     .required()
     .min(5),
   role: string().required(),
+});
+
+export const projectsSchema = object().shape({
+  name: string()
+    .required()
+    .max(20),
+  internalName: string().max(20),
+  description: string()
+    .required()
+    .max(150),
+  domain: string()
+    .required()
+    .max(20),
+  startDate: date().required(),
+  endDate: date().when(
+    'startDate',
+    (startDate, schema) =>
+      startDate && schema.min(startDate, 'End date must be bigger than start date')
+  ),
+  teamSize: number()
+    .min(2)
+    .max(100)
+    .required(),
 });
 
 export const avatarSchema = object().shape({
@@ -57,4 +80,11 @@ export const departmentsSchema = object({
   name: string()
     .max(35)
     .required(),
+});
+
+export const editCvDetailsSchema = object({
+  name: string()
+    .max(30)
+    .required(),
+  description: string().required(),
 });

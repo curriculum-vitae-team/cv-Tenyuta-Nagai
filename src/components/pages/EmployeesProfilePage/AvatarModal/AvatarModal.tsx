@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation, useQuery } from '@apollo/client';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { USER } from '../../../../graphql/queries/user';
@@ -70,7 +70,7 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
     }
   };
 
-  const onSubmit = (inputs: IAvatarForm) => {
+  const onSubmit: SubmitHandler<IAvatarForm> = (inputs) => {
     convertToBase64(inputs.picture[0])
       .then((picture) =>
         uploadAvatar({

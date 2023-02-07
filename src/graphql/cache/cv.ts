@@ -1,7 +1,15 @@
 import { ApolloCache, NormalizedCacheObject } from '@apollo/client';
+import { CV } from '../queries/cv';
 import { CVS } from '../queries/cvs';
 import { USER } from '../queries/user';
-import { ICvsCreateResult, ICvsResult, ICvUnbindResult } from '../types/results/cv';
+import {
+  ICvQueryResult,
+  ICvResult,
+  ICvsCreateResult,
+  ICvsResult,
+  ICvUnbindResult,
+} from '../types/results/cv';
+import { IProjectsResult } from '../types/results/projects';
 import { IUserAllResult } from '../types/results/user';
 
 export const updateUserCacheAfterCvUnbindMutation = (
@@ -64,4 +72,34 @@ export const updateCvsCacheAfterCvDeleteMutation = (
   const id = cache.identify({ id: cvId, __typename: 'Cv' });
   cache.evict({ id });
   cache.gc();
+};
+
+export const updateCvsCacheAfterCvUpdateProjectsMutation = (
+  cache: ApolloCache<NormalizedCacheObject>,
+  data: ICvResult,
+  allProjects: IProjectsResult,
+  projectsIds: string[]
+) => {
+  const oldCv = cache.readQuery<ICvQueryResult>({
+    query: CV,
+    variables: {
+      id: data?.updateCv.id,
+    },
+  });
+
+  if (oldCv) {
+    cache.writeQuery({
+      query: CV,
+      data: {
+        ...oldCv,
+        cv: {
+          ...oldCv.cv,
+          projects: allProjects.projects.filter((project) => projectsIds.includes(project.id)),
+        },
+      },
+      variables: {
+        id: data?.updateCv.id,
+      },
+    });
+  }
 };

@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { MenuItem, TextField } from '@mui/material';
 import { IInputSelectProps } from './InputSelect.types';
 
-export const InputSelect: FC<IInputSelectProps> = ({
+export const InputSelect = <T extends Record<string, unknown>>({
   label,
   defaultValue,
   register,
@@ -10,7 +10,7 @@ export const InputSelect: FC<IInputSelectProps> = ({
   data,
   size = 'small',
   ...props
-}) => {
+}: IInputSelectProps<T>) => {
   return (
     <TextField
       {...props}
@@ -19,7 +19,7 @@ export const InputSelect: FC<IInputSelectProps> = ({
       margin="normal"
       select
       label={label}
-      inputProps={register(registerName)}
+      inputProps={register && registerName && register(registerName)}
       defaultValue={defaultValue}
     >
       {data.map(({ id, name }) => (

@@ -25,6 +25,7 @@ const TableHeaderComponent = ({
           />
         );
       })}
+
       {AdditionalButtons && <TableCellStyled sx={{ minWidth: '50px' }} />}
     </TableRow>
   );
