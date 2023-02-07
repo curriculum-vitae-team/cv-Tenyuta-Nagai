@@ -25,6 +25,7 @@ export const DatePickerInput = <T extends Record<string, unknown>>({
               field.onChange(date);
               trigger && triggerName && trigger(triggerName);
             }}
+            inputFormat="DD-MM-YYYY"
             label={label}
             renderInput={(params) => (
               <TextField
