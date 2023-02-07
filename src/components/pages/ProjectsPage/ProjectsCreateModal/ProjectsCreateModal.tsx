@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import React, { FC } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { format } from 'date-fns';
 import { Spinner } from '../../../Spinner';
@@ -13,7 +13,6 @@ import { projectsSchema } from '../../../../utils/validationSchema';
 import { CreateProjectResult, IProjectsResult } from '../../../../graphql/types/results/projects';
 import { TError } from '../../../../types/errorTypes';
 import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsForm';
-import { TFormSubmit } from '../../../../types/formTypes';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
 import { IProjectsFormInput, IProjectsModalProps } from './ProjectsCreateModal.interface';
 
@@ -25,21 +24,19 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
     trigger,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({
+  } = useForm<IProjectsFormInput>({
     mode: 'onChange',
     resolver: yupResolver(projectsSchema),
   });
 
-  const onSubmit = (inputs: IProjectsFormInput) => {
+  const onSubmit: SubmitHandler<IProjectsFormInput> = (inputs) => {
     createProject({
       variables: {
         project: {
           name: inputs.name,
           internal_name: inputs.internalName,
-
           description: inputs.description,
           domain: inputs.domain,
-
           team_size: Number(inputs.teamSize),
           start_date: format(new Date(inputs.startDate), 'yyyy-MM-dd'),
           end_date: inputs.endDate ? format(new Date(inputs.endDate), 'yyyy-MM-dd') : null,
@@ -59,13 +56,13 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
       {loading ? (
         <Spinner />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit as TFormSubmit)} autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
             name="Project name"
             registerName={FieldNameProjectsForm.NAME}
             register={register}
             error={!!errors.name}
-            helperText={errors.name?.message as string}
+            helperText={errors.name?.message || ''}
           />
 
           <InputText
@@ -73,7 +70,7 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
             registerName={FieldNameProjectsForm.INTERNAL_NAME}
             register={register}
             error={!!errors.internalName?.message}
-            helperText={errors.internalName?.message as string}
+            helperText={errors.internalName?.message || ''}
           />
 
           <InputText
@@ -81,7 +78,7 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
             registerName={FieldNameProjectsForm.DESCRIPTION}
             register={register}
             error={!!errors.description}
-            helperText={errors.description?.message as string}
+            helperText={errors.description?.message || ''}
             multiline
           />
 
@@ -90,7 +87,7 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
             registerName={FieldNameProjectsForm.DOMAIN}
             register={register}
             error={!!errors.domain}
-            helperText={errors.domain?.message as string}
+            helperText={errors.domain?.message || ''}
           />
 
           <InputText
@@ -98,7 +95,7 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
             registerName={FieldNameProjectsForm.TEAM_SIZE}
             register={register}
             error={!!errors.teamSize}
-            helperText={errors.teamSize?.message as string}
+            helperText={errors.teamSize?.message || ''}
           />
 
           <DatePickerInput

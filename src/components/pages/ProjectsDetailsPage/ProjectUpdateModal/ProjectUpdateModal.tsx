@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import React, { FC } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { format } from 'date-fns';
 import { Spinner } from '../../../Spinner';
@@ -24,7 +24,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
     trigger,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FieldValues>({
+  } = useForm<IProjectsFormInput>({
     defaultValues: {
       name: projectData?.project?.name,
       internalName: projectData?.project?.internal_name,
@@ -42,7 +42,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
     onClose();
   }
 
-  const onSubmit = (inputs: IProjectsFormInput) => {
+  const onSubmit: SubmitHandler<IProjectsFormInput> = (inputs) => {
     updateProject({
       variables: {
         id: projectData?.project.id,
@@ -73,7 +73,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
             registerName={FieldNameProjectsForm.NAME}
             register={register}
             error={!!errors.name}
-            helperText={errors.name?.message as string}
+            helperText={errors.name?.message || ''}
           />
 
           <InputText
@@ -81,7 +81,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
             registerName={FieldNameProjectsForm.INTERNAL_NAME}
             register={register}
             error={!!errors.internalName?.message}
-            helperText={errors.internalName?.message as string}
+            helperText={errors.internalName?.message || ''}
           />
 
           <InputText
@@ -89,7 +89,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
             registerName={FieldNameProjectsForm.DESCRIPTION}
             register={register}
             error={!!errors.description}
-            helperText={errors.description?.message as string}
+            helperText={errors.description?.message || ''}
             multiline
           />
 
@@ -98,7 +98,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
             registerName={FieldNameProjectsForm.DOMAIN}
             register={register}
             error={!!errors.domain}
-            helperText={errors.domain?.message as string}
+            helperText={errors.domain?.message || ''}
           />
 
           <InputText
@@ -106,7 +106,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
             registerName={FieldNameProjectsForm.TEAM_SIZE}
             register={register}
             error={!!errors.teamSize}
-            helperText={errors.teamSize?.message as string}
+            helperText={errors.teamSize?.message || ''}
           />
 
           <DatePickerInput
