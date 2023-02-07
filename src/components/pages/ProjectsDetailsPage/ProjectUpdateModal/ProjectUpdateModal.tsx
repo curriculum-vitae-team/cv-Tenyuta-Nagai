@@ -12,7 +12,7 @@ import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsFo
 import { TFormSubmit } from '../../../../types/formTypes';
 import { IProjectsFormInput } from '../../ProjectsPage/ProjectsCreateModal/ProjectsCreateModal.interface';
 import { UPDATE_PROJECT } from '../../../../graphql/mutations/updateProject';
-import { formatDate } from '../../ProjectsPage/helpers/formatDate';
+import { formatDate } from '../../../../utils/formatDate';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
 import { IProjectsModalProps } from './ProjectUpdateModal.types';
 
@@ -53,7 +53,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
           domain: inputs.domain,
           team_size: Number(inputs.teamSize),
           start_date: formatDate(inputs.startDate),
-          end_date: inputs.endDate ? formatDate(inputs.endDate) : null,
+          end_date: formatDate(inputs.endDate),
           skillsIds: [],
         },
       },

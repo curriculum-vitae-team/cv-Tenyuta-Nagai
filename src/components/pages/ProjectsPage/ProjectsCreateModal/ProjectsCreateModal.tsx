@@ -12,7 +12,7 @@ import { projectsSchema } from '../../../../utils/validationSchema';
 import { CreateProjectResult, IProjectsResult } from '../../../../graphql/types/results/projects';
 import { TError } from '../../../../types/errorTypes';
 import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsForm';
-import { formatDate } from '../helpers/formatDate';
+import { formatDate } from '../../../../utils/formatDate';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
 import { IProjectsFormInput, IProjectsModalProps } from './ProjectsCreateModal.interface';
 
@@ -39,7 +39,7 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
           domain: inputs.domain,
           team_size: Number(inputs.teamSize),
           start_date: formatDate(inputs.startDate),
-          end_date: inputs.endDate ? formatDate(inputs.endDate) : null,
+          end_date: formatDate(inputs.endDate),
           skillsIds: [],
         },
       },
