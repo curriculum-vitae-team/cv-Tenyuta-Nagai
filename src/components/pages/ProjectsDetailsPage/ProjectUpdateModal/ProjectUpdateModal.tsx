@@ -2,7 +2,6 @@ import { useMutation } from '@apollo/client';
 import React, { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { format } from 'date-fns';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { ModalWindow } from '../../../UI/ModalWindow';
@@ -13,6 +12,7 @@ import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsFo
 import { TFormSubmit } from '../../../../types/formTypes';
 import { IProjectsFormInput } from '../../ProjectsPage/ProjectsCreateModal/ProjectsCreateModal.interface';
 import { UPDATE_PROJECT } from '../../../../graphql/mutations/updateProject';
+import { formatDate } from '../../ProjectsPage/helpers/formatDate';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
 import { IProjectsModalProps } from './ProjectUpdateModal.types';
 
@@ -52,8 +52,8 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
           description: inputs.description,
           domain: inputs.domain,
           team_size: Number(inputs.teamSize),
-          start_date: format(new Date(inputs.startDate), 'yyyy-MM-dd'),
-          end_date: inputs.endDate ? format(new Date(inputs.endDate), 'yyyy-MM-dd') : null,
+          start_date: formatDate(inputs.startDate),
+          end_date: inputs.endDate ? formatDate(inputs.endDate) : null,
           skillsIds: [],
         },
       },
