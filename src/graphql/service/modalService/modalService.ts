@@ -4,8 +4,8 @@ import { IModalService } from './modalService.types';
 
 class ModalService implements IModalService {
   open$ = makeVar<boolean>(false);
-  modalProps$ = makeVar<{ [key: string]: unknown } | null>({});
-  ModalComponent$ = makeVar<React.FC>(DefaultComponent);
+  modalProps$ = makeVar<{ [key: string]: unknown } | null>(null);
+  ModalComponent$ = makeVar<React.FC | React.FC<{ [key: string]: unknown }>>(DefaultComponent);
 
   openModal() {
     this.open$(true);
@@ -19,7 +19,7 @@ class ModalService implements IModalService {
     this.modalProps$(props);
   }
 
-  setComponent(component: React.FC) {
+  setComponent(component: React.FC | React.FC<{ [key: string]: unknown }>) {
     this.ModalComponent$(component);
   }
 }

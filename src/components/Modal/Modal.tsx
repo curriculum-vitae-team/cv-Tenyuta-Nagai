@@ -1,19 +1,32 @@
 import { useReactiveVar } from '@apollo/client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import CloseIcon from '@mui/icons-material/Close';
+import { Dialog } from '@mui/material';
 import { modalService } from '../../graphql/service/modalService';
-import { ModalWindow } from '../UI/ModalWindow';
+import * as Styled from '../UI/ModalWindow/ModalWindow.styles';
+import { Spinner } from '../Spinner';
+import { ITestComponentProps } from './TestComponent/TestComponent.types';
+import { useModal } from './useModal';
 
 export const Modal = () => {
-  const ModalComponent = useReactiveVar(modalService.ModalComponent$);
-  const open = useReactiveVar(modalService.open$);
+  const { ModalComponent, open, modalProps } = useModal();
+  console.log(11111);
 
   const onClose = () => {
     modalService.closeModal();
   };
 
   return (
-    <ModalWindow title={'hello'} open={open} onClose={onClose}>
-      <ModalComponent />
-    </ModalWindow>
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>
+        {'title'}
+        <Styled.IconButtonModalWindow aria-label="close" onClick={onClose}>
+          <CloseIcon />
+        </Styled.IconButtonModalWindow>
+      </DialogTitle>
+      <DialogContent>{<ModalComponent {...modalProps} />}</DialogContent>
+    </Dialog>
   );
 };
