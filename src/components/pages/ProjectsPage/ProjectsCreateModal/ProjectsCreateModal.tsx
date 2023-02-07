@@ -102,6 +102,7 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
             control={control}
             label="Start date"
             name={FieldNameProjectsForm.START_DATE}
+            triggerName={'endDate'}
             trigger={trigger}
           />
           <DatePickerInput

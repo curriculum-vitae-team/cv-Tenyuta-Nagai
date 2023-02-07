@@ -83,6 +83,7 @@ const Table = ({
               sortingBy={sortingBy}
               handleSetSortingDirection={handleSetSortingDirection}
               direction={direction}
+              AdditionalButtons={AdditionalButtons}
             />
           </TableHead>
           <TableBody>

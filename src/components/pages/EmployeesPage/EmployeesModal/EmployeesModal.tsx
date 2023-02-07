@@ -1,13 +1,12 @@
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { FieldNameEmployeesForm } from '../../../../constants/FieldNameEmployeesForm';
 import { CREATE_USER } from '../../../../graphql/mutations/createUser';
 import { updateCacheAfterCreatingUser } from '../../../../graphql/cache/createUser';
 import { useEmployeesFormData } from '../../../../hooks/useEmployeesFormData';
 import { TError } from '../../../../types/errorTypes';
-import { TFormSubmit } from '../../../../types/formTypes';
 import { employeesSchema } from '../../../../utils/validationSchema';
 import { Spinner } from '../../../Spinner';
 import { InputSelect } from '../../../UI/InputSelect';
@@ -25,7 +24,7 @@ export const EmployeesModal: FC<IModalForCreatingProps> = ({ open, onClose }) =>
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({
+  } = useForm<IEmployeesFormInput>({
     mode: 'onChange',
     resolver: yupResolver(employeesSchema),
   });
@@ -34,7 +33,7 @@ export const EmployeesModal: FC<IModalForCreatingProps> = ({ open, onClose }) =>
     onClose();
   }
 
-  const onSubmit = (inputs: IEmployeesFormInput) => {
+  const onSubmit: SubmitHandler<IEmployeesFormInput> = (inputs) => {
     createUser({
       variables: {
         user: {
@@ -67,13 +66,13 @@ export const EmployeesModal: FC<IModalForCreatingProps> = ({ open, onClose }) =>
       {loading ? (
         <Spinner />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit as TFormSubmit)} autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
             name="Email"
             registerName={FieldNameEmployeesForm.EMAIL}
             register={register}
             error={!!errors.email}
-            helperText={errors.email?.message as string}
+            helperText={errors.email?.message || ''}
           />
 
           <InputText
@@ -82,7 +81,7 @@ export const EmployeesModal: FC<IModalForCreatingProps> = ({ open, onClose }) =>
             registerName={FieldNameEmployeesForm.PASSWORD}
             register={register}
             error={!!errors.password?.message}
-            helperText={errors.password?.message as string}
+            helperText={errors.password?.message || ''}
           />
 
           <InputText
@@ -90,7 +89,7 @@ export const EmployeesModal: FC<IModalForCreatingProps> = ({ open, onClose }) =>
             registerName={FieldNameEmployeesForm.FIRST_NAME}
             register={register}
             error={!!errors.firstName}
-            helperText={errors.firstName?.message as string}
+            helperText={errors.firstName?.message || ''}
           />
 
           <InputText
@@ -98,7 +97,7 @@ export const EmployeesModal: FC<IModalForCreatingProps> = ({ open, onClose }) =>
             registerName={FieldNameEmployeesForm.LAST_NAME}
             register={register}
             error={!!errors.lastName}
-            helperText={errors.lastName?.message as string}
+            helperText={errors.lastName?.message || ''}
           />
 
           <InputSelect

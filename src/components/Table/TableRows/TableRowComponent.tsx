@@ -21,21 +21,26 @@ const TableRowComponent = ({ children, AdditionalButtons, item }: TableRowProps)
       <TableRow>
         {children}
 
-        <TableCell align="right" sx={{ minWidth: '50px' }}>
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            aria-controls={open ? 'account-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-          >
-            <MoreVert />
-          </IconButton>
-        </TableCell>
+        {AdditionalButtons && (
+          <TableCell align="right" sx={{ minWidth: '50px' }}>
+            <IconButton
+              onClick={handleClick}
+              size="small"
+              aria-controls={open ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+            >
+              <MoreVert />
+            </IconButton>
+          </TableCell>
+        )}
       </TableRow>
-      <AdditionalButtonsMenu open={open} onClose={handleClose} anchorEl={anchorEl}>
-        <AdditionalButtons item={item} />
-      </AdditionalButtonsMenu>
+
+      {AdditionalButtons && (
+        <AdditionalButtonsMenu open={open} onClose={handleClose} anchorEl={anchorEl}>
+          <AdditionalButtons item={item} />
+        </AdditionalButtonsMenu>
+      )}
     </>
   );
 };
