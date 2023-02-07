@@ -40,7 +40,6 @@ export const DepartmentsCreateModal: FC<IModalForCreatingProps> = ({ open, onClo
     })
       .catch((err: TError) => {
         console.error(err.message);
-        onClose();
       })
 
       .finally(() => onClose());
