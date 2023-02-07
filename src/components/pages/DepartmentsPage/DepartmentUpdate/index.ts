@@ -1,0 +1,1 @@
+export { DepartmentUpdateModal } from './DepartmentUpdate';
