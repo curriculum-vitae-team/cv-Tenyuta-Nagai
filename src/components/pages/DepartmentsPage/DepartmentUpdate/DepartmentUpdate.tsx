@@ -45,6 +45,7 @@ export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
         console.error(err.message);
         onClose();
       })
+
       .finally(() => onClose());
   };
 
