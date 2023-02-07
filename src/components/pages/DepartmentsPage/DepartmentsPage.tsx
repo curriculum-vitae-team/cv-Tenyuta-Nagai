@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Container, Grid } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -25,6 +25,12 @@ const DepartmentsPage = () => {
   const [department, setDepartment] = useState({
     name: '',
     id: '',
+  });
+
+  useEffect(() => {
+    if (error) {
+      navigate(`/${RoutePath.LOGIN}`, { replace: true });
+    }
   });
 
   const handleUpdateDepartment = () => {

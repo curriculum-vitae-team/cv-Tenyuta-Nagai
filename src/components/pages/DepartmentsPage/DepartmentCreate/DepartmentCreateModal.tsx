@@ -31,6 +31,11 @@ export const DepartmentsCreateModal: FC<IModalForCreatingProps> = ({ open, onClo
     onClose();
   }
 
+  const handleError = (err: TError) => {
+    console.error(err.message);
+    onClose();
+  };
+
   const onSubmit = (inputs: DepartmentsInput) => {
     createDepartment({
       variables: {
@@ -42,7 +47,7 @@ export const DepartmentsCreateModal: FC<IModalForCreatingProps> = ({ open, onClo
         updateCacheAfterCreatingDepartment(cache, (data as unknown) as CreateDepartmentResult);
       },
     })
-      .catch((err) => console.error((err as TError).message))
+      .catch(handleError)
       .finally(() => onClose());
   };
 

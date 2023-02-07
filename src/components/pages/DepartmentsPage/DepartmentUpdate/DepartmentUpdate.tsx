@@ -36,6 +36,11 @@ export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
     onClose();
   }
 
+  const handleError = (err: TError) => {
+    console.error(err.message);
+    onClose();
+  };
+
   const onSubmit = (inputs: DepartmentsInput) => {
     updateDepartment({
       variables: {
@@ -45,7 +50,7 @@ export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
         },
       },
     })
-      .catch((err) => console.error((err as TError).message))
+      .catch(handleError)
       .finally(() => onClose());
   };
 
