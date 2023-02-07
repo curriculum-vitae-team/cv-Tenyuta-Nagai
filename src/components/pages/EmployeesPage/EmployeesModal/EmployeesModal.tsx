@@ -19,7 +19,7 @@ import { IEmployeesFormInput } from './EmployeesModal.interface';
 import * as Styled from './EmployeesModal.styles';
 
 export const EmployeesModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
-  const { loading, error, positionsData, departmentsData, rolesData } = useEmployeesFormData();
+  const { loading, positionsData, departmentsData, rolesData } = useEmployeesFormData();
   const [createUser, { loading: updateLoading }] = useMutation<IUserAllResult>(CREATE_USER);
   const {
     register,
@@ -29,10 +29,6 @@ export const EmployeesModal: FC<IModalForCreatingProps> = ({ open, onClose }) =>
     mode: 'onChange',
     resolver: yupResolver(employeesSchema),
   });
-
-  if (error) {
-    onClose();
-  }
 
   const onSubmit = (inputs: IEmployeesFormInput) => {
     createUser({

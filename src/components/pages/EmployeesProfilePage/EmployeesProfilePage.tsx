@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -26,12 +26,14 @@ const EmployeesProfilePage = () => {
   const [isOpenAvatarModal, setIsOpenAvatarModal] = useState(false);
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
 
+  useEffect(() => {
+    if (error) {
+      navigate(`/${RoutePath.EMPLOYEES}`, { replace: true });
+    }
+  });
+
   if (loading) {
     return <Spinner />;
-  }
-
-  if (error) {
-    navigate(`/${RoutePath.EMPLOYEES}`, { replace: true });
   }
 
   const handleEdit = () => {

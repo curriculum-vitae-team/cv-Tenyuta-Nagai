@@ -17,20 +17,12 @@ import { ICvEditModalProps, IFormEditCv } from './CvEditModal.types';
 export const CvEditModal: FC<ICvEditModalProps> = ({ open, onClose, cvId, userData }) => {
   const cv = userData?.user?.cvs?.filter((cv) => cv.id === cvId)[0];
   const [isTemplate, setIsTemplate] = useState(cv?.is_template);
-  const [updateCV, { loading: updateCvLoading, error: updateCvError }] = useMutation<ICvResult>(
-    UPDATE_CV
-  );
-  const [unbindCV, { loading: unbindCvLoading, error: unbindCvError }] = useMutation<
-    ICvUnbindResult
-  >(UNBIND_CV, {
+  const [updateCV, { loading: updateCvLoading }] = useMutation<ICvResult>(UPDATE_CV);
+  const [unbindCV, { loading: unbindCvLoading }] = useMutation<ICvUnbindResult>(UNBIND_CV, {
     update(cache, { data }) {
       updateUserCacheAfterCvUnbindMutation(cache, userData.user.id, data!);
     },
   });
-
-  if (updateCvError || unbindCvError) {
-    onClose();
-  }
 
   const {
     register,
@@ -66,7 +58,10 @@ export const CvEditModal: FC<ICvEditModalProps> = ({ open, onClose, cvId, userDa
           description: '',
         })
       )
-      .catch((err) => console.error((err as TError).message));
+      .catch((err) => {
+        onClose();
+        console.error((err as TError).message);
+      });
   };
 
   const onSubmit = async (inputs: IFormEditCv) => {
@@ -91,7 +86,10 @@ export const CvEditModal: FC<ICvEditModalProps> = ({ open, onClose, cvId, userDa
           description: res?.data?.updateCv?.description || '',
         })
       )
-      .catch((err) => console.error((err as TError).message));
+      .catch((err) => {
+        onClose();
+        console.error((err as TError).message);
+      });
   };
 
   return (
