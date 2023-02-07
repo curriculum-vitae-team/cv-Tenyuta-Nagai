@@ -1,15 +1,16 @@
 import React from 'react';
 import { TextField } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { Controller, FieldValues } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePickerInputProps } from './DatePicker.types';
 
-export const DatePickerInput = <T extends FieldValues>({
+export const DatePickerInput = <T extends Record<string, unknown>>({
   label,
   control,
   name,
   trigger,
+  triggerName,
 }: DatePickerInputProps<T>) => {
   return (
     <Controller
@@ -22,8 +23,9 @@ export const DatePickerInput = <T extends FieldValues>({
             value={field.value || null}
             onChange={(date) => {
               field.onChange(date);
-              trigger && trigger('endDate');
+              trigger && triggerName && trigger(triggerName);
             }}
+            inputFormat="DD-MM-YYYY"
             label={label}
             renderInput={(params) => (
               <TextField
