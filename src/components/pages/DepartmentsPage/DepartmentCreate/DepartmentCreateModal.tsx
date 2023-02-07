@@ -17,7 +17,7 @@ import { updateCacheAfterCreatingDepartment } from '../../../../graphql/cache/de
 import * as Styled from './DepartmentCreateModal.styles';
 
 export const DepartmentsCreateModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
-  const [createDepartment, { loading, error }] = useMutation(CREATE_DEPARTMENT);
+  const [createDepartment, { loading }] = useMutation(CREATE_DEPARTMENT);
   const {
     register,
     handleSubmit,
@@ -26,10 +26,6 @@ export const DepartmentsCreateModal: FC<IModalForCreatingProps> = ({ open, onClo
     mode: 'onChange',
     resolver: yupResolver(departmentsSchema),
   });
-
-  if (error) {
-    onClose();
-  }
 
   const onSubmit = (inputs: DepartmentsInput) => {
     createDepartment({
@@ -42,7 +38,10 @@ export const DepartmentsCreateModal: FC<IModalForCreatingProps> = ({ open, onClo
         updateCacheAfterCreatingDepartment(cache, (data as unknown) as CreateDepartmentResult);
       },
     })
-      .catch((err) => console.error((err as TError).message))
+      .catch((err: TError) => {
+        console.error(err.message);
+        onClose();
+      })
       .finally(() => onClose());
   };
 

@@ -19,7 +19,7 @@ export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
   onClose,
   department,
 }) => {
-  const [updateDepartment, { loading, error }] = useMutation(UPDATE_DEPARTMENT);
+  const [updateDepartment, { loading }] = useMutation(UPDATE_DEPARTMENT);
   const {
     register,
     handleSubmit,
@@ -32,10 +32,6 @@ export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
     resolver: yupResolver(departmentsSchema),
   });
 
-  if (error) {
-    onClose();
-  }
-
   const onSubmit = (inputs: DepartmentsInput) => {
     updateDepartment({
       variables: {
@@ -45,7 +41,10 @@ export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
         },
       },
     })
-      .catch((err) => console.error((err as TError).message))
+      .catch((err: TError) => {
+        console.error(err.message);
+        onClose();
+      })
       .finally(() => onClose());
   };
 
