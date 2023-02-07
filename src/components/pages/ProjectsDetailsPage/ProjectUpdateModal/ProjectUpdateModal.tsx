@@ -6,18 +6,18 @@ import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { ModalWindow } from '../../../UI/ModalWindow';
 import { DatePickerInput } from '../../../UI/DatePicker';
-import { updateCacheAfterCreatingProject } from '../../../../graphql/cache/createProject';
-import { CREATE_PROJECT } from '../../../../graphql/mutations/createProject';
 import { projectsSchema } from '../../../../utils/validationSchema';
-import { CreateProjectResult, IProjectsResult } from '../../../../graphql/types/results/projects';
 import { TError } from '../../../../types/errorTypes';
 import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsForm';
+import { TFormSubmit } from '../../../../types/formTypes';
+import { IProjectsFormInput } from '../../ProjectsPage/ProjectsCreateModal/ProjectsCreateModal.interface';
+import { UPDATE_PROJECT } from '../../../../graphql/mutations/updateProject';
 import { formatDate } from '../../../../utils/formatDate';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
-import { IProjectsFormInput, IProjectsModalProps } from './ProjectsCreateModal.interface';
+import { IProjectsModalProps } from './ProjectUpdateModal.types';
 
-export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) => {
-  const [createProject, { loading }] = useMutation<IProjectsResult>(CREATE_PROJECT);
+export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, projectData }) => {
+  const [updateProject, { loading }] = useMutation(UPDATE_PROJECT);
   const {
     control,
     register,
@@ -25,13 +25,23 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<IProjectsFormInput>({
+    defaultValues: {
+      name: projectData?.project?.name,
+      internalName: projectData?.project?.internal_name,
+      description: projectData?.project?.description,
+      domain: projectData?.project?.domain,
+      teamSize: projectData?.project?.team_size,
+      startDate: projectData?.project?.start_date,
+      endDate: projectData?.project?.end_date,
+    },
     mode: 'onChange',
     resolver: yupResolver(projectsSchema),
   });
 
   const onSubmit: SubmitHandler<IProjectsFormInput> = (inputs) => {
-    createProject({
+    updateProject({
       variables: {
+        id: projectData?.project.id,
         project: {
           name: inputs.name,
           internal_name: inputs.internalName,
@@ -43,20 +53,17 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
           skillsIds: [],
         },
       },
-      update(cache, { data }) {
-        updateCacheAfterCreatingProject(cache, (data as unknown) as CreateProjectResult);
-      },
     })
       .catch((err) => console.error((err as TError).message))
       .finally(() => onClose());
   };
 
   return (
-    <ModalWindow title={'Create new project'} onClose={onClose} open={open}>
+    <ModalWindow title={'Update project'} onClose={onClose} open={open}>
       {loading ? (
         <Spinner />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit as TFormSubmit)} autoComplete="off">
           <InputText
             name="Project name"
             registerName={FieldNameProjectsForm.NAME}

@@ -1,10 +1,10 @@
-import { UseFormRegister, FieldValues } from 'react-hook-form';
+import { UseFormRegister, FieldValues, Path } from 'react-hook-form';
 import { SxProps } from '@mui/system';
 
-export interface IInputTextProps {
+export interface IInputTextProps<T extends FieldValues> {
   name: string;
-  registerName: string;
-  register: UseFormRegister<FieldValues>;
+  registerName: Path<T>;
+  register: UseFormRegister<T>;
   error?: boolean;
   helperText?: string;
   sx?: SxProps;
