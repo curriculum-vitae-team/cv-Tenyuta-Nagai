@@ -88,3 +88,9 @@ export const departmentsSchema = object({
     .max(35)
     .required(),
 });
+
+export const skillsSchema = object({
+  name: string()
+    .max(30)
+    .required(),
+});
