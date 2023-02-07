@@ -17,7 +17,7 @@ import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.sty
 import { IProjectsModalProps } from './ProjectUpdateModal.types';
 
 export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, projectData }) => {
-  const [updateProject, { loading, error }] = useMutation(UPDATE_PROJECT);
+  const [updateProject, { loading }] = useMutation(UPDATE_PROJECT);
   const {
     control,
     register,
@@ -37,10 +37,6 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
     mode: 'onChange',
     resolver: yupResolver(projectsSchema),
   });
-
-  if (error) {
-    onClose();
-  }
 
   const onSubmit: SubmitHandler<IProjectsFormInput> = (inputs) => {
     updateProject({
