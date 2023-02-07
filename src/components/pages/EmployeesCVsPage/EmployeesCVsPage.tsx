@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Container } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from '../../../hooks/useUser';
 import { UserRoles } from '../../../constants/userRoles';
@@ -33,9 +33,11 @@ const EmployeesCVsPage = () => {
   const [isDataCv, setIsDataCv] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
 
-  if (error) {
-    navigate(`/${RoutePath.EMPLOYEES}`);
-  }
+  useEffect(() => {
+    if (error) {
+      navigate(`/${RoutePath.EMPLOYEES}`, { replace: true });
+    }
+  });
 
   const showCvData = (id: string) => {
     const cv = data?.user.cvs?.filter((x) => x.id === id)[0];

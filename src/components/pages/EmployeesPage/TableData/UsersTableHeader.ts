@@ -1,5 +1,5 @@
 import { AvatarImage } from '../../../Table/helpers/Avatar';
-import { IColumn } from './TableData.interface';
+import { IColumn } from '../../../Table/template/templateTable.types';
 
 export const UsersTableHeader: IColumn[] = [
   { columnKey: 'avatar', columnName: ' ', isSortable: false, ColumnCellComponent: AvatarImage },

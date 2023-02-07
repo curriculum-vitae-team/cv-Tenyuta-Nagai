@@ -18,7 +18,7 @@ import { InputFile } from './InputFile/InputFile';
 import { IAvatarForm, IAvatarModal } from './AvatarModal.types';
 
 export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
-  const { loading, error: errorUser, data: userData } = useQuery<IUserAllResult>(USER, {
+  const { loading, data: userData } = useQuery<IUserAllResult>(USER, {
     variables: { id: userId },
   });
   const [uploadAvatar, { loading: avatarLoading }] = useMutation<IAvatarReturn>(UPLOAD_AVATAR, {
@@ -45,10 +45,6 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
     resolver: yupResolver(avatarSchema),
   });
 
-  if (errorUser) {
-    onClose();
-  }
-
   const file = watch('picture');
 
   const handlerDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -67,7 +63,10 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
         variables: {
           id: userData.user.profile.id,
         },
-      }).catch((err) => console.error((err as TError).message));
+      }).catch((err) => {
+        console.error((err as TError).message);
+        onClose();
+      });
     }
   };
 
