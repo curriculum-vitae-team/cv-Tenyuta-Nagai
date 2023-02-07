@@ -65,7 +65,7 @@ export const CvsListWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   maxWidth: 300,
   maxHeight: '70vh',
-  overflowY: 'scroll',
+  overflowY: 'auto',
   '::-webkit-scrollbar': {
     width: 8,
     height: 8,
