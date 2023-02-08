@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { USER } from '../../../../graphql/queries/user';
 import { IAvatarReturn } from '../../../../graphql/types/results/avatar';
@@ -10,26 +10,29 @@ import { updateUserCacheAfterAvatarMutation } from '../../../../graphql/cache/av
 import { avatarSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
 import { convertToBase64 } from '../helpers/convertToBase64';
-import { ModalWindow } from '../../../UI/ModalWindow';
 import { Spinner } from '../../../Spinner';
 import { IUserAllResult } from '../../../../graphql/types/results/user';
+import { modalService } from '../../../../graphql/service/modalService';
 import * as Styled from './AvatarModal.styles';
 import { InputFile } from './InputFile/InputFile';
-import { IAvatarForm, IAvatarModal } from './AvatarModal.types';
+import { IAvatarForm, IAvatarUserId } from './AvatarModal.types';
 
-export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
+export const AvatarModal = () => {
+  const { id: userId }: Pick<Partial<IAvatarUserId>, keyof IAvatarUserId> = useReactiveVar(
+    modalService.modalData$
+  );
   const { loading, data: userData } = useQuery<IUserAllResult>(USER, {
-    variables: { id: userId },
+    variables: { id: userId! },
   });
   const [uploadAvatar, { loading: avatarLoading }] = useMutation<IAvatarReturn>(UPLOAD_AVATAR, {
     update(cache, { data }) {
-      updateUserCacheAfterAvatarMutation(cache, userId, data as IAvatarReturn);
+      updateUserCacheAfterAvatarMutation(cache, userId!, data as IAvatarReturn);
     },
   });
 
   const [deleteAvatar, { loading: deleteLoading }] = useMutation(DELETE_AVATAR, {
     update(cache) {
-      updateUserCacheAfterAvatarMutation(cache, userId);
+      updateUserCacheAfterAvatarMutation(cache, userId!);
     },
   });
 
@@ -65,7 +68,7 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
         },
       }).catch((err) => {
         console.error((err as TError).message);
-        onClose();
+        modalService.closeModal();
       });
     }
   };
@@ -85,11 +88,11 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
         })
       )
       .catch((err) => console.error((err as TError).message))
-      .finally(() => onClose());
+      .finally(() => modalService.closeModal());
   };
 
   return (
-    <ModalWindow title={'Update avatar'} onClose={onClose} open={open}>
+    <>
       {loading ? (
         <Spinner />
       ) : (
@@ -136,6 +139,6 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
           {deleteLoading && <Spinner />}
         </form>
       )}
-    </ModalWindow>
+    </>
   );
 };
