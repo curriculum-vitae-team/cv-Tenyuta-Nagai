@@ -1,13 +1,12 @@
 import { useMutation } from '@apollo/client';
 import React, { FC } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { ModalWindow } from '../../../UI/ModalWindow';
 import { departmentsSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
-import { TFormSubmit } from '../../../../types/formTypes';
 import { UPDATE_DEPARTMENT } from '../../../../graphql/mutations/departments';
 import { FieldNameDepartmentsForm } from '../../../../constants/fieldNameDepartmentsForm';
 import { DepartmentsInput } from '../../../../graphql/types/inputs/department';
@@ -24,7 +23,7 @@ export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FieldValues>({
+  } = useForm<DepartmentsInput>({
     defaultValues: {
       name: department.name,
     },
@@ -32,7 +31,7 @@ export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
     resolver: yupResolver(departmentsSchema),
   });
 
-  const onSubmit = (inputs: DepartmentsInput) => {
+  const onSubmit: SubmitHandler<DepartmentsInput> = (inputs) => {
     updateDepartment({
       variables: {
         id: department.id,
@@ -52,13 +51,13 @@ export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
       {loading ? (
         <Spinner />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit as TFormSubmit)} autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
             name="Department name"
             registerName={FieldNameDepartmentsForm.NAME}
             register={register}
             error={!!errors.name}
-            helperText={errors.name?.message as string}
+            helperText={errors.name?.message || ''}
           />
 
           <Styled.ButtonSubmit
