@@ -38,6 +38,7 @@ const EmployeesPage = () => {
             header={UsersTableHeader}
             items={getAllUsers(data?.users || [])}
             ModalForCreating={EmployeesModal}
+            titleModal={'Create new user'}
             searchParameter="name"
             titleCreateBtn="Add employee"
             isCreateBtnVisible={isCreateBtnVisible}

@@ -1,10 +1,10 @@
-import { useMutation } from '@apollo/client';
-import React, { FC } from 'react';
+import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useParams } from 'react-router-dom';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
-import { ModalWindow } from '../../../UI/ModalWindow';
 import { DatePickerInput } from '../../../UI/DatePicker';
 import { projectsSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
@@ -12,10 +12,20 @@ import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsFo
 import { IProjectsFormInput } from '../../ProjectsPage/ProjectsCreateModal/ProjectsCreateModal.interface';
 import { UPDATE_PROJECT } from '../../../../graphql/mutations/updateProject';
 import { formatDate } from '../../../../utils/formatDate';
+import { modalService } from '../../../../graphql/service/modalService';
+import { GET_PROJECT } from '../../../../graphql/queries/project';
+import { IProjectResult } from '../../../../graphql/types/results/projects';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
-import { IProjectsModalProps } from './ProjectUpdateModal.types';
+import { IProjectModalId } from './ProjectUpdateModal.types';
 
-export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, projectData }) => {
+export const ProjectUpdateModal = () => {
+  const projectData: Pick<Partial<IProjectModalId>, keyof IProjectModalId> = useReactiveVar(
+    modalService.modalData$
+  );
+  const { id } = useParams();
+  const { data } = useQuery<IProjectResult>(GET_PROJECT, {
+    variables: { id },
+  });
   const [updateProject, { loading }] = useMutation(UPDATE_PROJECT);
   const {
     control,
@@ -25,13 +35,13 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
     formState: { errors, isValid },
   } = useForm<IProjectsFormInput>({
     defaultValues: {
-      name: projectData?.project?.name,
-      internalName: projectData?.project?.internal_name,
-      description: projectData?.project?.description,
-      domain: projectData?.project?.domain,
-      teamSize: projectData?.project?.team_size,
-      startDate: projectData?.project?.start_date,
-      endDate: projectData?.project?.end_date,
+      name: data?.project.name,
+      internalName: data?.project.internal_name,
+      description: data?.project.description,
+      domain: data?.project.domain,
+      teamSize: data?.project.team_size,
+      startDate: data?.project.start_date,
+      endDate: data?.project.end_date,
     },
     mode: 'onChange',
     resolver: yupResolver(projectsSchema),
@@ -40,7 +50,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
   const onSubmit: SubmitHandler<IProjectsFormInput> = (inputs) => {
     updateProject({
       variables: {
-        id: projectData?.project.id,
+        id: projectData?.id,
         project: {
           name: inputs.name,
           internal_name: inputs.internalName,
@@ -54,11 +64,11 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
       },
     })
       .catch((err) => console.error((err as TError).message))
-      .finally(() => onClose());
+      .finally(() => modalService.closeModal());
   };
 
   return (
-    <ModalWindow title={'Update project'} onClose={onClose} open={open}>
+    <>
       {loading ? (
         <Spinner />
       ) : (
@@ -128,6 +138,6 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
           </Styled.ButtonSubmit>
         </form>
       )}
-    </ModalWindow>
+    </>
   );
 };

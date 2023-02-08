@@ -1,9 +1,10 @@
 import { useQuery } from '@apollo/client';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
 import { GET_PROJECT } from '../../../graphql/queries/project';
+import { modalService } from '../../../graphql/service/modalService';
 import { IProjectResult } from '../../../graphql/types/results/projects';
 import { useUser } from '../../../hooks/useUser';
 import { Row } from '../../Row';
@@ -19,28 +20,23 @@ const ProjectsDetailsPage = () => {
   const { loading, error, data } = useQuery<IProjectResult>(GET_PROJECT, {
     variables: { id },
   });
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
 
-  if (loading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    navigate(`/${RoutePath.PROJECTS}`, { replace: true });
-  }
+  useEffect(() => {
+    if (error) {
+      navigate(`/${RoutePath.PROJECTS}`, { replace: true });
+    }
+  }, [error, navigate]);
 
   const handleEdit = () => {
-    setIsOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
+    modalService.setModalData('Edit project', ProjectUpdateModal, { id: id! });
   };
 
   return (
-    <>
-      <main>
+    <main>
+      {loading ? (
+        <Spinner />
+      ) : (
         <Styled.ContainerWrapper maxWidth="xl">
           <Styled.PaperWrapper elevation={3}>
             <Styled.Wrapper>
@@ -64,12 +60,8 @@ const ProjectsDetailsPage = () => {
             </PrivateButton>
           </Styled.PaperWrapper>
         </Styled.ContainerWrapper>
-      </main>
-
-      {isOpenModal && (
-        <ProjectUpdateModal open={isOpenModal} onClose={handleCloseModal} projectData={data!} />
       )}
-    </>
+    </main>
   );
 };
 

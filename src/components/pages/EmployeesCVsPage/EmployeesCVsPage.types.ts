@@ -3,3 +3,7 @@ export interface ICvData {
   description: string;
   id: string;
 }
+
+export interface ICvEditData {
+  editCv: ICvData;
+}

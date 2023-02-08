@@ -1,10 +1,9 @@
 import { useMutation } from '@apollo/client';
-import React, { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
-import { ModalWindow } from '../../../UI/ModalWindow';
 import { DatePickerInput } from '../../../UI/DatePicker';
 import { updateCacheAfterCreatingProject } from '../../../../graphql/cache/createProject';
 import { CREATE_PROJECT } from '../../../../graphql/mutations/createProject';
@@ -13,10 +12,11 @@ import { CreateProjectResult, IProjectsResult } from '../../../../graphql/types/
 import { TError } from '../../../../types/errorTypes';
 import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsForm';
 import { formatDate } from '../../../../utils/formatDate';
+import { modalService } from '../../../../graphql/service/modalService';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
-import { IProjectsFormInput, IProjectsModalProps } from './ProjectsCreateModal.interface';
+import { IProjectsFormInput } from './ProjectsCreateModal.interface';
 
-export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) => {
+export const ProjectCreateModal = () => {
   const [createProject, { loading }] = useMutation<IProjectsResult>(CREATE_PROJECT);
   const {
     control,
@@ -48,11 +48,11 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
       },
     })
       .catch((err) => console.error((err as TError).message))
-      .finally(() => onClose());
+      .finally(() => modalService.closeModal());
   };
 
   return (
-    <ModalWindow title={'Create new project'} onClose={onClose} open={open}>
+    <>
       {loading ? (
         <Spinner />
       ) : (
@@ -123,6 +123,6 @@ export const ProjectCreateModal: FC<IProjectsModalProps> = ({ open, onClose }) =
           </Styled.ButtonSubmit>
         </form>
       )}
-    </ModalWindow>
+    </>
   );
 };

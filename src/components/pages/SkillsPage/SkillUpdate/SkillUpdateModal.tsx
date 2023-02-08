@@ -1,19 +1,20 @@
-import { useMutation } from '@apollo/client';
-import React, { FC } from 'react';
+import { useMutation, useReactiveVar } from '@apollo/client';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
-import { ModalWindow } from '../../../UI/ModalWindow';
 import { skillsSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
 import { FieldNameSkillsForm } from '../../../../constants/fieldNameSkillsForm';
 import { SkillsInput } from '../../../../graphql/types/inputs/skill';
 import { UPDATE_SKILL } from '../../../../graphql/mutations/skills';
+import { modalService } from '../../../../graphql/service/modalService';
+import { ISkill } from '../../../../interfaces/ISkill.interface';
 import * as Styled from './SkillUpdate.styles';
-import { ISkillUpdateModalProps } from './SkillUpdate.interface';
 
-export const SkillsUpdateModal: FC<ISkillUpdateModalProps> = ({ open, onClose, skill }) => {
+export const SkillsUpdateModal = () => {
+  const skill: Pick<Partial<ISkill>, keyof ISkill> = useReactiveVar(modalService.modalData$);
   const [updateSkill, { loading }] = useMutation(UPDATE_SKILL);
   const {
     register,
@@ -39,11 +40,11 @@ export const SkillsUpdateModal: FC<ISkillUpdateModalProps> = ({ open, onClose, s
       .catch((err: TError) => {
         console.error(err.message);
       })
-      .finally(() => onClose());
+      .finally(() => modalService.closeModal());
   };
 
   return (
-    <ModalWindow title={'Update skill'} onClose={onClose} open={open}>
+    <>
       {loading ? (
         <Spinner />
       ) : (
@@ -68,6 +69,6 @@ export const SkillsUpdateModal: FC<ISkillUpdateModalProps> = ({ open, onClose, s
           </Styled.ButtonSubmit>
         </form>
       )}
-    </ModalWindow>
+    </>
   );
 };

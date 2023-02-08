@@ -1,9 +1,8 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { FC } from 'react';
+import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Checkbox, Typography } from '@mui/material';
-import { IModalForCreatingProps } from '../../../Table/template/templateTable.types';
 import { useUser } from '../../../../hooks/useUser';
 import { IUserAllResult } from '../../../../graphql/types/results/user';
 import { USER } from '../../../../graphql/queries/user';
@@ -11,14 +10,14 @@ import { CREATE_CV } from '../../../../graphql/mutations/cv';
 import { ICvsCreateResult } from '../../../../graphql/types/results/cv';
 import { updateCvsCacheAfterCvCreateMutation } from '../../../../graphql/cache/cv';
 import { editCvSchema } from '../../../../utils/validationSchema';
-import { ModalWindow } from '../../../UI/ModalWindow';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { TError } from '../../../../types/errorTypes';
+import { modalService } from '../../../../graphql/service/modalService';
 import { IFormCreateCv } from './CreateCvModal.types';
 import * as Styled from './CreateCvModal.styles';
 
-export const CreateCvModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
+export const CreateCvModal = () => {
   const user = useUser();
   const { loading, data: userData } = useQuery<IUserAllResult>(USER, {
     variables: { id: user?.id },
@@ -54,11 +53,11 @@ export const CreateCvModal: FC<IModalForCreatingProps> = ({ open, onClose }) => 
       },
     })
       .catch((err) => console.error((err as TError).message))
-      .finally(() => onClose());
+      .finally(() => modalService.closeModal());
   };
 
   return (
-    <ModalWindow title={'Create CV'} onClose={onClose} open={open}>
+    <>
       {loading ? (
         <Spinner />
       ) : (
@@ -98,6 +97,6 @@ export const CreateCvModal: FC<IModalForCreatingProps> = ({ open, onClose }) => 
           </Styled.ButtonSubmit>
         </form>
       )}
-    </ModalWindow>
+    </>
   );
 };

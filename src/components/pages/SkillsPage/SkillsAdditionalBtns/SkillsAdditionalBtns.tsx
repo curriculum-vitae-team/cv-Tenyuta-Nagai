@@ -6,13 +6,11 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { IAdditionalButtonsProps } from '../../../Table/TableRows/TableRowComponent.types';
 import { updateCacheAfterDeleteSkill } from '../../../../graphql/cache/skills';
 import { DELETE_SKILL } from '../../../../graphql/mutations/skills';
+import { SkillsUpdateModal } from '../SkillUpdate';
+import { modalService } from '../../../../graphql/service/modalService';
 import * as Styled from './SkillsAdditionalBtns.styles';
 
-export const SkillsAdditionalButtons: FC<IAdditionalButtonsProps> = ({
-  item,
-  handleUpdate,
-  setItem,
-}) => {
+export const SkillsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
   const { id, name } = item;
   const [deleteSkill] = useMutation(DELETE_SKILL);
 
@@ -26,11 +24,10 @@ export const SkillsAdditionalButtons: FC<IAdditionalButtonsProps> = ({
   };
 
   const updateSkill = () => {
-    setItem!({
+    modalService.setModalData('Update skill', SkillsUpdateModal, {
       name: name as string,
       id: id as string,
     });
-    handleUpdate();
   };
 
   return (

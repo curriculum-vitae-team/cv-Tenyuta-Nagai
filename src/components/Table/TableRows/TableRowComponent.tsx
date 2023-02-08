@@ -4,13 +4,7 @@ import React, { useState } from 'react';
 import { AdditionalButtonsMenu } from '../helpers/AdditionalButtonsMenu/AdditionalButtonsMenu';
 import { TableRowProps } from './TableRowComponent.types';
 
-const TableRowComponent = ({
-  children,
-  AdditionalButtons,
-  item,
-  handleUpdate,
-  setItem,
-}: TableRowProps) => {
+const TableRowComponent = ({ children, AdditionalButtons, item }: TableRowProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -44,7 +38,7 @@ const TableRowComponent = ({
 
       {AdditionalButtons && (
         <AdditionalButtonsMenu open={open} onClose={handleClose} anchorEl={anchorEl}>
-          <AdditionalButtons item={item} handleUpdate={handleUpdate!} setItem={setItem} />
+          <AdditionalButtons item={item} />
         </AdditionalButtonsMenu>
       )}
     </>

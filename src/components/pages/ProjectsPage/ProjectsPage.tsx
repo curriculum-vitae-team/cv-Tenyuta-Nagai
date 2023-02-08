@@ -38,6 +38,7 @@ const ProjectsPage = () => {
             header={ProjectsTableHeader}
             items={getProjects(data.projects)}
             ModalForCreating={ProjectCreateModal}
+            titleModal={'Create new project'}
             searchParameter="name"
             titleCreateBtn="Add project"
             isCreateBtnVisible={isCreateBtnVisible}
