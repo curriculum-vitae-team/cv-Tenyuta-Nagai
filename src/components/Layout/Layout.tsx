@@ -6,8 +6,8 @@ import { Footer } from '../Footer';
 import { Spinner } from '../Spinner';
 import { ErrorBoundary } from '../ErrorBoundary';
 import { Notifier } from '../UI/Notifier';
-import { Modal } from '../Modal/Modal';
 import { modalService } from '../../graphql/service/modalService';
+import { Modal } from '../UI/Modal/Modal';
 
 export const Layout = () => {
   const isOpen = useReactiveVar(modalService.open$);
