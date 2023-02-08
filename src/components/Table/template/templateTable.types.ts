@@ -1,5 +1,4 @@
 import { IAdditionalButtonsProps } from '../TableRows/TableRowComponent.types';
-import { IColumn } from '../../pages/EmployeesPage/TableData/TableData.interface';
 
 export type TableProps<T = Item> = {
   header: IColumn[];
@@ -8,8 +7,15 @@ export type TableProps<T = Item> = {
   ModalForCreating: React.FC<IModalForCreatingProps>;
   titleCreateBtn: string;
   isCreateBtnVisible: boolean;
-  AdditionalButtons: React.FC<IAdditionalButtonsProps>;
+  AdditionalButtons?: React.FC<IAdditionalButtonsProps>;
   defaultSortingBy: string;
+  handleUpdate?: () => void;
+  setItem?: React.Dispatch<
+    React.SetStateAction<{
+      name: string;
+      id: string;
+    }>
+  >;
 };
 
 export type Item = Record<string, string | number | boolean>;
@@ -21,4 +27,18 @@ export type Element = {
 export interface IModalForCreatingProps {
   open: boolean;
   onClose: () => void;
+}
+
+export interface IColumn {
+  columnKey: string;
+  columnName: string;
+  isSortable: boolean;
+  ColumnCellComponent?: React.FC<IColumnCellComponentProps>;
+}
+
+export interface IColumnCellComponentProps {
+  item: Item;
+  columnKey: string;
+  handleDelete?: (id: string) => void;
+  id?: string;
 }

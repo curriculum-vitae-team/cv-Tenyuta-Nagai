@@ -7,6 +7,7 @@ const TableHeaderComponent = ({
   columns,
   sortingBy,
   direction,
+  AdditionalButtons,
   handleSetSortingDirection,
 }: TableHeaderComponentProps) => {
   return (
@@ -24,7 +25,8 @@ const TableHeaderComponent = ({
           />
         );
       })}
-      <TableCellStyled />
+
+      {AdditionalButtons && <TableCellStyled sx={{ minWidth: '50px' }} />}
     </TableRow>
   );
 };

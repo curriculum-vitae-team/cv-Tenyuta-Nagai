@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation, useQuery } from '@apollo/client';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { USER } from '../../../../graphql/queries/user';
@@ -18,7 +18,7 @@ import { InputFile } from './InputFile/InputFile';
 import { IAvatarForm, IAvatarModal } from './AvatarModal.types';
 
 export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
-  const { loading, error: errorUser, data: userData } = useQuery<IUserAllResult>(USER, {
+  const { loading, data: userData } = useQuery<IUserAllResult>(USER, {
     variables: { id: userId },
   });
   const [uploadAvatar, { loading: avatarLoading }] = useMutation<IAvatarReturn>(UPLOAD_AVATAR, {
@@ -45,10 +45,6 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
     resolver: yupResolver(avatarSchema),
   });
 
-  if (errorUser) {
-    onClose();
-  }
-
   const file = watch('picture');
 
   const handlerDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -67,11 +63,14 @@ export const AvatarModal: FC<IAvatarModal> = ({ userId, onClose, open }) => {
         variables: {
           id: userData.user.profile.id,
         },
-      }).catch((err) => console.error((err as TError).message));
+      }).catch((err) => {
+        console.error((err as TError).message);
+        onClose();
+      });
     }
   };
 
-  const onSubmit = (inputs: IAvatarForm) => {
+  const onSubmit: SubmitHandler<IAvatarForm> = (inputs) => {
     convertToBase64(inputs.picture[0])
       .then((picture) =>
         uploadAvatar({

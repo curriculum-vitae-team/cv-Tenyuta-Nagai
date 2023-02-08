@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC, useState } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { Checkbox, Typography } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import { UNBIND_CV, UPDATE_CV } from '../../../../graphql/mutations/cv';
@@ -8,7 +8,6 @@ import { updateUserCacheAfterCvUnbindMutation } from '../../../../graphql/cache/
 import { editCvSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
 import { ModalWindow } from '../../../UI/ModalWindow';
-import { TFormSubmit } from '../../../../types/formTypes';
 import { InputText } from '../../../UI/InputText';
 import { ICvResult, ICvUnbindResult } from '../../../../graphql/types/results/cv';
 import * as Styled from './CvEditModal.styles';
@@ -17,26 +16,18 @@ import { ICvEditModalProps, IFormEditCv } from './CvEditModal.types';
 export const CvEditModal: FC<ICvEditModalProps> = ({ open, onClose, cvId, userData }) => {
   const cv = userData?.user?.cvs?.filter((cv) => cv.id === cvId)[0];
   const [isTemplate, setIsTemplate] = useState(cv?.is_template);
-  const [updateCV, { loading: updateCvLoading, error: updateCvError }] = useMutation<ICvResult>(
-    UPDATE_CV
-  );
-  const [unbindCV, { loading: unbindCvLoading, error: unbindCvError }] = useMutation<
-    ICvUnbindResult
-  >(UNBIND_CV, {
+  const [updateCV, { loading: updateCvLoading }] = useMutation<ICvResult>(UPDATE_CV);
+  const [unbindCV, { loading: unbindCvLoading }] = useMutation<ICvUnbindResult>(UNBIND_CV, {
     update(cache, { data }) {
       updateUserCacheAfterCvUnbindMutation(cache, userData.user.id, data!);
     },
   });
 
-  if (updateCvError || unbindCvError) {
-    onClose();
-  }
-
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FieldValues>({
+  } = useForm<IFormEditCv>({
     defaultValues: {
       name: cv?.name,
       description: cv?.description,
@@ -66,10 +57,13 @@ export const CvEditModal: FC<ICvEditModalProps> = ({ open, onClose, cvId, userDa
           description: '',
         })
       )
-      .catch((err) => console.error((err as TError).message));
+      .catch((err) => {
+        onClose();
+        console.error((err as TError).message);
+      });
   };
 
-  const onSubmit = async (inputs: IFormEditCv) => {
+  const onSubmit: SubmitHandler<IFormEditCv> = async (inputs) => {
     updateCV({
       variables: {
         id: cvId,
@@ -91,18 +85,21 @@ export const CvEditModal: FC<ICvEditModalProps> = ({ open, onClose, cvId, userDa
           description: res?.data?.updateCv?.description || '',
         })
       )
-      .catch((err) => console.error((err as TError).message));
+      .catch((err) => {
+        onClose();
+        console.error((err as TError).message);
+      });
   };
 
   return (
     <ModalWindow title={'Edit CV'} onClose={handleClose} open={open}>
-      <form onSubmit={handleSubmit(onSubmit as TFormSubmit)} autoComplete="off">
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <InputText
           name="Name"
           registerName={'name'}
           register={register}
           error={!!errors.name}
-          helperText={errors.name?.message as string}
+          helperText={errors.name?.message || ''}
         />
 
         <InputText
@@ -112,7 +109,7 @@ export const CvEditModal: FC<ICvEditModalProps> = ({ open, onClose, cvId, userDa
           maxRows={4}
           register={register}
           error={!!errors.description}
-          helperText={errors.description?.message as string}
+          helperText={errors.description?.message || ''}
         />
 
         <Styled.CheckboxWrap>

@@ -2,7 +2,7 @@ import { TableCell } from '@mui/material';
 import React, { FC } from 'react';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import { IColumnCellComponentProps } from '../../EmployeesPage/TableData/TableData.interface';
+import { IColumnCellComponentProps } from '../../../Table/template/templateTable.types';
 
 export const TemplateCvsTable: FC<IColumnCellComponentProps> = ({ item }) => {
   return (
