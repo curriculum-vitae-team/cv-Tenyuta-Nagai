@@ -20,7 +20,8 @@ const EmployeesCVsPage = () => {
   const user = useUser();
   const { id } = useParams();
   const navigate = useNavigate();
-  const currentId = user?.role === UserRoles.Admin ? id : user?.id;
+  const isAdmin = user?.role === UserRoles.Admin;
+  const currentId = isAdmin ? id : user?.id;
   const { loading, error, data } = useQuery<IUserAllResult>(USER, {
     variables: { id: currentId },
   });
@@ -38,6 +39,14 @@ const EmployeesCVsPage = () => {
       navigate(`/${RoutePath.EMPLOYEES}`, { replace: true });
     }
   });
+
+  if (user?.id !== id && !isAdmin) {
+    return null;
+  }
+
+  if (error) {
+    navigate(`/${RoutePath.EMPLOYEES}`);
+  }
 
   const showCvData = (id: string) => {
     const cv = data?.user.cvs?.filter((x) => x.id === id)[0];

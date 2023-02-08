@@ -1,8 +1,7 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC } from 'react';
-import { useForm } from 'react-hook-form';
-import { FieldValues } from 'react-hook-form/dist/types';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { Checkbox, Typography } from '@mui/material';
 import { IModalForCreatingProps } from '../../../Table/template/templateTable.types';
 import { useUser } from '../../../../hooks/useUser';
@@ -15,7 +14,6 @@ import { editCvSchema } from '../../../../utils/validationSchema';
 import { ModalWindow } from '../../../UI/ModalWindow';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
-import { TFormSubmit } from '../../../../types/formTypes';
 import { TError } from '../../../../types/errorTypes';
 import { IFormCreateCv } from './CreateCvModal.types';
 import * as Styled from './CreateCvModal.styles';
@@ -36,12 +34,12 @@ export const CreateCvModal: FC<IModalForCreatingProps> = ({ open, onClose }) => 
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FieldValues>({
+  } = useForm<IFormCreateCv>({
     mode: 'onChange',
     resolver: yupResolver(editCvSchema),
   });
 
-  const onSubmit = async (inputs: IFormCreateCv) => {
+  const onSubmit: SubmitHandler<IFormCreateCv> = async (inputs) => {
     await createCV({
       variables: {
         cv: {
@@ -64,7 +62,7 @@ export const CreateCvModal: FC<IModalForCreatingProps> = ({ open, onClose }) => 
       {loading ? (
         <Spinner />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit as TFormSubmit)} autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
             name="Name"
             registerName={'name'}

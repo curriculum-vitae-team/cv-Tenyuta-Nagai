@@ -41,6 +41,7 @@ const TableRowComponent = ({
           </TableCell>
         )}
       </TableRow>
+
       {AdditionalButtons && (
         <AdditionalButtonsMenu open={open} onClose={handleClose} anchorEl={anchorEl}>
           <AdditionalButtons item={item} handleUpdate={handleUpdate!} setItem={setItem} />

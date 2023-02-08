@@ -3,9 +3,9 @@ import { SxProps } from '@mui/system';
 
 export interface IInputTextProps<T extends FieldValues> {
   name: string;
-  registerName: Path<T>;
-  register: UseFormRegister<T>;
   error?: boolean;
+  registerName?: Path<T>;
+  register?: UseFormRegister<T>;
   helperText?: string;
   sx?: SxProps;
   size?: 'small' | 'medium' | undefined;

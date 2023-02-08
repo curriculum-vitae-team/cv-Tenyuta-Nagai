@@ -10,7 +10,7 @@ import { Spinner } from '../../Spinner';
 import { createTable } from '../../Table/template';
 import { SkillCreateModal } from './SkillCreate';
 import { SkillsAdditionalButtons } from './SkillsAdditionalBtns/SkillsAdditionalBtns';
-import { SkillsUpdateModal } from './SkillUpdate/SkillUpdateModal';
+import { SkillsUpdateModal } from './SkillUpdate';
 import { SkillsTableHeader } from './TableData/SkillsTableHeader';
 import { getAllSkills } from './TableData/SkillsTableRows';
 

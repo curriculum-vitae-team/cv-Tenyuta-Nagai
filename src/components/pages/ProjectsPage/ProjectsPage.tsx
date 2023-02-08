@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client';
 import React, { useEffect } from 'react';
 import { Container, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
 import { RoutePath } from '../../../constants/routeVariables';
 import { Spinner } from '../../Spinner';
 import { createTable } from '../../Table/template';

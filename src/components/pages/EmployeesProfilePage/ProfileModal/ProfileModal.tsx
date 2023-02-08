@@ -1,15 +1,13 @@
 import React, { FC } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FieldValues } from 'react-hook-form/dist/types';
 import { useProfileFormData } from '../../../../hooks/useProfileFormData';
 import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
 import { profileSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
 import { ModalWindow } from '../../../UI/ModalWindow';
 import { Spinner } from '../../../Spinner';
-import { TFormSubmit } from '../../../../types/formTypes';
 import { InputText } from '../../../UI/InputText';
 import { FieldNameProfileForm } from '../../../../constants/fieldNameProfileForm';
 import { InputSelect } from '../../../UI/InputSelect';
@@ -24,7 +22,7 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FieldValues>({
+  } = useForm<IProfileFormInput>({
     defaultValues: {
       firstName: userData?.user.profile.first_name || '',
       lastName: userData?.user.profile.last_name || '',
@@ -33,7 +31,7 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
     resolver: yupResolver(profileSchema),
   });
 
-  const onSubmit = async (inputs: IProfileFormInput) => {
+  const onSubmit: SubmitHandler<IProfileFormInput> = async (inputs) => {
     try {
       await updateUser({
         variables: {
@@ -63,13 +61,13 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
       {loading ? (
         <Spinner />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit as TFormSubmit)} autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
             name="First name"
             registerName={FieldNameProfileForm.FIRST_NAME}
             register={register}
             error={!!errors.firstName}
-            helperText={errors.firstName?.message as string}
+            helperText={errors.firstName?.message || ''}
           />
 
           <InputText
@@ -77,7 +75,7 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
             registerName={FieldNameProfileForm.LAST_NAME}
             register={register}
             error={!!errors.lastName}
-            helperText={errors.lastName?.message as string}
+            helperText={errors.lastName?.message || ''}
           />
 
           <InputSelect

@@ -9,6 +9,7 @@ export interface ICvEditModalProps {
 }
 
 export interface IFormEditCv {
+  [key: string]: string | boolean;
   name: string;
   description: string;
   template: boolean;

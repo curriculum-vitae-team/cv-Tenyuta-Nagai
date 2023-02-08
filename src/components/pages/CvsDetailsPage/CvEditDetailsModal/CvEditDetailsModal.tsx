@@ -1,15 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Checkbox, Typography } from '@mui/material';
 import React, { FC, useState } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
-import { TFormSubmit } from '../../../../types/formTypes';
 import { editCvDetailsSchema } from '../../../../utils/validationSchema';
 import { InputText } from '../../../UI/InputText';
 import { ModalWindow } from '../../../UI/ModalWindow';
 import { UPDATE_CV } from '../../../../graphql/mutations/cv';
 import { ICvResult } from '../../../../graphql/types/results/cv';
 import { TError } from '../../../../types/errorTypes';
+import { createArrayForLanguages } from '../../../../utils/createArrayForLanguages';
+import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
 import { ICvEditModalProps, IFormEditDetailsCv } from './CvEditDetailsModal.types';
 import * as Styled from './CvEditDetailsModal.styles';
 
@@ -18,7 +19,7 @@ export const CvEditDetailsModal: FC<ICvEditModalProps> = ({ open, onClose, cvDat
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FieldValues>({
+  } = useForm<IFormEditDetailsCv>({
     defaultValues: {
       name: cvData?.cv?.name,
       description: cvData?.cv?.description,
@@ -47,13 +48,9 @@ export const CvEditDetailsModal: FC<ICvEditModalProps> = ({ open, onClose, cvDat
           name: inputs.name,
           description: inputs.description,
           userId: cvData?.cv.user?.id,
-          skills: cvData?.cv.skills.map(({ skill_name, mastery }) => {
-            return { skill_name, mastery };
-          }),
+          skills: createArrayForSkills(cvData?.cv.skills),
           projectsIds: cvData?.cv?.projects?.map((project) => project.id),
-          languages: cvData?.cv.languages.map(({ language_name, proficiency }) => {
-            return { language_name, proficiency };
-          }),
+          languages: createArrayForLanguages(cvData?.cv?.languages),
           is_template: inputs.template,
         },
       },
@@ -64,13 +61,13 @@ export const CvEditDetailsModal: FC<ICvEditModalProps> = ({ open, onClose, cvDat
 
   return (
     <ModalWindow title={'Edit CV'} onClose={onClose} open={open}>
-      <form onSubmit={handleSubmit(onSubmit as TFormSubmit)} autoComplete="off">
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <InputText
           name="Name"
           registerName={'name'}
           register={register}
           error={!!errors.name}
-          helperText={errors.name?.message as string}
+          helperText={errors.name?.message || ''}
         />
 
         <InputText
@@ -80,7 +77,7 @@ export const CvEditDetailsModal: FC<ICvEditModalProps> = ({ open, onClose, cvDat
           maxRows={4}
           register={register}
           error={!!errors.description}
-          helperText={errors.description?.message as string}
+          helperText={errors.description?.message || ''}
         />
 
         <Styled.CheckboxWrap>
