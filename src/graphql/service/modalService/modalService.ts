@@ -7,6 +7,11 @@ class ModalService implements IModalService {
   modalData$ = makeVar<{ [key: string]: unknown }>({});
   title$ = makeVar('');
   component: React.FC = DefaultComponent;
+  additionalData$ = makeVar<{ [key: string]: unknown } | null>(null);
+
+  setAdditionalData(data: { [key: string]: unknown } | null) {
+    this.additionalData$(data);
+  }
 
   openModal() {
     this.open$(true);
@@ -28,9 +33,9 @@ class ModalService implements IModalService {
     this.title$(value);
   }
 
-  setModalData(title: string, data: { [key: string]: unknown }, component: React.FC) {
+  setModalData(title: string, component: React.FC, data?: { [key: string]: unknown }) {
+    data && this.setData(data);
     modalService.setTitle(title);
-    this.setData(data);
     modalService.setComponent(component);
     modalService.openModal();
   }

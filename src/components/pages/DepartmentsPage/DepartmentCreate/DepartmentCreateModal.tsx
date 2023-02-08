@@ -1,22 +1,21 @@
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { FC } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { TError } from '../../../../types/errorTypes';
 import { TFormSubmit } from '../../../../types/formTypes';
 import { departmentsSchema } from '../../../../utils/validationSchema';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
-import { ModalWindow } from '../../../UI/ModalWindow';
-import { IModalForCreatingProps } from '../../../Table/template/templateTable.types';
 import { FieldNameDepartmentsForm } from '../../../../constants/fieldNameDepartmentsForm';
 import { CreateDepartmentResult } from '../../../../graphql/types/results/department';
 import { DepartmentsInput } from '../../../../graphql/types/inputs/department';
 import { CREATE_DEPARTMENT } from '../../../../graphql/mutations/departments';
 import { updateCacheAfterCreatingDepartment } from '../../../../graphql/cache/departments';
+import { modalService } from '../../../../graphql/service/modalService';
 import * as Styled from './DepartmentCreateModal.styles';
 
-export const DepartmentsCreateModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
+export const DepartmentsCreateModal = () => {
   const [createDepartment, { loading }] = useMutation(CREATE_DEPARTMENT);
   const {
     register,
@@ -42,11 +41,11 @@ export const DepartmentsCreateModal: FC<IModalForCreatingProps> = ({ open, onClo
         console.error(err.message);
       })
 
-      .finally(() => onClose());
+      .finally(() => modalService.closeModal());
   };
 
   return (
-    <ModalWindow title={'Create department'} onClose={onClose} open={open}>
+    <>
       {loading ? (
         <Spinner />
       ) : (
@@ -71,6 +70,6 @@ export const DepartmentsCreateModal: FC<IModalForCreatingProps> = ({ open, onClo
           </Styled.ButtonSubmit>
         </form>
       )}
-    </ModalWindow>
+    </>
   );
 };

@@ -5,6 +5,7 @@ export interface IModalService {
   modalData$: ReactiveVar<{ [key: string]: unknown }>;
   component: React.FC;
   title$: ReactiveVar<string>;
+  additionalData$: ReactiveVar<{ [key: string]: unknown } | null>;
   openModal: () => void;
   closeModal: () => void;
   setData: (data: { [key: string]: unknown }) => void;

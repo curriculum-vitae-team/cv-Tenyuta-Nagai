@@ -6,7 +6,7 @@ import { TestComponent } from '../../Modal/TestComponent/TestComponent';
 
 const SkillsPage = () => {
   const open = () => {
-    modalService.setModalData('test', testData, TestComponent);
+    modalService.setModalData('test', TestComponent, testData);
   };
 
   return (

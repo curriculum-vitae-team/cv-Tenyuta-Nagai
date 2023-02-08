@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useQuery, useReactiveVar } from '@apollo/client';
 import { Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,11 +9,12 @@ import { RoutePath } from '../../../constants/routeVariables';
 import { Spinner } from '../../Spinner';
 import { PrivateButton } from '../../UI/PrivateButton';
 import { IUserAllResult } from '../../../graphql/types/results/user';
+import { modalService } from '../../../graphql/service/modalService';
 import { CvsList } from './CvsList/CvsList';
 import { Row } from './Row/Row';
 import { CvEditModal } from './CvEditModal/CvEditModal';
 import * as Styled from './EmployeesCVsPage.styles';
-import { ICvData } from './EmployeesCVsPage.types';
+import { ICvData, ICvEditData } from './EmployeesCVsPage.types';
 import { CvsMenu } from './CvsMenu/CvsMenu';
 
 const EmployeesCVsPage = () => {
@@ -32,7 +33,16 @@ const EmployeesCVsPage = () => {
   });
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isDataCv, setIsDataCv] = useState(false);
-  const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+  const cvEditData: Pick<Partial<ICvEditData>, keyof ICvEditData> | null = useReactiveVar(
+    modalService.additionalData$
+  );
+
+  useEffect(() => {
+    if (cvEditData?.editCv) {
+      setCvData(cvEditData?.editCv);
+      !cvEditData.editCv.id && setIsDataCv(false);
+    }
+  }, [cvEditData]);
 
   useEffect(() => {
     if (error) {
@@ -71,19 +81,10 @@ const EmployeesCVsPage = () => {
   };
 
   const handleEdit = () => {
-    setIsOpenEditModal(true);
+    modalService.setModalData('Edit CV', CvEditModal, { id: cvData.id });
   };
 
   const handlePreview = () => {};
-
-  const handleCloseEditModal = (data?: ICvData) => {
-    if (data) {
-      setCvData(data);
-      !data.id && setIsDataCv(false);
-    }
-
-    setIsOpenEditModal(false);
-  };
 
   return (
     <>
@@ -129,15 +130,6 @@ const EmployeesCVsPage = () => {
       </Styled.Paper>
 
       <CvsMenu data={data!} open={isOpenMenu} showCvData={showCvData} onClose={handleCloseMenu} />
-
-      {isOpenEditModal && (
-        <CvEditModal
-          cvId={cvData.id}
-          userData={data!}
-          open={isOpenEditModal}
-          onClose={handleCloseEditModal}
-        />
-      )}
     </>
   );
 };

@@ -1,6 +1,10 @@
 import { IUserAllResult } from '../../../../graphql/types/results/user';
 import { ICvData } from '../EmployeesCVsPage.types';
 
+export type TCvId = {
+  id: string;
+};
+
 export interface ICvEditModalProps {
   open: boolean;
   onClose: (data?: ICvData) => void;

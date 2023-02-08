@@ -6,13 +6,11 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { IAdditionalButtonsProps } from '../../../Table/TableRows/TableRowComponent.types';
 import { DELETE_DEPARTMENT } from '../../../../graphql/mutations/departments';
 import { updateCacheAfterDeleteDepartment } from '../../../../graphql/cache/departments';
+import { modalService } from '../../../../graphql/service/modalService';
+import { DepartmentUpdateModal } from '../DepartmentUpdate';
 import * as Styled from './DepartmentsAdditionalBtns.styles';
 
-export const DepartmentsAdditionalButtons: FC<IAdditionalButtonsProps> = ({
-  item,
-  handleUpdate,
-  setItem,
-}) => {
+export const DepartmentsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
   const { id, name } = item;
   const [deleteDepartment] = useMutation(DELETE_DEPARTMENT);
 
@@ -26,11 +24,10 @@ export const DepartmentsAdditionalButtons: FC<IAdditionalButtonsProps> = ({
   };
 
   const updateDepartment = () => {
-    setItem!({
+    modalService.setModalData('Update department', DepartmentUpdateModal, {
       name: name as string,
       id: id as string,
     });
-    handleUpdate();
   };
 
   return (

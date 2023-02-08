@@ -32,7 +32,7 @@ const CvsDetailsPage = () => {
   }
 
   const handleEdit = () => {
-    modalService.setModalData('Edit CV', { ...data! }, CvEditDetailsModal);
+    modalService.setModalData('Edit CV', CvEditDetailsModal, { ...data! });
   };
 
   return (

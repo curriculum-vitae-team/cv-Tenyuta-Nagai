@@ -1,24 +1,23 @@
-import { useMutation } from '@apollo/client';
-import React, { FC } from 'react';
+import { useMutation, useReactiveVar } from '@apollo/client';
+import React from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
-import { ModalWindow } from '../../../UI/ModalWindow';
 import { departmentsSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
 import { TFormSubmit } from '../../../../types/formTypes';
 import { UPDATE_DEPARTMENT } from '../../../../graphql/mutations/departments';
 import { FieldNameDepartmentsForm } from '../../../../constants/fieldNameDepartmentsForm';
 import { DepartmentsInput } from '../../../../graphql/types/inputs/department';
+import { modalService } from '../../../../graphql/service/modalService';
 import * as Styled from './DepartmentUpdate.styles';
-import { IDepartmentUpdateModalProps } from './DepartmentUpdateModal.interface';
+import { IDepartment } from './DepartmentUpdateModal.interface';
 
-export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
-  open,
-  onClose,
-  department,
-}) => {
+export const DepartmentUpdateModal = () => {
+  const department: Pick<Partial<IDepartment>, keyof IDepartment> = useReactiveVar(
+    modalService.modalData$
+  );
   const [updateDepartment, { loading }] = useMutation(UPDATE_DEPARTMENT);
   const {
     register,
@@ -44,11 +43,11 @@ export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
       .catch((err: TError) => {
         console.error(err.message);
       })
-      .finally(() => onClose());
+      .finally(() => modalService.closeModal());
   };
 
   return (
-    <ModalWindow title={'Update department'} onClose={onClose} open={open}>
+    <>
       {loading ? (
         <Spinner />
       ) : (
@@ -73,6 +72,6 @@ export const DepartmentUpdateModal: FC<IDepartmentUpdateModalProps> = ({
           </Styled.ButtonSubmit>
         </form>
       )}
-    </ModalWindow>
+    </>
   );
 };
