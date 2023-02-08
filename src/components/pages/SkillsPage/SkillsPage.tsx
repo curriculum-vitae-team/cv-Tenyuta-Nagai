@@ -1,15 +1,12 @@
-import { useReactiveVar } from '@apollo/client';
 import { Button } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { modalService } from '../../../graphql/service/modalService';
 import { testData } from '../../Modal/data/testData';
 import { TestComponent } from '../../Modal/TestComponent/TestComponent';
 
 const SkillsPage = () => {
   const open = () => {
-    modalService.setProps(testData);
-    modalService.setComponent(TestComponent);
-    modalService.openModal();
+    modalService.setModalData('test', testData, TestComponent);
   };
 
   return (

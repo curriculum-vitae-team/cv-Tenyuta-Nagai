@@ -2,13 +2,15 @@ import { useReactiveVar } from '@apollo/client';
 import { modalService } from '../../graphql/service/modalService';
 
 export const useModal = () => {
-  const ModalComponent = useReactiveVar(modalService.ModalComponent$);
+  const Component = modalService.component;
   const open = useReactiveVar(modalService.open$);
-  const modalProps = useReactiveVar(modalService.modalProps$);
+  const title = useReactiveVar(modalService.title$);
+  const onClose = modalService.closeModal;
 
   return {
-    ModalComponent,
+    Component,
     open,
-    modalProps,
+    title,
+    onClose,
   };
 };

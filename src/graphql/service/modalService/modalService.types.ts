@@ -2,10 +2,11 @@ import { ReactiveVar } from '@apollo/client';
 
 export interface IModalService {
   open$: ReactiveVar<boolean>;
-  modalProps$: ReactiveVar<{ [key: string]: unknown } | null>;
-  ModalComponent$: ReactiveVar<React.FC | React.FC<{ [key: string]: unknown }>>;
+  modalData$: ReactiveVar<{ [key: string]: unknown }>;
+  component: React.FC;
+  title$: ReactiveVar<string>;
   openModal: () => void;
   closeModal: () => void;
-  setProps: (props: Record<string, unknown>) => void;
+  setData: (data: { [key: string]: unknown }) => void;
   setComponent: (component: React.FC) => void;
 }

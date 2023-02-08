@@ -1,8 +1,12 @@
+import { useReactiveVar } from '@apollo/client';
 import React from 'react';
-import { Spinner } from '../../Spinner';
+import { modalService } from '../../../graphql/service/modalService';
 import { ITestComponentProps } from './TestComponent.types';
 
-export const TestComponent = (props: ITestComponentProps) => {
-  console.log(22222);
-  return <>{<div>{props?.name}</div>}</>;
+export const TestComponent = () => {
+  const modalProps: Pick<Partial<ITestComponentProps>, keyof ITestComponentProps> = useReactiveVar(
+    modalService.modalData$
+  );
+
+  return <>{<div>{modalProps?.user?.profile?.id}</div>}</>;
 };
