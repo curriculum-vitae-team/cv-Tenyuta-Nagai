@@ -7,24 +7,22 @@ import { Spinner } from '../Spinner';
 import { ErrorBoundary } from '../ErrorBoundary';
 import { Notifier } from '../UI/Notifier';
 import { modalService } from '../../graphql/service/modalService';
-import { Modal } from '../UI/Modal/Modal';
+import { ModalWindow } from '../UI/ModalWindow';
 
 export const Layout = () => {
   const isOpen = useReactiveVar(modalService.open$);
 
   return (
     <>
+      <Header />
       <ErrorBoundary>
-        <Header />
-
         <Suspense fallback={<Spinner />}>
           <Outlet />
         </Suspense>
-
-        <Footer />
-        <Notifier />
-        {isOpen && <Modal />}
       </ErrorBoundary>
+      <Footer />
+      <Notifier />
+      {isOpen && <ModalWindow />}
     </>
   );
 };
