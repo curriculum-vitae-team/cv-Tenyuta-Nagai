@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Grid } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -23,26 +23,30 @@ const CvsProjectsPage = () => {
     variables: { id },
   });
 
-  if (loading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    navigate(`/${RoutePath.CVS}`, { replace: true });
-  }
+  useEffect(() => {
+    if (error) {
+      navigate(`/${RoutePath.CVS}`, { replace: true });
+    }
+  }, [error, navigate]);
 
   return (
-    <Grid container>
-      <Table
-        header={cvsProjectsHeaderTable}
-        items={createCvsProjectRowData(data?.cv?.projects || [])}
-        searchParameter="projectName"
-        titleCreateBtn="Update"
-        isCreateBtnVisible={data?.cv.user?.id === user?.id || isAdmin}
-        ModalForCreating={UpdateModal}
-        defaultSortingBy="projectName"
-      />
-    </Grid>
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Grid container>
+          <Table
+            header={cvsProjectsHeaderTable}
+            items={createCvsProjectRowData(data?.cv?.projects || [])}
+            searchParameter="projectName"
+            titleCreateBtn="Update"
+            isCreateBtnVisible={data?.cv.user?.id === user?.id || isAdmin}
+            ModalForCreating={UpdateModal}
+            defaultSortingBy="projectName"
+          />
+        </Grid>
+      )}
+    </>
   );
 };
 

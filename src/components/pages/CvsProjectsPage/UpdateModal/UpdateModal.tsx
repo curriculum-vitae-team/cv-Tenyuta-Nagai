@@ -27,7 +27,7 @@ export const UpdateModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
   const { loading, error, data } = useQuery<IProjectsResult>(GET_ALL_PROJECTS, {
     variables: { id },
   });
-  const { loading: cvLoading, error: cvError, data: cvData } = useQuery<ICvQueryResult>(CV, {
+  const { loading: cvLoading, data: cvData } = useQuery<ICvQueryResult>(CV, {
     variables: { id },
   });
   const [projects, setProjects] = useState<Record<string, string>>({});
@@ -40,10 +40,6 @@ export const UpdateModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
     },
   });
 
-  if (error || cvError) {
-    onClose();
-  }
-
   useEffect(() => {
     if (data?.projects?.length) {
       setProjects(
@@ -53,7 +49,10 @@ export const UpdateModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
         }, {} as Record<string, string>)
       );
     }
-  }, [data]);
+    if (error) {
+      onClose();
+    }
+  }, [data, error, onClose]);
 
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     setProjectsIds(event.target.value as string[]);

@@ -38,14 +38,10 @@ const EmployeesCVsPage = () => {
     if (error) {
       navigate(`/${RoutePath.EMPLOYEES}`, { replace: true });
     }
-  });
+  }, [error, navigate]);
 
   if (user?.id !== id && !isAdmin) {
     return null;
-  }
-
-  if (error) {
-    navigate(`/${RoutePath.EMPLOYEES}`);
   }
 
   const showCvData = (id: string) => {

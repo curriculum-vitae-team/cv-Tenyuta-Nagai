@@ -31,7 +31,7 @@ const DepartmentsPage = () => {
     if (error) {
       navigate(`/${RoutePath.LOGIN}`, { replace: true });
     }
-  });
+  }, [error, navigate]);
 
   const handleUpdateDepartment = () => {
     setIsOpenModal(true);
@@ -41,28 +41,29 @@ const DepartmentsPage = () => {
     setIsOpenModal(false);
   };
 
-  if (loading) {
-    return <Spinner />;
-  }
-
   return (
     <main>
-      <Container maxWidth="xl">
-        <Grid container>
-          <Table
-            header={DepartmentsTableHeader}
-            items={getAllDepartments(data?.departments || [])}
-            ModalForCreating={DepartmentsCreateModal}
-            searchParameter="name"
-            titleCreateBtn="Create"
-            isCreateBtnVisible={isAdmin}
-            AdditionalButtons={isAdmin ? DepartmentsAdditionalButtons : undefined}
-            defaultSortingBy="name"
-            handleUpdate={handleUpdateDepartment}
-            setItem={setDepartment}
-          />
-        </Grid>
-      </Container>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Container maxWidth="xl">
+          <Grid container>
+            <Table
+              header={DepartmentsTableHeader}
+              items={getAllDepartments(data?.departments || [])}
+              ModalForCreating={DepartmentsCreateModal}
+              searchParameter="name"
+              titleCreateBtn="Create"
+              isCreateBtnVisible={isAdmin}
+              AdditionalButtons={isAdmin ? DepartmentsAdditionalButtons : undefined}
+              defaultSortingBy="name"
+              handleUpdate={handleUpdateDepartment}
+              setItem={setDepartment}
+            />
+          </Grid>
+        </Container>
+      )}
+
       {isOpenModal && (
         <DepartmentUpdateModal
           open={isOpenModal}

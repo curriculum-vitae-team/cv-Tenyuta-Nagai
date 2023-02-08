@@ -28,13 +28,7 @@ export const CvEditDetailsModal: FC<ICvEditModalProps> = ({ open, onClose, cvDat
     resolver: yupResolver(editCvDetailsSchema),
   });
   const [isTemplate, setIsTemplate] = useState(cvData?.cv?.is_template);
-  const [updateCV, { loading: updateCvLoading, error: updateCvError }] = useMutation<ICvResult>(
-    UPDATE_CV
-  );
-
-  if (updateCvError) {
-    onClose();
-  }
+  const [updateCV, { loading: updateCvLoading }] = useMutation<ICvResult>(UPDATE_CV);
 
   const handleChangeTemplate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsTemplate(e.target.checked);

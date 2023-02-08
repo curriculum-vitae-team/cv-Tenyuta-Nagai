@@ -24,28 +24,28 @@ const EmployeesPage = () => {
     if (error) {
       navigate(`/${RoutePath.LOGIN}`, { replace: true });
     }
-  });
-
-  if (loading) {
-    return <Spinner />;
-  }
+  }, [error, navigate]);
 
   return (
     <main>
-      <Container maxWidth="xl">
-        <Grid container>
-          <Table
-            header={UsersTableHeader}
-            items={getAllUsers(data?.users || [])}
-            ModalForCreating={EmployeesModal}
-            searchParameter="name"
-            titleCreateBtn="Add employee"
-            isCreateBtnVisible={isCreateBtnVisible}
-            AdditionalButtons={EmployeesAdditionalButtons}
-            defaultSortingBy="name"
-          />
-        </Grid>
-      </Container>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Container maxWidth="xl">
+          <Grid container>
+            <Table
+              header={UsersTableHeader}
+              items={getAllUsers(data?.users || [])}
+              ModalForCreating={EmployeesModal}
+              searchParameter="name"
+              titleCreateBtn="Add employee"
+              isCreateBtnVisible={isCreateBtnVisible}
+              AdditionalButtons={EmployeesAdditionalButtons}
+              defaultSortingBy="name"
+            />
+          </Grid>
+        </Container>
+      )}
     </main>
   );
 };
