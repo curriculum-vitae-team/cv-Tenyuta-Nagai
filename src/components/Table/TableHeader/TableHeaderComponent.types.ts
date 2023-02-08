@@ -9,3 +9,7 @@ export type TableHeaderComponentProps = {
   direction: Directions;
   AdditionalButtons?: React.FC<IAdditionalButtonsProps>;
 };
+
+export interface ITableCellStyled {
+  isSortable?: boolean;
+}
