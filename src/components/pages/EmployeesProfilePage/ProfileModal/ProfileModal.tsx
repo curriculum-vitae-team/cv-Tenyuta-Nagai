@@ -16,7 +16,7 @@ import { IProfileFormInput, IProfileModalProps } from './ProfileModal.types';
 import * as Styled from './ProfileModal.styles';
 
 export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) => {
-  const { loading, error, userData, positionsData, departmentsData } = useProfileFormData(userId);
+  const { loading, userData, positionsData, departmentsData } = useProfileFormData(userId);
   const [updateUser, { loading: updateLoading }] = useMutation<IUserAllResult>(UPDATE_USER);
   const {
     register,
@@ -30,10 +30,6 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
     mode: 'onChange',
     resolver: yupResolver(profileSchema),
   });
-
-  if (error) {
-    onClose();
-  }
 
   const onSubmit: SubmitHandler<IProfileFormInput> = async (inputs) => {
     try {

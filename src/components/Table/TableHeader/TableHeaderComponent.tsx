@@ -7,8 +7,8 @@ const TableHeaderComponent = ({
   columns,
   sortingBy,
   direction,
-  handleSetSortingDirection,
   AdditionalButtons,
+  handleSetSortingDirection,
 }: TableHeaderComponentProps) => {
   return (
     <TableRow>
