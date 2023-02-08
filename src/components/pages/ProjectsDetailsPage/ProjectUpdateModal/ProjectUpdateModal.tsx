@@ -9,7 +9,6 @@ import { DatePickerInput } from '../../../UI/DatePicker';
 import { projectsSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
 import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsForm';
-import { TFormSubmit } from '../../../../types/formTypes';
 import { IProjectsFormInput } from '../../ProjectsPage/ProjectsCreateModal/ProjectsCreateModal.interface';
 import { UPDATE_PROJECT } from '../../../../graphql/mutations/updateProject';
 import { formatDate } from '../../../../utils/formatDate';
@@ -63,7 +62,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
       {loading ? (
         <Spinner />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit as TFormSubmit)} autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
             name="Project name"
             registerName={FieldNameProjectsForm.NAME}

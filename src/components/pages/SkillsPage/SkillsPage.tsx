@@ -31,7 +31,7 @@ const SkillsPage = () => {
     if (error) {
       navigate(`/${RoutePath.LOGIN}`, { replace: true });
     }
-  });
+  }, [error, navigate]);
 
   const handleUpdateSkill = () => {
     setIsOpenModal(true);
@@ -41,28 +41,29 @@ const SkillsPage = () => {
     setIsOpenModal(false);
   };
 
-  if (loading) {
-    return <Spinner />;
-  }
-
   return (
     <main>
-      <Container maxWidth="xl">
-        <Grid container>
-          <Table
-            header={SkillsTableHeader}
-            items={getAllSkills(data?.skills || [])}
-            ModalForCreating={SkillCreateModal}
-            searchParameter="name"
-            titleCreateBtn="Create skill"
-            isCreateBtnVisible={isAdmin}
-            defaultSortingBy="name"
-            AdditionalButtons={isAdmin ? SkillsAdditionalButtons : undefined}
-            handleUpdate={handleUpdateSkill}
-            setItem={setSkill}
-          />
-        </Grid>
-      </Container>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Container maxWidth="xl">
+          <Grid container>
+            <Table
+              header={SkillsTableHeader}
+              items={getAllSkills(data?.skills || [])}
+              ModalForCreating={SkillCreateModal}
+              searchParameter="name"
+              titleCreateBtn="Create skill"
+              isCreateBtnVisible={isAdmin}
+              defaultSortingBy="name"
+              AdditionalButtons={isAdmin ? SkillsAdditionalButtons : undefined}
+              handleUpdate={handleUpdateSkill}
+              setItem={setSkill}
+            />
+          </Grid>
+        </Container>
+      )}
+
       {isOpenModal && (
         <SkillsUpdateModal open={isOpenModal} onClose={handleCloseModal} skill={skill} />
       )}
