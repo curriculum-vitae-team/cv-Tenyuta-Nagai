@@ -9,3 +9,21 @@ export const CREATE_SKILL = gql`
     }
   }
 `;
+
+export const DELETE_SKILL = gql`
+  mutation DeleteSkill($id: ID!) {
+    deleteSkill(id: $id) {
+      affected
+    }
+  }
+`;
+
+export const UPDATE_SKILL = gql`
+  mutation UpdateSkill($id: ID!, $skill: SkillInput!) {
+    updateSkill(id: $id, skill: $skill) {
+      id
+      created_at
+      name
+    }
+  }
+`;

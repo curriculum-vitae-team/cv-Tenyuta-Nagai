@@ -8,7 +8,9 @@ import { SKILLS } from '../../../graphql/queries/skills';
 import { useUser } from '../../../hooks/useUser';
 import { Spinner } from '../../Spinner';
 import { createTable } from '../../Table/template';
-import { SkillCreateModal } from './SkillCreate/SkillCreateModal';
+import { SkillCreateModal } from './SkillCreate';
+import { SkillsAdditionalButtons } from './SkillsAdditionalBtns/SkillsAdditionalBtns';
+import { SkillsUpdateModal } from './SkillUpdate/SkillUpdateModal';
 import { SkillsTableHeader } from './TableData/SkillsTableHeader';
 import { getAllSkills } from './TableData/SkillsTableRows';
 
@@ -55,9 +57,15 @@ const SkillsPage = () => {
             titleCreateBtn="Create skill"
             isCreateBtnVisible={isAdmin}
             defaultSortingBy="name"
+            AdditionalButtons={isAdmin ? SkillsAdditionalButtons : undefined}
+            handleUpdate={handleUpdateSkill}
+            setItem={setSkill}
           />
         </Grid>
       </Container>
+      {isOpenModal && (
+        <SkillsUpdateModal open={isOpenModal} onClose={handleCloseModal} skill={skill} />
+      )}
     </main>
   );
 };

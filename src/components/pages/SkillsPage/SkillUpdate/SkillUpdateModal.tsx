@@ -1,51 +1,49 @@
 import { useMutation } from '@apollo/client';
-import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { FieldNameSkillsForm } from '../../../../constants/fieldNameSkillsForm';
-import { updateCacheAfterCreatingSkill } from '../../../../graphql/cache/skills';
-import { CREATE_SKILL } from '../../../../graphql/mutations/skills';
-import { SkillsInput } from '../../../../graphql/types/inputs/skill';
-import { CreateSkillsResult } from '../../../../graphql/types/results/skills';
-import { TError } from '../../../../types/errorTypes';
-import { skillsSchema } from '../../../../utils/validationSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from '../../../Spinner';
-import { IModalForCreatingProps } from '../../../Table/template/templateTable.types';
 import { InputText } from '../../../UI/InputText';
 import { ModalWindow } from '../../../UI/ModalWindow';
-import * as Styled from './SkillCreateModal.styles';
+import { skillsSchema } from '../../../../utils/validationSchema';
+import { TError } from '../../../../types/errorTypes';
+import { FieldNameSkillsForm } from '../../../../constants/fieldNameSkillsForm';
+import { SkillsInput } from '../../../../graphql/types/inputs/skill';
+import { UPDATE_SKILL } from '../../../../graphql/mutations/skills';
+import * as Styled from './SkillUpdate.styles';
+import { ISkillUpdateModalProps } from './SkillUpdate.interface';
 
-export const SkillCreateModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
-  const [createSkill, { loading }] = useMutation(CREATE_SKILL);
+export const SkillsUpdateModal: FC<ISkillUpdateModalProps> = ({ open, onClose, skill }) => {
+  const [updateSkill, { loading }] = useMutation(UPDATE_SKILL);
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<SkillsInput>({
+    defaultValues: {
+      name: skill.name,
+    },
     mode: 'onChange',
     resolver: yupResolver(skillsSchema),
   });
 
   const onSubmit: SubmitHandler<SkillsInput> = (inputs) => {
-    createSkill({
+    updateSkill({
       variables: {
+        id: skill.id,
         skill: {
           name: inputs.name,
         },
-      },
-      update(cache, { data }) {
-        updateCacheAfterCreatingSkill(cache, (data as unknown) as CreateSkillsResult);
       },
     })
       .catch((err: TError) => {
         console.error(err.message);
       })
-
       .finally(() => onClose());
   };
 
   return (
-    <ModalWindow title={'Create skill'} onClose={onClose} open={open}>
+    <ModalWindow title={'Update skill'} onClose={onClose} open={open}>
       {loading ? (
         <Spinner />
       ) : (

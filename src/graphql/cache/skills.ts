@@ -1,4 +1,5 @@
 import { ApolloCache, NormalizedCacheObject } from '@apollo/client';
+import { ISkill } from '../../interfaces/ISkill.interface';
 import { CreateSkillsResult, ISkillsReturn } from '../types/results/skills';
 import { SKILLS } from './../queries/skills';
 
@@ -16,4 +17,10 @@ export const updateCacheAfterCreatingSkill = (
       },
     });
   }
+};
+
+export const updateCacheAfterDeleteSkill = (cache: ApolloCache<ISkill>, Id: string) => {
+  const id = cache.identify({ id: Id, __typename: 'Skill' });
+  cache.evict({ id });
+  cache.gc();
 };
