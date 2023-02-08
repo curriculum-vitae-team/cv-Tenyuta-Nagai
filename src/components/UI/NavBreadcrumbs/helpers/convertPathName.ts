@@ -1,6 +1,5 @@
 import { BreadcrumbNames } from '../../../../constants/breadcrumbNames';
 import { RoutePath } from '../../../../constants/routeVariables';
-import { IUserName } from '../../../../graphql/types/results/user';
 
 export const convertPathName = (name: string) => {
   switch (name) {
@@ -25,11 +24,4 @@ export const convertPathName = (name: string) => {
     default:
       return name;
   }
-};
-
-export const chooseUserName = (data: IUserName) => {
-  if (data.profile.first_name && data.profile.last_name) {
-    return `${data.profile.first_name} ${data?.profile.last_name}`;
-  }
-  return data.email;
 };

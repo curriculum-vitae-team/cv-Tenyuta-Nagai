@@ -16,10 +16,12 @@ export const createBreadcrumbs = (
     const isLast = index === pathnames.length - 1;
     const isPreLast = index === pathnames.length - 2;
 
-    if (pathId && isPreLast && startPath === RoutePath.EMPLOYEES) {
-      return <Styled.IdName key={name}>{pathName}</Styled.IdName>;
-    } else if (pathId && isPreLast && startPath === RoutePath.CVS) {
-      return <Styled.IdName key={name}>{pathName}</Styled.IdName>;
+    if (pathId && isPreLast) {
+      if (startPath === RoutePath.EMPLOYEES) {
+        return <Styled.IdName key={name}>{pathName}</Styled.IdName>;
+      } else if (startPath === RoutePath.CVS) {
+        return <Styled.IdName key={name}>{pathName}</Styled.IdName>;
+      }
     } else if (isLast && pathId && startPath === RoutePath.PROJECTS) {
       return <Typography key={name}>{pathName}</Typography>;
     } else if (isLast) {
