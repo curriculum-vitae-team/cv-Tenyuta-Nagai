@@ -20,7 +20,7 @@ import * as Styled from './CreateCvModal.styles';
 
 export const CreateCvModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
   const user = useUser();
-  const { loading, error, data: userData } = useQuery<IUserAllResult>(USER, {
+  const { loading, data: userData } = useQuery<IUserAllResult>(USER, {
     variables: { id: user?.id },
   });
 
@@ -38,10 +38,6 @@ export const CreateCvModal: FC<IModalForCreatingProps> = ({ open, onClose }) => 
     mode: 'onChange',
     resolver: yupResolver(editCvSchema),
   });
-
-  if (error) {
-    onClose();
-  }
 
   const onSubmit: SubmitHandler<IFormCreateCv> = async (inputs) => {
     await createCV({

@@ -1,0 +1,1 @@
+export { DepartmentsCreateModal } from './DepartmentCreateModal';

@@ -1,4 +1,4 @@
-import { IColumn } from '../../EmployeesPage/TableData/TableData.interface';
+import { IColumn } from '../../../Table/template/templateTable.types';
 
 export const ProjectsTableHeader: IColumn[] = [
   { columnKey: 'name', columnName: 'Project name', isSortable: true },
