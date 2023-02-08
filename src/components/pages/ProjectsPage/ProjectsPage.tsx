@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,30 +21,32 @@ const ProjectsPage = () => {
   const user = useUser();
   const isCreateBtnVisible = user?.role === UserRoles.Admin;
 
-  if (loading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    navigate(`/${RoutePath.LOGIN}`, { replace: true });
-  }
+  useEffect(() => {
+    if (error) {
+      navigate(`/${RoutePath.LOGIN}`, { replace: true });
+    }
+  }, [error, navigate]);
 
   return (
     <main>
-      <Container maxWidth="xl">
-        <Grid container>
-          <Table
-            header={ProjectsTableHeader}
-            items={getProjects(data.projects)}
-            ModalForCreating={ProjectCreateModal}
-            searchParameter="name"
-            titleCreateBtn="Add project"
-            isCreateBtnVisible={isCreateBtnVisible}
-            AdditionalButtons={ProjectsAdditionalButtons}
-            defaultSortingBy="name"
-          />
-        </Grid>
-      </Container>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Container maxWidth="xl">
+          <Grid container>
+            <Table
+              header={ProjectsTableHeader}
+              items={getProjects(data.projects)}
+              ModalForCreating={ProjectCreateModal}
+              searchParameter="name"
+              titleCreateBtn="Add project"
+              isCreateBtnVisible={isCreateBtnVisible}
+              AdditionalButtons={ProjectsAdditionalButtons}
+              defaultSortingBy="name"
+            />
+          </Grid>
+        </Container>
+      )}
     </main>
   );
 };

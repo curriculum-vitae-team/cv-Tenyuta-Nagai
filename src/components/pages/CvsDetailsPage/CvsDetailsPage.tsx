@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -27,13 +27,11 @@ const CvsDetailsPage = () => {
     setIsOpen(false);
   };
 
-  if (loading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    navigate(`/${RoutePath.CVS}`, { replace: true });
-  }
+  useEffect(() => {
+    if (error) {
+      navigate(`/${RoutePath.CVS}`, { replace: true });
+    }
+  }, [error, navigate]);
 
   const handleEdit = () => {
     setIsOpen(true);
@@ -41,34 +39,38 @@ const CvsDetailsPage = () => {
 
   return (
     <>
-      <Styled.PaperWrapper elevation={3}>
-        <Styled.Wrapper>
-          <Styled.ContentWrapper>
-            <Row title={'Name:'}>{data?.cv?.name || '-'}</Row>
-            <Row title={'Description:'}>{data?.cv?.description || '-'}</Row>
-            <Row title={'User:'}>
-              {data?.cv?.user?.profile?.full_name || data?.cv?.user?.email || '-'}
-            </Row>
-            <Row title={'User position:'}>{data?.cv?.user?.position_name || '-'}</Row>
-            <Row title={'Skills:'}>
-              {data?.cv?.skills?.length ? convertSkillsArray(data?.cv?.skills) : '-'}
-            </Row>
-            <Row title={'Languages:'}>
-              {data?.cv?.languages?.length ? convertLanguagesArray(data?.cv?.languages) : '-'}
-            </Row>
-          </Styled.ContentWrapper>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Styled.PaperWrapper elevation={3}>
+          <Styled.Wrapper>
+            <Styled.ContentWrapper>
+              <Row title={'Name:'}>{data?.cv?.name || '-'}</Row>
+              <Row title={'Description:'}>{data?.cv?.description || '-'}</Row>
+              <Row title={'User:'}>
+                {data?.cv?.user?.profile?.full_name || data?.cv?.user?.email || '-'}
+              </Row>
+              <Row title={'User position:'}>{data?.cv?.user?.position_name || '-'}</Row>
+              <Row title={'Skills:'}>
+                {data?.cv?.skills?.length ? convertSkillsArray(data?.cv?.skills) : '-'}
+              </Row>
+              <Row title={'Languages:'}>
+                {data?.cv?.languages?.length ? convertLanguagesArray(data?.cv?.languages) : '-'}
+              </Row>
+            </Styled.ContentWrapper>
 
-          <Styled.BtnWrapper>
-            <PrivateButton
-              isVisible={user?.id === data?.cv.user?.id || isAdmin}
-              onClick={handleEdit}
-              sx={{ minWidth: 140 }}
-            >
-              Edit
-            </PrivateButton>
-          </Styled.BtnWrapper>
-        </Styled.Wrapper>
-      </Styled.PaperWrapper>
+            <Styled.BtnWrapper>
+              <PrivateButton
+                isVisible={user?.id === data?.cv.user?.id || isAdmin}
+                onClick={handleEdit}
+                sx={{ minWidth: 140 }}
+              >
+                Edit
+              </PrivateButton>
+            </Styled.BtnWrapper>
+          </Styled.Wrapper>
+        </Styled.PaperWrapper>
+      )}
 
       {isOpen && <CvEditDetailsModal open={isOpen} onClose={handleCloseEditModal} cvData={data!} />}
     </>
