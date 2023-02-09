@@ -19,15 +19,12 @@ const CvsProjectsPage = () => {
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
   const Table = createTable();
-  const { loading, error, data } = useQuery<ICvQueryResult>(CV, {
+  const { loading, data } = useQuery<ICvQueryResult>(CV, {
     variables: { id },
-  });
-
-  useEffect(() => {
-    if (error) {
+    onError() {
       navigate(`/${RoutePath.CVS}`, { replace: true });
-    }
-  }, [error, navigate]);
+    },
+  });
 
   return (
     <>
