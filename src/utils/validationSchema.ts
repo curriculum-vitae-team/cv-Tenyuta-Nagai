@@ -94,3 +94,12 @@ export const skillsSchema = object({
     .max(30)
     .required(),
 });
+
+export const languagesSchema = object({
+  name: string()
+    .max(30)
+    .required(),
+  iso2: string()
+    .max(3)
+    .required(),
+});

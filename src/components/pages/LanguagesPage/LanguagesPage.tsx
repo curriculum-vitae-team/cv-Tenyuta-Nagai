@@ -8,7 +8,7 @@ import { LANGUAGES } from '../../../graphql/queries/languages';
 import { useUser } from '../../../hooks/useUser';
 import { Spinner } from '../../Spinner';
 import { createTable } from '../../Table/template';
-import { DepartmentsCreateModal } from '../DepartmentsPage/DepartmentCreate';
+import { LanguageCreateModal } from './LanguageCreate';
 import { LanguagesTableHeader } from './TableData/LanguagesTableHeader';
 import { getAllLanguages } from './TableData/LanguagesTableRows';
 
@@ -31,7 +31,7 @@ const LanguagesPage = () => {
             <Table
               header={LanguagesTableHeader}
               items={getAllLanguages(data?.languages || [])}
-              ModalForCreating={DepartmentsCreateModal}
+              ModalForCreating={LanguageCreateModal}
               titleModal={'Create language'}
               searchParameter="name"
               titleCreateBtn="Create language"
