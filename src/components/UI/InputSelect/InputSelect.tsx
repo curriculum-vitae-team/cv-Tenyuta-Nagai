@@ -16,6 +16,7 @@ export const InputSelect = <T extends Record<string, unknown>>({
       {...props}
       margin="normal"
       select
+      fullWidth
       size={size}
       label={label}
       inputProps={register && registerName && register(registerName)}
