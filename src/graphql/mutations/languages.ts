@@ -24,7 +24,6 @@ export const UPDATE_LANGUAGE = gql`
     updateLanguage(id: $id, language: $language) {
       id
       iso2
-      created_at
       name
     }
   }

@@ -17,7 +17,7 @@ export const LanguageUpdateModal = () => {
   const language: Pick<Partial<ILanguage>, keyof ILanguage> = useReactiveVar(
     modalService.modalData$
   );
-  console.log(language);
+
   const [updateLanguage, { loading }] = useMutation(UPDATE_LANGUAGE);
   const {
     register,
@@ -35,7 +35,7 @@ export const LanguageUpdateModal = () => {
   const onSubmit: SubmitHandler<LanguageInput> = (inputs) => {
     updateLanguage({
       variables: {
-        id: language.id,
+        id: language.id as string,
         language: {
           name: inputs.name,
           iso2: inputs.iso2,

@@ -11,7 +11,7 @@ import { LanguageUpdateModal } from '../LanguageUpdate';
 import * as Styled from './LanguageAdditionalBtns.styles';
 
 export const LanguagesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
-  const { id, name } = item;
+  const { id, name, iso2 } = item;
   const [deleteLanguage] = useMutation(DELETE_LANGUAGE);
 
   const handleLanguageDelete = () => {
@@ -27,6 +27,7 @@ export const LanguagesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }
     modalService.setModalData('Update language', LanguageUpdateModal, {
       name: name as string,
       id: id as string,
+      iso2: iso2 as string,
     });
   };
 
