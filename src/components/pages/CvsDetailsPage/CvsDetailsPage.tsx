@@ -21,9 +21,7 @@ const CvsDetailsPage = () => {
   const isAdmin = user?.role === UserRoles.Admin;
   const { loading, data } = useQuery<ICvQueryResult>(CV, {
     variables: { id },
-    onError() {
-      navigate(`/${RoutePath.CVS}`, { replace: true });
-    },
+    onError: () => navigate(`/${RoutePath.CVS}`, { replace: true }),
   });
 
   const handleEdit = () => {

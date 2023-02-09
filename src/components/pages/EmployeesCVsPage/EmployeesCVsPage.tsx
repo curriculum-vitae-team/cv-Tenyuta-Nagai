@@ -25,9 +25,7 @@ const EmployeesCVsPage = () => {
   const currentId = isAdmin ? id : user?.id;
   const { loading, data } = useQuery<IUserAllResult>(USER, {
     variables: { id: currentId },
-    onError() {
-      navigate(`/${RoutePath.EMPLOYEES}`, { replace: true });
-    },
+    onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
   });
   const [cvData, setCvData] = useState<ICvData>({
     id: '',

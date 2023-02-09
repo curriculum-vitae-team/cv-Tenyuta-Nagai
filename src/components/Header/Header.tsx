@@ -60,8 +60,7 @@ export const Header = () => {
 
       {isAuth && (
         <Container maxWidth="xl">
-          {/* <NavBreadcrumbs /> */}
-          <div style={{ marginTop: 65 }}>TO-DO change it</div>
+          <NavBreadcrumbs />
         </Container>
       )}
     </>

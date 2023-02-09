@@ -1,9 +1,10 @@
 import { useQuery } from '@apollo/client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
 import { GET_PROJECT } from '../../../graphql/queries/project';
+import { breadcrumbsService } from '../../../graphql/service/breadcrumbsService/breadcrumbsService';
 import { modalService } from '../../../graphql/service/modalService';
 import { IProjectResult } from '../../../graphql/types/results/projects';
 import { useUser } from '../../../hooks/useUser';
@@ -23,6 +24,12 @@ const ProjectsDetailsPage = () => {
 
   const user = useUser();
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
+
+  useEffect(() => {
+    if (data?.project) {
+      breadcrumbsService.setIdPathName(data.project.name);
+    }
+  }, [data]);
 
   const handleEdit = () => {
     modalService.setModalData('Update project', ProjectUpdateModal, { ...data });

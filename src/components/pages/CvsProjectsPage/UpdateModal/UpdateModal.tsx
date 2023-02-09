@@ -25,15 +25,11 @@ export const UpdateModal = () => {
   const { id } = useParams();
   const { loading, data } = useQuery<IProjectsResult>(GET_ALL_PROJECTS, {
     variables: { id },
-    onError() {
-      modalService.closeModal();
-    },
+    onError: () => modalService.closeModal(),
   });
   const { loading: cvLoading, data: cvData } = useQuery<ICvQueryResult>(CV, {
     variables: { id },
-    onError() {
-      modalService.closeModal();
-    },
+    onError: () => modalService.closeModal(),
   });
   const [projects, setProjects] = useState<Record<string, string>>({});
   const [projectsIds, setProjectsIds] = useState<string[]>(

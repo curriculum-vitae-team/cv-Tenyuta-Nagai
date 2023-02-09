@@ -17,9 +17,7 @@ const EmployeesPage = () => {
   const Table = createTable();
   const navigate = useNavigate();
   const { data, loading } = useQuery(GET_ALL_USERS, {
-    onError() {
-      navigate(`/${RoutePath.LOGIN}`, { replace: true });
-    },
+    onError: () => navigate(`/${RoutePath.LOGIN}`, { replace: true }),
   });
   const user = useUser();
   const isCreateBtnVisible = user?.role === UserRoles.Admin;

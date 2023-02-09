@@ -34,9 +34,7 @@ export const CvEditDetailsModal = () => {
   const [isTemplate, setIsTemplate] = useState(cvData?.cv?.is_template);
 
   const [updateCV, { loading: updateCvLoading }] = useMutation<ICvResult>(UPDATE_CV, {
-    onError() {
-      modalService.closeModal();
-    },
+    onError: () => modalService.closeModal(),
   });
 
   const handleChangeTemplate = (e: React.ChangeEvent<HTMLInputElement>) => {

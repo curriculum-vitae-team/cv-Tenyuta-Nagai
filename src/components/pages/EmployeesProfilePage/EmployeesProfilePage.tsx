@@ -22,9 +22,7 @@ const EmployeesProfilePage = () => {
   const user = useUser();
   const { loading, data } = useQuery<IUserAllResult>(USER, {
     variables: { id },
-    onError() {
-      navigate(`/${RoutePath.EMPLOYEES}`, { replace: true });
-    },
+    onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
   });
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
 

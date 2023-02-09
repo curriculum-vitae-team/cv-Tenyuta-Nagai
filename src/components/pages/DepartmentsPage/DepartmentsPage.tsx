@@ -17,9 +17,7 @@ const DepartmentsPage = () => {
   const Table = createTable();
   const navigate = useNavigate();
   const { data, loading } = useQuery(DEPARTMENTS, {
-    onError() {
-      navigate(`/${RoutePath.LOGIN}`, { replace: true });
-    },
+    onError: () => navigate(`/${RoutePath.LOGIN}`, { replace: true }),
   });
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;

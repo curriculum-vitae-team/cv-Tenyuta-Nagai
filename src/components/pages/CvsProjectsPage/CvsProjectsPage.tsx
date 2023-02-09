@@ -21,9 +21,7 @@ const CvsProjectsPage = () => {
   const Table = createTable();
   const { loading, data } = useQuery<ICvQueryResult>(CV, {
     variables: { id },
-    onError() {
-      navigate(`/${RoutePath.CVS}`, { replace: true });
-    },
+    onError: () => navigate(`/${RoutePath.CVS}`, { replace: true }),
   });
 
   return (
