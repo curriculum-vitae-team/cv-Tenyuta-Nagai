@@ -1,9 +1,8 @@
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { TError } from '../../../../types/errorTypes';
-import { TFormSubmit } from '../../../../types/formTypes';
 import { departmentsSchema } from '../../../../utils/validationSchema';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
@@ -21,12 +20,12 @@ export const DepartmentsCreateModal = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({
+  } = useForm<DepartmentsInput>({
     mode: 'onChange',
     resolver: yupResolver(departmentsSchema),
   });
 
-  const onSubmit = (inputs: DepartmentsInput) => {
+  const onSubmit: SubmitHandler<DepartmentsInput> = (inputs) => {
     createDepartment({
       variables: {
         department: {
@@ -49,13 +48,13 @@ export const DepartmentsCreateModal = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit as TFormSubmit)} autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
             name="Department name"
             registerName={FieldNameDepartmentsForm.NAME}
             register={register}
             error={!!errors.name}
-            helperText={errors.name?.message as string}
+            helperText={errors.name?.message || ''}
           />
 
           <Styled.ButtonSubmit

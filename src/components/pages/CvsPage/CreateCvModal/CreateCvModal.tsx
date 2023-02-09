@@ -67,7 +67,7 @@ export const CreateCvModal = () => {
             registerName={'name'}
             register={register}
             error={!!errors.name}
-            helperText={errors.name?.message as string}
+            helperText={errors.name?.message || ''}
           />
 
           <InputText
@@ -77,7 +77,7 @@ export const CreateCvModal = () => {
             multiline
             maxRows={4}
             error={!!errors.description}
-            helperText={errors.description?.message as string}
+            helperText={errors.description?.message || ''}
           />
 
           <Styled.CheckboxWrap>
