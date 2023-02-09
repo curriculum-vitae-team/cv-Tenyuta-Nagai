@@ -40,6 +40,7 @@ const CvsProjectsPage = () => {
         titleCreateBtn="Update"
         isCreateBtnVisible={data?.cv.user?.id === user?.id || isAdmin}
         ModalForCreating={UpdateModal}
+        titleModal={'Update Cv Projects'}
         defaultSortingBy="projectName"
       />
     </Grid>

@@ -28,6 +28,7 @@ const CvsPage = () => {
               titleCreateBtn="Create CV"
               isCreateBtnVisible={true}
               ModalForCreating={CreateCvModal}
+              titleModal={'Create CV'}
               AdditionalButtons={CvsAdditionalButtons}
               defaultSortingBy="name"
             />

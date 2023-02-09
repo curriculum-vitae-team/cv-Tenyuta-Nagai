@@ -1,30 +1,32 @@
-import { useMutation } from '@apollo/client';
-import React, { FC } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useMutation, useReactiveVar } from '@apollo/client';
+import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { format } from 'date-fns';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
-import { ModalWindow } from '../../../UI/ModalWindow';
 import { DatePickerInput } from '../../../UI/DatePicker';
 import { projectsSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
 import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsForm';
-import { TFormSubmit } from '../../../../types/formTypes';
 import { IProjectsFormInput } from '../../ProjectsPage/ProjectsCreateModal/ProjectsCreateModal.interface';
 import { UPDATE_PROJECT } from '../../../../graphql/mutations/updateProject';
+import { formatDate } from '../../../../utils/formatDate';
+import { modalService } from '../../../../graphql/service/modalService';
+import { IProjectResult } from '../../../../graphql/types/results/projects';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
-import { IProjectsModalProps } from './ProjectUpdateModal.types';
 
-export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, projectData }) => {
-  const [updateProject, { loading, error }] = useMutation(UPDATE_PROJECT);
+export const ProjectUpdateModal = () => {
+  const projectData: Pick<Partial<IProjectResult>, keyof IProjectResult> = useReactiveVar(
+    modalService.modalData$
+  );
+  const [updateProject, { loading }] = useMutation(UPDATE_PROJECT);
   const {
     control,
     register,
     trigger,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FieldValues>({
+  } = useForm<IProjectsFormInput>({
     defaultValues: {
       name: projectData?.project?.name,
       internalName: projectData?.project?.internal_name,
@@ -38,42 +40,38 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
     resolver: yupResolver(projectsSchema),
   });
 
-  if (error) {
-    onClose();
-  }
-
-  const onSubmit = (inputs: IProjectsFormInput) => {
+  const onSubmit: SubmitHandler<IProjectsFormInput> = (inputs) => {
     updateProject({
       variables: {
-        id: projectData?.project.id,
+        id: projectData?.project?.id,
         project: {
           name: inputs.name,
           internal_name: inputs.internalName,
           description: inputs.description,
           domain: inputs.domain,
           team_size: Number(inputs.teamSize),
-          start_date: format(new Date(inputs.startDate), 'yyyy-MM-dd'),
-          end_date: inputs.endDate ? format(new Date(inputs.endDate), 'yyyy-MM-dd') : null,
+          start_date: formatDate(inputs.startDate),
+          end_date: formatDate(inputs.endDate),
           skillsIds: [],
         },
       },
     })
       .catch((err) => console.error((err as TError).message))
-      .finally(() => onClose());
+      .finally(() => modalService.closeModal());
   };
 
   return (
-    <ModalWindow title={'Update project'} onClose={onClose} open={open}>
+    <>
       {loading ? (
         <Spinner />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit as TFormSubmit)} autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
             name="Project name"
             registerName={FieldNameProjectsForm.NAME}
             register={register}
             error={!!errors.name}
-            helperText={errors.name?.message as string}
+            helperText={errors.name?.message || ''}
           />
 
           <InputText
@@ -81,7 +79,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
             registerName={FieldNameProjectsForm.INTERNAL_NAME}
             register={register}
             error={!!errors.internalName?.message}
-            helperText={errors.internalName?.message as string}
+            helperText={errors.internalName?.message || ''}
           />
 
           <InputText
@@ -89,7 +87,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
             registerName={FieldNameProjectsForm.DESCRIPTION}
             register={register}
             error={!!errors.description}
-            helperText={errors.description?.message as string}
+            helperText={errors.description?.message || ''}
             multiline
           />
 
@@ -98,7 +96,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
             registerName={FieldNameProjectsForm.DOMAIN}
             register={register}
             error={!!errors.domain}
-            helperText={errors.domain?.message as string}
+            helperText={errors.domain?.message || ''}
           />
 
           <InputText
@@ -106,7 +104,7 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
             registerName={FieldNameProjectsForm.TEAM_SIZE}
             register={register}
             error={!!errors.teamSize}
-            helperText={errors.teamSize?.message as string}
+            helperText={errors.teamSize?.message || ''}
           />
 
           <DatePickerInput
@@ -133,6 +131,6 @@ export const ProjectUpdateModal: FC<IProjectsModalProps> = ({ open, onClose, pro
           </Styled.ButtonSubmit>
         </form>
       )}
-    </ModalWindow>
+    </>
   );
 };
