@@ -1,23 +1,25 @@
-import { useMutation } from '@apollo/client';
+import { useMutation, useReactiveVar } from '@apollo/client';
 import React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { DatePickerInput } from '../../../UI/DatePicker';
-import { updateCacheAfterCreatingProject } from '../../../../graphql/cache/createProject';
-import { CREATE_PROJECT } from '../../../../graphql/mutations/createProject';
 import { projectsSchema } from '../../../../utils/validationSchema';
-import { CreateProjectResult, IProjectsResult } from '../../../../graphql/types/results/projects';
 import { TError } from '../../../../types/errorTypes';
 import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsForm';
+import { IProjectsFormInput } from '../../ProjectsPage/ProjectsCreateModal/ProjectsCreateModal.interface';
+import { UPDATE_PROJECT } from '../../../../graphql/mutations/updateProject';
 import { formatDate } from '../../../../utils/formatDate';
 import { modalService } from '../../../../graphql/service/modalService';
+import { IProjectResult } from '../../../../graphql/types/results/projects';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
-import { IProjectsFormInput } from './ProjectsCreateModal.interface';
 
-export const ProjectCreateModal = () => {
-  const [createProject, { loading }] = useMutation<IProjectsResult>(CREATE_PROJECT);
+export const ProjectUpdateModal = () => {
+  const projectData: Pick<Partial<IProjectResult>, keyof IProjectResult> = useReactiveVar(
+    modalService.modalData$
+  );
+  const [updateProject, { loading }] = useMutation(UPDATE_PROJECT);
   const {
     control,
     register,
@@ -25,13 +27,23 @@ export const ProjectCreateModal = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<IProjectsFormInput>({
+    defaultValues: {
+      name: projectData?.project?.name,
+      internalName: projectData?.project?.internal_name,
+      description: projectData?.project?.description,
+      domain: projectData?.project?.domain,
+      teamSize: projectData?.project?.team_size,
+      startDate: projectData?.project?.start_date,
+      endDate: projectData?.project?.end_date,
+    },
     mode: 'onChange',
     resolver: yupResolver(projectsSchema),
   });
 
   const onSubmit: SubmitHandler<IProjectsFormInput> = (inputs) => {
-    createProject({
+    updateProject({
       variables: {
+        id: projectData?.project?.id,
         project: {
           name: inputs.name,
           internal_name: inputs.internalName,
@@ -42,9 +54,6 @@ export const ProjectCreateModal = () => {
           end_date: formatDate(inputs.endDate),
           skillsIds: [],
         },
-      },
-      update(cache, { data }) {
-        updateCacheAfterCreatingProject(cache, (data as unknown) as CreateProjectResult);
       },
     })
       .catch((err) => console.error((err as TError).message))
@@ -102,7 +111,6 @@ export const ProjectCreateModal = () => {
             control={control}
             label="Start date"
             name={FieldNameProjectsForm.START_DATE}
-            triggerName={'endDate'}
             trigger={trigger}
           />
           <DatePickerInput

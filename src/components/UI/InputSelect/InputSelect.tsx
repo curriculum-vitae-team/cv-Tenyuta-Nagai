@@ -14,10 +14,10 @@ export const InputSelect = <T extends Record<string, unknown>>({
   return (
     <TextField
       {...props}
-      fullWidth
-      size={size}
       margin="normal"
+      fullWidth
       select
+      size={size}
       label={label}
       inputProps={register && registerName && register(registerName)}
       defaultValue={defaultValue}

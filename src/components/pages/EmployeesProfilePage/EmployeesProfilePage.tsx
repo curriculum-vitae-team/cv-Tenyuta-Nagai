@@ -1,9 +1,10 @@
 import { useQuery } from '@apollo/client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
 import { USER } from '../../../graphql/queries/user';
+import { modalService } from '../../../graphql/service/modalService';
 import { IUserAllResult } from '../../../graphql/types/results/user';
 import { useUser } from '../../../hooks/useUser';
 import { chooseAvatarLetter } from '../../../utils/chooseAvatarLetter';
@@ -19,33 +20,20 @@ const EmployeesProfilePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const user = useUser();
-  const { loading, error, data } = useQuery<IUserAllResult>(USER, {
+  const { loading, data } = useQuery<IUserAllResult>(USER, {
     variables: { id },
+    onError() {
+      navigate(`/${RoutePath.EMPLOYEES}`, { replace: true });
+    },
   });
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [isOpenAvatarModal, setIsOpenAvatarModal] = useState(false);
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
 
-  useEffect(() => {
-    if (error) {
-      navigate(`/${RoutePath.EMPLOYEES}`, { replace: true });
-    }
-  }, [error, navigate]);
-
   const handleEdit = () => {
-    setIsOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
+    modalService.setModalData('Edit profile', ProfileModal, { id: id! });
   };
 
   const handleOpenAvatarModal = () => {
-    setIsOpenAvatarModal(true);
-  };
-
-  const handleCloseAvatarModal = () => {
-    setIsOpenAvatarModal(false);
+    modalService.setModalData('Update avatar', AvatarModal, { id: id! });
   };
 
   return (
@@ -80,11 +68,6 @@ const EmployeesProfilePage = () => {
             Edit
           </PrivateButton>
         </Styled.PaperWrapper>
-      )}
-
-      {isOpenModal && <ProfileModal userId={id!} open={isOpenModal} onClose={handleCloseModal} />}
-      {isOpenAvatarModal && (
-        <AvatarModal userId={id!} open={isOpenAvatarModal} onClose={handleCloseAvatarModal} />
       )}
     </>
   );

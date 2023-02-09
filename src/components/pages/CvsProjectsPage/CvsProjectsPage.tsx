@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Grid } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -40,6 +40,7 @@ const CvsProjectsPage = () => {
             isCreateBtnVisible={data?.cv.user?.id === user?.id || isAdmin}
             ModalForCreating={UpdateModal}
             defaultSortingBy="projectName"
+            titleModal={'Update Cv Projects'}
           />
         </Grid>
       )}

@@ -1,9 +1,10 @@
 import { useQuery } from '@apollo/client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
 import { CV } from '../../../graphql/queries/cv';
+import { modalService } from '../../../graphql/service/modalService';
 import { ICvQueryResult } from '../../../graphql/types/results/cv';
 import { useUser } from '../../../hooks/useUser';
 import { Row } from '../../Row';
@@ -18,23 +19,15 @@ const CvsDetailsPage = () => {
   const navigate = useNavigate();
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
-  const { loading, error, data } = useQuery<ICvQueryResult>(CV, {
+  const { loading, data } = useQuery<ICvQueryResult>(CV, {
     variables: { id },
-  });
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleCloseEditModal = () => {
-    setIsOpen(false);
-  };
-
-  useEffect(() => {
-    if (error) {
+    onError() {
       navigate(`/${RoutePath.CVS}`, { replace: true });
-    }
-  }, [error, navigate]);
+    },
+  });
 
   const handleEdit = () => {
-    setIsOpen(true);
+    modalService.setModalData('Edit CV', CvEditDetailsModal, { ...data! });
   };
 
   return (
@@ -71,8 +64,6 @@ const CvsDetailsPage = () => {
           </Styled.Wrapper>
         </Styled.PaperWrapper>
       )}
-
-      {isOpen && <CvEditDetailsModal open={isOpen} onClose={handleCloseEditModal} cvData={data!} />}
     </>
   );
 };

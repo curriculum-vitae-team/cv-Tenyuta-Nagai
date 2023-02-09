@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Container, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { createTable } from '../../Table/template';
@@ -16,15 +16,13 @@ import { EmployeesAdditionalButtons } from './EmployeesAdditionalButtons/Employe
 const EmployeesPage = () => {
   const Table = createTable();
   const navigate = useNavigate();
-  const { data, loading, error } = useQuery(GET_ALL_USERS);
+  const { data, loading } = useQuery(GET_ALL_USERS, {
+    onError() {
+      navigate(`/${RoutePath.LOGIN}`, { replace: true });
+    },
+  });
   const user = useUser();
   const isCreateBtnVisible = user?.role === UserRoles.Admin;
-
-  useEffect(() => {
-    if (error) {
-      navigate(`/${RoutePath.LOGIN}`, { replace: true });
-    }
-  }, [error, navigate]);
 
   return (
     <main>
@@ -39,6 +37,7 @@ const EmployeesPage = () => {
               ModalForCreating={EmployeesModal}
               searchParameter="name"
               titleCreateBtn="Add employee"
+              titleModal={'Create new user'}
               isCreateBtnVisible={isCreateBtnVisible}
               AdditionalButtons={EmployeesAdditionalButtons}
               defaultSortingBy="name"

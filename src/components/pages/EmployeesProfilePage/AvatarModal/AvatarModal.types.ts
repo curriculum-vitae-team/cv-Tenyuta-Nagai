@@ -1,7 +1,5 @@
-export interface IAvatarModal {
-  open: boolean;
-  onClose: () => void;
-  userId: string;
+export interface IAvatarUserId {
+  id: string;
 }
 
 export interface IAvatarForm {

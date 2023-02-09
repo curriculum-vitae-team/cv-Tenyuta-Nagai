@@ -14,6 +14,8 @@ export const RowTitle = styled('div')(({ theme }) => ({
   fontSize: 22,
   color: theme.palette.secondary.contrastText,
   whiteSpace: 'nowrap',
+  wordWrap: 'break-word',
+  wordBreak: 'break-word',
 
   [theme.breakpoints.down('sm')]: {
     fontSize: 18,

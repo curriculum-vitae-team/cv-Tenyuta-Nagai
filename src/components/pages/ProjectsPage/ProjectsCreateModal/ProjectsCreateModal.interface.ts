@@ -1,8 +1,3 @@
-export interface IProjectsModalProps {
-  open: boolean;
-  onClose: () => void;
-}
-
 export interface IProjectsFormInput {
   [key: string]: string | number;
   name: string;
