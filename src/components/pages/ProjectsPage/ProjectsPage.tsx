@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
@@ -20,12 +20,14 @@ const ProjectsPage = () => {
   const user = useUser();
   const isCreateBtnVisible = user?.role === UserRoles.Admin;
 
+  useEffect(() => {
+    if (error) {
+      navigate(`/${RoutePath.LOGIN}`, { replace: true });
+    }
+  });
+
   if (loading) {
     return <Spinner />;
-  }
-
-  if (error) {
-    navigate(`/${RoutePath.LOGIN}`, { replace: true });
   }
 
   return (
