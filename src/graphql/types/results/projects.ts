@@ -15,6 +15,10 @@ export interface IProjectsResult {
   projects: IProject[];
 }
 
+export interface IProjectResult {
+  project: IProject;
+}
+
 export interface CreateProjectResult {
   createProject: {
     id: string;
