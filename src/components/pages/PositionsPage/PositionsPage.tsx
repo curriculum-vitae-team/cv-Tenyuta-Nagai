@@ -11,11 +11,13 @@ import { UserRoles } from '../../../constants/userRoles';
 import { createPositionsData } from './helpers/createPositionsData';
 import { PositionsTableHeader } from './data/PositionsTableHeader';
 import { CreatePositionModal } from './CreatePositionModal/CreatePositionModal';
+import { PositionsAdditionalButtons } from './PositionsAdditionalButtons/PositionAdditionalButtons';
 
 const PositionsPage = () => {
   const Table = createTable();
   const { data, loading } = useQuery<IPositionReturn>(POSITIONS);
   const user = useUser();
+  const isAdmin = user?.role === UserRoles.Admin;
   console.log(data);
 
   return (
@@ -30,10 +32,10 @@ const PositionsPage = () => {
               items={createPositionsData(data)}
               searchParameter="name"
               titleCreateBtn="Create Position"
-              isCreateBtnVisible={user?.role === UserRoles.Admin}
+              isCreateBtnVisible={isAdmin}
               ModalForCreating={CreatePositionModal}
               titleModal={'Create Position'}
-              // AdditionalButtons={CvsAdditionalButtons}
+              AdditionalButtons={isAdmin ? PositionsAdditionalButtons : undefined}
               defaultSortingBy="name"
             />
           </Grid>
