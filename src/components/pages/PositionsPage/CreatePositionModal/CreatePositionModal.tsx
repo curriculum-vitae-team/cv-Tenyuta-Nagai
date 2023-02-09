@@ -8,6 +8,7 @@ import { CREATE_POSITION } from '../../../../graphql/mutations/position';
 import { modalService } from '../../../../graphql/service/modalService';
 import { IPositionCreateReturn } from '../../../../graphql/types/results/position';
 import { updateCacheAfterCreatingPosition } from '../../../../graphql/cache/position';
+import { TError } from '../../../../types/errorTypes';
 import { IFormCreatePosition } from './CreatePositionModal.types';
 import * as Styled from './CreatePositionModal.style';
 
@@ -36,6 +37,7 @@ export const CreatePositionModal = () => {
       },
     })
       .then((res) => console.log(res.data?.createPosition))
+      .catch((err) => console.error((err as TError).message))
       .finally(() => modalService.closeModal());
   };
 
