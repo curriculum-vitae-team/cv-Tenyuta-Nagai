@@ -1,22 +1,27 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useMutation } from '@apollo/client';
+import { useMutation, useReactiveVar } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useProfileFormData } from '../../../../hooks/useProfileFormData';
 import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
 import { profileSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
-import { ModalWindow } from '../../../UI/ModalWindow';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { FieldNameProfileForm } from '../../../../constants/fieldNameProfileForm';
 import { InputSelect } from '../../../UI/InputSelect';
 import { IUserAllResult } from '../../../../graphql/types/results/user';
-import { IProfileFormInput, IProfileModalProps } from './ProfileModal.types';
+import { modalService } from '../../../../graphql/service/modalService';
+import { IProfileFormInput, IProfileModalUserId } from './ProfileModal.types';
 import * as Styled from './ProfileModal.styles';
 
-export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) => {
-  const { loading, userData, positionsData, departmentsData } = useProfileFormData(userId);
+export const ProfileModal = () => {
+  const {
+    id: userId,
+  }: Pick<Partial<IProfileModalUserId>, keyof IProfileModalUserId> = useReactiveVar(
+    modalService.modalData$
+  );
+  const { loading, userData, positionsData, departmentsData } = useProfileFormData(userId!);
   const [updateUser, { loading: updateLoading }] = useMutation<IUserAllResult>(UPDATE_USER);
   const {
     register,
@@ -52,12 +57,12 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
     } catch (err) {
       console.error((err as TError).message);
     } finally {
-      onClose();
+      modalService.closeModal();
     }
   };
 
   return (
-    <ModalWindow title={'Edit profile'} onClose={onClose} open={open}>
+    <>
       {loading ? (
         <Spinner />
       ) : (
@@ -106,6 +111,6 @@ export const ProfileModal: FC<IProfileModalProps> = ({ userId, open, onClose }) 
           </Styled.ButtonSubmit>
         </form>
       )}
-    </ModalWindow>
+    </>
   );
 };

@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { FC } from 'react';
+import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FieldNameEmployeesForm } from '../../../../constants/FieldNameEmployeesForm';
 import { CREATE_USER } from '../../../../graphql/mutations/createUser';
@@ -11,13 +11,12 @@ import { employeesSchema } from '../../../../utils/validationSchema';
 import { Spinner } from '../../../Spinner';
 import { InputSelect } from '../../../UI/InputSelect';
 import { InputText } from '../../../UI/InputText';
-import { ModalWindow } from '../../../UI/ModalWindow';
 import { CreateUserResult, IUserAllResult } from '../../../../graphql/types/results/user';
-import { IModalForCreatingProps } from '../../../Table/template/templateTable.types';
+import { modalService } from '../../../../graphql/service/modalService';
 import { IEmployeesFormInput } from './EmployeesModal.interface';
 import * as Styled from './EmployeesModal.styles';
 
-export const EmployeesModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
+export const EmployeesModal = () => {
   const { loading, positionsData, departmentsData, rolesData } = useEmployeesFormData();
   const [createUser, { loading: updateLoading }] = useMutation<IUserAllResult>(CREATE_USER);
   const {
@@ -54,11 +53,11 @@ export const EmployeesModal: FC<IModalForCreatingProps> = ({ open, onClose }) =>
       },
     })
       .catch((err) => console.error((err as TError).message))
-      .finally(() => onClose());
+      .finally(() => modalService.closeModal());
   };
 
   return (
-    <ModalWindow title={'Create new user'} onClose={onClose} open={open}>
+    <>
       {loading ? (
         <Spinner />
       ) : (
@@ -132,6 +131,6 @@ export const EmployeesModal: FC<IModalForCreatingProps> = ({ open, onClose }) =>
           </Styled.ButtonSubmit>
         </form>
       )}
-    </ModalWindow>
+    </>
   );
 };

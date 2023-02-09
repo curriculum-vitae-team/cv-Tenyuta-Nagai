@@ -16,6 +16,7 @@ import { Directions } from '../../../constants/sortingDirections';
 import { TableRowCell } from '../TableRows/TableRowCell';
 import { PrivateButton } from '../../UI/PrivateButton';
 
+import { modalService } from '../../../graphql/service/modalService';
 import { Element, Item, TableProps } from './templateTable.types';
 
 const Table = ({
@@ -23,19 +24,16 @@ const Table = ({
   items,
   searchParameter,
   ModalForCreating,
+  titleModal,
   titleCreateBtn,
   AdditionalButtons,
   isCreateBtnVisible,
   defaultSortingBy,
-  handleUpdate,
-  setItem,
 }: TableProps) => {
   const [searchString, setSearchString] = useState('');
   const [sortingBy, setSortingBy] = useState(defaultSortingBy);
   const [sortingIsAsc, setSortingIsAsc] = useState(true);
   const [direction, setDirection] = useState<Directions>(Directions.Desc);
-
-  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleSetSearchString = (str: string) => {
     setSearchString(str);
@@ -51,12 +49,8 @@ const Table = ({
     }
   };
 
-  const handleSave = () => {
-    setIsOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
+  const handleOpenModal = () => {
+    modalService.setModalData(titleModal, ModalForCreating);
   };
 
   return (
@@ -78,7 +72,7 @@ const Table = ({
                     handleSetSearchString={handleSetSearchString}
                     searchString={searchString}
                   />
-                  <PrivateButton isVisible={isCreateBtnVisible} onClick={handleSave}>
+                  <PrivateButton isVisible={isCreateBtnVisible} onClick={handleOpenModal}>
                     {titleCreateBtn}
                   </PrivateButton>
                 </Grid>
@@ -110,8 +104,6 @@ const Table = ({
                   key={item.id as string}
                   item={item}
                   AdditionalButtons={AdditionalButtons}
-                  handleUpdate={handleUpdate}
-                  setItem={setItem}
                 >
                   {header.map(({ columnKey, ColumnCellComponent = TableRowCell }) => (
                     <ColumnCellComponent key={columnKey} item={item} columnKey={columnKey} />
@@ -121,7 +113,6 @@ const Table = ({
           </TableBody>
         </MuiTable>
       </TableContainer>
-      {isOpenModal && <ModalForCreating open={isOpenModal} onClose={handleCloseModal} />}
     </>
   );
 };

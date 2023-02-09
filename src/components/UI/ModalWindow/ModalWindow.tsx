@@ -1,23 +1,28 @@
+import React from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
-import React, { FC } from 'react';
 import { Dialog } from '@mui/material';
-import { IModalWindowProps } from './ModalWindow.types';
+import { useModal } from '../../../hooks/useModal';
+import { modalService } from '../../../graphql/service/modalService';
 import * as Styled from './ModalWindow.styles';
 
-export const ModalWindow: FC<IModalWindowProps> = ({ children, onClose, open, title }) => {
+export const ModalWindow = () => {
+  const { Component, open, title } = useModal();
+
+  const onClose = () => {
+    modalService.closeModal();
+  };
+
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>
         {title}
-        {onClose && (
-          <Styled.IconButtonModalWindow aria-label="close" onClick={onClose}>
-            <CloseIcon />
-          </Styled.IconButtonModalWindow>
-        )}
+        <Styled.IconButtonModalWindow aria-label="close" onClick={onClose}>
+          <CloseIcon />
+        </Styled.IconButtonModalWindow>
       </DialogTitle>
-      <DialogContent>{children}</DialogContent>
+      <DialogContent>{<Component />}</DialogContent>
     </Dialog>
   );
 };

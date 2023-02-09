@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -8,8 +8,6 @@ import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import Checkbox from '@mui/material/Checkbox';
-import { IModalForCreatingProps } from '../../../Table/template/templateTable.types';
-import { ModalWindow } from '../../../UI/ModalWindow';
 import { GET_ALL_PROJECTS } from '../../../../graphql/queries/projects';
 import { Spinner } from '../../../Spinner';
 import { ICvQueryResult, ICvResult } from '../../../../graphql/types/results/cv';
@@ -20,9 +18,10 @@ import { TError } from '../../../../types/errorTypes';
 import { createArrayForLanguages } from '../../../../utils/createArrayForLanguages';
 import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
 import { updateCvsCacheAfterCvUpdateProjectsMutation } from '../../../../graphql/cache/cv';
+import { modalService } from '../../../../graphql/service/modalService';
 import * as Styled from './UpdateModal.styles';
 
-export const UpdateModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
+export const UpdateModal = () => {
   const { id } = useParams();
   const { loading, error, data } = useQuery<IProjectsResult>(GET_ALL_PROJECTS, {
     variables: { id },
@@ -41,7 +40,7 @@ export const UpdateModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
   });
 
   if (error || cvError) {
-    onClose();
+    modalService.closeModal();
   }
 
   useEffect(() => {
@@ -76,11 +75,11 @@ export const UpdateModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
       },
     })
       .catch((err) => console.error((err as TError).message))
-      .finally(() => onClose());
+      .finally(() => modalService.closeModal());
   };
 
   return (
-    <ModalWindow title={'Update Cv Projects'} onClose={onClose} open={open}>
+    <>
       {loading || cvLoading ? (
         <Spinner />
       ) : (
@@ -117,6 +116,6 @@ export const UpdateModal: FC<IModalForCreatingProps> = ({ open, onClose }) => {
           </Styled.FormWrapper>
         </form>
       )}
-    </ModalWindow>
+    </>
   );
 };

@@ -4,18 +4,12 @@ export type TableProps<T = Item> = {
   header: IColumn[];
   items: T[];
   searchParameter: string;
-  ModalForCreating: React.FC<IModalForCreatingProps>;
+  ModalForCreating: React.FC;
+  titleModal: string;
   titleCreateBtn: string;
   isCreateBtnVisible: boolean;
   AdditionalButtons?: React.FC<IAdditionalButtonsProps>;
   defaultSortingBy: string;
-  handleUpdate?: () => void;
-  setItem?: React.Dispatch<
-    React.SetStateAction<{
-      name: string;
-      id: string;
-    }>
-  >;
 };
 
 export type Item = Record<string, string | number | boolean>;
@@ -23,11 +17,6 @@ export type Item = Record<string, string | number | boolean>;
 export type Element = {
   id: string;
 };
-
-export interface IModalForCreatingProps {
-  open: boolean;
-  onClose: () => void;
-}
 
 export interface IColumn {
   columnKey: string;

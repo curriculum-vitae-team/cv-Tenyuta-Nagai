@@ -1,25 +1,34 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Checkbox, Typography } from '@mui/material';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
+import { useParams } from 'react-router-dom';
 import { UNBIND_CV, UPDATE_CV } from '../../../../graphql/mutations/cv';
 import { updateUserCacheAfterCvUnbindMutation } from '../../../../graphql/cache/cv';
 import { editCvSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
-import { ModalWindow } from '../../../UI/ModalWindow';
 import { InputText } from '../../../UI/InputText';
 import { ICvResult, ICvUnbindResult } from '../../../../graphql/types/results/cv';
+import { USER } from '../../../../graphql/queries/user';
+import { IUserAllResult } from '../../../../graphql/types/results/user';
+import { Spinner } from '../../../Spinner';
+import { modalService } from '../../../../graphql/service/modalService';
 import * as Styled from './CvEditModal.styles';
-import { ICvEditModalProps, IFormEditCv } from './CvEditModal.types';
+import { TCvId, IFormEditCv } from './CvEditModal.types';
 
-export const CvEditModal: FC<ICvEditModalProps> = ({ open, onClose, cvId, userData }) => {
-  const cv = userData?.user?.cvs?.filter((cv) => cv.id === cvId)[0];
+export const CvEditModal = () => {
+  const { id } = useParams();
+  const { loading, data: userData } = useQuery<IUserAllResult>(USER, {
+    variables: { id },
+  });
+  const cvId: Pick<Partial<TCvId>, keyof TCvId> = useReactiveVar(modalService.modalData$);
+  const cv = userData?.user?.cvs?.filter((cv) => cv.id === cvId.id)[0];
   const [isTemplate, setIsTemplate] = useState(cv?.is_template);
   const [updateCV, { loading: updateCvLoading }] = useMutation<ICvResult>(UPDATE_CV);
   const [unbindCV, { loading: unbindCvLoading }] = useMutation<ICvUnbindResult>(UNBIND_CV, {
     update(cache, { data }) {
-      updateUserCacheAfterCvUnbindMutation(cache, userData.user.id, data!);
+      updateUserCacheAfterCvUnbindMutation(cache, userData!.user!.id, data!);
     },
   });
 
@@ -40,25 +49,24 @@ export const CvEditModal: FC<ICvEditModalProps> = ({ open, onClose, cvId, userDa
     setIsTemplate(e.target.checked);
   };
 
-  const handleClose = () => {
-    onClose();
-  };
-
   const handleUnBind = () => {
     unbindCV({
       variables: {
-        id: cvId,
+        id: cvId.id,
       },
     })
-      .then(() =>
-        onClose({
-          id: '',
-          name: '',
-          description: '',
-        })
-      )
+      .then(() => {
+        modalService.setAdditionalData({
+          editCv: {
+            id: '',
+            name: '',
+            description: '',
+          },
+        });
+        modalService.closeModal();
+      })
       .catch((err) => {
-        onClose();
+        modalService.closeModal();
         console.error((err as TError).message);
       });
   };
@@ -66,7 +74,7 @@ export const CvEditModal: FC<ICvEditModalProps> = ({ open, onClose, cvId, userDa
   const onSubmit: SubmitHandler<IFormEditCv> = async (inputs) => {
     updateCV({
       variables: {
-        id: cvId,
+        id: cvId.id,
         cv: {
           name: inputs.name,
           description: inputs.description,
@@ -78,73 +86,80 @@ export const CvEditModal: FC<ICvEditModalProps> = ({ open, onClose, cvId, userDa
         },
       },
     })
-      .then((res) =>
-        onClose({
-          id: res?.data?.updateCv?.id || '',
-          name: res?.data?.updateCv?.name || '',
-          description: res?.data?.updateCv?.description || '',
-        })
-      )
+      .then((res) => {
+        modalService.setAdditionalData({
+          editCv: {
+            id: res?.data?.updateCv?.id || '',
+            name: res?.data?.updateCv?.name || '',
+            description: res?.data?.updateCv?.description || '',
+          },
+        });
+        modalService.closeModal();
+      })
       .catch((err) => {
-        onClose();
         console.error((err as TError).message);
+        modalService.closeModal();
       });
   };
 
   return (
-    <ModalWindow title={'Edit CV'} onClose={handleClose} open={open}>
-      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-        <InputText
-          name="Name"
-          registerName={'name'}
-          register={register}
-          error={!!errors.name}
-          helperText={errors.name?.message || ''}
-        />
-
-        <InputText
-          name="Description"
-          registerName={'description'}
-          multiline
-          maxRows={4}
-          register={register}
-          error={!!errors.description}
-          helperText={errors.description?.message || ''}
-        />
-
-        <Styled.CheckboxWrap>
-          <Typography>Template</Typography>
-          <Checkbox
-            {...register('template')}
-            {...Styled.checkboxLabel}
-            checked={isTemplate}
-            onChange={handleChangeTemplate}
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+          <InputText
+            name="Name"
+            registerName={'name'}
+            register={register}
+            error={!!errors.name}
+            helperText={errors.name?.message || ''}
           />
-        </Styled.CheckboxWrap>
 
-        <Styled.ButtonsWrap>
-          <Styled.Button
-            loading={updateCvLoading || unbindCvLoading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid}
-          >
-            Save
-          </Styled.Button>
+          <InputText
+            name="Description"
+            registerName={'description'}
+            multiline
+            maxRows={4}
+            register={register}
+            error={!!errors.description}
+            helperText={errors.description?.message || ''}
+          />
 
-          <Styled.Button
-            variant="contained"
-            fullWidth
-            size="large"
-            loading={updateCvLoading || unbindCvLoading}
-            onClick={handleUnBind}
-          >
-            Unbind
-          </Styled.Button>
-        </Styled.ButtonsWrap>
-      </form>
-    </ModalWindow>
+          <Styled.CheckboxWrap>
+            <Typography>Template</Typography>
+            <Checkbox
+              {...register('template')}
+              {...Styled.checkboxLabel}
+              checked={isTemplate}
+              onChange={handleChangeTemplate}
+            />
+          </Styled.CheckboxWrap>
+
+          <Styled.ButtonsWrap>
+            <Styled.Button
+              loading={updateCvLoading || unbindCvLoading}
+              type="submit"
+              variant="contained"
+              fullWidth
+              size="large"
+              disabled={!isValid}
+            >
+              Save
+            </Styled.Button>
+
+            <Styled.Button
+              variant="contained"
+              fullWidth
+              size="large"
+              loading={updateCvLoading || unbindCvLoading}
+              onClick={handleUnBind}
+            >
+              Unbind
+            </Styled.Button>
+          </Styled.ButtonsWrap>
+        </form>
+      )}
+    </>
   );
 };
