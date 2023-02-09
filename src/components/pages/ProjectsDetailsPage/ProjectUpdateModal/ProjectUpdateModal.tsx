@@ -1,8 +1,7 @@
-import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
+import { useMutation, useReactiveVar } from '@apollo/client';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useParams } from 'react-router-dom';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { DatePickerInput } from '../../../UI/DatePicker';
@@ -13,19 +12,13 @@ import { IProjectsFormInput } from '../../ProjectsPage/ProjectsCreateModal/Proje
 import { UPDATE_PROJECT } from '../../../../graphql/mutations/updateProject';
 import { formatDate } from '../../../../utils/formatDate';
 import { modalService } from '../../../../graphql/service/modalService';
-import { GET_PROJECT } from '../../../../graphql/queries/project';
 import { IProjectResult } from '../../../../graphql/types/results/projects';
 import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
-import { IProjectModalId } from './ProjectUpdateModal.types';
 
 export const ProjectUpdateModal = () => {
-  const projectData: Pick<Partial<IProjectModalId>, keyof IProjectModalId> = useReactiveVar(
+  const projectData: Pick<Partial<IProjectResult>, keyof IProjectResult> = useReactiveVar(
     modalService.modalData$
   );
-  const { id } = useParams();
-  const { data } = useQuery<IProjectResult>(GET_PROJECT, {
-    variables: { id },
-  });
   const [updateProject, { loading }] = useMutation(UPDATE_PROJECT);
   const {
     control,
@@ -35,13 +28,13 @@ export const ProjectUpdateModal = () => {
     formState: { errors, isValid },
   } = useForm<IProjectsFormInput>({
     defaultValues: {
-      name: data?.project.name,
-      internalName: data?.project.internal_name,
-      description: data?.project.description,
-      domain: data?.project.domain,
-      teamSize: data?.project.team_size,
-      startDate: data?.project.start_date,
-      endDate: data?.project.end_date,
+      name: projectData?.project?.name,
+      internalName: projectData?.project?.internal_name,
+      description: projectData?.project?.description,
+      domain: projectData?.project?.domain,
+      teamSize: projectData?.project?.team_size,
+      startDate: projectData?.project?.start_date,
+      endDate: projectData?.project?.end_date,
     },
     mode: 'onChange',
     resolver: yupResolver(projectsSchema),
@@ -50,7 +43,7 @@ export const ProjectUpdateModal = () => {
   const onSubmit: SubmitHandler<IProjectsFormInput> = (inputs) => {
     updateProject({
       variables: {
-        id: projectData?.id,
+        id: projectData?.project?.id,
         project: {
           name: inputs.name,
           internal_name: inputs.internalName,

@@ -20,7 +20,6 @@ const TableRowComponent = ({ children, AdditionalButtons, item }: TableRowProps)
     <>
       <TableRow>
         {children}
-
         {AdditionalButtons && (
           <TableCell align="right" sx={{ minWidth: '50px' }}>
             <IconButton

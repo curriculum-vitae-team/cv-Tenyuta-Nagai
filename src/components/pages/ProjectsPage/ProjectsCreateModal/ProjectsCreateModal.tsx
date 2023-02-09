@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import React from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';

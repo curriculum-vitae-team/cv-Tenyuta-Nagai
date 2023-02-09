@@ -16,20 +16,15 @@ import { ProjectUpdateModal } from './ProjectUpdateModal';
 const ProjectsDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const user = useUser();
-  const { loading, error, data } = useQuery<IProjectResult>(GET_PROJECT, {
+  const { loading, data } = useQuery<IProjectResult>(GET_PROJECT, {
     variables: { id },
+    onError: () => navigate(`/${RoutePath.PROJECTS}`, { replace: true }),
   });
+  const user = useUser();
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
 
-  useEffect(() => {
-    if (error) {
-      navigate(`/${RoutePath.PROJECTS}`, { replace: true });
-    }
-  }, [error, navigate]);
-
   const handleEdit = () => {
-    modalService.setModalData('Edit project', ProjectUpdateModal, { id: id! });
+    modalService.setModalData('Update project', ProjectUpdateModal, { ...data });
   };
 
   return (
