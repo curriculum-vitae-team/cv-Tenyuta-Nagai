@@ -9,11 +9,16 @@ export const updateCacheAfterCreatingLanguage = (
 ) => {
   const allLanguages = cache.readQuery<ILanguagesReturn>({ query: LANGUAGES });
 
+  const newLanguage = {
+    ...data?.createLanguage,
+    created_at: new Date(),
+  };
+
   if (allLanguages) {
     cache.writeQuery({
       query: LANGUAGES,
       data: {
-        languages: [data?.createLanguage, ...allLanguages.languages],
+        languages: [newLanguage, ...allLanguages.languages],
       },
     });
   }

@@ -38,7 +38,7 @@ const LanguagesPage = () => {
               titleCreateBtn="Create"
               isCreateBtnVisible={isAdmin}
               defaultSortingBy="name"
-              AdditionalButtons={LanguagesAdditionalButtons}
+              AdditionalButtons={isAdmin ? LanguagesAdditionalButtons : undefined}
             />
           </Grid>
         </Container>

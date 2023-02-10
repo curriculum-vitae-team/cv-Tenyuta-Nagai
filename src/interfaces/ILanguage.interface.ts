@@ -3,4 +3,5 @@ export interface ILanguage {
   iso2: string;
   created_at?: string;
   name: string;
+  native_name?: string;
 }

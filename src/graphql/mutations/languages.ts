@@ -5,8 +5,8 @@ export const CREATE_LANGUAGE = gql`
     createLanguage(language: $language) {
       id
       iso2
-      created_at
       name
+      native_name
     }
   }
 `;
@@ -25,6 +25,7 @@ export const UPDATE_LANGUAGE = gql`
       id
       iso2
       name
+      native_name
     }
   }
 `;

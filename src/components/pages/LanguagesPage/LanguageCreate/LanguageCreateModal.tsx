@@ -31,6 +31,7 @@ export const LanguageCreateModal = () => {
         language: {
           name: inputs.name,
           iso2: inputs.iso2,
+          native_name: inputs.nativeName || '',
         },
       },
       update(cache, { data }) {
@@ -64,6 +65,14 @@ export const LanguageCreateModal = () => {
             register={register}
             error={!!errors.iso2}
             helperText={errors.iso2?.message || ''}
+          />
+
+          <InputText
+            name="Native name"
+            registerName={FieldNameLanguagesForm.NATIVE}
+            register={register}
+            error={!!errors.nativeName}
+            helperText={errors.nativeName?.message || ''}
           />
 
           <Styled.ButtonSubmit
