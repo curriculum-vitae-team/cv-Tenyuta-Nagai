@@ -28,7 +28,7 @@ export const LanguageUpdateModal = () => {
     defaultValues: {
       name: language.name,
       iso2: language.iso2,
-      nativeName: language.nativeName,
+      nativeName: language.native_name,
     },
     mode: 'onChange',
     resolver: yupResolver(languagesSchema),

@@ -11,8 +11,8 @@ import { LanguageUpdateModal } from '../LanguageUpdate';
 import * as Styled from './LanguageAdditionalBtns.styles';
 
 export const LanguagesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
-  const { id, name, iso2, nativeName } = item;
-  console.log(item);
+  const { id, name, iso2, native_name } = item;
+
   const [deleteLanguage] = useMutation(DELETE_LANGUAGE);
 
   const handleLanguageDelete = () => {
@@ -29,7 +29,7 @@ export const LanguagesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }
       name,
       id,
       iso2,
-      nativeName,
+      native_name,
     });
   };
 

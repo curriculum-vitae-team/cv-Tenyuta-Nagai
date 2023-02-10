@@ -5,5 +5,6 @@ export function getAllLanguages(languages: ILanguage[]) {
     id: language?.id,
     name: language?.name || '',
     iso2: language?.iso2 || '',
+    native_name: language?.native_name || '',
   }));
 }
