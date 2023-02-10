@@ -38,7 +38,7 @@ const SkillsPage = () => {
               items={getAllSkills(data?.skills || [])}
               ModalForCreating={SkillCreateModal}
               searchParameter="name"
-              titleCreateBtn="Create skill"
+              titleCreateBtn="Create"
               isCreateBtnVisible={isAdmin}
               defaultSortingBy="name"
               AdditionalButtons={isAdmin ? SkillsAdditionalButtons : undefined}
