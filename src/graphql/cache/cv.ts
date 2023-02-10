@@ -15,7 +15,7 @@ import { IUserAllResult } from '../types/results/user';
 export const updateUserCacheAfterCvUnbindMutation = (
   cache: ApolloCache<NormalizedCacheObject>,
   userId: string,
-  data?: ICvUnbindResult
+  data: ICvUnbindResult
 ) => {
   const dataUser = cache.readQuery<IUserAllResult>({
     query: USER,

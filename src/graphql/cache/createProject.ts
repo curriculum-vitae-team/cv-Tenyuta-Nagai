@@ -4,7 +4,7 @@ import { CreateProjectResult, IProjectsResult } from '../types/results/projects'
 
 export const updateCacheAfterCreatingProject = (
   cache: ApolloCache<NormalizedCacheObject>,
-  data?: CreateProjectResult
+  data: CreateProjectResult
 ) => {
   const allProjects = cache.readQuery<IProjectsResult>({ query: GET_ALL_PROJECTS });
 

@@ -5,7 +5,7 @@ import { DEPARTMENTS } from './../queries/departments';
 
 export const updateCacheAfterCreatingDepartment = (
   cache: ApolloCache<NormalizedCacheObject>,
-  data?: CreateDepartmentResult
+  data: CreateDepartmentResult
 ) => {
   const allDepartments = cache.readQuery<IDepartmentReturn>({ query: DEPARTMENTS });
 

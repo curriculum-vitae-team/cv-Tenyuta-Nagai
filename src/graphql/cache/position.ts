@@ -4,7 +4,7 @@ import { IPositionCreateReturn, IPositionReturn } from '../types/results/positio
 
 export const updateCacheAfterCreatingPosition = (
   cache: ApolloCache<NormalizedCacheObject>,
-  data?: IPositionCreateReturn
+  data: IPositionCreateReturn
 ) => {
   const allPositions = cache.readQuery<IPositionReturn>({ query: POSITIONS });
 
