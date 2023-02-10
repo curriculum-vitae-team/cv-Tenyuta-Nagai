@@ -24,15 +24,15 @@ export const UpdatePositionModal = () => {
   } = useForm<IFormUpdatePosition>({
     mode: 'onChange',
     defaultValues: {
-      name: positionData?.name,
+      name: positionData.name,
     },
     resolver: yupResolver(positionSchema),
   });
 
-  const onSubmit: SubmitHandler<IFormUpdatePosition> = async (inputs) => {
+  const onSubmit: SubmitHandler<IFormUpdatePosition> = (inputs) => {
     updatePosition({
       variables: {
-        id: positionData?.id,
+        id: positionData.id,
         position: {
           name: inputs.name,
         },

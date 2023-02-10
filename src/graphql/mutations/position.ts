@@ -19,3 +19,11 @@ export const UPDATE_POSITION = gql`
     }
   }
 `;
+
+export const DELETE_POSITION = gql`
+  mutation DeletePosition($id: ID!) {
+    deletePosition(id: $id) {
+      affected
+    }
+  }
+`;

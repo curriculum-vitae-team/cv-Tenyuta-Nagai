@@ -17,3 +17,12 @@ export const updateCacheAfterCreatingPosition = (
     });
   }
 };
+
+export const updateCacheAfterDeletePosition = (
+  cache: ApolloCache<NormalizedCacheObject>,
+  positionId: string
+) => {
+  const id = cache.identify({ id: positionId, __typename: 'Position' });
+  cache.evict({ id });
+  cache.gc();
+};
