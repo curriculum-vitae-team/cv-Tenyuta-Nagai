@@ -13,8 +13,8 @@ import { InputSelect } from '../../../UI/InputSelect';
 import { InputText } from '../../../UI/InputText';
 import { CreateUserResult, IUserAllResult } from '../../../../graphql/types/results/user';
 import { modalService } from '../../../../graphql/service/modalService';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { IEmployeesFormInput } from './EmployeesModal.interface';
-import * as Styled from './EmployeesModal.styles';
 
 export const EmployeesModal = () => {
   const { loading, positionsData, departmentsData, rolesData } = useEmployeesFormData();
@@ -119,16 +119,7 @@ export const EmployeesModal = () => {
             data={rolesData}
           />
 
-          <Styled.ButtonSubmit
-            loading={updateLoading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid}
-          >
-            {'Save'}
-          </Styled.ButtonSubmit>
+          <ModalWindowButton loading={updateLoading} isValid={isValid} />
         </form>
       )}
     </>

@@ -12,8 +12,8 @@ import { FieldNameProfileForm } from '../../../../constants/fieldNameProfileForm
 import { InputSelect } from '../../../UI/InputSelect';
 import { IUserAllResult } from '../../../../graphql/types/results/user';
 import { modalService } from '../../../../graphql/service/modalService';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { IProfileFormInput, IProfileModalUserId } from './ProfileModal.types';
-import * as Styled from './ProfileModal.styles';
 
 export const ProfileModal = () => {
   const {
@@ -99,16 +99,7 @@ export const ProfileModal = () => {
             data={departmentsData!.departments}
           />
 
-          <Styled.ButtonSubmit
-            loading={updateLoading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid}
-          >
-            {'Save'}
-          </Styled.ButtonSubmit>
+          <ModalWindowButton loading={updateLoading} isValid={isValid} />
         </form>
       )}
     </>

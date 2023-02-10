@@ -4,13 +4,15 @@ import * as Styled from './ModalWindowButton.styles';
 
 export const ModalWindowButton = ({
   loading,
-  isValid,
+  isValid = true,
   size = 'large',
   name = 'Save',
+  handleClick,
   ...props
 }: IModalWindowButtonProps) => {
   return (
     <Styled.ButtonSubmit
+      onClick={handleClick}
       loading={loading}
       type="submit"
       variant="contained"

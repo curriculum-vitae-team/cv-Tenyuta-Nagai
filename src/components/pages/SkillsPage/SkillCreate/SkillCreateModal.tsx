@@ -12,7 +12,7 @@ import { TError } from '../../../../types/errorTypes';
 import { skillsSchema } from '../../../../utils/validationSchema';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
-import * as Styled from './SkillCreateModal.styles';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 
 export const SkillCreateModal = () => {
   const [createSkill, { loading }] = useMutation(CREATE_SKILL);
@@ -54,16 +54,7 @@ export const SkillCreateModal = () => {
             helperText={errors.name?.message || ''}
           />
 
-          <Styled.ButtonSubmit
-            loading={loading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid}
-          >
-            {'Save'}
-          </Styled.ButtonSubmit>
+          <ModalWindowButton loading={loading} isValid={isValid} />
         </form>
       )}
     </>

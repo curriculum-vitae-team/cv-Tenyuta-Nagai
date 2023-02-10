@@ -13,6 +13,7 @@ import { convertToBase64 } from '../helpers/convertToBase64';
 import { Spinner } from '../../../Spinner';
 import { IUserAllResult } from '../../../../graphql/types/results/user';
 import { modalService } from '../../../../graphql/service/modalService';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import * as Styled from './AvatarModal.styles';
 import { InputFile } from './InputFile/InputFile';
 import { IAvatarForm, IAvatarUserId } from './AvatarModal.types';
@@ -125,16 +126,7 @@ export const AvatarModal = () => {
             </Styled.WrapperDropArea>
           </Styled.WrapperUserAvatar>
 
-          <Styled.ButtonSubmit
-            loading={avatarLoading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid || !file?.length}
-          >
-            {'Save'}
-          </Styled.ButtonSubmit>
+          <ModalWindowButton loading={avatarLoading} isValid={isValid || !file?.length} />
 
           {deleteLoading && <Spinner />}
         </form>

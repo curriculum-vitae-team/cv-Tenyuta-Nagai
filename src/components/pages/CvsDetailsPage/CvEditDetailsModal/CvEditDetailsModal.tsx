@@ -11,6 +11,7 @@ import { TError } from '../../../../types/errorTypes';
 import { createArrayForLanguages } from '../../../../utils/createArrayForLanguages';
 import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
 import { modalService } from '../../../../graphql/service/modalService';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { IFormEditDetailsCv } from './CvEditDetailsModal.types';
 import * as Styled from './CvEditDetailsModal.styles';
 
@@ -90,16 +91,7 @@ export const CvEditDetailsModal = () => {
         />
       </Styled.CheckboxWrap>
 
-      <Styled.Button
-        loading={updateCvLoading}
-        type="submit"
-        variant="contained"
-        fullWidth
-        size="large"
-        disabled={!isValid}
-      >
-        Save
-      </Styled.Button>
+      <ModalWindowButton loading={updateCvLoading} isValid={isValid} />
     </form>
   );
 };

@@ -14,6 +14,7 @@ import { USER } from '../../../../graphql/queries/user';
 import { IUserAllResult } from '../../../../graphql/types/results/user';
 import { Spinner } from '../../../Spinner';
 import { modalService } from '../../../../graphql/service/modalService';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import * as Styled from './CvEditModal.styles';
 import { TCvId, IFormEditCv } from './CvEditModal.types';
 
@@ -137,26 +138,13 @@ export const CvEditModal = () => {
           </Styled.CheckboxWrap>
 
           <Styled.ButtonsWrap>
-            <Styled.Button
-              loading={updateCvLoading || unbindCvLoading}
-              type="submit"
-              variant="contained"
-              fullWidth
-              size="large"
-              disabled={!isValid}
-            >
-              Save
-            </Styled.Button>
+            <ModalWindowButton loading={updateCvLoading || unbindCvLoading} isValid={isValid} />
 
-            <Styled.Button
-              variant="contained"
-              fullWidth
-              size="large"
+            <ModalWindowButton
               loading={updateCvLoading || unbindCvLoading}
-              onClick={handleUnBind}
-            >
-              Unbind
-            </Styled.Button>
+              handleClick={handleUnBind}
+              name="Unbind"
+            />
           </Styled.ButtonsWrap>
         </form>
       )}

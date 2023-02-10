@@ -13,7 +13,7 @@ import { UPDATE_PROJECT } from '../../../../graphql/mutations/updateProject';
 import { formatDate } from '../../../../utils/formatDate';
 import { modalService } from '../../../../graphql/service/modalService';
 import { IProjectResult } from '../../../../graphql/types/results/projects';
-import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 
 export const ProjectUpdateModal = () => {
   const projectData: Pick<Partial<IProjectResult>, keyof IProjectResult> = useReactiveVar(
@@ -119,16 +119,7 @@ export const ProjectUpdateModal = () => {
             name={FieldNameProjectsForm.END_DATE}
           />
 
-          <Styled.ButtonSubmit
-            loading={loading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid}
-          >
-            {'Save'}
-          </Styled.ButtonSubmit>
+          <ModalWindowButton loading={loading} isValid={isValid} />
         </form>
       )}
     </>

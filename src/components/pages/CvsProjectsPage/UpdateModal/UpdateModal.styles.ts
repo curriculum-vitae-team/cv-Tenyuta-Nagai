@@ -18,15 +18,6 @@ export const FormControl = styled(MuiFormControl)(() => ({
   minWidth: 120,
 }));
 
-export const ButtonSubmit = styled(LoadingButton)(({ theme }) => ({
-  marginTop: 16,
-  backgroundColor: theme.palette.secondary.main,
-
-  [theme.breakpoints.down('sm')]: {
-    fontSize: 14,
-  },
-}));
-
 export const ChipWrapper = styled('div')(() => ({
   display: 'flex',
   flexWrap: 'wrap',
