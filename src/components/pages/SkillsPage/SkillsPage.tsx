@@ -16,15 +16,11 @@ import { getAllSkills } from './TableData/SkillsTableRows';
 const SkillsPage = () => {
   const Table = createTable();
   const navigate = useNavigate();
-  const { data, loading, error } = useQuery(SKILLS);
+  const { data, loading } = useQuery(SKILLS, {
+    onError: () => navigate(`/${RoutePath.LOGIN}`, { replace: true }),
+  });
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
-
-  useEffect(() => {
-    if (error) {
-      navigate(`/${RoutePath.LOGIN}`, { replace: true });
-    }
-  }, [error, navigate]);
 
   return (
     <main>

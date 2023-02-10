@@ -24,10 +24,7 @@ export const SkillsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) =
   };
 
   const updateSkill = () => {
-    modalService.setModalData('Update skill', SkillsUpdateModal, {
-      name: name as string,
-      id: id as string,
-    });
+    modalService.setModalData('Update skill', SkillsUpdateModal, { name, id });
   };
 
   return (

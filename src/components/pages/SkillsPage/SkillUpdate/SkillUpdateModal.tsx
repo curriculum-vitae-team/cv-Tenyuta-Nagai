@@ -10,11 +10,13 @@ import { FieldNameSkillsForm } from '../../../../constants/fieldNameSkillsForm';
 import { SkillsInput } from '../../../../graphql/types/inputs/skill';
 import { UPDATE_SKILL } from '../../../../graphql/mutations/skills';
 import { modalService } from '../../../../graphql/service/modalService';
-import { ISkill } from '../../../../interfaces/ISkill.interface';
 import * as Styled from './SkillUpdate.styles';
+import { ISkillUpdate } from './SkillUpdateModal.interface';
 
 export const SkillsUpdateModal = () => {
-  const skill: Pick<Partial<ISkill>, keyof ISkill> = useReactiveVar(modalService.modalData$);
+  const skill: Pick<Partial<ISkillUpdate>, keyof ISkillUpdate> = useReactiveVar(
+    modalService.modalData$
+  );
   const [updateSkill, { loading }] = useMutation(UPDATE_SKILL);
   const {
     register,
@@ -37,9 +39,7 @@ export const SkillsUpdateModal = () => {
         },
       },
     })
-      .catch((err: TError) => {
-        console.error(err.message);
-      })
+      .catch((err: TError) => console.error(err.message))
       .finally(() => modalService.closeModal());
   };
 

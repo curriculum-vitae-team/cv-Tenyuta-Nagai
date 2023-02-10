@@ -36,10 +36,7 @@ export const SkillCreateModal = () => {
         updateCacheAfterCreatingSkill(cache, (data as unknown) as CreateSkillsResult);
       },
     })
-      .catch((err: TError) => {
-        console.error(err.message);
-      })
-
+      .catch((err: TError) => console.error(err.message))
       .finally(() => modalService.closeModal());
   };
 
