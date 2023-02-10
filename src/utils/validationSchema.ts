@@ -76,15 +76,21 @@ export const editCvSchema = object({
   description: string().required(),
 }).required();
 
+export const editCvDetailsSchema = object({
+  name: string()
+    .max(30)
+    .required(),
+  description: string().required(),
+}).required();
+
 export const departmentsSchema = object({
   name: string()
     .max(35)
     .required(),
 });
 
-export const editCvDetailsSchema = object({
+export const skillsSchema = object({
   name: string()
     .max(30)
     .required(),
-  description: string().required(),
 });

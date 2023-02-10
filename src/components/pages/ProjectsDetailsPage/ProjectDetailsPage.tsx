@@ -21,7 +21,6 @@ const ProjectsDetailsPage = () => {
     variables: { id },
     onError: () => navigate(`/${RoutePath.PROJECTS}`, { replace: true }),
   });
-
   const user = useUser();
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
 
