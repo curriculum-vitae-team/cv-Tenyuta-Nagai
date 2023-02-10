@@ -5,7 +5,7 @@ import { LANGUAGES } from './../queries/languages';
 
 export const updateCacheAfterCreatingLanguage = (
   cache: ApolloCache<NormalizedCacheObject>,
-  data?: CreateLanguageResult
+  data: CreateLanguageResult
 ) => {
   const allLanguages = cache.readQuery<ILanguagesReturn>({ query: LANGUAGES });
 

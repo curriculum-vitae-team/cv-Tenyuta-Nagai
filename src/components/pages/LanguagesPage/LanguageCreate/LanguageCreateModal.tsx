@@ -15,7 +15,7 @@ import { FieldNameLanguagesForm } from '../../../../constants/fieldNameLanguages
 import * as Styled from './LanguageCreateModal.styles';
 
 export const LanguageCreateModal = () => {
-  const [createLanguage, { loading }] = useMutation(CREATE_LANGUAGE);
+  const [createLanguage, { loading }] = useMutation<CreateLanguageResult>(CREATE_LANGUAGE);
   const {
     register,
     handleSubmit,
@@ -35,13 +35,12 @@ export const LanguageCreateModal = () => {
         },
       },
       update(cache, { data }) {
-        updateCacheAfterCreatingLanguage(cache, (data as unknown) as CreateLanguageResult);
+        updateCacheAfterCreatingLanguage(cache, data!);
       },
     })
       .catch((err: TError) => {
         console.error(err.message);
       })
-
       .finally(() => modalService.closeModal());
   };
 
