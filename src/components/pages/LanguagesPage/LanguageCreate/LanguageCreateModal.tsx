@@ -38,9 +38,7 @@ export const LanguageCreateModal = () => {
         updateCacheAfterCreatingLanguage(cache, data!);
       },
     })
-      .catch((err: TError) => {
-        console.error(err.message);
-      })
+      .catch((err: TError) => console.error(err.message))
       .finally(() => modalService.closeModal());
   };
 
