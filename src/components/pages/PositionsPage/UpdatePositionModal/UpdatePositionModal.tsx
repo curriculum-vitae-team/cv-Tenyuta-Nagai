@@ -1,42 +1,44 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useMutation } from '@apollo/client';
+import { useMutation, useReactiveVar } from '@apollo/client';
 import { positionSchema } from '../../../../utils/validationSchema';
 import { InputText } from '../../../UI/InputText';
-import { CREATE_POSITION } from '../../../../graphql/mutations/position';
+import { UPDATE_POSITION } from '../../../../graphql/mutations/position';
 import { modalService } from '../../../../graphql/service/modalService';
-import { IPositionCreateReturn } from '../../../../graphql/types/results/position';
-import { updateCacheAfterCreatingPosition } from '../../../../graphql/cache/position';
 import { TError } from '../../../../types/errorTypes';
-import { IFormCreatePosition } from './CreatePositionModal.types';
-import * as Styled from './CreatePositionModal.style';
+import * as Styled from '../CreatePositionModal/CreatePositionModal.style';
+import { IFormUpdatePosition } from './UpdatePositionModal.styles';
+import { IUpdateModalData } from './UpdatePositionModal.types';
 
-export const CreatePositionModal = () => {
-  const [createPosition, { loading }] = useMutation<IPositionCreateReturn>(CREATE_POSITION, {
-    update(cache, { data }) {
-      updateCacheAfterCreatingPosition(cache, data!);
-    },
-  });
+export const UpdatePositionModal = () => {
+  const positionData: Pick<Partial<IUpdateModalData>, keyof IUpdateModalData> = useReactiveVar(
+    modalService.modalData$
+  );
+  const [updatePosition, { loading }] = useMutation(UPDATE_POSITION);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<IFormCreatePosition>({
+  } = useForm<IFormUpdatePosition>({
     mode: 'onChange',
+    defaultValues: {
+      name: positionData?.name,
+    },
     resolver: yupResolver(positionSchema),
   });
 
-  const onSubmit: SubmitHandler<IFormCreatePosition> = (inputs) => {
-    createPosition({
+  const onSubmit: SubmitHandler<IFormUpdatePosition> = async (inputs) => {
+    updatePosition({
       variables: {
+        id: positionData?.id,
         position: {
           name: inputs.name,
         },
       },
     })
-      .catch((err) => console.error((err as TError).message))
+      .catch((err: TError) => console.error(err.message))
       .finally(() => modalService.closeModal());
   };
 

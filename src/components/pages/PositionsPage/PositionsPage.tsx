@@ -18,7 +18,6 @@ const PositionsPage = () => {
   const { data, loading } = useQuery<IPositionReturn>(POSITIONS);
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
-  console.log(data);
 
   return (
     <main>
