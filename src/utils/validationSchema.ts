@@ -97,9 +97,14 @@ export const skillsSchema = object({
 
 export const languagesSchema = object({
   name: string()
+    .matches(/^[a-zA-Z]*$/gms, 'Only a-z, A-Z')
     .max(30)
     .required(),
   iso2: string()
+    .matches(/^[A-Z]*$/gms, 'Only A-Z')
     .max(3)
     .required(),
+  nativeName: string()
+    .matches(/^[a-zA-Z]*$/gms, 'Only a-z, A-Z')
+    .max(30),
 });
