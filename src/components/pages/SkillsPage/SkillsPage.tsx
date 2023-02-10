@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Container, Grid } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -34,7 +34,7 @@ const SkillsPage = () => {
               items={getAllSkills(data?.skills || [])}
               ModalForCreating={SkillCreateModal}
               searchParameter="name"
-              titleCreateBtn="Create skill"
+              titleCreateBtn="Create"
               isCreateBtnVisible={isAdmin}
               defaultSortingBy="name"
               AdditionalButtons={isAdmin ? SkillsAdditionalButtons : undefined}
