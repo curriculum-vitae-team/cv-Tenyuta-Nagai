@@ -18,7 +18,6 @@ export const LanguageUpdateModal = () => {
     modalService.modalData$
   );
 
-  console.log(language);
   const [updateLanguage, { loading }] = useMutation(UPDATE_LANGUAGE);
   const {
     register,

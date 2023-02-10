@@ -27,6 +27,7 @@ export const UPDATE_LANGUAGE = gql`
       iso2
       name
       native_name
+      created_at
     }
   }
 `;
