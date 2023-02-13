@@ -6,7 +6,6 @@ import { UserRoles } from '../../../constants/userRoles';
 import { USER } from '../../../graphql/queries/user';
 import { IUserAllResult } from '../../../graphql/types/results/user';
 import { useUser } from '../../../hooks/useUser';
-import { Row } from '../../Row';
 import { Spinner } from '../../Spinner';
 import { PrivateButton } from '../../UI/PrivateButton';
 import * as Styled from './EmployeesSkillsPage.styles';
@@ -18,6 +17,7 @@ const EmployeesSkillsPage = () => {
   const navigate = useNavigate();
   const isAdmin = user?.role === UserRoles.Admin;
   const currentId = isAdmin ? id : user?.id;
+  const isVisible = user?.id === id || user?.role === UserRoles.Admin;
 
   const { loading, data } = useQuery<IUserAllResult>(USER, {
     variables: { id: currentId },
@@ -37,7 +37,7 @@ const EmployeesSkillsPage = () => {
           </Styled.Wrapper>
 
           <PrivateButton
-            isVisible={true}
+            isVisible={isVisible}
             onClick={() => console.log('edit')}
             sx={{ minWidth: 140 }}
           >

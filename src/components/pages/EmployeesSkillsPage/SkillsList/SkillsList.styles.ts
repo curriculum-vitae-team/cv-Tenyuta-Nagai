@@ -4,6 +4,7 @@ export const ItemMenu = styled(MenuItem)(() => ({
   whiteSpace: 'pre-wrap',
   wordWrap: 'break-word',
   wordBreak: 'break-word',
+  fontSize: 18,
 }));
 
 export const ListMenu = styled(MenuList)(() => ({
