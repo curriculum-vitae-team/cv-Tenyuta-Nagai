@@ -1,8 +1,8 @@
 import { Divider, MenuItem } from '@mui/material';
 import React, { FC } from 'react';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useMutation } from '@apollo/client';
+import UpdateIcon from '@mui/icons-material/Update';
 import { IAdditionalButtonsProps } from '../../../Table/TableRows/TableRowComponent.types';
 import { modalService } from '../../../../graphql/service/modalService';
 import { UpdatePositionModal } from '../UpdatePositionModal/UpdatePositionModal';
@@ -32,7 +32,7 @@ export const PositionsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }
   return (
     <>
       <MenuItem sx={Styled.ActionsMenuRowItemProps} onClick={handleUpdatePosition}>
-        <InfoOutlinedIcon sx={Styled.ActionsMenuRowIconsProps} />
+        <UpdateIcon sx={Styled.ActionsMenuRowIconsProps} />
         Update
       </MenuItem>
 
