@@ -15,8 +15,8 @@ export const InputSelect = <T extends Record<string, unknown>>({
     <TextField
       {...props}
       margin="normal"
-      select
       fullWidth
+      select
       size={size}
       label={label}
       inputProps={register && registerName && register(registerName)}

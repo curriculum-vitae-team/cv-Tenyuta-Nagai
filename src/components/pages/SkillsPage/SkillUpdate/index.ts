@@ -1,0 +1,1 @@
+export { SkillsUpdateModal } from './SkillUpdateModal';

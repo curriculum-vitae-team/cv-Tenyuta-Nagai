@@ -23,8 +23,9 @@ const EmployeesCVsPage = () => {
   const navigate = useNavigate();
   const isAdmin = user?.role === UserRoles.Admin;
   const currentId = isAdmin ? id : user?.id;
-  const { loading, error, data } = useQuery<IUserAllResult>(USER, {
+  const { loading, data } = useQuery<IUserAllResult>(USER, {
     variables: { id: currentId },
+    onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
   });
   const [cvData, setCvData] = useState<ICvData>({
     id: '',
@@ -44,18 +45,8 @@ const EmployeesCVsPage = () => {
     }
   }, [cvEditData]);
 
-  useEffect(() => {
-    if (error) {
-      navigate(`/${RoutePath.EMPLOYEES}`, { replace: true });
-    }
-  });
-
   if (user?.id !== id && !isAdmin) {
     return null;
-  }
-
-  if (error) {
-    navigate(`/${RoutePath.EMPLOYEES}`);
   }
 
   const showCvData = (id: string) => {

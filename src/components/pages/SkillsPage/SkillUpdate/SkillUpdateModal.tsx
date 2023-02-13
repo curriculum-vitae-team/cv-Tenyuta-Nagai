@@ -1,47 +1,45 @@
+import { useMutation, useReactiveVar } from '@apollo/client';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useMutation, useReactiveVar } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
-import { departmentsSchema } from '../../../../utils/validationSchema';
+import { skillsSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
-import { UPDATE_DEPARTMENT } from '../../../../graphql/mutations/departments';
-import { FieldNameDepartmentsForm } from '../../../../constants/fieldNameDepartmentsForm';
-import { DepartmentsInput } from '../../../../graphql/types/inputs/department';
+import { FieldNameSkillsForm } from '../../../../constants/fieldNameSkillsForm';
+import { SkillsInput } from '../../../../graphql/types/inputs/skill';
+import { UPDATE_SKILL } from '../../../../graphql/mutations/skills';
 import { modalService } from '../../../../graphql/service/modalService';
-import * as Styled from './DepartmentUpdate.styles';
-import { IDepartment } from './DepartmentUpdateModal.interface';
+import * as Styled from './SkillUpdate.styles';
+import { ISkillUpdate } from './SkillUpdateModal.interface';
 
-export const DepartmentUpdateModal = () => {
-  const department: Pick<Partial<IDepartment>, keyof IDepartment> = useReactiveVar(
+export const SkillsUpdateModal = () => {
+  const skill: Pick<Partial<ISkillUpdate>, keyof ISkillUpdate> = useReactiveVar(
     modalService.modalData$
   );
-  const [updateDepartment, { loading }] = useMutation(UPDATE_DEPARTMENT);
+  const [updateSkill, { loading }] = useMutation(UPDATE_SKILL);
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<DepartmentsInput>({
+  } = useForm<SkillsInput>({
     defaultValues: {
-      name: department.name,
+      name: skill.name,
     },
     mode: 'onChange',
-    resolver: yupResolver(departmentsSchema),
+    resolver: yupResolver(skillsSchema),
   });
 
-  const onSubmit: SubmitHandler<DepartmentsInput> = (inputs) => {
-    updateDepartment({
+  const onSubmit: SubmitHandler<SkillsInput> = (inputs) => {
+    updateSkill({
       variables: {
-        id: department.id,
-        department: {
+        id: skill.id,
+        skill: {
           name: inputs.name,
         },
       },
     })
-      .catch((err: TError) => {
-        console.error(err.message);
-      })
+      .catch((err: TError) => console.error(err.message))
       .finally(() => modalService.closeModal());
   };
 
@@ -52,8 +50,8 @@ export const DepartmentUpdateModal = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
-            name="Department name"
-            registerName={FieldNameDepartmentsForm.NAME}
+            name="Skill name"
+            registerName={FieldNameSkillsForm.NAME}
             register={register}
             error={!!errors.name}
             helperText={errors.name?.message || ''}

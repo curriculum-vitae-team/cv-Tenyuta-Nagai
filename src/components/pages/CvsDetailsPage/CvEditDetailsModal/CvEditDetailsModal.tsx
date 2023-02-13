@@ -32,13 +32,10 @@ export const CvEditDetailsModal = () => {
     resolver: yupResolver(editCvDetailsSchema),
   });
   const [isTemplate, setIsTemplate] = useState(cvData?.cv?.is_template);
-  const [updateCV, { loading: updateCvLoading, error: updateCvError }] = useMutation<ICvResult>(
-    UPDATE_CV
-  );
 
-  if (updateCvError) {
-    modalService.closeModal();
-  }
+  const [updateCV, { loading: updateCvLoading }] = useMutation<ICvResult>(UPDATE_CV, {
+    onError: () => modalService.closeModal(),
+  });
 
   const handleChangeTemplate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsTemplate(e.target.checked);

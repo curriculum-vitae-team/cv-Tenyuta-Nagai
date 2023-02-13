@@ -19,51 +19,50 @@ const CvsDetailsPage = () => {
   const navigate = useNavigate();
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
-  const { loading, error, data } = useQuery<ICvQueryResult>(CV, {
+  const { loading, data } = useQuery<ICvQueryResult>(CV, {
     variables: { id },
+    onError: () => navigate(`/${RoutePath.CVS}`, { replace: true }),
   });
-
-  if (loading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    navigate(`/${RoutePath.CVS}`, { replace: true });
-  }
 
   const handleEdit = () => {
     modalService.setModalData('Edit CV', CvEditDetailsModal, { ...data! });
   };
 
   return (
-    <Styled.PaperWrapper elevation={3}>
-      <Styled.Wrapper>
-        <Styled.ContentWrapper>
-          <Row title={'Name:'}>{data?.cv?.name || '-'}</Row>
-          <Row title={'Description:'}>{data?.cv?.description || '-'}</Row>
-          <Row title={'User:'}>
-            {data?.cv?.user?.profile?.full_name || data?.cv?.user?.email || '-'}
-          </Row>
-          <Row title={'User position:'}>{data?.cv?.user?.position_name || '-'}</Row>
-          <Row title={'Skills:'}>
-            {data?.cv?.skills?.length ? convertSkillsArray(data?.cv?.skills) : '-'}
-          </Row>
-          <Row title={'Languages:'}>
-            {data?.cv?.languages?.length ? convertLanguagesArray(data?.cv?.languages) : '-'}
-          </Row>
-        </Styled.ContentWrapper>
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Styled.PaperWrapper elevation={3}>
+          <Styled.Wrapper>
+            <Styled.ContentWrapper>
+              <Row title={'Name:'}>{data?.cv?.name || '-'}</Row>
+              <Row title={'Description:'}>{data?.cv?.description || '-'}</Row>
+              <Row title={'User:'}>
+                {data?.cv?.user?.profile?.full_name || data?.cv?.user?.email || '-'}
+              </Row>
+              <Row title={'User position:'}>{data?.cv?.user?.position_name || '-'}</Row>
+              <Row title={'Skills:'}>
+                {data?.cv?.skills?.length ? convertSkillsArray(data?.cv?.skills) : '-'}
+              </Row>
+              <Row title={'Languages:'}>
+                {data?.cv?.languages?.length ? convertLanguagesArray(data?.cv?.languages) : '-'}
+              </Row>
+            </Styled.ContentWrapper>
 
-        <Styled.BtnWrapper>
-          <PrivateButton
-            isVisible={user?.id === data?.cv.user?.id || isAdmin}
-            onClick={handleEdit}
-            sx={{ minWidth: 140 }}
-          >
-            Edit
-          </PrivateButton>
-        </Styled.BtnWrapper>
-      </Styled.Wrapper>
-    </Styled.PaperWrapper>
+            <Styled.BtnWrapper>
+              <PrivateButton
+                isVisible={user?.id === data?.cv.user?.id || isAdmin}
+                onClick={handleEdit}
+                sx={{ minWidth: 140 }}
+              >
+                Edit
+              </PrivateButton>
+            </Styled.BtnWrapper>
+          </Styled.Wrapper>
+        </Styled.PaperWrapper>
+      )}
+    </>
   );
 };
 

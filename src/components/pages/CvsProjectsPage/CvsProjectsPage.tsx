@@ -19,31 +19,30 @@ const CvsProjectsPage = () => {
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
   const Table = createTable();
-  const { loading, error, data } = useQuery<ICvQueryResult>(CV, {
+  const { loading, data } = useQuery<ICvQueryResult>(CV, {
     variables: { id },
+    onError: () => navigate(`/${RoutePath.CVS}`, { replace: true }),
   });
 
-  if (loading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    navigate(`/${RoutePath.CVS}`, { replace: true });
-  }
-
   return (
-    <Grid container>
-      <Table
-        header={cvsProjectsHeaderTable}
-        items={createCvsProjectRowData(data?.cv?.projects || [])}
-        searchParameter="projectName"
-        titleCreateBtn="Update"
-        isCreateBtnVisible={data?.cv.user?.id === user?.id || isAdmin}
-        ModalForCreating={UpdateModal}
-        titleModal={'Update Cv Projects'}
-        defaultSortingBy="projectName"
-      />
-    </Grid>
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Grid container>
+          <Table
+            header={cvsProjectsHeaderTable}
+            items={createCvsProjectRowData(data?.cv?.projects || [])}
+            searchParameter="projectName"
+            titleCreateBtn="Update"
+            isCreateBtnVisible={data?.cv.user?.id === user?.id || isAdmin}
+            ModalForCreating={UpdateModal}
+            defaultSortingBy="projectName"
+            titleModal={'Update Cv Projects'}
+          />
+        </Grid>
+      )}
+    </>
   );
 };
 

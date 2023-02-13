@@ -23,11 +23,13 @@ import * as Styled from './UpdateModal.styles';
 
 export const UpdateModal = () => {
   const { id } = useParams();
-  const { loading, error, data } = useQuery<IProjectsResult>(GET_ALL_PROJECTS, {
+  const { loading, data } = useQuery<IProjectsResult>(GET_ALL_PROJECTS, {
     variables: { id },
+    onError: () => modalService.closeModal(),
   });
-  const { loading: cvLoading, error: cvError, data: cvData } = useQuery<ICvQueryResult>(CV, {
+  const { loading: cvLoading, data: cvData } = useQuery<ICvQueryResult>(CV, {
     variables: { id },
+    onError: () => modalService.closeModal(),
   });
   const [projects, setProjects] = useState<Record<string, string>>({});
   const [projectsIds, setProjectsIds] = useState<string[]>(
@@ -38,10 +40,6 @@ export const UpdateModal = () => {
       updateCvsCacheAfterCvUpdateProjectsMutation(cache, newCvData!, data!, projectsIds);
     },
   });
-
-  if (error || cvError) {
-    modalService.closeModal();
-  }
 
   useEffect(() => {
     if (data?.projects?.length) {

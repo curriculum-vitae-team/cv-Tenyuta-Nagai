@@ -76,15 +76,35 @@ export const editCvSchema = object({
   description: string().required(),
 }).required();
 
+export const editCvDetailsSchema = object({
+  name: string()
+    .max(30)
+    .required(),
+  description: string().required(),
+}).required();
+
 export const departmentsSchema = object({
   name: string()
     .max(35)
     .required(),
 });
 
-export const editCvDetailsSchema = object({
+export const skillsSchema = object({
   name: string()
     .max(30)
     .required(),
-  description: string().required(),
+});
+
+export const languagesSchema = object({
+  name: string()
+    .matches(/^[a-zA-Z]*$/gms, 'Only a-z, A-Z')
+    .max(30)
+    .required(),
+  iso2: string()
+    .matches(/^[A-Z]*$/gms, 'Only A-Z')
+    .max(3)
+    .required(),
+  nativeName: string()
+    .matches(/^[a-zA-Z]*$/gms, 'Only a-z, A-Z')
+    .max(30),
 });
