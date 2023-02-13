@@ -6,7 +6,7 @@ import { CreateUserResult } from '../types/results/user';
 export const updateCacheAfterCreatingUser = (
   cache: ApolloCache<NormalizedCacheObject>,
   role: string,
-  data?: CreateUserResult
+  data: CreateUserResult
 ) => {
   const allUsers = cache.readQuery<IUsersResult>({ query: GET_ALL_USERS });
 

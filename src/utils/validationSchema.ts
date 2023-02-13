@@ -7,7 +7,7 @@ export const schema = object({
   password: string()
     .required()
     .min(5),
-}).required();
+});
 
 export const profileSchema = object({
   firstName: string().matches(/^[a-zA-Z]*$/gms, 'Only a-z, A-Z'),
@@ -74,7 +74,7 @@ export const editCvSchema = object({
     .max(30)
     .required(),
   description: string().required(),
-}).required();
+});
 
 export const editCvDetailsSchema = object({
   name: string()
@@ -107,4 +107,10 @@ export const languagesSchema = object({
   nativeName: string()
     .matches(/^[a-zA-Z]*$/gms, 'Only a-z, A-Z')
     .max(30),
+});
+
+export const positionSchema = object({
+  name: string()
+    .max(50)
+    .required(),
 });
