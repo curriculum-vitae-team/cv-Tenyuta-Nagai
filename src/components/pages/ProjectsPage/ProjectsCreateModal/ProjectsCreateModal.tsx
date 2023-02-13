@@ -13,7 +13,7 @@ import { TError } from '../../../../types/errorTypes';
 import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsForm';
 import { formatDate } from '../../../../utils/formatDate';
 import { modalService } from '../../../../graphql/service/modalService';
-import * as Styled from './../../EmployeesPage/EmployeesModal/EmployeesModal.styles';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { IProjectsFormInput } from './ProjectsCreateModal.interface';
 
 export const ProjectCreateModal = () => {
@@ -111,16 +111,7 @@ export const ProjectCreateModal = () => {
             name={FieldNameProjectsForm.END_DATE}
           />
 
-          <Styled.ButtonSubmit
-            loading={loading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid}
-          >
-            {'Save'}
-          </Styled.ButtonSubmit>
+          <ModalWindowButton loading={loading} isValid={isValid} />
         </form>
       )}
     </>

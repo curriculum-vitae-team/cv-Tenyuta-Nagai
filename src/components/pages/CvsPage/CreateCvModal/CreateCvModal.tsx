@@ -14,6 +14,7 @@ import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { TError } from '../../../../types/errorTypes';
 import { modalService } from '../../../../graphql/service/modalService';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { IFormCreateCv } from './CreateCvModal.types';
 import * as Styled from './CreateCvModal.styles';
 
@@ -85,16 +86,7 @@ export const CreateCvModal = () => {
             <Checkbox {...register('template')} {...Styled.checkboxLabel} />
           </Styled.CheckboxWrap>
 
-          <Styled.ButtonSubmit
-            loading={createCvLoading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid}
-          >
-            Save
-          </Styled.ButtonSubmit>
+          <ModalWindowButton loading={createCvLoading} isValid={isValid} />
         </form>
       )}
     </>

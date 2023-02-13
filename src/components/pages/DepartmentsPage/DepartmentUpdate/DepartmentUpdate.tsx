@@ -10,7 +10,7 @@ import { UPDATE_DEPARTMENT } from '../../../../graphql/mutations/departments';
 import { FieldNameDepartmentsForm } from '../../../../constants/fieldNameDepartmentsForm';
 import { DepartmentsInput } from '../../../../graphql/types/inputs/department';
 import { modalService } from '../../../../graphql/service/modalService';
-import * as Styled from './DepartmentUpdate.styles';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { IDepartment } from './DepartmentUpdateModal.interface';
 
 export const DepartmentUpdateModal = () => {
@@ -59,16 +59,7 @@ export const DepartmentUpdateModal = () => {
             helperText={errors.name?.message || ''}
           />
 
-          <Styled.ButtonSubmit
-            loading={loading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid}
-          >
-            {'Save'}
-          </Styled.ButtonSubmit>
+          <ModalWindowButton loading={loading} isValid={isValid} />
         </form>
       )}
     </>

@@ -12,7 +12,7 @@ import { DepartmentsInput } from '../../../../graphql/types/inputs/department';
 import { CREATE_DEPARTMENT } from '../../../../graphql/mutations/departments';
 import { updateCacheAfterCreatingDepartment } from '../../../../graphql/cache/departments';
 import { modalService } from '../../../../graphql/service/modalService';
-import * as Styled from './DepartmentCreateModal.styles';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 
 export const DepartmentsCreateModal = () => {
   const [createDepartment, { loading }] = useMutation(CREATE_DEPARTMENT);
@@ -57,16 +57,7 @@ export const DepartmentsCreateModal = () => {
             helperText={errors.name?.message || ''}
           />
 
-          <Styled.ButtonSubmit
-            loading={loading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid}
-          >
-            {'Save'}
-          </Styled.ButtonSubmit>
+          <ModalWindowButton loading={loading} isValid={isValid} />
         </form>
       )}
     </>

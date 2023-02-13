@@ -19,6 +19,7 @@ import { createArrayForLanguages } from '../../../../utils/createArrayForLanguag
 import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
 import { updateCvsCacheAfterCvUpdateProjectsMutation } from '../../../../graphql/cache/cv';
 import { modalService } from '../../../../graphql/service/modalService';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import * as Styled from './UpdateModal.styles';
 
 export const UpdateModal = () => {
@@ -108,9 +109,7 @@ export const UpdateModal = () => {
                 ))}
               </Select>
             </Styled.FormControl>
-            <Styled.ButtonSubmit variant="contained" type="submit" loading={updateCvLoading}>
-              Save
-            </Styled.ButtonSubmit>
+            <ModalWindowButton loading={updateCvLoading} />
           </Styled.FormWrapper>
         </form>
       )}

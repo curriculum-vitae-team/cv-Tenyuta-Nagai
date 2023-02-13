@@ -1,4 +1,3 @@
-import { LoadingButton } from '@mui/lab';
 import { styled, Avatar, IconButton } from '@mui/material';
 
 export const WrapperUserAvatar = styled('div')(() => ({
@@ -39,15 +38,6 @@ export const Paragraph = styled('p')(({ theme }) => ({
 export const ErrorPicture = styled('p')(({ theme }) => ({
   fontSize: 16,
   color: theme.palette.secondary.main,
-
-  [theme.breakpoints.down('sm')]: {
-    fontSize: 14,
-  },
-}));
-
-export const ButtonSubmit = styled(LoadingButton)(({ theme }) => ({
-  marginTop: 16,
-  backgroundColor: theme.palette.secondary.main,
 
   [theme.breakpoints.down('sm')]: {
     fontSize: 14,

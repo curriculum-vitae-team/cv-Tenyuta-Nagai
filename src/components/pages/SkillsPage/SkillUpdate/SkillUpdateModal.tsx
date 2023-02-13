@@ -10,7 +10,7 @@ import { FieldNameSkillsForm } from '../../../../constants/fieldNameSkillsForm';
 import { SkillsInput } from '../../../../graphql/types/inputs/skill';
 import { UPDATE_SKILL } from '../../../../graphql/mutations/skills';
 import { modalService } from '../../../../graphql/service/modalService';
-import * as Styled from './SkillUpdate.styles';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { ISkillUpdate } from './SkillUpdateModal.interface';
 
 export const SkillsUpdateModal = () => {
@@ -57,16 +57,7 @@ export const SkillsUpdateModal = () => {
             helperText={errors.name?.message || ''}
           />
 
-          <Styled.ButtonSubmit
-            loading={loading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid}
-          >
-            {'Save'}
-          </Styled.ButtonSubmit>
+          <ModalWindowButton loading={loading} isValid={isValid} />
         </form>
       )}
     </>
