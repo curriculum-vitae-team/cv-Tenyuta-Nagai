@@ -53,7 +53,7 @@ const ProjectsDetailsPage = () => {
                 <Row title={'Description:'}>{data?.project?.description || '-'}</Row>
                 <Row title={'Domain:'}>{data?.project?.domain || '-'}</Row>
                 <Row title={'Start date:'}>{data?.project?.start_date}</Row>
-                <Row title={'End date:'}>{data?.project?.end_date}</Row>
+                <Row title={'End date:'}>{data?.project?.end_date || 'Till now'}</Row>
               </Styled.InfoWrapper>
             </Styled.Wrapper>
 

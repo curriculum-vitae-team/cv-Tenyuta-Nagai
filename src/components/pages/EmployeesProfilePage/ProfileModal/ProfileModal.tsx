@@ -45,8 +45,6 @@ export const ProfileModal = () => {
             profile: {
               first_name: inputs.firstName,
               last_name: inputs.lastName,
-              skills: userData?.user.profile.skills,
-              languages: userData?.user.profile.languages,
             },
             departmentId: inputs.department,
             positionId: inputs.position,
