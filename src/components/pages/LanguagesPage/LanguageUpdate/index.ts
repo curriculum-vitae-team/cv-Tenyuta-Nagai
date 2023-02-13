@@ -1,0 +1,1 @@
+export { LanguageUpdateModal } from './LanguageUpdate';

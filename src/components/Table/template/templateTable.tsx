@@ -16,6 +16,7 @@ import { Directions } from '../../../constants/sortingDirections';
 import { TableRowCell } from '../TableRows/TableRowCell';
 import { PrivateButton } from '../../UI/PrivateButton';
 
+import { modalService } from '../../../graphql/service/modalService';
 import { Element, Item, TableProps } from './templateTable.types';
 
 const Table = ({
@@ -23,16 +24,16 @@ const Table = ({
   items,
   searchParameter,
   ModalForCreating,
+  titleModal,
   titleCreateBtn,
   AdditionalButtons,
   isCreateBtnVisible,
+  defaultSortingBy,
 }: TableProps) => {
   const [searchString, setSearchString] = useState('');
-  const [sortingBy, setSortingBy] = useState(header[0].columnKey);
+  const [sortingBy, setSortingBy] = useState(defaultSortingBy);
   const [sortingIsAsc, setSortingIsAsc] = useState(true);
   const [direction, setDirection] = useState<Directions>(Directions.Desc);
-
-  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleSetSearchString = (str: string) => {
     setSearchString(str);
@@ -48,12 +49,8 @@ const Table = ({
     }
   };
 
-  const handleSave = () => {
-    setIsOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
+  const handleOpenModal = () => {
+    modalService.setModalData(titleModal, ModalForCreating);
   };
 
   return (
@@ -64,13 +61,18 @@ const Table = ({
             <TableRow>
               <TableCell colSpan={10} sx={{ border: 'none' }}>
                 <Grid
-                  sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    columnGap: '15px',
+                  }}
                 >
                   <SearchInput
                     handleSetSearchString={handleSetSearchString}
                     searchString={searchString}
                   />
-                  <PrivateButton isVisible={isCreateBtnVisible} onClick={handleSave}>
+                  <PrivateButton isVisible={isCreateBtnVisible} onClick={handleOpenModal}>
                     {titleCreateBtn}
                   </PrivateButton>
                 </Grid>
@@ -82,6 +84,7 @@ const Table = ({
               sortingBy={sortingBy}
               handleSetSortingDirection={handleSetSortingDirection}
               direction={direction}
+              AdditionalButtons={AdditionalButtons}
             />
           </TableHead>
           <TableBody>
@@ -110,7 +113,6 @@ const Table = ({
           </TableBody>
         </MuiTable>
       </TableContainer>
-      {isOpenModal && <ModalForCreating open={isOpenModal} onClose={handleCloseModal} />}
     </>
   );
 };

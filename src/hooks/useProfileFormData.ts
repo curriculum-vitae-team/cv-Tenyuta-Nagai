@@ -2,9 +2,9 @@ import { useQuery } from '@apollo/client';
 import { DEPARTMENTS } from '../graphql/queries/departments';
 import { POSITIONS } from '../graphql/queries/positions';
 import { USER } from '../graphql/queries/user';
-import { IDepartmentReturn } from '../interfaces/IDepartment.interface';
-import { IPositionReturn } from '../interfaces/IPosition.interface';
-import { IUserAllResult } from '../interfaces/IUser.interface';
+import { IDepartmentReturn } from '../graphql/types/results/department';
+import { IPositionReturn } from '../graphql/types/results/position';
+import { IUserAllResult } from '../graphql/types/results/user';
 
 export const useProfileFormData = (id: string) => {
   const { loading: loadingUser, error: errorUser, data: userData } = useQuery<IUserAllResult>(

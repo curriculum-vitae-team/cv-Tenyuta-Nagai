@@ -12,15 +12,15 @@ const TableHeaderCell = ({
   itemName,
 }: TableHeaderCellProps) => {
   const handleSorting = () => {
-    handleSetSortingDirection(itemName);
+    if (isSortable) {
+      handleSetSortingDirection(itemName);
+    }
   };
 
   return (
-    <TableCellStyled>
+    <TableCellStyled onClick={handleSorting} sortable={isSortable.toString()}>
       {name}
-      {isSortable && (
-        <TableSortLabel direction={direction} active={active} onClick={handleSorting} />
-      )}
+      {isSortable && <TableSortLabel direction={direction} active={active} />}
     </TableCellStyled>
   );
 };
