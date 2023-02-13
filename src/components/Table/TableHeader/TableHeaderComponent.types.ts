@@ -11,5 +11,5 @@ export type TableHeaderComponentProps = {
 };
 
 export interface ITableCellStyled {
-  isSortable?: boolean;
+  sortable?: string;
 }

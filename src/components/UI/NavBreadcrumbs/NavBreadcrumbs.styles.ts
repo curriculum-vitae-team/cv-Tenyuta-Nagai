@@ -14,7 +14,7 @@ export const Link = styled(Typography)(({ theme }) => ({
   },
 })) as typeof Typography;
 
-export const UserName = styled(Typography)(() => ({
+export const IdName = styled(Typography)(() => ({
   maxWidth: 100,
   whiteSpace: 'nowrap',
   overflow: 'hidden',

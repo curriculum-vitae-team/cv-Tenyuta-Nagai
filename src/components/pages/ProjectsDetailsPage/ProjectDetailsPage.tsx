@@ -1,9 +1,11 @@
 import { useQuery } from '@apollo/client';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
 import { GET_PROJECT } from '../../../graphql/queries/project';
+import { breadcrumbsService } from '../../../graphql/service/breadcrumbsService/breadcrumbsService';
+import { modalService } from '../../../graphql/service/modalService';
 import { IProjectResult } from '../../../graphql/types/results/projects';
 import { useUser } from '../../../hooks/useUser';
 import { Row } from '../../Row';
@@ -15,32 +17,29 @@ import { ProjectUpdateModal } from './ProjectUpdateModal';
 const ProjectsDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const user = useUser();
-  const { loading, error, data } = useQuery<IProjectResult>(GET_PROJECT, {
+  const { loading, data } = useQuery<IProjectResult>(GET_PROJECT, {
     variables: { id },
+    onError: () => navigate(`/${RoutePath.PROJECTS}`, { replace: true }),
   });
-  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const user = useUser();
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
 
-  if (loading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    navigate(`/${RoutePath.PROJECTS}`, { replace: true });
-  }
+  useEffect(() => {
+    if (data?.project) {
+      breadcrumbsService.setIdPathName(data.project.name);
+    }
+  }, [data]);
 
   const handleEdit = () => {
-    setIsOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
+    modalService.setModalData('Update project', ProjectUpdateModal, { ...data });
   };
 
   return (
-    <>
-      <main>
+    <main>
+      {loading ? (
+        <Spinner />
+      ) : (
         <Styled.ContainerWrapper maxWidth="xl">
           <Styled.PaperWrapper elevation={3}>
             <Styled.Wrapper>
@@ -64,12 +63,8 @@ const ProjectsDetailsPage = () => {
             </PrivateButton>
           </Styled.PaperWrapper>
         </Styled.ContainerWrapper>
-      </main>
-
-      {isOpenModal && (
-        <ProjectUpdateModal open={isOpenModal} onClose={handleCloseModal} projectData={data!} />
       )}
-    </>
+    </main>
   );
 };
 
