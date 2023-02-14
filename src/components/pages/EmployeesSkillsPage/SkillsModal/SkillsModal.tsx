@@ -1,10 +1,8 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useProfileFormData } from '../../../../hooks/useProfileFormData';
 import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
-import { profileSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
 import { Spinner } from '../../../Spinner';
 import { InputSelect } from '../../../UI/InputSelect';
@@ -24,9 +22,7 @@ export const SkillsModal = () => {
   }: Pick<Partial<IProfileModalUserId>, keyof IProfileModalUserId> = useReactiveVar(
     modalService.modalData$
   );
-  const { loading, userData, skillsData, skillMasteryData, positionsData } = useProfileFormData(
-    userId!
-  );
+  const { loading, userData, skillsData, skillMasteryData } = useProfileFormData(userId!);
 
   const [updateUser, { loading: updateLoading }] = useMutation<IUserAllResult>(UPDATE_USER);
   const {
@@ -39,10 +35,8 @@ export const SkillsModal = () => {
 
   const skillsNames = skillsData?.skills.map(({ id, name }) => ({
     id: name,
-    name,
+    name: name,
   }));
-
-  console.log(createArrayForSkills(userData?.user.profile.skills));
 
   const onSubmit: SubmitHandler<IProfileFormInput> = (inputs) => {
     console.log(inputs);
@@ -76,6 +70,7 @@ export const SkillsModal = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputSelect
+            sx={{ minWidth: '150px' }}
             label={'Skill'}
             registerName={FieldNameEmployeeSkillForm.SKILL_NAME}
             register={register}
@@ -84,6 +79,7 @@ export const SkillsModal = () => {
           />
 
           <InputSelect
+            sx={{ minWidth: '150px' }}
             label={'Mastery'}
             registerName={FieldNameEmployeeSkillForm.MASTERY}
             register={register}
