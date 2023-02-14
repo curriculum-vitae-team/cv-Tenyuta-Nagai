@@ -39,7 +39,6 @@ export const SkillsModal = () => {
   }));
 
   const onSubmit: SubmitHandler<IProfileFormInput> = (inputs) => {
-    console.log(inputs);
     updateUser({
       variables: {
         id: userId,

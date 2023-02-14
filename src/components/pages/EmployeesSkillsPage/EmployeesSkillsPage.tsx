@@ -39,8 +39,6 @@ const EmployeesSkillsPage = () => {
   const [updateUser] = useMutation<IUserAllResult>(UPDATE_USER);
 
   const handleDelete = (skill: unknown) => {
-    console.log(skill);
-    console.log(createArrayForSkills(userData?.user.profile.skills));
     updateUser({
       variables: {
         id: id,

@@ -5,8 +5,6 @@ import { ISkillsListProps } from './SkillsList.interface';
 import * as Styled from './SkillsList.styles';
 
 export const SkillsList: FC<ISkillsListProps> = ({ data, handleDelete }) => {
-  console.log(data, 'data!!!');
-
   return (
     <Styled.ListMenu>
       {data.map(({ skill_name, mastery }) => (
