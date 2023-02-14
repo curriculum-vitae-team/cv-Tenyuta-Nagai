@@ -1,12 +1,16 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
+import { UPDATE_USER } from '../../../graphql/mutations/updateUser';
 import { USER } from '../../../graphql/queries/user';
 import { modalService } from '../../../graphql/service/modalService';
 import { IUserAllResult } from '../../../graphql/types/results/user';
+import { useProfileFormData } from '../../../hooks/useProfileFormData';
 import { useUser } from '../../../hooks/useUser';
+import { TError } from '../../../types/errorTypes';
+import { createArrayForSkills } from '../../../utils/createArrayForSkills';
 import { Spinner } from '../../Spinner';
 import { PrivateButton } from '../../UI/PrivateButton';
 import * as Styled from './EmployeesSkillsPage.styles';
@@ -30,6 +34,35 @@ const EmployeesSkillsPage = () => {
     modalService.setModalData('Add skill', SkillsModal, { id: id! });
   };
 
+  const { userData } = useProfileFormData(id!);
+
+  const [updateUser] = useMutation<IUserAllResult>(UPDATE_USER);
+
+  const handleDelete = (skill: unknown) => {
+    console.log(skill);
+    console.log(createArrayForSkills(userData?.user.profile.skills));
+    updateUser({
+      variables: {
+        id: id,
+        user: {
+          profile: {
+            first_name: userData?.user.profile.first_name || '',
+            last_name: userData?.user.profile.last_name || '',
+            skills: createArrayForSkills(userData?.user.profile.skills).filter(
+              (elem) => JSON.stringify(elem) != JSON.stringify(skill)
+            ),
+            languages: userData?.user.profile.languages,
+          },
+          departmentId: userData?.user?.department?.id || '',
+          positionId: userData?.user?.position?.id || '',
+          cvsIds: userData?.user?.cvs?.map(({ id }) => id) || [],
+        },
+      },
+    })
+      .catch((err) => console.error((err as TError).message))
+      .finally(() => modalService.closeModal());
+  };
+
   return (
     <>
       {loading ? (
@@ -38,7 +71,7 @@ const EmployeesSkillsPage = () => {
         <Styled.PaperWrapper elevation={3}>
           <Styled.Wrapper>
             <Styled.InfoWrapper>
-              <SkillsList data={data?.user?.profile.skills || []} />
+              <SkillsList data={data?.user?.profile.skills || []} handleDelete={handleDelete} />
             </Styled.InfoWrapper>
           </Styled.Wrapper>
 

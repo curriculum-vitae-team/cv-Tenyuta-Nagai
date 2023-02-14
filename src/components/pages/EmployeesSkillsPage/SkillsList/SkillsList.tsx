@@ -4,7 +4,7 @@ import { IconButton } from '@mui/material';
 import { ISkillsListProps } from './SkillsList.interface';
 import * as Styled from './SkillsList.styles';
 
-export const SkillsList: FC<ISkillsListProps> = ({ data }) => {
+export const SkillsList: FC<ISkillsListProps> = ({ data, handleDelete }) => {
   console.log(data, 'data!!!');
 
   return (
@@ -13,7 +13,11 @@ export const SkillsList: FC<ISkillsListProps> = ({ data }) => {
         <Styled.ItemMenu disableRipple key={skill_name}>
           {skill_name}
           <Styled.ItemChip variant="outlined" label={mastery} mastery={mastery} />
-          <IconButton sx={{ ml: '25px' }} aria-label="delete" onClick={() => console.log('delete')}>
+          <IconButton
+            sx={{ ml: '25px' }}
+            aria-label="delete"
+            onClick={() => handleDelete({ skill_name, mastery })}
+          >
             <CloseIcon />
           </IconButton>
         </Styled.ItemMenu>
