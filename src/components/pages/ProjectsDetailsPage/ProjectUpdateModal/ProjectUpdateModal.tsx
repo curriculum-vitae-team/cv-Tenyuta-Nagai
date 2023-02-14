@@ -51,7 +51,7 @@ export const ProjectUpdateModal = () => {
           domain: inputs.domain,
           team_size: Number(inputs.teamSize),
           start_date: formatDate(inputs.startDate),
-          end_date: formatDate(inputs?.endDate),
+          end_date: formatDate(inputs.endDate),
           skillsIds: [],
         },
       },
