@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
+import { Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
@@ -69,7 +70,11 @@ const EmployeesSkillsPage = () => {
         <Styled.PaperWrapper elevation={3}>
           <Styled.Wrapper>
             <Styled.InfoWrapper>
-              <SkillsList data={data?.user?.profile.skills || []} handleDelete={handleDelete} />
+              {data!.user.profile.skills.length > 0 ? (
+                <SkillsList data={data?.user?.profile.skills || []} handleDelete={handleDelete} />
+              ) : (
+                <Typography sx={{ fontSize: '20px' }}>No skills were found</Typography>
+              )}
             </Styled.InfoWrapper>
           </Styled.Wrapper>
 
