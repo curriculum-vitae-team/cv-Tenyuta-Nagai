@@ -22,9 +22,8 @@ export const CreatePositionModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<IFormCreatePosition>({
-    mode: 'onChange',
     resolver: yupResolver(positionSchema),
   });
 
@@ -50,7 +49,7 @@ export const CreatePositionModal = () => {
         helperText={errors.name?.message || ''}
       />
 
-      <ModalWindowButton loading={loading} isValid={isValid} />
+      <ModalWindowButton loading={loading} />
     </form>
   );
 };

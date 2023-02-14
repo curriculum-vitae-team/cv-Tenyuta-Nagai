@@ -23,9 +23,8 @@ export const ProjectCreateModal = () => {
     register,
     trigger,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<IProjectsFormInput>({
-    mode: 'onChange',
     resolver: yupResolver(projectsSchema),
   });
 
@@ -111,7 +110,7 @@ export const ProjectCreateModal = () => {
             name={FieldNameProjectsForm.END_DATE}
           />
 
-          <ModalWindowButton loading={loading} isValid={isValid} />
+          <ModalWindowButton loading={loading} />
         </form>
       )}
     </>

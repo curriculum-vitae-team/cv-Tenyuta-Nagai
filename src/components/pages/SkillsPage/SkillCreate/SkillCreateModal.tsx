@@ -19,9 +19,8 @@ export const SkillCreateModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<SkillsInput>({
-    mode: 'onChange',
     resolver: yupResolver(skillsSchema),
   });
 
@@ -54,7 +53,7 @@ export const SkillCreateModal = () => {
             helperText={errors.name?.message || ''}
           />
 
-          <ModalWindowButton loading={loading} isValid={isValid} />
+          <ModalWindowButton loading={loading} />
         </form>
       )}
     </>

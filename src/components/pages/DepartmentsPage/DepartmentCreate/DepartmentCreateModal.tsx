@@ -19,9 +19,8 @@ export const DepartmentsCreateModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<DepartmentsInput>({
-    mode: 'onChange',
     resolver: yupResolver(departmentsSchema),
   });
 
@@ -57,7 +56,7 @@ export const DepartmentsCreateModal = () => {
             helperText={errors.name?.message || ''}
           />
 
-          <ModalWindowButton loading={loading} isValid={isValid} />
+          <ModalWindowButton loading={loading} />
         </form>
       )}
     </>

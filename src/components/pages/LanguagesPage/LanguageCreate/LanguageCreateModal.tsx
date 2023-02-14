@@ -19,9 +19,8 @@ export const LanguageCreateModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<LanguageInput>({
-    mode: 'onChange',
     resolver: yupResolver(languagesSchema),
   });
 
@@ -72,7 +71,7 @@ export const LanguageCreateModal = () => {
             helperText={errors.nativeName?.message || ''}
           />
 
-          <ModalWindowButton loading={loading} isValid={isValid} />
+          <ModalWindowButton loading={loading} />
         </form>
       )}
     </>
