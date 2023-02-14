@@ -27,7 +27,7 @@ const EmployeesSkillsPage = () => {
   });
 
   const handleEdit = () => {
-    modalService.setModalData('Add', SkillsModal, { id: id! });
+    modalService.setModalData('Add skill', SkillsModal, { id: id! });
   };
 
   return (

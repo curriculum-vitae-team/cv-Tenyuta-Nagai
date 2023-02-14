@@ -7,6 +7,7 @@ import { IDepartmentReturn } from '../graphql/types/results/department';
 import { IPositionReturn } from '../graphql/types/results/position';
 import { ISkillsReturn } from '../graphql/types/results/skills';
 import { IUserAllResult } from '../graphql/types/results/user';
+import { SkillsMastery } from './../constants/skillsMastery';
 
 export const useProfileFormData = (id: string) => {
   const { loading: loadingUser, error: errorUser, data: userData } = useQuery<IUserAllResult>(
@@ -24,6 +25,12 @@ export const useProfileFormData = (id: string) => {
   const { loading: skillsLoading, error: skillsError, data: skillsData } = useQuery<ISkillsReturn>(
     SKILLS
   );
+  const skillMasteryData = [
+    { id: SkillsMastery.Novice, name: SkillsMastery.Novice },
+    { id: SkillsMastery.Average, name: SkillsMastery.Average },
+    { id: SkillsMastery.Advanced, name: SkillsMastery.Advanced },
+    { id: SkillsMastery.Expert, name: SkillsMastery.Expert },
+  ];
 
   return {
     loading: loadingUser || departmentsLoading || positionsLoading || skillsLoading,
@@ -32,5 +39,6 @@ export const useProfileFormData = (id: string) => {
     departmentsData,
     positionsData,
     skillsData,
+    skillMasteryData,
   };
 };

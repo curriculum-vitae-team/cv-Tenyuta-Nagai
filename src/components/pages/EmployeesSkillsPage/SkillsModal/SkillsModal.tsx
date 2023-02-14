@@ -16,6 +16,7 @@ import {
   IProfileModalUserId,
 } from '../../EmployeesProfilePage/ProfileModal/ProfileModal.types';
 import { FieldNameEmployeeSkillForm } from '../../../../constants/fieldNameEmployeeSkillForm';
+import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
 
 export const SkillsModal = () => {
   const {
@@ -23,7 +24,10 @@ export const SkillsModal = () => {
   }: Pick<Partial<IProfileModalUserId>, keyof IProfileModalUserId> = useReactiveVar(
     modalService.modalData$
   );
-  const { loading, userData, skillsData } = useProfileFormData(userId!);
+  const { loading, userData, skillsData, skillMasteryData, positionsData } = useProfileFormData(
+    userId!
+  );
+
   const [updateUser, { loading: updateLoading }] = useMutation<IUserAllResult>(UPDATE_USER);
   const {
     register,
@@ -31,35 +35,42 @@ export const SkillsModal = () => {
     formState: { isValid },
   } = useForm<IProfileFormInput>({
     mode: 'onChange',
-    resolver: yupResolver(profileSchema),
   });
 
-  const onSubmit: SubmitHandler<IProfileFormInput> = async (inputs) => {
-    try {
-      await updateUser({
-        variables: {
-          id: userId,
-          user: {
-            profile: {
-              first_name: userData?.user.profile.first_name || '',
-              last_name: userData?.user.profile.last_name || '',
-              skills: [
-                userData?.user.profile.skills,
-                { skill_name: inputs.skill_name, mastery: inputs.mastery },
-              ],
-              languages: userData?.user.profile.languages,
+  const skillsNames = skillsData?.skills.map(({ id, name }) => ({
+    id: name,
+    name,
+  }));
+
+  console.log(skillMasteryData);
+
+  console.log('skillsdata', skillsData);
+  console.log('positions', positionsData);
+
+  const onSubmit: SubmitHandler<IProfileFormInput> = (inputs) => {
+    console.log(inputs);
+    updateUser({
+      variables: {
+        id: userId,
+        user: {
+          profile: {
+            first_name: userData?.user.profile.first_name || '',
+            last_name: userData?.user.profile.last_name || '',
+            skills: {
+              ...createArrayForSkills(userData?.user.profile.skills),
+              skill_name: inputs.skill_name,
+              mastery: inputs.mastery,
             },
-            departmentId: userData?.user?.department?.id,
-            positionId: userData?.user?.position?.id,
-            cvsIds: userData?.user?.cvs?.map(({ id }) => id) || [],
+            languages: userData?.user.profile.languages,
           },
+          departmentId: userData?.user?.department?.id,
+          positionId: userData?.user?.position?.id,
+          cvsIds: userData?.user?.cvs?.map(({ id }) => id) || [],
         },
-      });
-    } catch (err) {
-      console.error((err as TError).message);
-    } finally {
-      modalService.closeModal();
-    }
+      },
+    })
+      .catch((err) => console.error((err as TError).message))
+      .finally(() => modalService.closeModal());
   };
 
   return (
@@ -69,10 +80,19 @@ export const SkillsModal = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputSelect
-            label={'Skills'}
+            label={'Skill'}
             registerName={FieldNameEmployeeSkillForm.SKILL_NAME}
             register={register}
             data={skillsData!.skills}
+            defaultValue={''}
+          />
+
+          <InputSelect
+            label={'Mastery'}
+            registerName={FieldNameEmployeeSkillForm.MASTERY}
+            register={register}
+            data={skillMasteryData}
+            defaultValue={''}
           />
 
           <ModalWindowButton loading={updateLoading} isValid={isValid} />
