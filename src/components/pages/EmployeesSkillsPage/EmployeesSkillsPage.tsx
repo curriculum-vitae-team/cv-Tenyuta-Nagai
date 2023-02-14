@@ -4,12 +4,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
 import { USER } from '../../../graphql/queries/user';
+import { modalService } from '../../../graphql/service/modalService';
 import { IUserAllResult } from '../../../graphql/types/results/user';
 import { useUser } from '../../../hooks/useUser';
 import { Spinner } from '../../Spinner';
 import { PrivateButton } from '../../UI/PrivateButton';
 import * as Styled from './EmployeesSkillsPage.styles';
 import { SkillsList } from './SkillsList/SkillsList';
+import { SkillsModal } from './SkillsModal/SkillsModal';
 
 const EmployeesSkillsPage = () => {
   const user = useUser();
@@ -24,6 +26,10 @@ const EmployeesSkillsPage = () => {
     onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
   });
 
+  const handleEdit = () => {
+    modalService.setModalData('Add', SkillsModal, { id: id! });
+  };
+
   return (
     <>
       {loading ? (
@@ -36,12 +42,8 @@ const EmployeesSkillsPage = () => {
             </Styled.InfoWrapper>
           </Styled.Wrapper>
 
-          <PrivateButton
-            isVisible={isVisible}
-            onClick={() => console.log('edit')}
-            sx={{ minWidth: 140 }}
-          >
-            Edit
+          <PrivateButton isVisible={isVisible} onClick={handleEdit} sx={{ minWidth: 140 }}>
+            Add skill
           </PrivateButton>
         </Styled.PaperWrapper>
       )}
