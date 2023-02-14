@@ -36,27 +36,23 @@ export const ProfileModal = () => {
     resolver: yupResolver(profileSchema),
   });
 
-  const onSubmit: SubmitHandler<IProfileFormInput> = async (inputs) => {
-    try {
-      await updateUser({
-        variables: {
-          id: userId,
-          user: {
-            profile: {
-              first_name: inputs.firstName,
-              last_name: inputs.lastName,
-            },
-            departmentId: inputs.department,
-            positionId: inputs.position,
-            cvsIds: userData?.user?.cvs?.map(({ id }) => id) || [],
+  const onSubmit: SubmitHandler<IProfileFormInput> = (inputs) => {
+    updateUser({
+      variables: {
+        id: userId,
+        user: {
+          profile: {
+            first_name: inputs.firstName,
+            last_name: inputs.lastName,
           },
+          departmentId: inputs.department,
+          positionId: inputs.position,
+          cvsIds: userData?.user?.cvs?.map(({ id }) => id) || [],
         },
-      });
-    } catch (err) {
-      console.error((err as TError).message);
-    } finally {
-      modalService.closeModal();
-    }
+      },
+    })
+      .catch((err) => console.error((err as TError).message))
+      .finally(() => modalService.closeModal());
   };
 
   return (
