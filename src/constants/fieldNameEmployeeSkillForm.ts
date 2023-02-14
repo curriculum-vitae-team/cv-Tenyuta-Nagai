@@ -1,4 +1,4 @@
 export enum FieldNameEmployeeSkillForm {
-  SKILL_NAME = 'skill_name',
+  SKILL_NAME = 'skillName',
   MASTERY = 'mastery',
 }

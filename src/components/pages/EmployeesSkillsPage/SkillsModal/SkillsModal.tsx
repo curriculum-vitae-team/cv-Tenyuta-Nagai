@@ -42,10 +42,7 @@ export const SkillsModal = () => {
     name,
   }));
 
-  console.log(skillMasteryData);
-
-  console.log('skillsdata', skillsData);
-  console.log('positions', positionsData);
+  console.log(createArrayForSkills(userData?.user.profile.skills));
 
   const onSubmit: SubmitHandler<IProfileFormInput> = (inputs) => {
     console.log(inputs);
@@ -56,11 +53,10 @@ export const SkillsModal = () => {
           profile: {
             first_name: userData?.user.profile.first_name || '',
             last_name: userData?.user.profile.last_name || '',
-            skills: {
+            skills: [
+              { skill_name: inputs.skillName, mastery: inputs.mastery },
               ...createArrayForSkills(userData?.user.profile.skills),
-              skill_name: inputs.skill_name,
-              mastery: inputs.mastery,
-            },
+            ],
             languages: userData?.user.profile.languages,
           },
           departmentId: userData?.user?.department?.id,
@@ -83,7 +79,7 @@ export const SkillsModal = () => {
             label={'Skill'}
             registerName={FieldNameEmployeeSkillForm.SKILL_NAME}
             register={register}
-            data={skillsData!.skills}
+            data={skillsNames!}
             defaultValue={''}
           />
 

@@ -4,9 +4,9 @@ export interface IProfileFormInput {
   lastName: string;
   position: string;
   department: string;
-  skills: string;
-  skill_name: string;
-  mastery: string;
+
+  skillName: string;
+  name: string;
 }
 
 export interface IProfileModalUserId {

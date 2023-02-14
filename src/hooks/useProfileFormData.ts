@@ -27,9 +27,7 @@ export const useProfileFormData = (id: string) => {
   );
   const skillMasteryData = [
     { id: SkillsMastery.Novice, name: SkillsMastery.Novice },
-    { id: SkillsMastery.Average, name: SkillsMastery.Average },
     { id: SkillsMastery.Advanced, name: SkillsMastery.Advanced },
-    { id: SkillsMastery.Expert, name: SkillsMastery.Expert },
   ];
 
   return {
