@@ -14,14 +14,11 @@ import { InputText } from '../../../UI/InputText';
 import { CreateUserResult, IUserAllResult } from '../../../../graphql/types/results/user';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
-import { GET_ALL_USERS } from '../../../../graphql/queries/users';
 import { IEmployeesFormInput } from './EmployeesModal.interface';
 
 export const EmployeesModal = () => {
   const { loading, positionsData, departmentsData, rolesData } = useEmployeesFormData();
-  const [createUser, { loading: updateLoading }] = useMutation<IUserAllResult>(CREATE_USER, {
-    refetchQueries: [{ query: GET_ALL_USERS }, 'getUsers'],
-  });
+  const [createUser, { loading: updateLoading }] = useMutation<IUserAllResult>(CREATE_USER);
   const {
     register,
     handleSubmit,
