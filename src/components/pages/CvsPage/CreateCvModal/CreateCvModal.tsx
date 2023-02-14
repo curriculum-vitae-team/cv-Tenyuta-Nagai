@@ -33,13 +33,13 @@ export const CreateCvModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<IFormCreateCv>({
     resolver: yupResolver(editCvSchema),
   });
 
-  const onSubmit: SubmitHandler<IFormCreateCv> = async (inputs) => {
-    await createCV({
+  const onSubmit: SubmitHandler<IFormCreateCv> = (inputs) => {
+    createCV({
       variables: {
         cv: {
           name: inputs.name,
@@ -85,7 +85,7 @@ export const CreateCvModal = () => {
             <Checkbox {...register('template')} {...Styled.checkboxLabel} />
           </Styled.CheckboxWrap>
 
-          <ModalWindowButton loading={createCvLoading} />
+          <ModalWindowButton loading={createCvLoading} isValid={!isSubmitted || isValid} />
         </form>
       )}
     </>

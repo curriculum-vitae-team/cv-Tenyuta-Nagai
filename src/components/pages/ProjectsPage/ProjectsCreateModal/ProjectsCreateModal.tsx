@@ -23,7 +23,7 @@ export const ProjectCreateModal = () => {
     register,
     trigger,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<IProjectsFormInput>({
     resolver: yupResolver(projectsSchema),
   });
@@ -43,7 +43,7 @@ export const ProjectCreateModal = () => {
         },
       },
       update(cache, { data }) {
-        updateCacheAfterCreatingProject(cache, data as CreateProjectResult);
+        updateCacheAfterCreatingProject(cache, data!);
       },
     })
       .catch((err) => console.error((err as TError).message))
@@ -110,7 +110,7 @@ export const ProjectCreateModal = () => {
             name={FieldNameProjectsForm.END_DATE}
           />
 
-          <ModalWindowButton loading={loading} />
+          <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
         </form>
       )}
     </>

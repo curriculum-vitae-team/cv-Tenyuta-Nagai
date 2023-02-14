@@ -25,7 +25,7 @@ export const EmployeesModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<IEmployeesFormInput>({
     resolver: yupResolver(employeesSchema),
   });
@@ -121,7 +121,7 @@ export const EmployeesModal = () => {
             data={rolesData}
           />
 
-          <ModalWindowButton loading={updateLoading} />
+          <ModalWindowButton loading={updateLoading} isValid={!isSubmitted || isValid} />
         </form>
       )}
     </>
