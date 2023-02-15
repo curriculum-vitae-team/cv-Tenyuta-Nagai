@@ -10,6 +10,7 @@ import { modalService } from '../../../graphql/service/modalService';
 import { IUserAllResult } from '../../../graphql/types/results/user';
 import { useProfileFormData } from '../../../hooks/useProfileFormData';
 import { useUser } from '../../../hooks/useUser';
+import { ISkillMastery } from '../../../interfaces/ISkillMastery.interface';
 import { TError } from '../../../types/errorTypes';
 import { createArrayForSkills } from '../../../utils/createArrayForSkills';
 import { Spinner } from '../../Spinner';
@@ -37,7 +38,7 @@ const EmployeesSkillsPage = () => {
     modalService.setModalData('Add skill', SkillsModal, { id: id! });
   };
 
-  const handleDelete = (skill: unknown) => {
+  const handleDelete = (skill: ISkillMastery) => {
     updateUser({
       variables: {
         id: id,
@@ -67,7 +68,11 @@ const EmployeesSkillsPage = () => {
           <Styled.Wrapper>
             <Styled.InfoWrapper>
               {data!.user.profile.skills.length > 0 ? (
-                <SkillsList data={data?.user?.profile.skills || []} handleDelete={handleDelete} />
+                <SkillsList
+                  data={data!.user.profile.skills}
+                  handleDelete={handleDelete}
+                  isVisible={isVisible}
+                />
               ) : (
                 <Typography sx={{ fontSize: '20px' }}>No skills were found</Typography>
               )}

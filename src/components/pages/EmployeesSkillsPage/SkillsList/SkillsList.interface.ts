@@ -2,7 +2,8 @@ import { ISkillMastery } from './../../../../interfaces/ISkillMastery.interface'
 
 export interface ISkillsListProps {
   data: ISkillMastery[];
-  handleDelete: (skill: unknown) => void;
+  handleDelete: (skill: ISkillMastery) => void;
+  isVisible: boolean;
 }
 
 export interface IChipStyled {

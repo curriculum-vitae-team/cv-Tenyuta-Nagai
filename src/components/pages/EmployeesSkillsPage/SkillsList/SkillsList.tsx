@@ -1,18 +1,11 @@
 import React, { FC } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
-import { useParams } from 'react-router-dom';
 import { chipStyle } from '../helpers/chipStyle';
-import { useUser } from '../../../../hooks/useUser';
-import { UserRoles } from '../../../../constants/userRoles';
 import { ISkillsListProps } from './SkillsList.interface';
 import * as Styled from './SkillsList.styles';
 
-export const SkillsList: FC<ISkillsListProps> = ({ data, handleDelete }) => {
-  const user = useUser();
-  const { id } = useParams();
-  const isVisible = user?.id === id || user?.role === UserRoles.Admin;
-
+export const SkillsList: FC<ISkillsListProps> = ({ data, handleDelete, isVisible }) => {
   return (
     <Styled.ListMenu>
       {data.map(({ skill_name, mastery }) => (
