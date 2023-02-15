@@ -15,8 +15,8 @@ export const ListMenu = styled(MenuList)(() => ({
   rowGap: 18,
 }));
 
-export const ItemChip = styled(Chip)<IChipStyled>(({ mastery }) => ({
+export const ItemChip = styled(Chip)<IChipStyled>(({ mastery, theme }) => ({
   marginLeft: '20px',
-  color: mastery == 'novice' ? 'orange' : 'green',
-  borderColor: mastery == 'novice' ? 'orange' : 'green',
+  backgroundColor: mastery,
+  color: theme.palette.primary.contrastText,
 }));

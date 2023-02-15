@@ -1,12 +1,10 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
-import { Alert } from '@mui/material';
 import { useProfileFormData } from '../../../../hooks/useProfileFormData';
 import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
 import { TError } from '../../../../types/errorTypes';
 import { Spinner } from '../../../Spinner';
-import { InputSelect } from '../../../UI/InputSelect';
 import { CreateUserResult } from '../../../../graphql/types/results/user';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
