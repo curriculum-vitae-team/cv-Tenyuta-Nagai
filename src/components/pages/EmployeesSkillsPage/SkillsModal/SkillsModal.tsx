@@ -5,7 +5,6 @@ import { useProfileFormData } from '../../../../hooks/useProfileFormData';
 import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
 import { TError } from '../../../../types/errorTypes';
 import { Spinner } from '../../../Spinner';
-import { CreateUserResult } from '../../../../graphql/types/results/user';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { FieldNameEmployeeSkillForm } from '../../../../constants/fieldNameEmployeeSkillForm';
@@ -22,7 +21,7 @@ export const SkillsModal = () => {
   );
   const { loading, userData, skillsData, skillMasteryData } = useProfileFormData(userId!);
 
-  const [updateUser, { loading: updateLoading }] = useMutation<CreateUserResult>(UPDATE_USER);
+  const [updateUser, { loading: updateLoading }] = useMutation(UPDATE_USER);
   const {
     register,
     handleSubmit,
@@ -52,11 +51,9 @@ export const SkillsModal = () => {
               { skill_name: inputs.skillName, mastery: inputs.mastery },
               ...createArrayForSkills(userData?.user.profile.skills),
             ],
-            languages: userData?.user.profile.languages,
           },
           departmentId: userData?.user?.department?.id || '',
           positionId: userData?.user?.position?.id || '',
-          cvsIds: userData?.user?.cvs?.map(({ id }) => id) || [],
         },
       },
     })

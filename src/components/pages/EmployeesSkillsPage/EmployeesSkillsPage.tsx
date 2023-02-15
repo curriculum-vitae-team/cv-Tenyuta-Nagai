@@ -25,19 +25,17 @@ const EmployeesSkillsPage = () => {
   const isAdmin = user?.role === UserRoles.Admin;
   const currentId = isAdmin ? id : user?.id;
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
+  const { userData } = useProfileFormData(id!);
 
   const { loading, data } = useQuery<IUserAllResult>(USER, {
     variables: { id: currentId },
     onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
   });
+  const [updateUser] = useMutation(UPDATE_USER);
 
   const handleEdit = () => {
     modalService.setModalData('Add skill', SkillsModal, { id: id! });
   };
-
-  const { userData } = useProfileFormData(id!);
-
-  const [updateUser] = useMutation<IUserAllResult>(UPDATE_USER);
 
   const handleDelete = (skill: unknown) => {
     updateUser({
@@ -50,11 +48,9 @@ const EmployeesSkillsPage = () => {
             skills: createArrayForSkills(userData?.user.profile.skills).filter(
               (elem) => JSON.stringify(elem) != JSON.stringify(skill)
             ),
-            languages: userData?.user.profile.languages,
           },
           departmentId: userData?.user?.department?.id || '',
           positionId: userData?.user?.position?.id || '',
-          cvsIds: userData?.user?.cvs?.map(({ id }) => id) || [],
         },
       },
     })
