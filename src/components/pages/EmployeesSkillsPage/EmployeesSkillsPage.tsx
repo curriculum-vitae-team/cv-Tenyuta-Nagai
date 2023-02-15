@@ -29,7 +29,9 @@ const EmployeesSkillsPage = () => {
     variables: { id: id },
     onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
   });
-  const [updateUser] = useMutation(UPDATE_USER);
+  const [updateUser] = useMutation(UPDATE_USER, {
+    refetchQueries: [{ query: USER, variables: { id } }, 'User'],
+  });
 
   const handleEdit = () => {
     modalService.setModalData('Add skill', SkillsModal, { id: id! });
