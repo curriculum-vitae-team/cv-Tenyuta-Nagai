@@ -8,7 +8,7 @@ import { DatePickerInput } from '../../../UI/DatePicker';
 import { updateCacheAfterCreatingProject } from '../../../../graphql/cache/createProject';
 import { CREATE_PROJECT } from '../../../../graphql/mutations/createProject';
 import { projectsSchema } from '../../../../utils/validationSchema';
-import { CreateProjectResult, IProjectsResult } from '../../../../graphql/types/results/projects';
+import { CreateProjectResult } from '../../../../graphql/types/results/projects';
 import { TError } from '../../../../types/errorTypes';
 import { FieldNameProjectsForm } from '../../../../constants/FieldNameProjectsForm';
 import { formatDate } from '../../../../utils/formatDate';
@@ -17,15 +17,14 @@ import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { IProjectsFormInput } from './ProjectsCreateModal.interface';
 
 export const ProjectCreateModal = () => {
-  const [createProject, { loading }] = useMutation<IProjectsResult>(CREATE_PROJECT);
+  const [createProject, { loading }] = useMutation<CreateProjectResult>(CREATE_PROJECT);
   const {
     control,
     register,
     trigger,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<IProjectsFormInput>({
-    mode: 'onChange',
     resolver: yupResolver(projectsSchema),
   });
 
@@ -44,7 +43,7 @@ export const ProjectCreateModal = () => {
         },
       },
       update(cache, { data }) {
-        updateCacheAfterCreatingProject(cache, (data as unknown) as CreateProjectResult);
+        updateCacheAfterCreatingProject(cache, data!);
       },
     })
       .catch((err) => console.error((err as TError).message))
@@ -111,7 +110,7 @@ export const ProjectCreateModal = () => {
             name={FieldNameProjectsForm.END_DATE}
           />
 
-          <ModalWindowButton loading={loading} isValid={isValid} />
+          <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
         </form>
       )}
     </>

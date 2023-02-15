@@ -14,9 +14,14 @@ export const Link = styled(Typography)(({ theme }) => ({
   },
 })) as typeof Typography;
 
-export const IdName = styled(Typography)(() => ({
+export const IdName = styled(Typography)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  textDecoration: 'none',
   maxWidth: 100,
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-}));
+  ':hover': {
+    cursor: 'pointer',
+  },
+})) as typeof Typography;
