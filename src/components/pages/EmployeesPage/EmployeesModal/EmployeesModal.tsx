@@ -11,14 +11,14 @@ import { employeesSchema } from '../../../../utils/validationSchema';
 import { Spinner } from '../../../Spinner';
 import { InputSelect } from '../../../UI/InputSelect';
 import { InputText } from '../../../UI/InputText';
-import { CreateUserResult, IUserAllResult } from '../../../../graphql/types/results/user';
+import { CreateUserResult } from '../../../../graphql/types/results/user';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { IEmployeesFormInput } from './EmployeesModal.interface';
 
 export const EmployeesModal = () => {
   const { loading, positionsData, departmentsData, rolesData } = useEmployeesFormData();
-  const [createUser, { loading: updateLoading }] = useMutation<IUserAllResult>(CREATE_USER);
+  const [createUser, { loading: updateLoading }] = useMutation<CreateUserResult>(CREATE_USER);
   const {
     register,
     handleSubmit,
@@ -48,7 +48,7 @@ export const EmployeesModal = () => {
         },
       },
       update(cache, { data }) {
-        updateCacheAfterCreatingUser(cache, inputs.role, (data as unknown) as CreateUserResult);
+        updateCacheAfterCreatingUser(cache, inputs.role, data!);
       },
     })
       .catch((err) => console.error((err as TError).message))
