@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
+import { Alert } from '@mui/material';
 import { useProfileFormData } from '../../../../hooks/useProfileFormData';
 import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
 import { TError } from '../../../../types/errorTypes';
@@ -11,6 +12,8 @@ import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { FieldNameEmployeeSkillForm } from '../../../../constants/fieldNameEmployeeSkillForm';
 import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
+import { InputSelectEmployeePage } from '../../../UI/InputSelectEmployee';
+import { notificationService } from '../../../../graphql/service/notification/notificationService';
 import { ISkillsFormInput, ISkillsModalUserId } from './SkillsModal.types';
 
 export const SkillsModal = () => {
@@ -30,12 +33,16 @@ export const SkillsModal = () => {
     mode: 'onChange',
   });
 
-  // const skillsNames = skillsData?.skills.map(({ id, name }) => ({
-  //   id: name,
-  //   name: name,
-  // }));
-
   const onSubmit: SubmitHandler<ISkillsFormInput> = (inputs) => {
+    if (
+      createArrayForSkills(userData?.user.profile.skills)
+        .map(({ skill_name }) => skill_name)
+        .includes(inputs.skillName)
+    ) {
+      notificationService.openErrorAlert('Skill already exists');
+      modalService.closeModal();
+      return;
+    }
     updateUser({
       variables: {
         id: userId,
@@ -65,7 +72,7 @@ export const SkillsModal = () => {
         <Spinner />
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-          <InputSelect
+          <InputSelectEmployeePage
             sx={{ minWidth: '150px' }}
             label={'Skill'}
             registerName={FieldNameEmployeeSkillForm.SKILL_NAME}
@@ -74,7 +81,7 @@ export const SkillsModal = () => {
             defaultValue={''}
           />
 
-          <InputSelect
+          <InputSelectEmployeePage
             sx={{ minWidth: '150px' }}
             label={'Mastery'}
             registerName={FieldNameEmployeeSkillForm.MASTERY}
