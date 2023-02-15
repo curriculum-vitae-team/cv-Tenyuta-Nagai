@@ -6,39 +6,36 @@ import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
 import { TError } from '../../../../types/errorTypes';
 import { Spinner } from '../../../Spinner';
 import { InputSelect } from '../../../UI/InputSelect';
-import { IUserAllResult } from '../../../../graphql/types/results/user';
+import { CreateUserResult } from '../../../../graphql/types/results/user';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
-import {
-  IProfileFormInput,
-  IProfileModalUserId,
-} from '../../EmployeesProfilePage/ProfileModal/ProfileModal.types';
 import { FieldNameEmployeeSkillForm } from '../../../../constants/fieldNameEmployeeSkillForm';
 import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
+import { ISkillsFormInput, ISkillsModalUserId } from './SkillsModal.types';
 
 export const SkillsModal = () => {
   const {
     id: userId,
-  }: Pick<Partial<IProfileModalUserId>, keyof IProfileModalUserId> = useReactiveVar(
+  }: Pick<Partial<ISkillsModalUserId>, keyof ISkillsModalUserId> = useReactiveVar(
     modalService.modalData$
   );
   const { loading, userData, skillsData, skillMasteryData } = useProfileFormData(userId!);
 
-  const [updateUser, { loading: updateLoading }] = useMutation<IUserAllResult>(UPDATE_USER);
+  const [updateUser, { loading: updateLoading }] = useMutation<CreateUserResult>(UPDATE_USER);
   const {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm<IProfileFormInput>({
+  } = useForm<ISkillsFormInput>({
     mode: 'onChange',
   });
 
-  const skillsNames = skillsData?.skills.map(({ id, name }) => ({
-    id: name,
-    name: name,
-  }));
+  // const skillsNames = skillsData?.skills.map(({ id, name }) => ({
+  //   id: name,
+  //   name: name,
+  // }));
 
-  const onSubmit: SubmitHandler<IProfileFormInput> = (inputs) => {
+  const onSubmit: SubmitHandler<ISkillsFormInput> = (inputs) => {
     updateUser({
       variables: {
         id: userId,
@@ -73,7 +70,7 @@ export const SkillsModal = () => {
             label={'Skill'}
             registerName={FieldNameEmployeeSkillForm.SKILL_NAME}
             register={register}
-            data={skillsNames!}
+            data={skillsData!.skills}
             defaultValue={''}
           />
 

@@ -3,3 +3,7 @@ export interface ISkillsFormInput {
   skill_name: string;
   mastery: string;
 }
+
+export interface ISkillsModalUserId {
+  id: string;
+}
