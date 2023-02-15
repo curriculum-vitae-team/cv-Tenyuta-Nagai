@@ -22,13 +22,11 @@ const EmployeesSkillsPage = () => {
   const user = useUser();
   const { id } = useParams();
   const navigate = useNavigate();
-  const isAdmin = user?.role === UserRoles.Admin;
-  const currentId = isAdmin ? id : user?.id;
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
   const { userData } = useProfileFormData(id!);
 
   const { loading, data } = useQuery<IUserAllResult>(USER, {
-    variables: { id: currentId },
+    variables: { id: id },
     onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
   });
   const [updateUser] = useMutation(UPDATE_USER);

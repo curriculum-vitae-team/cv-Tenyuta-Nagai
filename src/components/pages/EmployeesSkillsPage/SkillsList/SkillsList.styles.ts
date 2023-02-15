@@ -5,7 +5,7 @@ export const ItemMenu = styled(MenuItem)(() => ({
   whiteSpace: 'pre-wrap',
   wordWrap: 'break-word',
   wordBreak: 'break-word',
-  fontSize: 18,
+  fontSize: 22,
   '&:hover': { backgroundColor: 'transparent' },
 }));
 
@@ -16,7 +16,7 @@ export const ListMenu = styled(MenuList)(() => ({
 }));
 
 export const ItemChip = styled(Chip)<IChipStyled>(({ mastery, theme }) => ({
-  marginLeft: '20px',
+  marginLeft: '25px',
   backgroundColor: mastery,
   color: theme.palette.primary.contrastText,
 }));
