@@ -1,9 +1,13 @@
 export const chipStyle = (mastery: string) => {
   switch (mastery) {
     case 'novice':
-      return 'orange';
+      return '#DC143C';
     case 'advanced':
-      return '#6685F0';
+      return 'orange';
+    case 'competent':
+      return 'gold';
+    case 'proficient':
+      return '#32CD32';
     case 'expert':
       return 'green';
     default:
