@@ -10,9 +10,8 @@ import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { FieldNameEmployeeSkillForm } from '../constants/fieldNameEmployeeSkillForm';
 import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
 import { InputSelectEmployeePage } from '../../../UI/InputSelectEmployee';
-import { notificationService } from '../../../../graphql/service/notification/notificationService';
 import { employeeSkillsSchema } from '../../../../utils/validationSchema';
-import { useEmployeeSkillsFormData } from '../../../../hooks/useEmployeeSkillsFormData';
+import { useEmployeeSkillsFormData } from '../helpers/useEmployeeSkillsFormData';
 import { ISkillsFormInput, ISkillsModalUserId } from './SkillsModal.types';
 
 export const SkillsModal = () => {
@@ -22,6 +21,7 @@ export const SkillsModal = () => {
     modalService.modalData$
   );
   const { loading, userData, skillsData, skillMasteryData } = useEmployeeSkillsFormData(userId!);
+  const skillsList = userData?.user.profile.skills.map(({ skill_name }) => skill_name);
 
   const [updateUser, { loading: updateLoading }] = useMutation(UPDATE_USER);
   const {
@@ -34,15 +34,6 @@ export const SkillsModal = () => {
   });
 
   const onSubmit: SubmitHandler<ISkillsFormInput> = (inputs) => {
-    if (
-      createArrayForSkills(userData?.user.profile.skills)
-        .map(({ skill_name }) => skill_name)
-        .includes(inputs.skillName)
-    ) {
-      notificationService.openErrorAlert('Skill already exists');
-      modalService.closeModal();
-      return;
-    }
     updateUser({
       variables: {
         id: userId,
@@ -75,7 +66,7 @@ export const SkillsModal = () => {
             label={'Skill'}
             registerName={FieldNameEmployeeSkillForm.SKILL_NAME}
             register={register}
-            data={skillsData!.skills}
+            data={skillsData!.skills.filter((element) => !skillsList?.includes(element.name))}
             defaultValue={''}
           />
 
