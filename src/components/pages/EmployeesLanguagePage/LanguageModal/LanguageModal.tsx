@@ -81,7 +81,9 @@ export const LanguageModal = () => {
             label={'Language'}
             registerName={FieldNameEmployeeLanguagesForm.LANGUAGE_NAME}
             register={register}
-            data={languagesData!.languages.filter((x) => !languagesList?.includes(x.name))}
+            data={languagesData!.languages.filter(
+              (language) => !languagesList?.includes(language.name)
+            )}
             defaultValue={''}
           />
 

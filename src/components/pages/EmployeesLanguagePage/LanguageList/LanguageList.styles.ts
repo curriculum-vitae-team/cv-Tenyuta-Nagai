@@ -1,4 +1,4 @@
-import { MenuItem, MenuList, Paper, styled } from '@mui/material';
+import { IconButton, MenuItem, MenuList, Paper, styled } from '@mui/material';
 
 export const ItemMenu = styled(MenuItem)(() => ({
   whiteSpace: 'pre-wrap',
@@ -10,11 +10,19 @@ export const ItemMenu = styled(MenuItem)(() => ({
 
 export const ListMenu = styled(MenuList)(() => ({
   display: 'flex',
-  flexDirection: 'column',
-  rowGap: 18,
+  flexWrap: 'wrap',
+  columnGap: 20,
+  rowGap: 20,
 }));
 
-export const ItemBox = styled(Paper)(() => ({
+export const ItemBox = styled(Paper)(({ theme }) => ({
+  padding: '10px',
   minHeight: '100px',
-  minWidth: '150px',
+  minWidth: '200px',
+  backgroundColor: theme.palette.primary.contrastText,
+}));
+
+export const IconButtonListItem = styled(IconButton)(({ theme }) => ({
+  padding: 0,
+  color: theme.palette.secondary.contrastText,
 }));
