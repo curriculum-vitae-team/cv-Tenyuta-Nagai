@@ -7,7 +7,7 @@ import { TError } from '../../../../types/errorTypes';
 import { Spinner } from '../../../Spinner';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
-import { FieldNameEmployeeSkillForm } from '../../../../constants/fieldNameEmployeeSkillForm';
+import { FieldNameEmployeeSkillForm } from '../constants/fieldNameEmployeeSkillForm';
 import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
 import { InputSelectEmployeePage } from '../../../UI/InputSelectEmployee';
 import { notificationService } from '../../../../graphql/service/notification/notificationService';

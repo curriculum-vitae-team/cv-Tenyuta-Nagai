@@ -7,7 +7,7 @@ import { IDepartmentReturn } from '../graphql/types/results/department';
 import { IPositionReturn } from '../graphql/types/results/position';
 import { ISkillsReturn } from '../graphql/types/results/skills';
 import { IUserAllResult } from '../graphql/types/results/user';
-import { SkillsMastery } from './../constants/skillsMastery';
+import { SkillsMastery } from '../components/pages/EmployeesSkillsPage/constants/skillsMastery';
 
 export const useProfileFormData = (id: string) => {
   const { loading: loadingUser, error: errorUser, data: userData } = useQuery<IUserAllResult>(
