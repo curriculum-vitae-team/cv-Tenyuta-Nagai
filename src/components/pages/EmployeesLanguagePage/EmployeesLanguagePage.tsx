@@ -75,7 +75,7 @@ const EmployeesLanguagePage = () => {
             </Styled.InfoWrapper>
           </Styled.Wrapper>
 
-          <PrivateButton isVisible={isVisible} onClick={handleEdit} sx={{ minWidth: 140 }}>
+          <PrivateButton isVisible={isVisible} onClick={handleEdit} sx={{ minWidth: 160 }}>
             Add language
           </PrivateButton>
         </Styled.PaperWrapper>

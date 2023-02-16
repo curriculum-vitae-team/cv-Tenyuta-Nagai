@@ -27,7 +27,7 @@ export const LanguagesList: FC<ILanguagesListProps> = ({ data, handleDelete, isV
           </Box>
           <Box>
             Language level:
-            <Typography sx={{ color: 'secondary.main' }}>{proficiency.toUpperCase()}</Typography>
+            <Typography sx={{ color: 'secondary.main' }}>{proficiency}</Typography>
           </Box>
         </Styled.ItemBox>
       ))}
