@@ -1,16 +1,18 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
-import { useProfileFormData } from '../../../../hooks/useProfileFormData';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
 import { TError } from '../../../../types/errorTypes';
 import { Spinner } from '../../../Spinner';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
-import { FieldNameEmployeeSkillForm } from '../../../../constants/fieldNameEmployeeSkillForm';
+import { FieldNameEmployeeSkillForm } from '../constants/fieldNameEmployeeSkillForm';
 import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
 import { InputSelectEmployeePage } from '../../../UI/InputSelectEmployee';
 import { notificationService } from '../../../../graphql/service/notification/notificationService';
+import { employeeSkillsSchema } from '../../../../utils/validationSchema';
+import { useEmployeeSkillsFormData } from '../../../../hooks/useEmployeeSkillsFormData';
 import { ISkillsFormInput, ISkillsModalUserId } from './SkillsModal.types';
 
 export const SkillsModal = () => {
@@ -19,7 +21,7 @@ export const SkillsModal = () => {
   }: Pick<Partial<ISkillsModalUserId>, keyof ISkillsModalUserId> = useReactiveVar(
     modalService.modalData$
   );
-  const { loading, userData, skillsData, skillMasteryData } = useProfileFormData(userId!);
+  const { loading, userData, skillsData, skillMasteryData } = useEmployeeSkillsFormData(userId!);
 
   const [updateUser, { loading: updateLoading }] = useMutation(UPDATE_USER);
   const {
@@ -28,6 +30,7 @@ export const SkillsModal = () => {
     formState: { isValid },
   } = useForm<ISkillsFormInput>({
     mode: 'onChange',
+    resolver: yupResolver(employeeSkillsSchema),
   });
 
   const onSubmit: SubmitHandler<ISkillsFormInput> = (inputs) => {

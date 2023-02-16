@@ -114,3 +114,8 @@ export const positionSchema = object({
     .max(50)
     .required(),
 });
+
+export const employeeSkillsSchema = object({
+  skillName: string().required(),
+  mastery: string().required(),
+});

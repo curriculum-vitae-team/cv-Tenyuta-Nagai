@@ -4,8 +4,7 @@ import { IChipStyled } from './SkillsList.interface';
 export const ItemMenu = styled(MenuItem)(() => ({
   whiteSpace: 'pre-wrap',
   wordWrap: 'break-word',
-  wordBreak: 'break-word',
-  fontSize: 22,
+  fontSize: 20,
   '&:hover': { backgroundColor: 'transparent' },
 }));
 

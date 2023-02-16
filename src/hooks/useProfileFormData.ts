@@ -8,8 +8,8 @@ import { ILanguagesReturn } from '../graphql/types/results/language';
 import { IPositionReturn } from '../graphql/types/results/position';
 import { ISkillsReturn } from '../graphql/types/results/skills';
 import { IUserAllResult } from '../graphql/types/results/user';
+import { SkillsMastery } from '../components/pages/EmployeesSkillsPage/constants/skillsMastery';
 import { LANGUAGES } from './../graphql/queries/languages';
-import { SkillsMastery } from './../constants/skillsMastery';
 
 export const useProfileFormData = (id: string) => {
   const { loading: loadingUser, error: errorUser, data: userData } = useQuery<IUserAllResult>(

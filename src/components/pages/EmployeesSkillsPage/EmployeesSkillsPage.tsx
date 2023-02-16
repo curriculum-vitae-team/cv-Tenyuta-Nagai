@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -7,8 +7,7 @@ import { UserRoles } from '../../../constants/userRoles';
 import { UPDATE_USER } from '../../../graphql/mutations/updateUser';
 import { USER } from '../../../graphql/queries/user';
 import { modalService } from '../../../graphql/service/modalService';
-import { IUserAllResult } from '../../../graphql/types/results/user';
-import { useProfileFormData } from '../../../hooks/useProfileFormData';
+import { useEmployeeSkillsFormData } from '../../../hooks/useEmployeeSkillsFormData';
 import { useUser } from '../../../hooks/useUser';
 import { ISkillMastery } from '../../../interfaces/ISkillMastery.interface';
 import { TError } from '../../../types/errorTypes';
@@ -24,14 +23,11 @@ const EmployeesSkillsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
-  const { userData } = useProfileFormData(id!);
+  const { userData, loading } = useEmployeeSkillsFormData(id!);
 
-  const { loading, data } = useQuery<IUserAllResult>(USER, {
-    variables: { id: id },
-    onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
-  });
   const [updateUser] = useMutation(UPDATE_USER, {
     refetchQueries: [{ query: USER, variables: { id } }, 'User'],
+    onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
   });
 
   const handleEdit = () => {
@@ -67,9 +63,9 @@ const EmployeesSkillsPage = () => {
         <Styled.PaperWrapper elevation={3}>
           <Styled.Wrapper>
             <Styled.InfoWrapper>
-              {data!.user.profile.skills.length > 0 ? (
+              {userData!.user.profile.skills.length ? (
                 <SkillsList
-                  data={data!.user.profile.skills}
+                  data={userData!.user.profile.skills}
                   handleDelete={handleDelete}
                   isVisible={isVisible}
                 />
