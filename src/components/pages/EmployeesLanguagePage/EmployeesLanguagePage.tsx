@@ -17,6 +17,7 @@ import { PrivateButton } from '../../UI/PrivateButton';
 import * as Styled from './EmployeesLanguagePage.styles';
 import { ILanguageProficiency } from './../../../interfaces/ILanguageProficiency.interface';
 import { LanguagesList } from './LanguageList/LanguageList';
+import { LanguageModal } from './LanguageModal/LanguageModal';
 
 const EmployeesLanguagePage = () => {
   const user = useUser();
@@ -33,9 +34,9 @@ const EmployeesLanguagePage = () => {
     refetchQueries: [{ query: USER, variables: { id } }, 'User'],
   });
 
-  // const handleEdit = () => {
-  //   modalService.setModalData('Add skill', SkillsModal, { id: id! });
-  // };
+  const handleEdit = () => {
+    modalService.setModalData('Add language', LanguageModal, { id: id! });
+  };
 
   const handleDelete = (language: ILanguageProficiency) => {
     updateUser({
@@ -78,11 +79,7 @@ const EmployeesLanguagePage = () => {
             </Styled.InfoWrapper>
           </Styled.Wrapper>
 
-          <PrivateButton
-            isVisible={isVisible}
-            onClick={() => console.log('edit')}
-            sx={{ minWidth: 140 }}
-          >
+          <PrivateButton isVisible={isVisible} onClick={handleEdit} sx={{ minWidth: 140 }}>
             Add language
           </PrivateButton>
         </Styled.PaperWrapper>
