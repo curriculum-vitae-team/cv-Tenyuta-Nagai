@@ -1,4 +1,4 @@
-import { MenuItem, MenuList, styled } from '@mui/material';
+import { MenuItem, MenuList, Paper, styled } from '@mui/material';
 
 export const ItemMenu = styled(MenuItem)(() => ({
   whiteSpace: 'pre-wrap',
@@ -12,4 +12,9 @@ export const ListMenu = styled(MenuList)(() => ({
   display: 'flex',
   flexDirection: 'column',
   rowGap: 18,
+}));
+
+export const ItemBox = styled(Paper)(() => ({
+  minHeight: '100px',
+  minWidth: '150px',
 }));

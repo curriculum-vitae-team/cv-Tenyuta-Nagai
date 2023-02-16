@@ -8,7 +8,7 @@ export const LanguagesList: FC<ILanguagesListProps> = ({ data, handleDelete, isV
   return (
     <Styled.ListMenu>
       {data.map(({ language_name, proficiency }) => (
-        <Styled.ItemMenu disableRipple key={language_name}>
+        <Styled.ItemBox key={language_name}>
           {language_name}
           <Chip label={proficiency} />
           {isVisible && (
@@ -20,7 +20,7 @@ export const LanguagesList: FC<ILanguagesListProps> = ({ data, handleDelete, isV
               <CloseIcon />
             </IconButton>
           )}
-        </Styled.ItemMenu>
+        </Styled.ItemBox>
       ))}
     </Styled.ListMenu>
   );
