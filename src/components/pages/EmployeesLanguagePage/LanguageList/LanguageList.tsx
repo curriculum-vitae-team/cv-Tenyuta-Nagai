@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Chip, IconButton, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import * as Styled from './LanguageList.styles';
 import { ILanguagesListProps } from './LanguageList.interface';
 
@@ -13,9 +13,7 @@ export const LanguagesList: FC<ILanguagesListProps> = ({ data, handleDelete, isV
       {data.map(({ language_name, proficiency }) => (
         <Styled.ItemBox key={language_name}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography sx={{ fontWeight: 'bold', color: 'primary.contrastText ' }}>
-              {language_name}
-            </Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>{language_name}</Typography>
             {isVisible && (
               <Styled.IconButtonListItem
                 aria-label="delete"
