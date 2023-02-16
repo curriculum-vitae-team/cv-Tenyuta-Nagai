@@ -8,7 +8,6 @@ import { Spinner } from '../../../Spinner';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { InputSelectEmployeePage } from '../../../UI/InputSelectEmployee';
-import { notificationService } from '../../../../graphql/service/notification/notificationService';
 import { createArrayForLanguages } from '../../../../utils/createArrayForLanguages';
 import { useEmployeeLanguagesFormData } from '../helpers/useLanguagesFormData';
 import { FieldNameEmployeeLanguagesForm } from '../constants/fieldNameEmployeeLanguagesForm';
@@ -40,15 +39,6 @@ export const LanguageModal = () => {
   const languagesList = userData?.user.profile.languages.map(({ language_name }) => language_name);
 
   const onSubmit: SubmitHandler<ILanguagesFormInput> = (inputs) => {
-    if (
-      createArrayForLanguages(userData?.user.profile.languages)
-        .map(({ language_name }) => language_name)
-        .includes(inputs.languageName)
-    ) {
-      notificationService.openErrorAlert('Language already exists');
-      modalService.closeModal();
-      return;
-    }
     updateUser({
       variables: {
         id: userId,
