@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
 import { TError } from '../../../../types/errorTypes';
 import { Spinner } from '../../../Spinner';
@@ -11,6 +12,7 @@ import { notificationService } from '../../../../graphql/service/notification/no
 import { createArrayForLanguages } from '../../../../utils/createArrayForLanguages';
 import { useEmployeeLanguagesFormData } from '../helpers/useLanguagesFormData';
 import { FieldNameEmployeeLanguagesForm } from '../constants/fieldNameEmployeeLanguagesForm';
+import { employeeLanguagesSchema } from '../../../../utils/validationSchema';
 import { ILanguagesFormInput, ILanguagesModalUserId } from './LanguageModal.interface';
 
 export const LanguageModal = () => {
@@ -33,7 +35,9 @@ export const LanguageModal = () => {
     formState: { isValid },
   } = useForm<ILanguagesFormInput>({
     mode: 'onChange',
+    resolver: yupResolver(employeeLanguagesSchema),
   });
+  const languagesList = userData?.user.profile.languages.map(({ language_name }) => language_name);
 
   const onSubmit: SubmitHandler<ILanguagesFormInput> = (inputs) => {
     if (
@@ -77,7 +81,7 @@ export const LanguageModal = () => {
             label={'Language'}
             registerName={FieldNameEmployeeLanguagesForm.LANGUAGE_NAME}
             register={register}
-            data={languagesData!.languages}
+            data={languagesData!.languages.filter((x) => !languagesList?.includes(x.name))}
             defaultValue={''}
           />
 
