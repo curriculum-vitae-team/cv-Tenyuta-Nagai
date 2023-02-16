@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -7,8 +7,6 @@ import { UserRoles } from '../../../constants/userRoles';
 import { UPDATE_USER } from '../../../graphql/mutations/updateUser';
 import { USER } from '../../../graphql/queries/user';
 import { modalService } from '../../../graphql/service/modalService';
-import { IUserAllResult } from '../../../graphql/types/results/user';
-import { useProfileFormData } from '../../../hooks/useProfileFormData';
 import { useUser } from '../../../hooks/useUser';
 import { TError } from '../../../types/errorTypes';
 import { createArrayForLanguages } from '../../../utils/createArrayForLanguages';
@@ -18,20 +16,18 @@ import * as Styled from './EmployeesLanguagePage.styles';
 import { ILanguageProficiency } from './../../../interfaces/ILanguageProficiency.interface';
 import { LanguagesList } from './LanguageList/LanguageList';
 import { LanguageModal } from './LanguageModal/LanguageModal';
+import { useEmployeeLanguagesFormData } from './helpers/useLanguagesFormData';
 
 const EmployeesLanguagePage = () => {
   const user = useUser();
   const { id } = useParams();
   const navigate = useNavigate();
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
-  const { userData } = useProfileFormData(id!);
+  const { userData, loading } = useEmployeeLanguagesFormData(id!);
 
-  const { loading, data } = useQuery<IUserAllResult>(USER, {
-    variables: { id: id },
-    onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
-  });
   const [updateUser] = useMutation(UPDATE_USER, {
     refetchQueries: [{ query: USER, variables: { id } }, 'User'],
+    onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
   });
 
   const handleEdit = () => {
@@ -67,9 +63,9 @@ const EmployeesLanguagePage = () => {
         <Styled.PaperWrapper elevation={3}>
           <Styled.Wrapper>
             <Styled.InfoWrapper>
-              {data!.user.profile.languages.length > 0 ? (
+              {userData!.user.profile.languages.length ? (
                 <LanguagesList
-                  data={data!.user.profile.languages}
+                  data={userData!.user.profile.languages}
                   handleDelete={handleDelete}
                   isVisible={isVisible}
                 />

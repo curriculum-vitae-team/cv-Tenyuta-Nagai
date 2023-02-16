@@ -9,7 +9,7 @@ import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { InputSelectEmployeePage } from '../../../UI/InputSelectEmployee';
 import { notificationService } from '../../../../graphql/service/notification/notificationService';
 import { createArrayForLanguages } from '../../../../utils/createArrayForLanguages';
-import { useEmployeeLanguagesFormData } from '../../../../hooks/useLanguagesFormData';
+import { useEmployeeLanguagesFormData } from '../helpers/useLanguagesFormData';
 import { FieldNameEmployeeLanguagesForm } from '../constants/fieldNameEmployeeLanguagesForm';
 import { ILanguagesFormInput, ILanguagesModalUserId } from './LanguageModal.interface';
 

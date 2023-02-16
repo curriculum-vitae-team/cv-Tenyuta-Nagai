@@ -1,9 +1,9 @@
 import { useQuery } from '@apollo/client';
-import { USER } from '../graphql/queries/user';
-import { ILanguagesReturn } from '../graphql/types/results/language';
-import { IUserAllResult } from '../graphql/types/results/user';
-import { LanguageMastery } from './../components/pages/EmployeesLanguagePage/constants/LanguageMastery';
-import { LANGUAGES } from './../graphql/queries/languages';
+import { USER } from '../../../../graphql/queries/user';
+import { ILanguagesReturn } from '../../../../graphql/types/results/language';
+import { IUserAllResult } from '../../../../graphql/types/results/user';
+import { LanguageMastery } from '../constants/LanguageMastery';
+import { LANGUAGES } from '../../../../graphql/queries/languages';
 
 export const useEmployeeLanguagesFormData = (id: string) => {
   const { loading: loadingUser, error: errorUser, data: userData } = useQuery<IUserAllResult>(
