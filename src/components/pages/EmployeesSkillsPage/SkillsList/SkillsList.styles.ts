@@ -1,11 +1,25 @@
-import { Chip, MenuItem, MenuList, styled } from '@mui/material';
+import { Chip, MenuItem, MenuList, styled, Box } from '@mui/material';
 import { IChipStyled } from './SkillsList.interface';
 
-export const ItemMenu = styled(MenuItem)(() => ({
+export const ItemMenu = styled(MenuItem)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
   whiteSpace: 'pre-wrap',
   wordWrap: 'break-word',
-  fontSize: 20,
+  columnGap: 30,
+  fontSize: 22,
   '&:hover': { backgroundColor: 'transparent' },
+
+  [theme.breakpoints.down('sm')]: {
+    fontSize: 16,
+    columnGap: 10,
+  },
+}));
+
+export const ItemBox = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  columnGap: 10,
 }));
 
 export const ListMenu = styled(MenuList)(() => ({
@@ -15,7 +29,6 @@ export const ListMenu = styled(MenuList)(() => ({
 }));
 
 export const ItemChip = styled(Chip)<IChipStyled>(({ mastery, theme }) => ({
-  marginLeft: '25px',
   backgroundColor: mastery,
   color: theme.palette.primary.contrastText,
 }));
