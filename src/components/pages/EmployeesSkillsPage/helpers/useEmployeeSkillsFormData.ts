@@ -18,6 +18,8 @@ export const useEmployeeSkillsFormData = (id: string) => {
   const skillMasteryData = [
     { id: SkillsMastery.Novice, name: SkillsMastery.Novice },
     { id: SkillsMastery.Advanced, name: SkillsMastery.Advanced },
+    { id: SkillsMastery.Competent, name: SkillsMastery.Competent },
+    { id: SkillsMastery.Proficient, name: SkillsMastery.Proficient },
     { id: SkillsMastery.Expert, name: SkillsMastery.Expert },
   ];
 
