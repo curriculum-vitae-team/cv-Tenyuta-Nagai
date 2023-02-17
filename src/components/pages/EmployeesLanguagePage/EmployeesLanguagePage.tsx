@@ -43,7 +43,7 @@ const EmployeesLanguagePage = () => {
             first_name: userData?.user.profile.first_name || '',
             last_name: userData?.user.profile.last_name || '',
             languages: createArrayForLanguages(userData?.user.profile.languages).filter(
-              (elem) => JSON.stringify(elem) != JSON.stringify(language)
+              (elem) => JSON.stringify(elem) !== JSON.stringify(language)
             ),
           },
           departmentId: userData?.user?.department?.id || '',
