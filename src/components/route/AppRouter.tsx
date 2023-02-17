@@ -10,6 +10,7 @@ import EmployeesLanguagePage from '../pages/EmployeesLanguagePage';
 import EmployeesCVsPage from '../pages/EmployeesCVsPage';
 import CvsDetailsPage from '../pages/CvsDetailsPage';
 import CvsProjectsPage from '../pages/CvsProjectsPage';
+import { CvsPreviewPage } from '../pages/CvsPreviewPage';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 
@@ -70,6 +71,7 @@ export const AppRouter = () => {
             <Route path=":id" element={<CvsPrivatePage />}>
               <Route path={RoutePath.DETAILS} element={<CvsDetailsPage />} />
               <Route path={RoutePath.PROJECTS} element={<CvsProjectsPage />} />
+              <Route path={RoutePath.PREVIEW} element={<CvsPreviewPage />} />
             </Route>
           </Route>
 
