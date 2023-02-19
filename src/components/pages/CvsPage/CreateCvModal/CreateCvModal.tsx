@@ -49,7 +49,7 @@ export const CreateCvModal = () => {
           description: inputs.description,
           userId: userData?.user.id,
           skills: createArrayForSkills(userData?.user.profile.skills),
-          projectsIds: [], // TO-DO change it
+          projectsIds: [],
           languages: createArrayForLanguages(userData?.user.profile.languages),
           is_template: inputs.template,
         },

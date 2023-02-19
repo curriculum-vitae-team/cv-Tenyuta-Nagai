@@ -1,25 +1,39 @@
 import { useQuery } from '@apollo/client';
-import { Container } from '@mui/material';
-import { PDFViewer, Document, pdf } from '@react-pdf/renderer';
+import { Box } from '@mui/material';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
+import { UserRoles } from '../../../constants/userRoles';
 import { CV } from '../../../graphql/queries/cv';
-import { ICvQueryResult } from '../../../graphql/types/results/cv';
+import { useUser } from '../../../hooks/useUser';
+import { PrivateButton } from '../../UI/PrivateButton';
 import { CvPattern } from './CvPattern';
 
 export const CvsPreviewPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const user = useUser();
+  const isAdmin = user?.role === UserRoles.Admin;
 
   const { data } = useQuery(CV, {
     variables: { id },
     onError: () => navigate(`/${RoutePath.CVS}`, { replace: true }),
   });
-  console.log(data);
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <CvPattern data={data?.cv} />
-    </div>
+    <>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <PrivateButton
+          isVisible={user?.id === data?.cv.user?.id || isAdmin}
+          onClick={() => console.log('downloaded')}
+          sx={{ width: 140 }}
+        >
+          Download
+        </PrivateButton>
+      </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <CvPattern data={data?.cv} />
+      </Box>
+    </>
   );
 };

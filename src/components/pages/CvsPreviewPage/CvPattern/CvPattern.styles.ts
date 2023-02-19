@@ -5,11 +5,12 @@ export const styles = StyleSheet.create({
     padding: '25px 50px',
     backgroundColor: '#E4E4E4',
     minHeight: '1127px',
+    minWidth: '520px',
     width: '707px',
   },
-  sectionRight: {
+  right: {
     height: '100%',
-    marginTop: '25px',
+    marginTop: '35px',
   },
   fullname: {
     fontWeight: 'bold',
@@ -19,21 +20,21 @@ export const styles = StyleSheet.create({
   position: {
     fontSize: '20px',
   },
-  experience: {
-    marginLeft: '25px',
+  projectsTitle: {
     fontWeight: 'bold',
     fontSize: '24px',
-  },
-  projects: {
-    marginLeft: 25,
   },
   project: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
+    marginTop: '30px',
   },
-  flex: {
+  projectSummary: {
+    width: '100%',
+  },
+  employeeInfo: {
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'row',
@@ -47,20 +48,23 @@ export const styles = StyleSheet.create({
     fontSize: '18px',
     marginTop: '20px',
   },
-  date: {
-    fontSize: '10px',
-    marginTop: '6px',
+  dateTitle: {
+    fontWeight: 'bold',
+    fontSize: '16px',
+  },
+  projectName: {
+    fontWeight: 'bold',
+    fontSize: '18px',
+  },
+  projectInfo: {
+    fontSize: '16px',
   },
   text: {
     fontSize: '18px',
   },
-  projectRight: {
-    width: '270px',
-
-    marginRight: 25,
-  },
-  projectText: {
+  projectDescription: {
     fontSize: '18px',
+    width: '100%',
   },
   rightText: {
     fontSize: '10px',
