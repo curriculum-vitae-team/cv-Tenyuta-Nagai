@@ -4,7 +4,7 @@ import { ISkillMastery } from '../../../../interfaces/ISkillMastery.interface';
 import { IUser } from '../../../../interfaces/IUser.interface';
 
 export interface ICvPatternProps {
-  data: {
+  data?: {
     name: string;
     languages: ILanguageProficiency[];
     projects: IProject[];

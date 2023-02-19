@@ -15,6 +15,8 @@ import { InputText } from '../../../UI/InputText';
 import { TError } from '../../../../types/errorTypes';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
+import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
+import { createArrayForLanguages } from '../../../../utils/createArrayForLanguages';
 import { IFormCreateCv } from './CreateCvModal.types';
 import * as Styled from './CreateCvModal.styles';
 
@@ -46,9 +48,9 @@ export const CreateCvModal = () => {
           name: inputs.name,
           description: inputs.description,
           userId: userData?.user.id,
-          skills: [], // TO-DO change it
+          skills: createArrayForSkills(userData?.user.profile.skills),
           projectsIds: [], // TO-DO change it
-          languages: [], // TO-DO change it
+          languages: createArrayForLanguages(userData?.user.profile.languages),
           is_template: inputs.template,
         },
       },

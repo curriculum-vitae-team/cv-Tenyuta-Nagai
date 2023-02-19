@@ -18,8 +18,8 @@ export const CvsPreviewPage = () => {
   });
   console.log(data);
   return (
-    <div>
-      <CvPattern />
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <CvPattern data={data?.cv} />
     </div>
   );
 };
