@@ -39,7 +39,7 @@ export const CvPattern = ({ data }: ICvPatternProps) => {
               <div style={styles.projectName}>{project.name || 'Project name'}</div>
               <div style={styles.dateTitle}>Period:</div>
               <div style={styles.projectInfo}>
-                {project?.start_date + ' - ' + project?.end_date || 'Till now'}
+                {project?.start_date} - {project?.end_date || 'Till now'}
               </div>
               <div style={styles.dateTitle}>Team size:</div>
               <div style={styles.projectInfo}> {project?.team_size}</div>
