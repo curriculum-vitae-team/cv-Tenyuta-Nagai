@@ -45,10 +45,7 @@ export const CvPattern = ({ data }: ICvPatternProps) => {
               <div style={styles.dateTitle}>Domain:</div>
               <div style={styles.projectInfo}> {project?.domain}</div>
             </div>
-            <div style={styles.projectDescription}>
-              Project ProjectProjectProject Project ProjectProject Project ProjectProject Project
-              ProjectProjectProject
-            </div>
+            <div style={styles.projectDescription}>{project?.description}</div>
           </div>
         ))}
       </div>

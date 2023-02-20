@@ -21,19 +21,21 @@ export const CvsPreviewPage = () => {
   });
   const isVisible = user?.id === data?.cv.user?.id || isAdmin;
 
+  console.log(data);
+
   return (
     <>
       {loading ? (
         <Spinner />
       ) : (
-        <>
+        <Box sx={{ overflow: 'auto' }}>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             <CvDownloadLink data={data?.cv} isVisible={isVisible} />
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <CvPattern data={data?.cv} />
           </Box>
-        </>
+        </Box>
       )}
     </>
   );

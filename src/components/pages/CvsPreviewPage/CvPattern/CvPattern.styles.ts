@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     padding: '25px 50px',
     backgroundColor: '#E4E4E4',
     minHeight: '1127px',
-    minWidth: '520px',
+    minWidth: '707px',
     width: '707px',
   },
   pageDownload: {
