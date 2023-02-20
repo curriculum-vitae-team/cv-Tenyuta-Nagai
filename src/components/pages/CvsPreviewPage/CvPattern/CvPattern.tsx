@@ -5,7 +5,7 @@ import { styles } from './CvPattern.styles';
 
 export const CvPattern = ({ data }: ICvPatternProps) => {
   return (
-    <Page style={styles.page}>
+    <div style={styles.page}>
       <div style={styles.employeeInfo}>
         <div>
           <div style={styles.fullname}>
@@ -52,6 +52,6 @@ export const CvPattern = ({ data }: ICvPatternProps) => {
           </div>
         ))}
       </div>
-    </Page>
+    </div>
   );
 };
