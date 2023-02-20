@@ -1,1 +1,0 @@
-export { CvPattern } from './CvPattern';

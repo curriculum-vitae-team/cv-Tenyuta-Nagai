@@ -1,17 +1,32 @@
-import { StyleSheet } from '@react-pdf/renderer';
+import { StyleSheet, Font } from '@react-pdf/renderer';
+
+Font.register({
+  family: 'Roboto',
+  fonts: [
+    {
+      src: require('../../../../../public/fonts/Roboto-Regular.ttf'),
+      fontWeight: 400,
+    },
+    {
+      src: require('../../../../../public/fonts/Roboto-Bold.ttf'),
+      fontWeight: 700,
+    },
+  ],
+});
 
 export const styles = StyleSheet.create({
   pageDownload: {
     padding: '25px 50px',
+    fontFamily: 'Roboto',
   },
   right: {
     height: '100%',
     marginTop: '35px',
   },
   fullname: {
-    fontWeight: 'bold',
     marginTop: '20px',
     fontSize: '30px',
+    fontWeight: 'bold',
   },
   position: {
     fontSize: '20px',
@@ -33,10 +48,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    marginBottom: '80px',
-  },
-  contacts: {
-    fontSize: '18px',
+    marginBottom: '25px',
   },
   subtitle: {
     fontWeight: 'bold',
@@ -63,5 +75,16 @@ export const styles = StyleSheet.create({
   },
   rightText: {
     fontSize: '10px',
+  },
+  redline: {
+    width: '100%',
+    height: '2px',
+    backgroundColor: '#c63031',
+    borderRadius: '10px',
+  },
+  redline2: {
+    width: '2px',
+    backgroundColor: '#c63031',
+    borderRadius: '10px',
   },
 });

@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Box, Grid } from '@mui/material';
+import { PDFViewer } from '@react-pdf/renderer';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
@@ -8,7 +9,7 @@ import { CV } from '../../../graphql/queries/cv';
 import { useUser } from '../../../hooks/useUser';
 import { Spinner } from '../../Spinner';
 import { CvDownloadLink } from './CvDownloadButton';
-import { CvPattern } from './CvPattern';
+import { CvPatternDownload } from './CvPatternForDownload';
 
 export const CvsPreviewPage = () => {
   const { id } = useParams();
@@ -30,8 +31,10 @@ export const CvsPreviewPage = () => {
           <Box sx={{ display: 'flex', justifyContent: 'end' }}>
             <CvDownloadLink data={data?.cv} isVisible={isVisible} />
           </Box>
-          <Box sx={{ display: 'flex', width: '707px', margin: 'auto' }}>
-            <CvPattern data={data?.cv} />
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <PDFViewer width={680} height={600} showToolbar={false}>
+              <CvPatternDownload data={data?.cv} />
+            </PDFViewer>
           </Box>
         </Grid>
       )}
