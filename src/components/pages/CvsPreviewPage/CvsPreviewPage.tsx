@@ -6,7 +6,7 @@ import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
 import { CV } from '../../../graphql/queries/cv';
 import { useUser } from '../../../hooks/useUser';
-import { PrivateButton } from '../../UI/PrivateButton';
+import { CvDownloadLink } from './CvDownload/CvDownload';
 import { CvPattern } from './CvPattern';
 
 export const CvsPreviewPage = () => {
@@ -14,22 +14,16 @@ export const CvsPreviewPage = () => {
   const navigate = useNavigate();
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
-
   const { data } = useQuery(CV, {
     variables: { id },
     onError: () => navigate(`/${RoutePath.CVS}`, { replace: true }),
   });
+  const isVisible = user?.id === data?.cv.user?.id || isAdmin;
 
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <PrivateButton
-          isVisible={user?.id === data?.cv.user?.id || isAdmin}
-          onClick={() => console.log('downloaded')}
-          sx={{ width: 140 }}
-        >
-          Download
-        </PrivateButton>
+        <CvDownloadLink data={data?.cv} isVisible={isVisible} />
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <CvPattern data={data?.cv} />

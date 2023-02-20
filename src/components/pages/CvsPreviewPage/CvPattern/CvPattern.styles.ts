@@ -8,6 +8,9 @@ export const styles = StyleSheet.create({
     minWidth: '520px',
     width: '707px',
   },
+  pageDownload: {
+    padding: '25px 50px',
+  },
   right: {
     height: '100%',
     marginTop: '35px',

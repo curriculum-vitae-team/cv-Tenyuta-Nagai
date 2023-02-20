@@ -1,10 +1,11 @@
+import { Page } from '@react-pdf/renderer';
 import React from 'react';
 import { ICvPatternProps } from './CvPattern.interface';
 import { styles } from './CvPattern.styles';
 
 export const CvPattern = ({ data }: ICvPatternProps) => {
   return (
-    <div style={styles.page}>
+    <Page style={styles.page}>
       <div style={styles.employeeInfo}>
         <div>
           <div style={styles.fullname}>
@@ -48,12 +49,9 @@ export const CvPattern = ({ data }: ICvPatternProps) => {
               Project ProjectProjectProject Project ProjectProject Project ProjectProject Project
               ProjectProjectProject
             </div>
-            <div>
-              <div></div>
-            </div>
           </div>
         ))}
       </div>
-    </div>
+    </Page>
   );
 };
