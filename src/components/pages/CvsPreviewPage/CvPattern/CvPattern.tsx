@@ -37,13 +37,13 @@ export const CvPattern = ({ data }: ICvPatternProps) => {
         {data?.projects?.map((project) => (
           <div style={styles.project} key={project.internal_name}>
             <div style={styles.projectSummary}>
-              <div style={styles.projectName}>{project.name || 'Project name'}</div>
+              <div style={styles.projectName}>{project.name.toUpperCase() || 'Project name'}</div>
               <div style={styles.dateTitle}>Period:</div>
               <div style={styles.projectInfo}>
                 {project?.start_date} - {project?.end_date || 'Till now'}
               </div>
-              <div style={styles.dateTitle}>Team size:</div>
-              <div style={styles.projectInfo}> {project?.team_size}</div>
+              <div style={styles.dateTitle}>Domain:</div>
+              <div style={styles.projectInfo}> {project?.domain}</div>
             </div>
             <div style={styles.projectDescription}>
               Project ProjectProjectProject Project ProjectProject Project ProjectProject Project

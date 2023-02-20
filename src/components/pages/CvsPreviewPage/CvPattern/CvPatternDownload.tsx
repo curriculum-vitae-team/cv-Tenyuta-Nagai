@@ -5,13 +5,12 @@ import { styles } from './CvPattern.styles';
 
 export const CvPatternDownload = ({ data }: ICvPatternProps) => {
   return (
-    <Page style={styles.pageDownload}>
+    <Page size="A4" style={styles.pageDownload}>
       <View style={styles.employeeInfo}>
         <View>
           <Text break style={styles.fullname}>
             {data?.user?.profile?.full_name?.toUpperCase() || 'Employee name'}
           </Text>
-          {'\n'}
           <Text break style={styles.position}>
             {data?.user?.position_name || 'Position'}
           </Text>
@@ -40,13 +39,13 @@ export const CvPatternDownload = ({ data }: ICvPatternProps) => {
         {data?.projects?.map((project) => (
           <View style={styles.project} key={project.internal_name}>
             <View style={styles.projectSummary}>
-              <Text style={styles.projectName}>{project.name || 'Project name'}</Text>
+              <Text style={styles.projectName}>{project.name.toUpperCase() || 'Project name'}</Text>
               <Text style={styles.dateTitle}>Period:</Text>
               <Text style={styles.projectInfo}>
                 {project?.start_date} - {project?.end_date || 'Till now'}
               </Text>
-              <Text style={styles.dateTitle}>Team size:</Text>
-              <Text style={styles.projectInfo}> {project?.team_size}</Text>
+              <Text style={styles.dateTitle}>Domain:</Text>
+              <Text style={styles.projectInfo}> {project?.domain}</Text>
             </View>
             <Text style={styles.projectDescription}>
               Project ProjectProjectProject Project ProjectProject Project ProjectProject Project

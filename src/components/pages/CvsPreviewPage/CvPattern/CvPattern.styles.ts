@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     padding: '25px 50px',
     backgroundColor: '#E4E4E4',
     minHeight: '1127px',
-    minWidth: '520px',
+
     width: '707px',
   },
   pageDownload: {
@@ -42,6 +42,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     marginBottom: '80px',
+    '@media max-width: 600': {
+      flexDirection: 'column',
+    },
   },
   contacts: {
     fontSize: '18px',
