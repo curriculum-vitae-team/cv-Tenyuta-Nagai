@@ -1,7 +1,7 @@
 import { Page, Text, View } from '@react-pdf/renderer';
 import React from 'react';
-import { ICvPatternProps } from './CvPattern.interface';
-import { styles } from './CvPattern.styles';
+import { ICvPatternProps } from '../CvPattern/CvPattern.interface';
+import { styles } from './CvPatternDownload.styles';
 
 export const CvPatternDownload = ({ data }: ICvPatternProps) => {
   return (
@@ -47,10 +47,7 @@ export const CvPatternDownload = ({ data }: ICvPatternProps) => {
               <Text style={styles.dateTitle}>Domain:</Text>
               <Text style={styles.projectInfo}> {project?.domain}</Text>
             </View>
-            <Text style={styles.projectDescription}>
-              Project ProjectProjectProject Project ProjectProject Project ProjectProject Project
-              ProjectProjectProject
-            </Text>
+            <Text style={styles.projectDescription}>{project?.description}</Text>
           </View>
         ))}
       </View>

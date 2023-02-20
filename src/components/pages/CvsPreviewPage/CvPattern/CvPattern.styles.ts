@@ -1,75 +1,41 @@
-import { StyleSheet } from '@react-pdf/renderer';
+import { Box, styled, Paper, Typography } from '@mui/material';
 
-export const styles = StyleSheet.create({
-  page: {
-    padding: '25px 50px',
-    backgroundColor: '#E4E4E4',
-    minHeight: '1127px',
-    minWidth: '707px',
-    width: '707px',
-  },
-  pageDownload: {
-    padding: '25px 50px',
-  },
-  right: {
-    height: '100%',
-    marginTop: '35px',
-  },
-  fullname: {
-    fontWeight: 'bold',
-    marginTop: '20px',
-    fontSize: '30px',
-  },
-  position: {
-    fontSize: '20px',
-  },
-  projectsTitle: {
-    fontWeight: 'bold',
-    fontSize: '24px',
-  },
-  project: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginTop: '30px',
-  },
-  projectSummary: {
-    width: '100%',
-  },
-  employeeInfo: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    marginBottom: '80px',
-  },
-  contacts: {
-    fontSize: '18px',
-  },
-  subtitle: {
-    fontWeight: 'bold',
-    fontSize: '18px',
-    marginTop: '20px',
-  },
-  dateTitle: {
-    fontWeight: 'bold',
-    fontSize: '16px',
-  },
-  projectName: {
-    fontWeight: 'bold',
-    fontSize: '18px',
-  },
-  projectInfo: {
-    fontSize: '16px',
-  },
-  text: {
-    fontSize: '18px',
-  },
-  projectDescription: {
-    fontSize: '18px',
-    width: '100%',
-  },
-  rightText: {
-    fontSize: '10px',
-  },
-});
+export const PaperCV = styled(Paper)(({ theme }) => ({
+  padding: '25px 50px',
+  backgroundColor: theme.palette.primary.contrastText,
+  minHeight: '1127px',
+  minWidth: '707px',
+  width: '707px',
+  border: '0.5px solid black',
+}));
+
+export const EmployeeBox = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  flexDirection: 'row',
+  marginBottom: '80px',
+}));
+
+export const FullName = styled(Typography)(() => ({
+  fontWeight: 'bold',
+  marginTop: '20px',
+  fontSize: '30px',
+}));
+
+export const Subtitle = styled(Typography)(() => ({
+  fontWeight: 'bold',
+  fontSize: '18px',
+  marginTop: '20px',
+}));
+
+export const ProjectBox = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  flexDirection: 'row',
+  marginTop: '30px',
+}));
+
+export const SmallSubtitle = styled(Typography)(() => ({
+  fontWeight: 'bold',
+  fontSize: '16px',
+}));

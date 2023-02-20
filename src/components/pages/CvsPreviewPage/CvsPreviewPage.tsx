@@ -7,7 +7,7 @@ import { UserRoles } from '../../../constants/userRoles';
 import { CV } from '../../../graphql/queries/cv';
 import { useUser } from '../../../hooks/useUser';
 import { Spinner } from '../../Spinner';
-import { CvDownloadLink } from './CvDownload';
+import { CvDownloadLink } from './CvDownloadButton';
 import { CvPattern } from './CvPattern';
 
 export const CvsPreviewPage = () => {
@@ -20,8 +20,6 @@ export const CvsPreviewPage = () => {
     onError: () => navigate(`/${RoutePath.CVS}`, { replace: true }),
   });
   const isVisible = user?.id === data?.cv.user?.id || isAdmin;
-
-  console.log(data);
 
   return (
     <>

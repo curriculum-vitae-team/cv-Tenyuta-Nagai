@@ -1,54 +1,60 @@
-import { Page } from '@react-pdf/renderer';
+import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { ICvPatternProps } from './CvPattern.interface';
-import { styles } from './CvPattern.styles';
+import * as Styled from './CvPattern.styles';
 
 export const CvPattern = ({ data }: ICvPatternProps) => {
   return (
-    <div style={styles.page}>
-      <div style={styles.employeeInfo}>
-        <div>
-          <div style={styles.fullname}>
+    <Styled.PaperCV>
+      <Styled.EmployeeBox>
+        <Box>
+          <Styled.FullName>
             {data?.user?.profile?.full_name?.toUpperCase() || 'Employee name'}
-          </div>
-          <div style={styles.position}>{data?.user?.position_name || 'Position'}</div>
-        </div>
-        <div style={styles.right}>
-          <div style={styles.subtitle}>Contacts:</div>
-          {data?.user?.email && <div style={styles.contacts}>{'Email: ' + data?.user?.email}</div>}
-          <div style={styles.subtitle}>Main skills:</div>
+          </Styled.FullName>
+          <Typography sx={{ fontSize: '20px' }}>
+            {data?.user?.position_name || 'Position'}
+          </Typography>
+        </Box>
+        <Box sx={{ height: '100%', mt: '35px' }}>
+          <Styled.Subtitle>Contacts:</Styled.Subtitle>
+          {data?.user?.email && (
+            <Typography sx={{ fontSize: '18px' }}>{'Email: ' + data?.user?.email}</Typography>
+          )}
+          <Styled.Subtitle>Main skills:</Styled.Subtitle>
           {data?.skills?.map((skill) => (
-            <div key={skill.skill_name} style={styles.text}>
+            <Typography key={skill.skill_name} sx={{ fontSize: '18px' }}>
               {skill?.skill_name + ' -  ' + skill?.mastery}
-            </div>
+            </Typography>
           ))}
-          <div>
-            <div style={styles.subtitle}>Language:</div>
+          <Box>
+            <Styled.Subtitle>Language:</Styled.Subtitle>
             {data?.languages?.map((language) => (
-              <div key={language.language_name} style={styles.text}>
+              <Typography key={language.language_name} sx={{ fontSize: '18px' }}>
                 {language?.language_name + ' - ' + language?.proficiency.toUpperCase()}
-              </div>
+              </Typography>
             ))}
-          </div>
-        </div>
-      </div>
-      <div style={styles.projectsTitle}>Projects:</div>
-      <div>
+          </Box>
+        </Box>
+      </Styled.EmployeeBox>
+      <Typography sx={{ fontWeight: 'bold', fontSize: '24px' }}>Projects:</Typography>
+      <Box>
         {data?.projects?.map((project) => (
-          <div style={styles.project} key={project.internal_name}>
-            <div style={styles.projectSummary}>
-              <div style={styles.projectName}>{project.name.toUpperCase() || 'Project name'}</div>
-              <div style={styles.dateTitle}>Period:</div>
-              <div style={styles.projectInfo}>
+          <Styled.ProjectBox key={project.internal_name}>
+            <Box sx={{ width: '100%' }}>
+              <Typography sx={{ fontWeight: 'bold', fontSize: '18px' }}>
+                {project.name.toUpperCase() || 'Project name'}
+              </Typography>
+              <Styled.SmallSubtitle>Period:</Styled.SmallSubtitle>
+              <Typography sx={{ fontSize: '16px' }}>
                 {project?.start_date} - {project?.end_date || 'Till now'}
-              </div>
-              <div style={styles.dateTitle}>Domain:</div>
-              <div style={styles.projectInfo}> {project?.domain}</div>
-            </div>
-            <div style={styles.projectDescription}>{project?.description}</div>
-          </div>
+              </Typography>
+              <Styled.SmallSubtitle>Domain:</Styled.SmallSubtitle>
+              <Typography sx={{ fontSize: '16px' }}> {project?.domain}</Typography>
+            </Box>
+            <Box sx={{ fontSize: '18px', width: '100%' }}>{project?.description}</Box>
+          </Styled.ProjectBox>
         ))}
-      </div>
-    </div>
+      </Box>
+    </Styled.PaperCV>
   );
 };

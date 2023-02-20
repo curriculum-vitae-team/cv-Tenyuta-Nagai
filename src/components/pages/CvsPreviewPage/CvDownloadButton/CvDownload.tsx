@@ -1,12 +1,12 @@
 import { BlobProvider, Document } from '@react-pdf/renderer';
 import { PrivateButton } from '../../../UI/PrivateButton';
-import { CvPatternDownload } from '../CvPattern/CvPatternDownload';
+import { CvPatternDownload } from '../CvPatternForDownload';
 import { ICvDownloadProps } from './CvDownload.interface';
 import * as Styled from './CvDownload.styles';
 
 export const CvDownloadLink = ({ data, isVisible }: ICvDownloadProps) => {
   return (
-    <PrivateButton isVisible={isVisible}>
+    <PrivateButton isVisible={isVisible} sx={{ mb: 5 }}>
       <BlobProvider
         document={
           <Document>
