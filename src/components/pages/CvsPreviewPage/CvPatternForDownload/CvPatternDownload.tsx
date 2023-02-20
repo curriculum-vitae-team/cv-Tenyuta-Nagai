@@ -1,9 +1,9 @@
 import { Page, Text, View, Document } from '@react-pdf/renderer';
 import React from 'react';
-import { ICvPatternProps } from './CvPattern.interface';
+import { ICvPreviewProps } from '../CvsPreviewPage.interface';
 import { styles } from './CvPatternDownload.styles';
 
-export const CvPatternDownload = ({ data }: ICvPatternProps) => {
+export const CvPatternDownload = ({ data }: ICvPreviewProps) => {
   return (
     <Document>
       <Page size="A4" style={styles.pageDownload}>

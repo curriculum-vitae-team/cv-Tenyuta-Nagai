@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    marginBottom: '25px',
+    marginBottom: '20px',
   },
   subtitle: {
     fontWeight: 'bold',
