@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
@@ -26,14 +26,14 @@ export const CvsPreviewPage = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <Box sx={{ overflow: 'auto' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Grid sx={{ width: '100%', overflowX: 'auto' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'end' }}>
             <CvDownloadLink data={data?.cv} isVisible={isVisible} />
           </Box>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{ display: 'flex', width: '707px', margin: 'auto' }}>
             <CvPattern data={data?.cv} />
           </Box>
-        </Box>
+        </Grid>
       )}
     </>
   );
