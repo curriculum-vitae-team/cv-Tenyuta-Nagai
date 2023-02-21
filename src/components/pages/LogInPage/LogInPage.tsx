@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useLazyQuery } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 import { RoutePath } from '../../../constants/routeVariables';
 import { schema } from '../../../utils/validationSchema';
 import {
@@ -34,6 +35,7 @@ const LogInPage = () => {
     defaultValues: { email: '', password: '' },
     resolver: yupResolver(schema),
   });
+  const { t } = useTranslation();
 
   const onSubmit = async (input: IFormInput) => {
     const { data } = await login({ variables: input });
@@ -58,13 +60,13 @@ const LogInPage = () => {
               sx={{ p: 3, alignItems: 'center', justifyContent: 'center' }}
             >
               <Typography sx={{ mb: 1 }} variant="h4">
-                Welcome back!
+                {t('Welcome back!')}
               </Typography>
-              <Typography>Hello again! Sign in to continue</Typography>
+              <Typography>{t('Hello again! Sign in to continue')}</Typography>
               <FormSign onSubmit={handleSubmit(onSubmit)} noValidate>
                 <TextField
                   fullWidth
-                  label="Email"
+                  label={t('Email')}
                   placeholder="Enter email"
                   variant="outlined"
                   sx={{ mt: 2, mb: 0.5 }}
@@ -78,7 +80,7 @@ const LogInPage = () => {
                 <TextField
                   fullWidth
                   sx={{ mt: 2, mb: 0.5 }}
-                  label="Password"
+                  label={t('Password')}
                   placeholder="Enter password"
                   color="secondary"
                   variant="outlined"
@@ -103,7 +105,7 @@ const LogInPage = () => {
                   <LoadingBtn fullWidth loading variant="contained" />
                 ) : (
                   <ButtonSubmitForm fullWidth type="submit" variant="contained">
-                    Sign in
+                    {t('Sign in')}
                   </ButtonSubmitForm>
                 )}
 
@@ -114,7 +116,7 @@ const LogInPage = () => {
                   component={NavLink}
                   to={`/${RoutePath.SIGNUP}`}
                 >
-                  I don`t have an account
+                  {t(' I don`t have an account')}
                 </ButtonLink>
               </FormSign>
             </Grid>

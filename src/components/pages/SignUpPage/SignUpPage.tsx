@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 import { RoutePath } from '../../../constants/routeVariables';
 import { schema } from '../../../utils/validationSchema';
 import { authService } from '../../../graphql/service/authentication/authService';
@@ -25,6 +26,7 @@ const SignUpPage = () => {
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const [signUp, { loading }] = useMutation<ISignupResult>(SIGNUP);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const {
     register,
@@ -58,13 +60,13 @@ const SignUpPage = () => {
               sx={{ p: 3, alignItems: 'center', justifyContent: 'center' }}
             >
               <Typography sx={{ mb: 1 }} variant="h4">
-                Register now
+                {t('Register now')}
               </Typography>
-              <Typography>Welcome! Sign up to continue</Typography>
+              <Typography>{t('Welcome! Sign up to continue')}</Typography>
               <FormSign onSubmit={handleSubmit(onSubmit)} noValidate>
                 <TextField
                   fullWidth
-                  label="Email"
+                  label={t('Email')}
                   placeholder="Enter email"
                   variant="outlined"
                   sx={{ mt: 2, mb: 0.5 }}
@@ -78,7 +80,7 @@ const SignUpPage = () => {
                 <TextField
                   fullWidth
                   sx={{ mt: 2, mb: 0.5 }}
-                  label="Password"
+                  label={t('Password')}
                   placeholder="Enter password"
                   color="secondary"
                   variant="outlined"
@@ -103,7 +105,7 @@ const SignUpPage = () => {
                   <LoadingBtn fullWidth loading variant="contained" />
                 ) : (
                   <ButtonSubmitForm fullWidth type="submit" variant="contained">
-                    Sign up
+                    {t('Sign up')}
                   </ButtonSubmitForm>
                 )}
 
@@ -114,7 +116,7 @@ const SignUpPage = () => {
                   component={NavLink}
                   to={`/${RoutePath.LOGIN}`}
                 >
-                  I have an account
+                  {t('I have an account')}
                 </ButtonLink>
               </FormSign>
             </Grid>

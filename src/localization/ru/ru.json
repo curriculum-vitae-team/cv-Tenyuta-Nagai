@@ -1,4 +1,14 @@
 {
-  "LOGIN": "not found",
-  "SIGNUP": "not found"
+  " I don`t have an account": "У меня нет аккаунта",
+  "Email": "Электронная почта",
+  "Hello again! Sign in to continue": "Рады видеть вас снова! Войдите, чтобы продолжить",
+  "I have an account": "Уже есть аккаунт",
+  "LOGIN": "вход",
+  "Password": "Пароль",
+  "Register now": "Регистрация",
+  "SIGNUP": "регистрация",
+  "Sign in": "Войти",
+  "Sign up": "Создать аккаунт",
+  "Welcome back!": "Добро пожаловать",
+  "Welcome! Sign up to continue": "Добро пожаловать! Зарегистрируйтесь, чтобы продолжить"
 }
