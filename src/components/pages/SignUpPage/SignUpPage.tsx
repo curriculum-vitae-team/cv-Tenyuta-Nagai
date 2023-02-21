@@ -67,7 +67,7 @@ const SignUpPage = () => {
                 <TextField
                   fullWidth
                   label={t('Email')}
-                  placeholder="Enter email"
+                  placeholder={t('Enter email') as string}
                   variant="outlined"
                   sx={{ mt: 2, mb: 0.5 }}
                   color="secondary"
@@ -81,7 +81,7 @@ const SignUpPage = () => {
                   fullWidth
                   sx={{ mt: 2, mb: 0.5 }}
                   label={t('Password')}
-                  placeholder="Enter password"
+                  placeholder={t('Enter password') as string}
                   color="secondary"
                   variant="outlined"
                   type={hiddenPassword ? 'password' : 'text'}
