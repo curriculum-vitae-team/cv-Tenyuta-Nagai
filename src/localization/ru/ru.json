@@ -1,14 +1,27 @@
 {
   " I don`t have an account": "У меня нет аккаунта",
+  "Add employee": "Добавить сотрудника",
+  "Create new user": "Создать сотрудника",
+  "Delete": "Удалить",
+  "Department": "Отдел",
   "Email": "Электронная почта",
   "Enter email": "Введите электронную почту",
   "Enter password": "Введите пароль",
+  "First Name": "Имя",
   "Hello again! Sign in to continue": "Рады видеть вас снова! Войдите, чтобы продолжить",
   "I have an account": "Уже есть аккаунт",
   "LOGIN": "вход",
+  "Last Name": "Фамилия",
   "Password": "Пароль",
+  "Position": "Должность",
+  "Profile": "Профиль",
   "Register now": "Регистрация",
   "SIGNUP": "регистрация",
+  "Search": {
+    "": {
+      "": "Поиск"
+    }
+  },
   "Sign in": "Войти",
   "Sign up": "Создать аккаунт",
   "Welcome back!": "Добро пожаловать",
