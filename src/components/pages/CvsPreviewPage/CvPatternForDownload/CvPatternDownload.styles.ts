@@ -22,7 +22,9 @@ export const styles = StyleSheet.create({
   right: {
     height: '100%',
     marginTop: '35px',
+    maxWidth: '300px',
   },
+  left: { maxWidth: '220px', marginRight: '10px' },
   fullname: {
     marginTop: '20px',
     fontSize: '30px',
@@ -68,6 +70,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     fontSize: '18px',
+    wordBreak: 'normal',
   },
   projectDescription: {
     fontSize: '18px',
@@ -86,5 +89,6 @@ export const styles = StyleSheet.create({
     width: '2px',
     backgroundColor: '#c63031',
     borderRadius: '10px',
+    margin: '0 10px',
   },
 });

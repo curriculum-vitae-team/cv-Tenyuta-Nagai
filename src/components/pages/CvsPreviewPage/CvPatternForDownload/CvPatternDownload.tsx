@@ -8,7 +8,7 @@ export const CvPatternDownload = ({ data }: ICvPreviewProps) => {
     <Document>
       <Page size="A4" style={styles.pageDownload}>
         <View style={styles.employeeInfo}>
-          <View>
+          <View style={styles.left}>
             <Text break style={styles.fullname}>
               {data?.user?.profile?.full_name?.toUpperCase() || 'Employee name'}
             </Text>
