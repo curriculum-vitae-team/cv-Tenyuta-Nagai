@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
@@ -11,16 +11,25 @@ export const LanguageButton = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const { i18n } = useTranslation();
-  // const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState('');
+
+  useEffect(() => {
+    setLanguage(JSON.parse(window.localStorage.getItem('language')!));
+  }, []);
+
+  useEffect(() => {
+    if (language) {
+      window.localStorage.setItem('language', JSON.stringify(language));
+      i18n.changeLanguage(language);
+    }
+  }, [i18n, language]);
 
   const handleSetRus = () => {
-    i18n.changeLanguage('ru');
-    // setLanguage('ru');
+    setLanguage('ru');
   };
 
   const handleSetEng = () => {
-    i18n.changeLanguage('en');
-    // setLanguage('en');
+    setLanguage('en');
   };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
