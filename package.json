@@ -21,9 +21,13 @@
     "@mui/material": "^5.11.2",
     "@mui/x-date-pickers": "^5.0.16",
     "graphql": "^16.6.0",
+    "i18next": "^22.4.10",
+    "i18next-scanner": "^4.1.1",
+    "i18next-scanner-typescript": "^1.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.41.5",
+    "react-i18next": "^12.1.5",
     "react-router-dom": "^6.6.1",
     "yup": "^0.32.11"
   },
