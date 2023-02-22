@@ -11,10 +11,10 @@ module.exports = {
     },
     lngs: ['ru'],
     defaultLng: 'en',
-    defaultValue: 'not found',
+    defaultValue: '__STRING_NOT_TRANSLATED__',
     resource: {
-      loadPath: 'src/localization/{{lng}}/{{lng}}.json',
-      savePath: 'src/localization/{{lng}}/{{lng}}.json',
+      loadPath: 'public/locales/{{lng}}.json',
+      savePath: 'public/locales/{{lng}}.json',
       jsonIndent: 2,
       lineEnding: '\n',
     },

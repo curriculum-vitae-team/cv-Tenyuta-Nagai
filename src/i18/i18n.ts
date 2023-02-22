@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import ru from './ru/ru.json';
+import { Languages } from '../constants/languages';
+import ru from './../../public/locales/ru.json';
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -8,8 +9,8 @@ i18n.use(initReactI18next).init({
       translation: ru,
     },
   },
-  supportedLngs: ['en', 'ru'],
-  fallbackLng: 'en',
+  supportedLngs: [Languages.EN, Languages.RU],
+  fallbackLng: Languages.EN,
   debug: true,
   detection: {
     order: ['queryString', 'cookie'],

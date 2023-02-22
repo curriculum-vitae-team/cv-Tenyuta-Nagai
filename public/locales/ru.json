@@ -4,6 +4,7 @@
   "Create new user": "Создать сотрудника",
   "Delete": "Удалить",
   "Department": "Отдел",
+  "EN": "АНГЛ",
   "Email": "Электронная почта",
   "Enter email": "Введите электронную почту",
   "Enter password": "Введите пароль",
@@ -15,6 +16,7 @@
   "Password": "Пароль",
   "Position": "Должность",
   "Profile": "Профиль",
+  "RU": "РУС",
   "Register now": "Регистрация",
   "SIGNUP": "регистрация",
   "Search": {
