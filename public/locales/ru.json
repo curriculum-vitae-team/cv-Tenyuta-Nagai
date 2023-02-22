@@ -11,10 +11,12 @@
   "Enter email": "Введите электронную почту",
   "Enter password": "Введите пароль",
   "First Name": "Имя",
+  "First name": "Имя",
   "Hello again! Sign in to continue": "Рады видеть вас снова! Войдите, чтобы продолжить",
   "I have an account": "Уже есть аккаунт",
   "LOGIN": "вход",
   "Last Name": "Фамилия",
+  "Last name": "Фамилия",
   "Logout": "Выход",
   "Password": "Пароль",
   "Position": "Должность",
@@ -22,6 +24,7 @@
   "RU": "РУС",
   "Register now": "Регистрация",
   "SIGNUP": "регистрация",
+  "Save": "Сохранить",
   "Search": {
     "": {
       "": "Поиск"
@@ -30,6 +33,7 @@
   "Settings": "Настройки",
   "Sign in": "Войти",
   "Sign up": "Создать аккаунт",
+  "User role": "Роль",
   "Welcome back!": "Добро пожаловать",
   "Welcome! Sign up to continue": "Добро пожаловать! Зарегистрируйтесь, чтобы продолжить"
 }

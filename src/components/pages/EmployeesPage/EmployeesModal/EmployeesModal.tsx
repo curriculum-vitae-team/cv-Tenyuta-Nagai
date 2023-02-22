@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { FieldNameEmployeesForm } from '../../../../constants/FieldNameEmployeesForm';
 import { CREATE_USER } from '../../../../graphql/mutations/createUser';
 import { updateCacheAfterCreatingUser } from '../../../../graphql/cache/createUser';
@@ -27,6 +28,7 @@ export const EmployeesModal = () => {
     mode: 'onChange',
     resolver: yupResolver(employeesSchema),
   });
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<IEmployeesFormInput> = (inputs) => {
     createUser({
@@ -63,7 +65,7 @@ export const EmployeesModal = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
-            name="Email"
+            name={t('Email')}
             registerName={FieldNameEmployeesForm.EMAIL}
             register={register}
             error={!!errors.email}
@@ -71,7 +73,7 @@ export const EmployeesModal = () => {
           />
 
           <InputText
-            name="Password"
+            name={t('Password')}
             type="password"
             registerName={FieldNameEmployeesForm.PASSWORD}
             register={register}
@@ -80,7 +82,7 @@ export const EmployeesModal = () => {
           />
 
           <InputText
-            name="First name"
+            name={t('First name')}
             registerName={FieldNameEmployeesForm.FIRST_NAME}
             register={register}
             error={!!errors.firstName}
@@ -88,7 +90,7 @@ export const EmployeesModal = () => {
           />
 
           <InputText
-            name="Last name"
+            name={t('Last name')}
             registerName={FieldNameEmployeesForm.LAST_NAME}
             register={register}
             error={!!errors.lastName}
@@ -96,7 +98,7 @@ export const EmployeesModal = () => {
           />
 
           <InputSelect
-            label={'Position'}
+            label={t('Position')}
             registerName={FieldNameEmployeesForm.POSITION}
             register={register}
             defaultValue={''}
@@ -104,7 +106,7 @@ export const EmployeesModal = () => {
           />
 
           <InputSelect
-            label={'Department'}
+            label={t('Department')}
             registerName={FieldNameEmployeesForm.DEPARTMENT}
             register={register}
             defaultValue={''}
@@ -112,7 +114,7 @@ export const EmployeesModal = () => {
           />
 
           <InputSelect
-            label={'User role'}
+            label={t('User role')}
             registerName={FieldNameEmployeesForm.ROLE}
             register={register}
             defaultValue={'employee'}
