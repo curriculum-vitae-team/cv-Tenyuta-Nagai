@@ -73,7 +73,7 @@ const LogInPage = () => {
                   color="secondary"
                   type="email"
                   {...register('email')}
-                  helperText={errors.email?.message}
+                  helperText={t(errors.email?.message as string)}
                   error={!!errors.email?.message}
                 />
 
@@ -86,7 +86,7 @@ const LogInPage = () => {
                   variant="outlined"
                   type={hiddenPassword ? 'password' : 'text'}
                   {...register('password')}
-                  helperText={errors.password?.message}
+                  helperText={t(errors.password?.message as string)}
                   error={!!errors.password?.message}
                   InputProps={{
                     endAdornment: (

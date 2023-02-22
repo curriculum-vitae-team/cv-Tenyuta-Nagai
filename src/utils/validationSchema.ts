@@ -1,9 +1,8 @@
-import i18next from 'i18next';
 import { date, mixed, number, object, string } from 'yup';
 
 export const schema = object({
   email: string()
-    .email(i18next.t('Email must be valid')!)
+    .email()
     .required(),
   password: string()
     .required()
