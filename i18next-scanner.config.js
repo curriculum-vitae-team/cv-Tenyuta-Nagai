@@ -9,7 +9,7 @@ module.exports = {
       list: ['i18next.t', 'i18n.t', 't', '__'],
       extensions: ['.ts', '.tsx'],
     },
-    lngs: ['ru'],
+    lngs: ['en', 'ru'],
     defaultLng: 'en',
     defaultValue: '__STRING_NOT_TRANSLATED__',
     resource: {

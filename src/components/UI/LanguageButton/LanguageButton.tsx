@@ -58,8 +58,8 @@ export const LanguageButton = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleSetEng}>{t('EN')}</MenuItem>
-        <MenuItem onClick={handleSetRus}>{t('RU')}</MenuItem>
+        <MenuItem onClick={handleSetEng}>{Languages.EN.toLocaleUpperCase()}</MenuItem>
+        <MenuItem onClick={handleSetRus}>{Languages.RU.toLocaleUpperCase()}</MenuItem>
       </Menu>
     </>
   );

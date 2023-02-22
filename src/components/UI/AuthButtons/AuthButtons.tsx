@@ -21,13 +21,13 @@ export const AuthButtons = () => {
         <TabAuthButtons
           value={`/${RoutePath.LOGIN}`}
           component={NavLink}
-          label={t('LOGIN')}
+          label={t('login')}
           to={`/${RoutePath.LOGIN}`}
         />
         <TabAuthButtons
           value={`/${RoutePath.SIGNUP}`}
           component={NavLink}
-          label={t('SIGNUP')}
+          label={t('signup')}
           to={`/${RoutePath.SIGNUP}`}
         />
       </Tabs>

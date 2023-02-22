@@ -4,7 +4,6 @@
   "Create new user": "Создать сотрудника",
   "Delete": "Удалить",
   "Department": "Отдел",
-  "EN": "АНГЛ",
   "Email": "Электронная почта",
   "Email is required": "Электронная почта обязательна",
   "Email must be valid": "Электронная почта должна быть правильного формата",
@@ -14,16 +13,13 @@
   "First name": "Имя",
   "Hello again! Sign in to continue": "Рады видеть вас снова! Войдите, чтобы продолжить",
   "I have an account": "Уже есть аккаунт",
-  "LOGIN": "вход",
   "Last Name": "Фамилия",
   "Last name": "Фамилия",
   "Logout": "Выход",
   "Password": "Пароль",
   "Position": "Должность",
   "Profile": "Профиль",
-  "RU": "РУС",
   "Register now": "Регистрация",
-  "SIGNUP": "регистрация",
   "Save": "Сохранить",
   "Search": {
     "": {
@@ -35,5 +31,7 @@
   "Sign up": "Создать аккаунт",
   "User role": "Роль",
   "Welcome back!": "Добро пожаловать",
-  "Welcome! Sign up to continue": "Добро пожаловать! Зарегистрируйтесь, чтобы продолжить"
+  "Welcome! Sign up to continue": "Добро пожаловать! Зарегистрируйтесь, чтобы продолжить",
+  "login": "вход",
+  "signup": "регистрация"
 }
