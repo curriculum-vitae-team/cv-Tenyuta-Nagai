@@ -69,7 +69,7 @@ export const EmployeesModal = () => {
             registerName={FieldNameEmployeesForm.EMAIL}
             register={register}
             error={!!errors.email}
-            helperText={errors.email?.message || ''}
+            helperText={t(errors.email?.message as string) || ''}
           />
 
           <InputText
@@ -78,7 +78,7 @@ export const EmployeesModal = () => {
             registerName={FieldNameEmployeesForm.PASSWORD}
             register={register}
             error={!!errors.password?.message}
-            helperText={errors.password?.message || ''}
+            helperText={t(errors.password?.message as string) || ''}
           />
 
           <InputText
@@ -86,7 +86,7 @@ export const EmployeesModal = () => {
             registerName={FieldNameEmployeesForm.FIRST_NAME}
             register={register}
             error={!!errors.firstName}
-            helperText={errors.firstName?.message || ''}
+            helperText={t(errors.firstName?.message as string) || ''}
           />
 
           <InputText
@@ -94,7 +94,7 @@ export const EmployeesModal = () => {
             registerName={FieldNameEmployeesForm.LAST_NAME}
             register={register}
             error={!!errors.lastName}
-            helperText={errors.lastName?.message || ''}
+            helperText={t(errors.lastName?.message as string) || ''}
           />
 
           <InputSelect
