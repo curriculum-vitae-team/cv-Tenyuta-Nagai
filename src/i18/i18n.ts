@@ -11,7 +11,6 @@ i18n.use(initReactI18next).init({
   },
   supportedLngs: [Languages.EN, Languages.RU],
   fallbackLng: Languages.EN,
-  debug: true,
   detection: {
     order: ['queryString', 'cookie'],
     caches: ['cookie'],
