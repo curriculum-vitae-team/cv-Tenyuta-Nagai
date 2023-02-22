@@ -55,7 +55,7 @@ export const ProfileButton = () => {
     <>
       <WrapProfileButtons>
         <TypographyEmailProfileButtons>{currentUser?.email}</TypographyEmailProfileButtons>
-        <Tooltip title="Account settings">
+        <Tooltip title={t('Account settings')}>
           <IconButton
             onClick={handleClick}
             size="small"

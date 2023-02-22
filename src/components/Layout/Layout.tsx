@@ -14,13 +14,13 @@ export const Layout = () => {
 
   return (
     <>
-      <Suspense fallback={<Spinner />}>
-        <ErrorBoundary>
-          <Header />
+      <ErrorBoundary>
+        <Header />
+        <Suspense fallback={<Spinner />}>
           <Outlet />
-          <Footer />
-        </ErrorBoundary>
-      </Suspense>
+        </Suspense>
+        <Footer />
+      </ErrorBoundary>
       <Notifier />
       {isOpen && <ModalWindow />}
     </>
