@@ -1,0 +1,40 @@
+{
+  " I don`t have an account": "I don`t have an account",
+  "Add employee": "Add employee",
+  "Only a-z, A-Z": "Only a-z, A-Z",
+  "Create new user": "Create new user",
+  "Delete": "Delete",
+  "Department": "Department",
+  "Email": "Email",
+  "email is a required field": "email is a required field",
+  "email must be a valid email": "email must be a valid email",
+  "password is a required field": "password is a required field",
+  "password must be at least 5 characters": "password must be at least 5 characters",
+  "Enter email": "Enter email",
+  "Enter password": "Enter password",
+  "First Name": "First Name",
+  "First name": "First name",
+  "Hello again! Sign in to continue": "Hello again! Sign in to continue",
+  "I have an account": "I have an account",
+  "Last Name": "Last Name",
+  "Last name": "Last name",
+  "Logout": "Logout",
+  "Password": "Password",
+  "Position": "Position",
+  "Profile": "Profile",
+  "Register now": "Register now",
+  "Save": "Save",
+  "Search": {
+    "": {
+      "": "Search"
+    }
+  },
+  "Settings": "Settings",
+  "Sign in": "Sign in",
+  "Sign up": "Sign up",
+  "User role": "User role",
+  "Welcome back!": "Welcome back!",
+  "Welcome! Sign up to continue": "Welcome! Sign up to continue",
+  "login": "login",
+  "signup": "signup"
+}

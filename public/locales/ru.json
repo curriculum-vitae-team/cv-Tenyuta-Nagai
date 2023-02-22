@@ -1,0 +1,40 @@
+{
+  " I don`t have an account": "У меня нет аккаунта",
+  "Add employee": "Добавить сотрудника",
+  "Only a-z, A-Z": "Только a-z, A-Z",
+  "Create new user": "Создать сотрудника",
+  "Delete": "Удалить",
+  "Department": "Отдел",
+  "Email": "Электронная почта",
+  "email is a required field": "электронная почта обязательна",
+  "email must be a valid email": "электронная почта должна быть правильного формата",
+  "password is a required field": "пароль обязателен",
+  "password must be at least 5 characters": "пароль должен содержать минимум 5 символов",
+  "Enter email": "Введите электронную почту",
+  "Enter password": "Введите пароль",
+  "First Name": "Имя",
+  "First name": "Имя",
+  "Hello again! Sign in to continue": "Рады видеть вас снова! Войдите, чтобы продолжить",
+  "I have an account": "Уже есть аккаунт",
+  "Last Name": "Фамилия",
+  "Last name": "Фамилия",
+  "Logout": "Выход",
+  "Password": "Пароль",
+  "Position": "Должность",
+  "Profile": "Профиль",
+  "Register now": "Регистрация",
+  "Save": "Сохранить",
+  "Search": {
+    "": {
+      "": "Поиск"
+    }
+  },
+  "Settings": "Настройки",
+  "Sign in": "Войти",
+  "Sign up": "Создать аккаунт",
+  "User role": "Роль",
+  "Welcome back!": "Добро пожаловать",
+  "Welcome! Sign up to continue": "Добро пожаловать! Зарегистрируйтесь, чтобы продолжить",
+  "login": "вход",
+  "signup": "регистрация"
+}
