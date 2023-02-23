@@ -43,7 +43,7 @@ const EmployeesSkillsPage = () => {
             first_name: userData?.user.profile.first_name || '',
             last_name: userData?.user.profile.last_name || '',
             skills: createArrayForSkills(userData?.user.profile.skills).filter(
-              (elem) => JSON.stringify(elem) != JSON.stringify(skill)
+              (elem) => JSON.stringify(elem) !== JSON.stringify(skill)
             ),
           },
           departmentId: userData?.user?.department?.id || '',

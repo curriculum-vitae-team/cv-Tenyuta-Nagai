@@ -119,3 +119,8 @@ export const employeeSkillsSchema = object({
   skillName: string().required(),
   mastery: string().required(),
 });
+
+export const employeeLanguagesSchema = object({
+  languageName: string().required(),
+  proficiency: string().required(),
+});
