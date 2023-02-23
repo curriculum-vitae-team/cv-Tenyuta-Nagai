@@ -21,6 +21,7 @@ export const IdName = styled(Typography)(({ theme }) => ({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+  fontWeight: 500,
   ':hover': {
     cursor: 'pointer',
   },
