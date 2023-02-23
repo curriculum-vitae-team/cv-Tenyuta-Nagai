@@ -44,5 +44,8 @@
   "login": "login",
   "password is a required field": "password is a required field",
   "password must be at least 5 characters": "password must be at least 5 characters",
-  "signup": "signup"
+  "signup": "signup",
+  "name must be at most 30 characters": "name must be at most 30 characters",
+  "description is a required field": "description is a required field",
+  "name is a required field": "name is a required field"
 }

@@ -35,9 +35,8 @@ export const CreateCvModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<IFormCreateCv>({
-    mode: 'onChange',
     resolver: yupResolver(editCvSchema),
   });
 
@@ -88,7 +87,7 @@ export const CreateCvModal = () => {
             <Checkbox {...register('template')} {...Styled.checkboxLabel} />
           </Styled.CheckboxWrap>
 
-          <ModalWindowButton loading={createCvLoading} isValid={isValid} />
+          <ModalWindowButton loading={createCvLoading} isValid={!isSubmitted || isValid} />
         </form>
       )}
     </>

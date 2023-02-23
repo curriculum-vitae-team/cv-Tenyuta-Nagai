@@ -44,5 +44,8 @@
   "login": "вход",
   "password is a required field": "пароль обязателен",
   "password must be at least 5 characters": "пароль должен содержать минимум 5 символов",
-  "signup": "регистрация"
+  "signup": "регистрация",
+  "name must be at most 30 characters": "имя не должно быть длиннее 30 символов",
+  "description is a required field": "описание является обязательным полем",
+  "name is a required field": "имя является обязательным полем"
 }
