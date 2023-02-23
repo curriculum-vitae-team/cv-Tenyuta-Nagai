@@ -1,4 +1,5 @@
 import { Typography } from '@mui/material';
+import i18next from 'i18next';
 import { NavLink } from 'react-router-dom';
 import { RoutePath } from '../../../../constants/routeVariables';
 import * as Styled from '../NavBreadcrumbs.styles';
@@ -33,12 +34,12 @@ export const createBreadcrumbs = (
     } else if (isLast && pathId && startPath === RoutePath.PROJECTS) {
       return <Typography key={name}>{pathName}</Typography>;
     } else if (isLast) {
-      return <Typography key={name}>{convertPathName(name)}</Typography>;
+      return <Typography key={name}>{i18next.t(convertPathName(name))}</Typography>;
     }
 
     return (
       <Styled.Link component={NavLink} key={name} to={routeTo}>
-        {convertPathName(name)}
+        {i18next.t(convertPathName(name))}
       </Styled.Link>
     );
   });

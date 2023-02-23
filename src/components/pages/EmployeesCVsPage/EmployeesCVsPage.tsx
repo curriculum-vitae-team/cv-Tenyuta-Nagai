@@ -102,8 +102,8 @@ const EmployeesCVsPage = () => {
               {isDataCv && (
                 <Styled.Wrapper>
                   <Styled.ContentWrapper>
-                    <Row title={t('Name') + ':'} content={cvData.name} />
-                    <Row title={t('Description') + ':'} content={cvData.description} />
+                    <Row title={`${t('Name')}:`} content={cvData.name} />
+                    <Row title={`${t('Description')}:`} content={cvData.description} />
                   </Styled.ContentWrapper>
 
                   <Styled.ButtonWrapper>

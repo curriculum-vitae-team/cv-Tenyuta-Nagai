@@ -56,11 +56,11 @@ const EmployeesProfilePage = () => {
             </Styled.RowWrapper>
 
             <Styled.InfoWrapper>
-              <Row title={t('First name') + ':'}>{data?.user?.profile.first_name || '-'}</Row>
-              <Row title={t('Last name') + ':'}>{data?.user?.profile.last_name || '-'}</Row>
-              <Row title={t('Position') + ':'}>{data?.user?.position?.name || '-'}</Row>
-              <Row title={t('Department') + ':'}>{data?.user?.department?.name || '-'}</Row>
-              <Row title={t('A member since') + ':'}>{convertData(data?.user?.created_at)}</Row>
+              <Row title={`${t('First name')}:`}>{data?.user?.profile.first_name || '-'}</Row>
+              <Row title={`${t('Last name')}:`}>{data?.user?.profile.last_name || '-'}</Row>
+              <Row title={`${t('Position')}:`}>{data?.user?.position?.name || '-'}</Row>
+              <Row title={`${t('Department')}:`}>{data?.user?.department?.name || '-'}</Row>
+              <Row title={`${t('A member since')}:`}>{convertData(data?.user?.created_at)}</Row>
             </Styled.InfoWrapper>
           </Styled.Wrapper>
 

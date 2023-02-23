@@ -52,8 +52,8 @@ const ProjectsDetailsPage = () => {
 
               <Styled.InfoWrapper>
                 <Row title={t('Internal name:')}>{data?.project?.internal_name || '-'}</Row>
-                <Row title={t('Description') + ':'}>{data?.project?.description || '-'}</Row>
-                <Row title={t('Domain') + ':'}>{data?.project?.domain || '-'}</Row>
+                <Row title={`${t('Description')}:`}>{data?.project?.description || '-'}</Row>
+                <Row title={`${t('Domain')}:`}>{data?.project?.domain || '-'}</Row>
                 <Row title={t('Start date:')}>{data?.project?.start_date}</Row>
                 <Row title={t('End date:')}>{data?.project?.end_date || t('Till now')}</Row>
               </Styled.InfoWrapper>
