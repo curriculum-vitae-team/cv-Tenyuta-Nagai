@@ -15,13 +15,12 @@ import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 
 export const DepartmentsCreateModal = () => {
-  const [createDepartment, { loading }] = useMutation(CREATE_DEPARTMENT);
+  const [createDepartment, { loading }] = useMutation<CreateDepartmentResult>(CREATE_DEPARTMENT);
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<DepartmentsInput>({
-    mode: 'onChange',
     resolver: yupResolver(departmentsSchema),
   });
 
@@ -33,7 +32,7 @@ export const DepartmentsCreateModal = () => {
         },
       },
       update(cache, { data }) {
-        updateCacheAfterCreatingDepartment(cache, (data as unknown) as CreateDepartmentResult);
+        updateCacheAfterCreatingDepartment(cache, data!);
       },
     })
       .catch((err: TError) => {
@@ -57,7 +56,7 @@ export const DepartmentsCreateModal = () => {
             helperText={errors.name?.message || ''}
           />
 
-          <ModalWindowButton loading={loading} isValid={isValid} />
+          <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
         </form>
       )}
     </>
