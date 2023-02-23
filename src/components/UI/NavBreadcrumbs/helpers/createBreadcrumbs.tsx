@@ -34,12 +34,12 @@ export const createBreadcrumbs = (
     } else if (isLast && pathId && startPath === RoutePath.PROJECTS) {
       return <Typography key={name}>{pathName}</Typography>;
     } else if (isLast) {
-      return <Typography key={name}>{i18next.t(convertPathName(name))}</Typography>;
+      return <Typography key={name}>{convertPathName(name)}</Typography>;
     }
 
     return (
       <Styled.Link component={NavLink} key={name} to={routeTo}>
-        {i18next.t(convertPathName(name))}
+        {convertPathName(name)}
       </Styled.Link>
     );
   });
