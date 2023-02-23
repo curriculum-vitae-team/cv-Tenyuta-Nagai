@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 import { positionSchema } from '../../../../utils/validationSchema';
 import { InputText } from '../../../UI/InputText';
 import { UPDATE_POSITION } from '../../../../graphql/mutations/position';
@@ -16,6 +17,7 @@ export const UpdatePositionModal = () => {
     modalService.modalData$
   );
   const [updatePosition, { loading }] = useMutation(UPDATE_POSITION);
+  const { t } = useTranslation();
 
   const {
     register,
@@ -45,11 +47,11 @@ export const UpdatePositionModal = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <InputText
-        name="Name"
+        name={t('Name')}
         registerName={'name'}
         register={register}
         error={!!errors.name}
-        helperText={errors.name?.message || ''}
+        helperText={t(errors.name?.message as string) || ''}
       />
 
       <Styled.ButtonSubmit
@@ -60,7 +62,7 @@ export const UpdatePositionModal = () => {
         size="large"
         disabled={!isValid}
       >
-        Save
+        {t('Save')}
       </Styled.ButtonSubmit>
     </form>
   );
