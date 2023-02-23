@@ -29,11 +29,7 @@
   "Projects": "Projects",
   "Register now": "Register now",
   "Save": "Save",
-  "Search": {
-    "": {
-      "": "Search"
-    }
-  },
+  "Search..": "Search..",
   "Settings": "Settings",
   "Sign in": "Sign in",
   "Sign up": "Sign up",
@@ -46,5 +42,11 @@
   "login": "login",
   "password is a required field": "password is a required field",
   "password must be at least 5 characters": "password must be at least 5 characters",
-  "signup": "signup"
+  "signup": "signup",
+  "profile": "profile",
+  "skills": "skills",
+  "languages": "languages",
+  "cvs": "cvs",
+  "details": "details",
+  "projects": "projects"
 }

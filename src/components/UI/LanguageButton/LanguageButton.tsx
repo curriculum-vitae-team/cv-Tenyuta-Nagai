@@ -12,7 +12,7 @@ import { PaperPropsLanguageButtons } from './languageButton.styles';
 export const LanguageButton = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const lang = useReactiveVar(languageService.lang$);
 
   useEffect(() => {

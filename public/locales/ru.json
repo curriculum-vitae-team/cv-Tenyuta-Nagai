@@ -29,11 +29,7 @@
   "Projects": "Проекты",
   "Register now": "Регистрация",
   "Save": "Сохранить",
-  "Search": {
-    "": {
-      "": "Поиск"
-    }
-  },
+  "Search..": "Поиск..",
   "Settings": "Настройки",
   "Sign in": "Войти",
   "Sign up": "Создать аккаунт",
@@ -46,5 +42,11 @@
   "login": "вход",
   "password is a required field": "пароль обязателен",
   "password must be at least 5 characters": "пароль должен содержать минимум 5 символов",
-  "signup": "регистрация"
+  "signup": "регистрация",
+  "profile": "профиль",
+  "skills": "навыки",
+  "languages": "языки",
+  "cvs": "резюме",
+  "details": "подробности",
+  "projects": "проекты"
 }
