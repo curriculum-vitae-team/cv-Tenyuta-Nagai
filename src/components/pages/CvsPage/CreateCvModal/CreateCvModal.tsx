@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Checkbox, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useUser } from '../../../../hooks/useUser';
 import { IUserAllResult } from '../../../../graphql/types/results/user';
 import { USER } from '../../../../graphql/queries/user';
@@ -20,6 +21,7 @@ import * as Styled from './CreateCvModal.styles';
 
 export const CreateCvModal = () => {
   const user = useUser();
+  const { t } = useTranslation();
   const { loading, data: userData } = useQuery<IUserAllResult>(USER, {
     variables: { id: user?.id },
   });
@@ -39,8 +41,8 @@ export const CreateCvModal = () => {
     resolver: yupResolver(editCvSchema),
   });
 
-  const onSubmit: SubmitHandler<IFormCreateCv> = async (inputs) => {
-    await createCV({
+  const onSubmit: SubmitHandler<IFormCreateCv> = (inputs) => {
+    createCV({
       variables: {
         cv: {
           name: inputs.name,
@@ -53,7 +55,7 @@ export const CreateCvModal = () => {
         },
       },
     })
-      .catch((err) => console.error((err as TError).message))
+      .catch((err: TError) => console.error(err.message))
       .finally(() => modalService.closeModal());
   };
 
@@ -64,25 +66,25 @@ export const CreateCvModal = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
-            name="Name"
+            name={t('Name')}
             registerName={'name'}
             register={register}
             error={!!errors.name}
-            helperText={errors.name?.message || ''}
+            helperText={t(errors.name?.message as string) || ''}
           />
 
           <InputText
-            name="Description"
+            name={t('Description')}
             registerName={'description'}
             register={register}
             multiline
             maxRows={4}
             error={!!errors.description}
-            helperText={errors.description?.message || ''}
+            helperText={t(errors.description?.message as string) || ''}
           />
 
           <Styled.CheckboxWrap>
-            <Typography>Template</Typography>
+            <Typography>{t('Template')}</Typography>
             <Checkbox {...register('template')} {...Styled.checkboxLabel} />
           </Styled.CheckboxWrap>
 

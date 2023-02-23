@@ -18,6 +18,7 @@ module.exports = {
       jsonIndent: 2,
       lineEnding: '\n',
     },
+    debag: true,
     nsSeparator: false,
     keySeparator: '.',
   },
