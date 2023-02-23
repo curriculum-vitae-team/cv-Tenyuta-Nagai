@@ -9,6 +9,8 @@ export const checkIdCvsRoute = (path: string) => {
       return false;
     case RoutePath.PROJECTS:
       return false;
+    case RoutePath.PREVIEW:
+      return false;
     default:
       return true;
   }

@@ -29,6 +29,10 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
+        test: /\.(woff|woff2|eof|ttf|otf)$/i,
+        type: 'asset/resource',
+      },
+      {
         test: /\.scss$/i,
         exclude: /\.module\.scss$/i,
         use: [

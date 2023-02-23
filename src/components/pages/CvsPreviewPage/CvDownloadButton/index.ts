@@ -1,0 +1,1 @@
+export { CvDownloadLink } from './CvDownload';
