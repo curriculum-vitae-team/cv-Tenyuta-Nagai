@@ -27,31 +27,19 @@
   "Name": "Имя",
   "Native name": "Родное имя",
   "Only a-z, A-Z": "Только a-z, A-Z",
-  "Page not found": {
-    "": {
-      "": "Страница не найдена"
-    }
-  },
+  "Page not found..": "Страница не найдена..",
   "Password": "Пароль",
   "Position": "Должность",
   "Position name": "Название должности",
   "Profile": "Профиль",
   "Register now": "Регистрация",
   "Save": "Сохранить",
-  "Search": {
-    "": {
-      "": "Поиск"
-    }
-  },
+  "Search..": "Поиск..",
   "Settings": "Настройки",
   "Sign in": "Войти",
   "Sign up": "Создать аккаунт",
   "Skill name": "Название навыка",
-  "Something went wrong": {
-    "": {
-      "": "Что то пошло не так"
-    }
-  },
+  "Something went wrong..": "Что то пошло не так..",
   "Update": "Обновить",
   "Update Position": "Обновить должность",
   "Update department": "Обновить отдел",

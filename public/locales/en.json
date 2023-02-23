@@ -27,31 +27,19 @@
   "Name": "Name",
   "Native name": "Native name",
   "Only a-z, A-Z": "Only a-z, A-Z",
-  "Page not found": {
-    "": {
-      "": "Page not found"
-    }
-  },
+  "Page not found..": "Page not found..",
   "Password": "Password",
   "Position": "Position",
   "Position name": "Position name",
   "Profile": "Profile",
   "Register now": "Register now",
   "Save": "Save",
-  "Search": {
-    "": {
-      "": "Search"
-    }
-  },
+  "Search..": "Search..",
   "Settings": "Settings",
   "Sign in": "Sign in",
   "Sign up": "Sign up",
   "Skill name": "Skill name",
-  "Something went wrong": {
-    "": {
-      "": "Something went wrong"
-    }
-  },
+  "Something went wrong..": "Something went wrong..",
   "Update": "Update",
   "Update Position": "Update Position",
   "Update department": "Update department",
