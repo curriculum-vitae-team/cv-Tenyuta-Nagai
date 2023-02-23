@@ -3,12 +3,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
 import { Dialog } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useModal } from '../../../hooks/useModal';
 import { modalService } from '../../../graphql/service/modalService';
 import * as Styled from './ModalWindow.styles';
 
 export const ModalWindow = () => {
   const { Component, open, title } = useModal();
+  const { t } = useTranslation();
 
   const onClose = () => {
     modalService.closeModal();
@@ -17,7 +19,7 @@ export const ModalWindow = () => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>
-        {title}
+        {t(title)}
         <Styled.IconButtonModalWindow aria-label="close" onClick={onClose}>
           <CloseIcon />
         </Styled.IconButtonModalWindow>

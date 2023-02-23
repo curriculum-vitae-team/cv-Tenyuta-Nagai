@@ -1,12 +1,14 @@
 import { Tabs } from '@mui/material';
 import React, { FC } from 'react';
 import { NavLink, useLocation, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { INavButtonsPrivatePageProps } from './NavButtonsPrivatePage.types';
 import * as Styled from './NavButtonsPrivatePage.styles';
 
 export const NavButtonsPrivatePage: FC<INavButtonsPrivatePageProps> = ({ data, startPath }) => {
   const location = useLocation();
   const { id } = useParams();
+  const { t } = useTranslation();
 
   return (
     <Styled.Wrapper>
@@ -22,7 +24,7 @@ export const NavButtonsPrivatePage: FC<INavButtonsPrivatePageProps> = ({ data, s
             key={value}
             value={`/${startPath}/${id}/${value}`}
             component={NavLink}
-            label={value}
+            label={t(value)}
             to={value}
           />
         ))}
