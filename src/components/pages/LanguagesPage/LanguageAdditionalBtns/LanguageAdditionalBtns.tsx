@@ -3,6 +3,7 @@ import { Divider, MenuItem } from '@mui/material';
 import { FC } from 'react';
 import UpdateIcon from '@mui/icons-material/Update';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { useTranslation } from 'react-i18next';
 import { IAdditionalButtonsProps } from '../../../Table/TableRows/TableRowComponent.types';
 import { modalService } from '../../../../graphql/service/modalService';
 import { DELETE_LANGUAGE } from '../../../../graphql/mutations/languages';
@@ -12,6 +13,7 @@ import * as Styled from './LanguageAdditionalBtns.styles';
 
 export const LanguagesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
   const { id, name, iso2, native_name } = item;
+  const { t } = useTranslation();
 
   const [deleteLanguage] = useMutation(DELETE_LANGUAGE);
 
@@ -37,14 +39,14 @@ export const LanguagesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }
     <>
       <MenuItem sx={Styled.ActionsMenuRowItemProps} onClick={updateLanguage}>
         <UpdateIcon sx={Styled.ActionsMenuRowIconsProps} />
-        Update
+        {t('Update')}
       </MenuItem>
 
       <Divider />
 
       <MenuItem onClick={handleLanguageDelete} sx={Styled.ActionsMenuRowItemProps}>
         <DeleteOutlineIcon sx={Styled.ActionsMenuRowIconsProps} />
-        Delete
+        {t('Delete')}
       </MenuItem>
     </>
   );

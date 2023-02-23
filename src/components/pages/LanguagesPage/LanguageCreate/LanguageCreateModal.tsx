@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TError } from '../../../../types/errorTypes';
 import { languagesSchema } from '../../../../utils/validationSchema';
 import { Spinner } from '../../../Spinner';
@@ -16,6 +17,7 @@ import * as Styled from './LanguageCreateModal.styles';
 
 export const LanguageCreateModal = () => {
   const [createLanguage, { loading }] = useMutation<CreateLanguageResult>(CREATE_LANGUAGE);
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -49,11 +51,11 @@ export const LanguageCreateModal = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
-            name="Language"
+            name={t('Language')}
             registerName={FieldNameLanguagesForm.NAME}
             register={register}
             error={!!errors.name}
-            helperText={errors.name?.message || ''}
+            helperText={t(errors.name?.message as string) || ''}
           />
 
           <InputText
@@ -61,15 +63,15 @@ export const LanguageCreateModal = () => {
             registerName={FieldNameLanguagesForm.ISO2}
             register={register}
             error={!!errors.iso2}
-            helperText={errors.iso2?.message || ''}
+            helperText={t(errors.iso2?.message as string) || ''}
           />
 
           <InputText
-            name="Native name"
+            name={t('Native name')}
             registerName={FieldNameLanguagesForm.NATIVE}
             register={register}
             error={!!errors.nativeName}
-            helperText={errors.nativeName?.message || ''}
+            helperText={t(errors.nativeName?.message as string) || ''}
           />
 
           <Styled.ButtonSubmit
@@ -80,7 +82,7 @@ export const LanguageCreateModal = () => {
             size="large"
             disabled={!isValid}
           >
-            {'Save'}
+            {t('Save')}
           </Styled.ButtonSubmit>
         </form>
       )}
