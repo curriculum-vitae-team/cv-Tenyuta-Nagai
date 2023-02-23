@@ -34,7 +34,7 @@ export const ProjectUpdateModal = () => {
       domain: projectData?.project?.domain,
       teamSize: projectData?.project?.team_size,
       startDate: projectData?.project?.start_date,
-      endDate: projectData?.project?.end_date,
+      endDate: projectData?.project?.end_date || undefined,
     },
     mode: 'onChange',
     resolver: yupResolver(projectsSchema),

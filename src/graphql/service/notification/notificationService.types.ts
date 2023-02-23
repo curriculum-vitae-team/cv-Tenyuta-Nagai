@@ -11,6 +11,5 @@ export interface INotification {
   alertArray$: ReactiveVar<IAlert[]>;
   alertId: number;
   openErrorAlert(message?: string): void;
-  openSuccessAlert(message?: string): void;
   closeAlert(id: number): void;
 }

@@ -3,7 +3,7 @@ export const formatDate = (date: string) => {
     return null;
   }
   return new Date(date)
-    .toLocaleDateString()
+    .toLocaleDateString('ru')
     .split('.')
     .reverse()
     .join('-');
