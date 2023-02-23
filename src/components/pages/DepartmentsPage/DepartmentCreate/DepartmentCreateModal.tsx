@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TError } from '../../../../types/errorTypes';
 import { departmentsSchema } from '../../../../utils/validationSchema';
 import { Spinner } from '../../../Spinner';
@@ -16,12 +17,12 @@ import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 
 export const DepartmentsCreateModal = () => {
   const [createDepartment, { loading }] = useMutation(CREATE_DEPARTMENT);
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<DepartmentsInput>({
-    mode: 'onChange',
     resolver: yupResolver(departmentsSchema),
   });
 
@@ -36,10 +37,7 @@ export const DepartmentsCreateModal = () => {
         updateCacheAfterCreatingDepartment(cache, (data as unknown) as CreateDepartmentResult);
       },
     })
-      .catch((err: TError) => {
-        console.error(err.message);
-      })
-
+      .catch((err: TError) => console.error(err.message))
       .finally(() => modalService.closeModal());
   };
 
@@ -50,14 +48,14 @@ export const DepartmentsCreateModal = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
-            name="Department name"
+            name={t('Department name')}
             registerName={FieldNameDepartmentsForm.NAME}
             register={register}
             error={!!errors.name}
-            helperText={errors.name?.message || ''}
+            helperText={t(errors.name?.message as string) || ''}
           />
 
-          <ModalWindowButton loading={loading} isValid={isValid} />
+          <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
         </form>
       )}
     </>

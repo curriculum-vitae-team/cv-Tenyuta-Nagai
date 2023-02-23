@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { Container, Grid } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -15,6 +16,7 @@ import { DepartmentsTableHeader } from './TableData/DepartmentsTableHeader';
 
 const DepartmentsPage = () => {
   const Table = createTable();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { data, loading } = useQuery(DEPARTMENTS, {
     onError: () => navigate(`/${RoutePath.LOGIN}`, { replace: true }),
@@ -33,9 +35,9 @@ const DepartmentsPage = () => {
               header={DepartmentsTableHeader}
               items={getAllDepartments(data?.departments || [])}
               ModalForCreating={DepartmentsCreateModal}
-              titleModal={'Create department'}
+              titleModal={t('Create department')}
               searchParameter="name"
-              titleCreateBtn="Create"
+              titleCreateBtn={t('Create')}
               isCreateBtnVisible={isAdmin}
               AdditionalButtons={isAdmin ? DepartmentsAdditionalButtons : undefined}
               defaultSortingBy="name"
