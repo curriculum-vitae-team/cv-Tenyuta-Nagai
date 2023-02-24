@@ -120,7 +120,7 @@ export const AvatarModal = () => {
               <Styled.Paragraph>{t('or drag and drop the file here')}</Styled.Paragraph>
 
               {errors?.picture?.message ? (
-                <Styled.ErrorPicture>{errors?.picture?.message}</Styled.ErrorPicture>
+                <Styled.ErrorPicture>{t(errors?.picture?.message)}</Styled.ErrorPicture>
               ) : (
                 <Styled.Paragraph>{t('JPG, JPEG, PNG no more than 500 Kb')}</Styled.Paragraph>
               )}

@@ -42,7 +42,7 @@ export const projectsSchema = object().shape({
   endDate: date().when(
     'startDate',
     (startDate, schema) =>
-      startDate && schema.min(startDate, i18next.t('End date must be bigger than start date'))
+      startDate && schema.min(startDate, 'End date must be bigger than start date')
   ),
   teamSize: number()
     .typeError('team size must be a number')
@@ -53,7 +53,7 @@ export const projectsSchema = object().shape({
 
 export const avatarSchema = object().shape({
   picture: mixed()
-    .test('type', i18next.t('The file must be JPG, JPEG or PNG')!, (image) => {
+    .test('type', 'The file must be JPG, JPEG or PNG', (image) => {
       if (image?.length) {
         return (
           image[0].type === 'image/jpeg' ||
@@ -63,7 +63,7 @@ export const avatarSchema = object().shape({
       }
       return true;
     })
-    .test('fileSize', i18next.t('The file is too large')!, (image) => {
+    .test('fileSize', 'The file is too large', (image) => {
       if (image?.length) {
         return image[0].size <= 500000;
       }
