@@ -120,7 +120,7 @@ export const CvEditModal = () => {
           />
 
           <InputText
-            name={'Description'}
+            name={t('Description')}
             registerName={'description'}
             multiline
             maxRows={4}

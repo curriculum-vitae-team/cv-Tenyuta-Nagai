@@ -1,5 +1,4 @@
 import { Typography } from '@mui/material';
-import i18next from 'i18next';
 import { NavLink } from 'react-router-dom';
 import { RoutePath } from '../../../../constants/routeVariables';
 import * as Styled from '../NavBreadcrumbs.styles';

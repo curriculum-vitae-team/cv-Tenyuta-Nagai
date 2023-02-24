@@ -1,4 +1,3 @@
-import i18next from 'i18next';
 import { date, mixed, number, object, string } from 'yup';
 
 export const schema = object({
