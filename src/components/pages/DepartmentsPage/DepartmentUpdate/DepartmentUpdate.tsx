@@ -2,7 +2,6 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { departmentsSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
@@ -39,29 +38,21 @@ export const DepartmentUpdateModal = () => {
         },
       },
     })
-      .catch((err: TError) => {
-        console.error(err.message);
-      })
+      .catch((err: TError) => console.error(err.message))
       .finally(() => modalService.closeModal());
   };
 
   return (
-    <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-          <InputText
-            name="Department name"
-            registerName={FieldNameDepartmentsForm.NAME}
-            register={register}
-            error={!!errors.name}
-            helperText={errors.name?.message || ''}
-          />
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      <InputText
+        name="Department name"
+        registerName={FieldNameDepartmentsForm.NAME}
+        register={register}
+        error={!!errors.name}
+        helperText={errors.name?.message || ''}
+      />
 
-          <ModalWindowButton loading={loading} isValid={isValid} />
-        </form>
-      )}
-    </>
+      <ModalWindowButton loading={loading} isValid={isValid} />
+    </form>
   );
 };

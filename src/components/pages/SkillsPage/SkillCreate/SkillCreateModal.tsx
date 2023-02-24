@@ -10,7 +10,6 @@ import { SkillsInput } from '../../../../graphql/types/inputs/skill';
 import { CreateSkillsResult } from '../../../../graphql/types/results/skills';
 import { TError } from '../../../../types/errorTypes';
 import { skillsSchema } from '../../../../utils/validationSchema';
-import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 
@@ -40,22 +39,16 @@ export const SkillCreateModal = () => {
   };
 
   return (
-    <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-          <InputText
-            name="Skill name"
-            registerName={FieldNameSkillsForm.NAME}
-            register={register}
-            error={!!errors.name}
-            helperText={errors.name?.message || ''}
-          />
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      <InputText
+        name="Skill name"
+        registerName={FieldNameSkillsForm.NAME}
+        register={register}
+        error={!!errors.name}
+        helperText={errors.name?.message || ''}
+      />
 
-          <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
-        </form>
-      )}
-    </>
+      <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
+    </form>
   );
 };

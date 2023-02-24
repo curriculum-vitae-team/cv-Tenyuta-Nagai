@@ -66,9 +66,9 @@ export const CvEditModal = () => {
         });
         modalService.closeModal();
       })
-      .catch((err) => {
+      .catch((err: TError) => {
         modalService.closeModal();
-        console.error((err as TError).message);
+        console.error(err.message);
       });
   };
 
@@ -97,8 +97,8 @@ export const CvEditModal = () => {
         });
         modalService.closeModal();
       })
-      .catch((err) => {
-        console.error((err as TError).message);
+      .catch((err: TError) => {
+        console.error(err.message);
         modalService.closeModal();
       });
   };
