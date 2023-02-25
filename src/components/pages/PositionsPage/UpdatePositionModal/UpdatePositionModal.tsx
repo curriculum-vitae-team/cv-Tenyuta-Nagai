@@ -7,9 +7,8 @@ import { InputText } from '../../../UI/InputText';
 import { UPDATE_POSITION } from '../../../../graphql/mutations/position';
 import { modalService } from '../../../../graphql/service/modalService';
 import { TError } from '../../../../types/errorTypes';
-import * as Styled from '../CreatePositionModal/CreatePositionModal.style';
-import { IFormUpdatePosition } from './UpdatePositionModal.styles';
-import { IUpdateModalData } from './UpdatePositionModal.types';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
+import { IFormUpdatePosition, IUpdateModalData } from './UpdatePositionModal.types';
 
 export const UpdatePositionModal = () => {
   const positionData: Pick<Partial<IUpdateModalData>, keyof IUpdateModalData> = useReactiveVar(
@@ -51,17 +50,7 @@ export const UpdatePositionModal = () => {
         error={!!errors.name}
         helperText={errors.name?.message || ''}
       />
-
-      <Styled.ButtonSubmit
-        loading={loading}
-        type="submit"
-        variant="contained"
-        fullWidth
-        size="large"
-        disabled={!isValid}
-      >
-        Save
-      </Styled.ButtonSubmit>
+      <ModalWindowButton loading={loading} isValid={isValid} />
     </form>
   );
 };

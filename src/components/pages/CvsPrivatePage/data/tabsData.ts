@@ -8,4 +8,7 @@ export const tabsData: TTypesData[] = [
   {
     value: RoutePath.PROJECTS,
   },
+  {
+    value: RoutePath.PREVIEW,
+  },
 ];

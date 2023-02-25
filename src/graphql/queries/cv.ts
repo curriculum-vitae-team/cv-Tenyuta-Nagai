@@ -30,6 +30,7 @@ export const CV = gql`
         domain
         start_date
         end_date
+        description
       }
       is_template
     }
