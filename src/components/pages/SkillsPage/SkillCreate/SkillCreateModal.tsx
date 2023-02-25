@@ -15,13 +15,12 @@ import { InputText } from '../../../UI/InputText';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 
 export const SkillCreateModal = () => {
-  const [createSkill, { loading }] = useMutation(CREATE_SKILL);
+  const [createSkill, { loading }] = useMutation<CreateSkillsResult>(CREATE_SKILL);
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<SkillsInput>({
-    mode: 'onChange',
     resolver: yupResolver(skillsSchema),
   });
 
@@ -33,7 +32,7 @@ export const SkillCreateModal = () => {
         },
       },
       update(cache, { data }) {
-        updateCacheAfterCreatingSkill(cache, (data as unknown) as CreateSkillsResult);
+        updateCacheAfterCreatingSkill(cache, data!);
       },
     })
       .catch((err: TError) => console.error(err.message))
@@ -54,7 +53,7 @@ export const SkillCreateModal = () => {
             helperText={errors.name?.message || ''}
           />
 
-          <ModalWindowButton loading={loading} isValid={isValid} />
+          <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
         </form>
       )}
     </>
