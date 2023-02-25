@@ -16,8 +16,8 @@ import { InputText } from '../../../UI/InputText';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 
 export const SkillCreateModal = () => {
-  const [createSkill, { loading }] = useMutation(CREATE_SKILL);
   const { t } = useTranslation();
+  const [createSkill, { loading }] = useMutation<CreateSkillsResult>(CREATE_SKILL);
   const {
     register,
     handleSubmit,
@@ -34,7 +34,7 @@ export const SkillCreateModal = () => {
         },
       },
       update(cache, { data }) {
-        updateCacheAfterCreatingSkill(cache, (data as unknown) as CreateSkillsResult);
+        updateCacheAfterCreatingSkill(cache, data!);
       },
     })
       .catch((err: TError) => console.error(err.message))

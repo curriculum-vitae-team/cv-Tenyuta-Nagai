@@ -13,7 +13,7 @@ import { LanguageInput } from '../../../../graphql/types/inputs/language';
 import { updateCacheAfterCreatingLanguage } from '../../../../graphql/cache/languages';
 import { CreateLanguageResult } from '../../../../graphql/types/results/language';
 import { FieldNameLanguagesForm } from '../../../../constants/fieldNameLanguagesForm';
-import * as Styled from './LanguageCreateModal.styles';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 
 export const LanguageCreateModal = () => {
   const [createLanguage, { loading }] = useMutation<CreateLanguageResult>(CREATE_LANGUAGE);
@@ -21,9 +21,8 @@ export const LanguageCreateModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<LanguageInput>({
-    mode: 'onChange',
     resolver: yupResolver(languagesSchema),
   });
 
@@ -74,16 +73,7 @@ export const LanguageCreateModal = () => {
             helperText={t(errors.nativeName?.message as string) || ''}
           />
 
-          <Styled.ButtonSubmit
-            loading={loading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid}
-          >
-            {t('Save')}
-          </Styled.ButtonSubmit>
+          <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
         </form>
       )}
     </>

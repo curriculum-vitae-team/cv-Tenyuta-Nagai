@@ -16,8 +16,8 @@ import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 
 export const DepartmentsCreateModal = () => {
-  const [createDepartment, { loading }] = useMutation(CREATE_DEPARTMENT);
   const { t } = useTranslation();
+  const [createDepartment, { loading }] = useMutation<CreateDepartmentResult>(CREATE_DEPARTMENT);
   const {
     register,
     handleSubmit,
@@ -34,7 +34,7 @@ export const DepartmentsCreateModal = () => {
         },
       },
       update(cache, { data }) {
-        updateCacheAfterCreatingDepartment(cache, (data as unknown) as CreateDepartmentResult);
+        updateCacheAfterCreatingDepartment(cache, data!);
       },
     })
       .catch((err: TError) => console.error(err.message))

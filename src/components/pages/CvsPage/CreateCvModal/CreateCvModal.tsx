@@ -15,6 +15,8 @@ import { InputText } from '../../../UI/InputText';
 import { TError } from '../../../../types/errorTypes';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
+import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
+import { createArrayForLanguages } from '../../../../utils/createArrayForLanguages';
 import { IFormCreateCv } from './CreateCvModal.types';
 import * as Styled from './CreateCvModal.styles';
 
@@ -33,22 +35,21 @@ export const CreateCvModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<IFormCreateCv>({
-    mode: 'onChange',
     resolver: yupResolver(editCvSchema),
   });
 
-  const onSubmit: SubmitHandler<IFormCreateCv> = async (inputs) => {
-    await createCV({
+  const onSubmit: SubmitHandler<IFormCreateCv> = (inputs) => {
+    createCV({
       variables: {
         cv: {
           name: inputs.name,
           description: inputs.description,
           userId: userData?.user.id,
-          skills: [], // TO-DO change it
-          projectsIds: [], // TO-DO change it
-          languages: [], // TO-DO change it
+          skills: createArrayForSkills(userData?.user.profile.skills),
+          projectsIds: [], //TO-DO CHANGE
+          languages: createArrayForLanguages(userData?.user.profile.languages),
           is_template: inputs.template,
         },
       },
@@ -86,7 +87,7 @@ export const CreateCvModal = () => {
             <Checkbox {...register('template')} {...Styled.checkboxLabel} />
           </Styled.CheckboxWrap>
 
-          <ModalWindowButton loading={createCvLoading} isValid={isValid} />
+          <ModalWindowButton loading={createCvLoading} isValid={!isSubmitted || isValid} />
         </form>
       )}
     </>

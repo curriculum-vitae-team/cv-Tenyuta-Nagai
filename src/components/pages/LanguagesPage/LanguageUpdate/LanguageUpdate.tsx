@@ -11,7 +11,7 @@ import { UPDATE_LANGUAGE } from '../../../../graphql/mutations/languages';
 import { LanguageInput } from '../../../../graphql/types/inputs/language';
 import { FieldNameLanguagesForm } from '../../../../constants/fieldNameLanguagesForm';
 import { languagesSchema } from '../../../../utils/validationSchema';
-import * as Styled from './../LanguageCreate/LanguageCreateModal.styles';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { ILanguageUpdate } from './LanguageUpdate.interface';
 
 export const LanguageUpdateModal = () => {
@@ -80,16 +80,7 @@ export const LanguageUpdateModal = () => {
             helperText={t(errors.nativeName?.message as string) || ''}
           />
 
-          <Styled.ButtonSubmit
-            loading={loading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid}
-          >
-            {t('Save')}
-          </Styled.ButtonSubmit>
+          <ModalWindowButton loading={loading} isValid={isValid} />
         </form>
       )}
     </>
