@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -20,6 +20,7 @@ import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
 import { updateCvsCacheAfterCvUpdateProjectsMutation } from '../../../../graphql/cache/cv';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
+import { createProjectsIds } from '../helpers/createProjectsIds';
 import * as Styled from './UpdateModal.styles';
 
 export const UpdateModal = () => {
@@ -28,14 +29,19 @@ export const UpdateModal = () => {
     variables: { id },
     onError: () => modalService.closeModal(),
   });
+
   const { loading: cvLoading, data: cvData } = useQuery<ICvQueryResult>(CV, {
     variables: { id },
     onError: () => modalService.closeModal(),
   });
+
   const [projects, setProjects] = useState<Record<string, string>>({});
-  const [projectsIds, setProjectsIds] = useState<string[]>(
-    cvData?.cv?.projects?.length ? cvData?.cv.projects?.map(({ id }) => id) : []
-  );
+  const initialProjectsIds = useMemo(() => createProjectsIds(cvData?.cv.projects || []), [
+    cvData?.cv.projects,
+  ]);
+
+  const [projectsIds, setProjectsIds] = useState<string[]>(initialProjectsIds);
+
   const [updateCv, { loading: updateCvLoading }] = useMutation<ICvResult>(UPDATE_CV, {
     update(cache, { data: newCvData }) {
       updateCvsCacheAfterCvUpdateProjectsMutation(cache, newCvData!, data!, projectsIds);
@@ -77,6 +83,12 @@ export const UpdateModal = () => {
       .finally(() => modalService.closeModal());
   };
 
+  const checkDirtyForm = () => {
+    return initialProjectsIds.length === projectsIds.length
+      ? initialProjectsIds.every((project) => !projectsIds.includes(project))
+      : true;
+  };
+
   return (
     <>
       {loading || cvLoading ? (
@@ -109,7 +121,7 @@ export const UpdateModal = () => {
                 ))}
               </Select>
             </Styled.FormControl>
-            <ModalWindowButton loading={updateCvLoading} />
+            <ModalWindowButton loading={updateCvLoading} isValid={checkDirtyForm()} />
           </Styled.FormWrapper>
         </form>
       )}

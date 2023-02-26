@@ -11,6 +11,7 @@ import { LanguageInput } from '../../../../graphql/types/inputs/language';
 import { FieldNameLanguagesForm } from '../../../../constants/fieldNameLanguagesForm';
 import { languagesSchema } from '../../../../utils/validationSchema';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
+import { checkDirtyFieldsForm } from '../../../../utils/checkDirtyFieldsForm';
 import { ILanguageUpdate } from './LanguageUpdate.interface';
 
 export const LanguageUpdateModal = () => {
@@ -22,7 +23,7 @@ export const LanguageUpdateModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, dirtyFields },
   } = useForm<LanguageInput>({
     defaultValues: {
       name: language.name,
@@ -78,7 +79,10 @@ export const LanguageUpdateModal = () => {
             helperText={errors.nativeName?.message || ''}
           />
 
-          <ModalWindowButton loading={loading} isValid={isValid} />
+          <ModalWindowButton
+            loading={loading}
+            isValid={checkDirtyFieldsForm(dirtyFields) && isValid}
+          />
         </form>
       )}
     </>

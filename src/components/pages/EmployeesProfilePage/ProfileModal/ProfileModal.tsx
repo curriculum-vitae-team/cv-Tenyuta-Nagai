@@ -13,6 +13,7 @@ import { InputSelect } from '../../../UI/InputSelect';
 import { IUserAllResult } from '../../../../graphql/types/results/user';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
+import { checkDirtyFieldsForm } from '../../../../utils/checkDirtyFieldsForm';
 import { IProfileFormInput, IProfileModalUserId } from './ProfileModal.types';
 
 export const ProfileModal = () => {
@@ -26,11 +27,13 @@ export const ProfileModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, dirtyFields },
   } = useForm<IProfileFormInput>({
     defaultValues: {
       firstName: userData?.user.profile.first_name || '',
       lastName: userData?.user.profile.last_name || '',
+      department: userData?.user.department?.id || '',
+      position: userData?.user.position?.id || '',
     },
     mode: 'onChange',
     resolver: yupResolver(profileSchema),
@@ -93,7 +96,10 @@ export const ProfileModal = () => {
             data={departmentsData!.departments}
           />
 
-          <ModalWindowButton loading={updateLoading} isValid={isValid} />
+          <ModalWindowButton
+            loading={updateLoading}
+            isValid={checkDirtyFieldsForm(dirtyFields) && isValid}
+          />
         </form>
       )}
     </>

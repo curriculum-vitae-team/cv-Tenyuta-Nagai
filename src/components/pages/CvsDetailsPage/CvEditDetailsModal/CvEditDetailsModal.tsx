@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Checkbox, Typography } from '@mui/material';
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { editCvDetailsSchema } from '../../../../utils/validationSchema';
 import { InputText } from '../../../UI/InputText';
@@ -12,6 +12,7 @@ import { createArrayForLanguages } from '../../../../utils/createArrayForLanguag
 import { createArrayForSkills } from '../../../../utils/createArrayForSkills';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
+import { checkDirtyFieldsForm } from '../../../../utils/checkDirtyFieldsForm';
 import { IFormEditDetailsCv } from './CvEditDetailsModal.types';
 import * as Styled from './CvEditDetailsModal.styles';
 
@@ -23,24 +24,21 @@ export const CvEditDetailsModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, dirtyFields },
+    control,
   } = useForm<IFormEditDetailsCv>({
     defaultValues: {
       name: cvData?.cv?.name,
       description: cvData?.cv?.description,
+      template: cvData?.cv?.is_template,
     },
     mode: 'onChange',
     resolver: yupResolver(editCvDetailsSchema),
   });
-  const [isTemplate, setIsTemplate] = useState(cvData?.cv?.is_template);
 
   const [updateCV, { loading: updateCvLoading }] = useMutation<ICvResult>(UPDATE_CV, {
     onError: () => modalService.closeModal(),
   });
-
-  const handleChangeTemplate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsTemplate(e.target.checked);
-  };
 
   const onSubmit = (inputs: IFormEditDetailsCv) => {
     updateCV({
@@ -83,15 +81,23 @@ export const CvEditDetailsModal = () => {
 
       <Styled.CheckboxWrap>
         <Typography>Template</Typography>
-        <Checkbox
-          {...register('template')}
-          {...Styled.checkboxLabel}
-          checked={isTemplate}
-          onChange={handleChangeTemplate}
+        <Controller
+          name={'template'}
+          control={control}
+          render={({ field: props }) => (
+            <Checkbox
+              {...props}
+              checked={props.value}
+              onChange={(e) => props.onChange(e.target.checked)}
+            />
+          )}
         />
       </Styled.CheckboxWrap>
 
-      <ModalWindowButton loading={updateCvLoading} isValid={isValid} />
+      <ModalWindowButton
+        loading={updateCvLoading}
+        isValid={checkDirtyFieldsForm(dirtyFields) && isValid}
+      />
     </form>
   );
 };
