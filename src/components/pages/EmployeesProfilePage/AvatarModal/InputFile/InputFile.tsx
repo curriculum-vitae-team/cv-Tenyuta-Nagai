@@ -9,7 +9,7 @@ export const InputFile: FC<IInputFileProps> = ({ children, register, registerNam
       <input
         type="file"
         hidden
-        accept="image/png, image/jpeg, image/jpg"
+        accept="image/png, image/jpeg, image/jpg, image/gif"
         {...register(registerName)}
       />
     </Styled.FakeLabel>

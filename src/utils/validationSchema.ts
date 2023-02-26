@@ -56,7 +56,8 @@ export const avatarSchema = object().shape({
         return (
           image[0].type === 'image/jpeg' ||
           image[0].type === 'image/jpg' ||
-          image[0].type === 'image/png'
+          image[0].type === 'image/png' ||
+          image[0].type === 'image/gif'
         );
       }
       return true;
