@@ -10,9 +10,10 @@ import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { FieldNameProfileForm } from '../../../../constants/fieldNameProfileForm';
 import { InputSelect } from '../../../UI/InputSelect';
-import { IUserAllResult } from '../../../../graphql/types/results/user';
+import { IUpdateUserResult } from '../../../../graphql/types/results/user';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
+import { authService } from '../../../../graphql/service/authentication/authService';
 import { IProfileFormInput, IProfileModalUserId } from './ProfileModal.types';
 
 export const ProfileModal = () => {
@@ -22,7 +23,7 @@ export const ProfileModal = () => {
     modalService.modalData$
   );
   const { loading, userData, positionsData, departmentsData } = useProfileFormData(userId!);
-  const [updateUser, { loading: updateLoading }] = useMutation<IUserAllResult>(UPDATE_USER);
+  const [updateUser, { loading: updateLoading }] = useMutation<IUpdateUserResult>(UPDATE_USER);
   const {
     register,
     handleSubmit,
@@ -51,6 +52,9 @@ export const ProfileModal = () => {
         },
       },
     })
+      .then((res) =>
+        authService.writeUserFullName(res.data?.updateUser.profile.full_name || undefined)
+      )
       .catch((err) => console.error((err as TError).message))
       .finally(() => modalService.closeModal());
   };
