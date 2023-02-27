@@ -20,7 +20,7 @@ module.exports = {
     },
     debag: true,
     nsSeparator: false,
-    keySeparator: '.',
+    keySeparator: false,
   },
   transform: typescriptTransform({ extensions: ['*.ts', '.tsx'] }),
 };

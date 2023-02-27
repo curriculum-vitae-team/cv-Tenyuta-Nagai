@@ -4,6 +4,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import * as Styled from '../../EmployeesPage/EmployeesAdditionalButtons/EmployeesAdditionalButtons.styles';
 import { useUser } from '../../../../hooks/useUser';
 import { IAdditionalButtonsProps } from '../../../Table/TableRows/TableRowComponent.types';
@@ -20,6 +21,7 @@ export const ProjectsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item })
   const isAdmin = user?.role === UserRoles.Admin;
   const [deleteProject] = useMutation<DeleteProjectResult, DeleteProjectInput>(DELETE_PROJECT);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleProjectDelete = () => {
     deleteProject({
@@ -38,7 +40,7 @@ export const ProjectsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item })
     <>
       <MenuItem sx={Styled.ActionsMenuRowItemProps} onClick={handleGoToProject}>
         <UpdateIcon sx={Styled.ActionsMenuRowIconsProps} />
-        Project
+        {t('Project')}
       </MenuItem>
 
       {isAdmin && <Divider />}
@@ -50,7 +52,7 @@ export const ProjectsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item })
           disabled={user?.id === id && isAdmin}
         >
           <DeleteOutlineIcon sx={Styled.ActionsMenuRowIconsProps} />
-          Delete
+          {t('Delete')}
         </MenuItem>
       )}
     </>

@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'react-i18next';
 import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
 import { TError } from '../../../../types/errorTypes';
 import { Spinner } from '../../../Spinner';
@@ -32,6 +33,7 @@ export const SkillsModal = () => {
     mode: 'onChange',
     resolver: yupResolver(employeeSkillsSchema),
   });
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<ISkillsFormInput> = (inputs) => {
     updateUser({
@@ -63,7 +65,7 @@ export const SkillsModal = () => {
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputSelectEmployeePage
             sx={{ minWidth: '150px' }}
-            label={'Skill'}
+            label={t('Skill')}
             registerName={FieldNameEmployeeSkillForm.SKILL_NAME}
             register={register}
             data={skillsData!.skills.filter((element) => !skillsList?.includes(element.name))}
@@ -72,7 +74,7 @@ export const SkillsModal = () => {
 
           <InputSelectEmployeePage
             sx={{ minWidth: '150px' }}
-            label={'Mastery'}
+            label={t('Mastery')}
             registerName={FieldNameEmployeeSkillForm.MASTERY}
             register={register}
             data={skillMasteryData}

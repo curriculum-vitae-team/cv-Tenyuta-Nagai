@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import { Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
 import { UPDATE_USER } from '../../../graphql/mutations/updateUser';
@@ -24,6 +25,7 @@ const EmployeesSkillsPage = () => {
   const navigate = useNavigate();
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
   const { userData, loading } = useEmployeeSkillsFormData(id!);
+  const { t } = useTranslation();
 
   const [updateUser] = useMutation(UPDATE_USER, {
     refetchQueries: [{ query: USER, variables: { id } }, 'User'],
@@ -31,7 +33,7 @@ const EmployeesSkillsPage = () => {
   });
 
   const handleEdit = () => {
-    modalService.setModalData('Add skill', SkillsModal, { id: id! });
+    modalService.setModalData(t('Add skill'), SkillsModal, { id: id! });
   };
 
   const handleDelete = (skill: ISkillMastery) => {
@@ -70,13 +72,13 @@ const EmployeesSkillsPage = () => {
                   isVisible={isVisible}
                 />
               ) : (
-                <Typography sx={{ fontSize: '20px' }}>No skills were found</Typography>
+                <Typography sx={{ fontSize: '20px' }}>{t('No skills were found')}</Typography>
               )}
             </Styled.InfoWrapper>
           </Styled.Wrapper>
 
           <PrivateButton isVisible={isVisible} onClick={handleEdit} sx={{ minWidth: 140 }}>
-            Add skill
+            {t('Add skill')}
           </PrivateButton>
         </Styled.PaperWrapper>
       )}
