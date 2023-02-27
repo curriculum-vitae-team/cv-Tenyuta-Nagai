@@ -33,7 +33,7 @@ const EmployeesPage = () => {
               header={UsersTableHeader}
               items={getAllUsers(data?.users || [])}
               ModalForCreating={EmployeesModal}
-              searchParameter="name"
+              searchParameter="fullName"
               titleCreateBtn="Add employee"
               titleModal={'Create new user'}
               isCreateBtnVisible={isCreateBtnVisible}
