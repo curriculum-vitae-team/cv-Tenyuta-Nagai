@@ -3,7 +3,6 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslation } from 'react-i18next';
-import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { DatePickerInput } from '../../../UI/DatePicker';
 import { projectsSchema } from '../../../../utils/validationSchema';
@@ -58,72 +57,66 @@ export const ProjectUpdateModal = () => {
         },
       },
     })
-      .catch((err) => console.error((err as TError).message))
+      .catch((err: TError) => console.error(err.message))
       .finally(() => modalService.closeModal());
   };
 
   return (
-    <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-          <InputText
-            name={t('Project name')}
-            registerName={FieldNameProjectsForm.NAME}
-            register={register}
-            error={!!errors.name}
-            helperText={t(errors.name?.message as string) || ''}
-          />
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      <InputText
+        name={t('Project name')}
+        registerName={FieldNameProjectsForm.NAME}
+        register={register}
+        error={!!errors.name}
+        helperText={t(errors.name?.message as string) || ''}
+      />
 
-          <InputText
-            name={t('Internal name')}
-            registerName={FieldNameProjectsForm.INTERNAL_NAME}
-            register={register}
-            error={!!errors.internalName?.message}
-            helperText={t(errors.internalName?.message as string) || ''}
-          />
+      <InputText
+        name={t('Internal name')}
+        registerName={FieldNameProjectsForm.INTERNAL_NAME}
+        register={register}
+        error={!!errors.internalName?.message}
+        helperText={t(errors.internalName?.message as string) || ''}
+      />
 
-          <InputText
-            name={t('Description')}
-            registerName={FieldNameProjectsForm.DESCRIPTION}
-            register={register}
-            error={!!errors.description}
-            helperText={t(errors.description?.message as string) || ''}
-            multiline
-          />
+      <InputText
+        name={t('Description')}
+        registerName={FieldNameProjectsForm.DESCRIPTION}
+        register={register}
+        error={!!errors.description}
+        helperText={t(errors.description?.message as string) || ''}
+        multiline
+      />
 
-          <InputText
-            name={t('Domain')}
-            registerName={FieldNameProjectsForm.DOMAIN}
-            register={register}
-            error={!!errors.domain}
-            helperText={t(errors.domain?.message as string) || ''}
-          />
+      <InputText
+        name={t('Domain')}
+        registerName={FieldNameProjectsForm.DOMAIN}
+        register={register}
+        error={!!errors.domain}
+        helperText={t(errors.domain?.message as string) || ''}
+      />
 
-          <InputText
-            name={t('Team size')}
-            registerName={FieldNameProjectsForm.TEAM_SIZE}
-            register={register}
-            error={!!errors.teamSize}
-            helperText={t(errors.teamSize?.message as string) || ''}
-          />
+      <InputText
+        name={t('Team size')}
+        registerName={FieldNameProjectsForm.TEAM_SIZE}
+        register={register}
+        error={!!errors.teamSize}
+        helperText={t(errors.teamSize?.message as string) || ''}
+      />
 
-          <DatePickerInput
-            control={control}
-            label={t('Start date')}
-            name={FieldNameProjectsForm.START_DATE}
-            trigger={trigger}
-          />
-          <DatePickerInput
-            control={control}
-            label={t('End date')}
-            name={FieldNameProjectsForm.END_DATE}
-          />
+      <DatePickerInput
+        control={control}
+        label={t('Start date')}
+        name={FieldNameProjectsForm.START_DATE}
+        trigger={trigger}
+      />
+      <DatePickerInput
+        control={control}
+        label={t('End date')}
+        name={FieldNameProjectsForm.END_DATE}
+      />
 
-          <ModalWindowButton loading={loading} isValid={isValid} />
-        </form>
-      )}
-    </>
+      <ModalWindowButton loading={loading} isValid={isValid} />
+    </form>
   );
 };

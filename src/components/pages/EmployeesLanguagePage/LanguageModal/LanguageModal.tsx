@@ -58,7 +58,7 @@ export const LanguageModal = () => {
         },
       },
     })
-      .catch((err) => console.error((err as TError).message))
+      .catch((err: TError) => console.error(err.message))
       .finally(() => modalService.closeModal());
   };
 

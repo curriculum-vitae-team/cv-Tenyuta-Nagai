@@ -5,7 +5,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TError } from '../../../../types/errorTypes';
 import { languagesSchema } from '../../../../utils/validationSchema';
-import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { modalService } from '../../../../graphql/service/modalService';
 import { CREATE_LANGUAGE } from '../../../../graphql/mutations/languages';
@@ -44,38 +43,32 @@ export const LanguageCreateModal = () => {
   };
 
   return (
-    <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-          <InputText
-            name={t('Language')}
-            registerName={FieldNameLanguagesForm.NAME}
-            register={register}
-            error={!!errors.name}
-            helperText={t(errors.name?.message as string) || ''}
-          />
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      <InputText
+        name={t('Language')}
+        registerName={FieldNameLanguagesForm.NAME}
+        register={register}
+        error={!!errors.name}
+        helperText={t(errors.name?.message as string) || ''}
+      />
 
-          <InputText
-            name="ISO2"
-            registerName={FieldNameLanguagesForm.ISO2}
-            register={register}
-            error={!!errors.iso2}
-            helperText={t(errors.iso2?.message as string) || ''}
-          />
+      <InputText
+        name="ISO2"
+        registerName={FieldNameLanguagesForm.ISO2}
+        register={register}
+        error={!!errors.iso2}
+        helperText={t(errors.iso2?.message as string) || ''}
+      />
 
-          <InputText
-            name={t('Native name')}
-            registerName={FieldNameLanguagesForm.NATIVE}
-            register={register}
-            error={!!errors.nativeName}
-            helperText={t(errors.nativeName?.message as string) || ''}
-          />
+      <InputText
+        name={t('Native name')}
+        registerName={FieldNameLanguagesForm.NATIVE}
+        register={register}
+        error={!!errors.nativeName}
+        helperText={t(errors.nativeName?.message as string) || ''}
+      />
 
-          <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
-        </form>
-      )}
-    </>
+      <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
+    </form>
   );
 };

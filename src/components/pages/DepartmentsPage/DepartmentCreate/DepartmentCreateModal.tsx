@@ -5,7 +5,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TError } from '../../../../types/errorTypes';
 import { departmentsSchema } from '../../../../utils/validationSchema';
-import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { FieldNameDepartmentsForm } from '../../../../constants/fieldNameDepartmentsForm';
 import { CreateDepartmentResult } from '../../../../graphql/types/results/department';
@@ -42,22 +41,16 @@ export const DepartmentsCreateModal = () => {
   };
 
   return (
-    <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-          <InputText
-            name={t('Department name')}
-            registerName={FieldNameDepartmentsForm.NAME}
-            register={register}
-            error={!!errors.name}
-            helperText={t(errors.name?.message as string) || ''}
-          />
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      <InputText
+        name={t('Department name')}
+        registerName={FieldNameDepartmentsForm.NAME}
+        register={register}
+        error={!!errors.name}
+        helperText={t(errors.name?.message as string) || ''}
+      />
 
-          <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
-        </form>
-      )}
-    </>
+      <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
+    </form>
   );
 };
