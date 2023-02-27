@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import { Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
 import { UPDATE_USER } from '../../../graphql/mutations/updateUser';
@@ -24,6 +25,7 @@ const EmployeesLanguagePage = () => {
   const navigate = useNavigate();
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
   const { userData, loading } = useEmployeeLanguagesFormData(id!);
+  const { t } = useTranslation();
 
   const [updateUser] = useMutation(UPDATE_USER, {
     refetchQueries: [{ query: USER, variables: { id } }, 'User'],
@@ -70,13 +72,13 @@ const EmployeesLanguagePage = () => {
                   isVisible={isVisible}
                 />
               ) : (
-                <Typography sx={{ fontSize: '20px' }}>No languages were found</Typography>
+                <Typography sx={{ fontSize: '20px' }}>{t('No languages were found')}</Typography>
               )}
             </Styled.InfoWrapper>
           </Styled.Wrapper>
 
           <PrivateButton isVisible={isVisible} onClick={handleEdit} sx={{ minWidth: 160 }}>
-            Add language
+            {t('Add language')}
           </PrivateButton>
         </Styled.PaperWrapper>
       )}

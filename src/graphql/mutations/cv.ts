@@ -7,7 +7,6 @@ export const CREATE_CV = gql`
       created_at
       name
       description
-      user
       skills {
         skill_name
         mastery
