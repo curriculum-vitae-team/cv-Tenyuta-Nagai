@@ -2,6 +2,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'react-i18next';
 import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { TError } from '../../../../types/errorTypes';
@@ -17,6 +18,7 @@ export const LanguageUpdateModal = () => {
   const language: Pick<Partial<ILanguageUpdate>, keyof ILanguageUpdate> = useReactiveVar(
     modalService.modalData$
   );
+  const { t } = useTranslation();
 
   const [updateLanguage, { loading }] = useMutation(UPDATE_LANGUAGE);
   const {
@@ -55,11 +57,11 @@ export const LanguageUpdateModal = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
-            name="Language"
+            name={t('Language')}
             registerName={FieldNameLanguagesForm.NAME}
             register={register}
             error={!!errors.name}
-            helperText={errors.name?.message || ''}
+            helperText={t(errors.name?.message as string) || ''}
           />
 
           <InputText
@@ -67,15 +69,15 @@ export const LanguageUpdateModal = () => {
             registerName={FieldNameLanguagesForm.ISO2}
             register={register}
             error={!!errors.iso2}
-            helperText={errors.iso2?.message || ''}
+            helperText={t(errors.iso2?.message as string) || ''}
           />
 
           <InputText
-            name="Native name"
+            name={t('Native name')}
             registerName={FieldNameLanguagesForm.NATIVE}
             register={register}
             error={!!errors.nativeName}
-            helperText={errors.nativeName?.message || ''}
+            helperText={t(errors.nativeName?.message as string) || ''}
           />
 
           <ModalWindowButton loading={loading} isValid={isValid} />

@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { FieldNameSkillsForm } from '../../../../constants/fieldNameSkillsForm';
 import { updateCacheAfterCreatingSkill } from '../../../../graphql/cache/skills';
 import { CREATE_SKILL } from '../../../../graphql/mutations/skills';
@@ -15,6 +16,7 @@ import { InputText } from '../../../UI/InputText';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 
 export const SkillCreateModal = () => {
+  const { t } = useTranslation();
   const [createSkill, { loading }] = useMutation<CreateSkillsResult>(CREATE_SKILL);
   const {
     register,
@@ -46,11 +48,11 @@ export const SkillCreateModal = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
-            name="Skill name"
+            name={t('Skill name')}
             registerName={FieldNameSkillsForm.NAME}
             register={register}
             error={!!errors.name}
-            helperText={errors.name?.message || ''}
+            helperText={t(errors.name?.message as string) || ''}
           />
 
           <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />

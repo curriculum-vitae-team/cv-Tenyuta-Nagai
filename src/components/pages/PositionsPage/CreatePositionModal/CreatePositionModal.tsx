@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 import { positionSchema } from '../../../../utils/validationSchema';
 import { InputText } from '../../../UI/InputText';
 import { CREATE_POSITION } from '../../../../graphql/mutations/position';
@@ -18,6 +19,7 @@ export const CreatePositionModal = () => {
       updateCacheAfterCreatingPosition(cache, data!);
     },
   });
+  const { t } = useTranslation();
 
   const {
     register,
@@ -42,11 +44,11 @@ export const CreatePositionModal = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <InputText
-        name="Name"
+        name={t('Name')}
         registerName={'name'}
         register={register}
         error={!!errors.name}
-        helperText={errors.name?.message || ''}
+        helperText={t(errors.name?.message as string) || ''}
       />
 
       <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
