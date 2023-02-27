@@ -4,6 +4,10 @@ export interface IUserAllResult {
   user: IUser;
 }
 
+export interface IUpdateUserResult {
+  updateUser: IUser;
+}
+
 export interface IUserName {
   email: string;
   profile: {

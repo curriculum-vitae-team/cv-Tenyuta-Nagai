@@ -18,7 +18,6 @@ export const Layout = () => {
         <Suspense fallback={<Spinner />}>
           <Outlet />
         </Suspense>
-        <Footer />
       </ErrorBoundary>
       <Notifier />
       {isOpen && <ModalWindow />}

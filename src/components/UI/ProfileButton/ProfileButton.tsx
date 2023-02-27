@@ -5,7 +5,6 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
-import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
@@ -54,7 +53,9 @@ export const ProfileButton = () => {
   return (
     <>
       <WrapProfileButtons>
-        <TypographyEmailProfileButtons>{currentUser?.email}</TypographyEmailProfileButtons>
+        <TypographyEmailProfileButtons>
+          {currentUser?.profile?.full_name || currentUser?.email}
+        </TypographyEmailProfileButtons>
         <Tooltip title={t('Account settings')}>
           <IconButton
             onClick={handleClick}
@@ -85,11 +86,6 @@ export const ProfileButton = () => {
         <MenuItem onClick={handleGoToProfile}>
           <AccountCircleIcon sx={IconStyleProfileButtons} />
           {t('Profile')}
-        </MenuItem>
-
-        <MenuItem>
-          <SettingsIcon sx={IconStyleProfileButtons} />
-          {t('Settings')}
         </MenuItem>
 
         <Divider />
