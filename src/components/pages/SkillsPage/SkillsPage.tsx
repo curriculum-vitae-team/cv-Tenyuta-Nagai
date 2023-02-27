@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { Container, Grid } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -21,6 +22,7 @@ const SkillsPage = () => {
   });
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
+  const { t } = useTranslation();
 
   return (
     <main>
@@ -34,11 +36,11 @@ const SkillsPage = () => {
               items={getAllSkills(data?.skills || [])}
               ModalForCreating={SkillCreateModal}
               searchParameter="name"
-              titleCreateBtn="Create"
+              titleCreateBtn={t('Create')}
               isCreateBtnVisible={isAdmin}
               defaultSortingBy="name"
               AdditionalButtons={isAdmin ? SkillsAdditionalButtons : undefined}
-              titleModal={'Create skill'}
+              titleModal={t('Create skill')}
             />
           </Grid>
         </Container>

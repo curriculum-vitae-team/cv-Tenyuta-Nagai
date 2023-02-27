@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import UpdateIcon from '@mui/icons-material/Update';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useMutation } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 import { RoutePath } from '../../../../constants/routeVariables';
 import { UserRoles } from '../../../../constants/userRoles';
 import { useUser } from '../../../../hooks/useUser';
@@ -20,6 +21,7 @@ export const EmployeesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }
   const isAdmin = user?.role === UserRoles.Admin;
   const navigate = useNavigate();
   const [deleteUser] = useMutation<DeleteUserResult, DeleteUserInput>(DELETE_USER);
+  const { t } = useTranslation();
 
   const handleUserDelete = () => {
     deleteUser({
@@ -38,7 +40,7 @@ export const EmployeesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }
     <>
       <MenuItem sx={Styled.ActionsMenuRowItemProps} onClick={handleGoToProfile}>
         <UpdateIcon sx={Styled.ActionsMenuRowIconsProps} />
-        Profile
+        {t('Profile')}
       </MenuItem>
 
       {isAdmin && <Divider />}
@@ -50,7 +52,7 @@ export const EmployeesAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }
           disabled={user?.id === id && isAdmin}
         >
           <DeleteOutlineIcon sx={Styled.ActionsMenuRowIconsProps} />
-          Delete
+          {t('Delete')}
         </MenuItem>
       )}
     </>

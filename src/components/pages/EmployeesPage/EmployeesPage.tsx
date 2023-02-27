@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import React from 'react';
 import { Container, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { createTable } from '../../Table/template';
 import { GET_ALL_USERS } from '../../../graphql/queries/users';
 import { useUser } from '../../../hooks/useUser';
@@ -21,6 +22,7 @@ const EmployeesPage = () => {
   });
   const user = useUser();
   const isCreateBtnVisible = user?.role === UserRoles.Admin;
+  const { t } = useTranslation();
 
   return (
     <main>
@@ -34,8 +36,8 @@ const EmployeesPage = () => {
               items={getAllUsers(data?.users || [])}
               ModalForCreating={EmployeesModal}
               searchParameter="fullName"
-              titleCreateBtn="Add employee"
-              titleModal={'Create new user'}
+              titleCreateBtn={t('Add employee')}
+              titleModal={t('Create new user')}
               isCreateBtnVisible={isCreateBtnVisible}
               AdditionalButtons={EmployeesAdditionalButtons}
               defaultSortingBy="name"
