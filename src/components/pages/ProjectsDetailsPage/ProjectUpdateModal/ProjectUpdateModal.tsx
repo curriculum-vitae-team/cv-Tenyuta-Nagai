@@ -2,6 +2,7 @@ import { useMutation, useReactiveVar } from '@apollo/client';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { InputText } from '../../../UI/InputText';
 import { DatePickerInput } from '../../../UI/DatePicker';
@@ -14,6 +15,7 @@ import { formatDate } from '../../../../utils/formatDate';
 import { modalService } from '../../../../graphql/service/modalService';
 import { IProjectResult } from '../../../../graphql/types/results/projects';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
+import { checkDirtyFieldsForm } from '../../../../utils/checkDirtyFieldsForm';
 
 export const ProjectUpdateModal = () => {
   const projectData: Pick<Partial<IProjectResult>, keyof IProjectResult> = useReactiveVar(
@@ -26,7 +28,7 @@ export const ProjectUpdateModal = () => {
     register,
     trigger,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, dirtyFields },
   } = useForm<IProjectsFormInput>({
     defaultValues: {
       name: projectData?.project?.name,
@@ -34,8 +36,8 @@ export const ProjectUpdateModal = () => {
       description: projectData?.project?.description,
       domain: projectData?.project?.domain,
       teamSize: projectData?.project?.team_size,
-      startDate: projectData?.project?.start_date,
-      endDate: projectData?.project?.end_date || undefined,
+      startDate: dayjs(projectData?.project?.start_date).format(),
+      endDate: dayjs(projectData?.project?.end_date).format() || undefined,
     },
     mode: 'onChange',
     resolver: yupResolver(projectsSchema),
@@ -109,14 +111,16 @@ export const ProjectUpdateModal = () => {
         label={t('Start date')}
         name={FieldNameProjectsForm.START_DATE}
         trigger={trigger}
+        triggerName={FieldNameProjectsForm.END_DATE}
       />
+
       <DatePickerInput
         control={control}
         label={t('End date')}
         name={FieldNameProjectsForm.END_DATE}
       />
 
-      <ModalWindowButton loading={loading} isValid={isValid} />
+      <ModalWindowButton loading={loading} isValid={checkDirtyFieldsForm(dirtyFields) && isValid} />
     </form>
   );
 };

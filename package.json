@@ -21,6 +21,7 @@
     "@mui/material": "^5.11.2",
     "@mui/x-date-pickers": "^5.0.16",
     "@react-pdf/renderer": "^3.1.5",
+    "dayjs": "^1.11.7",
     "graphql": "^16.6.0",
     "i18next": "^22.4.10",
     "react": "^18.2.0",

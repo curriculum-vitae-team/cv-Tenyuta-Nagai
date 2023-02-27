@@ -9,6 +9,7 @@ import { UPDATE_POSITION } from '../../../../graphql/mutations/position';
 import { modalService } from '../../../../graphql/service/modalService';
 import { TError } from '../../../../types/errorTypes';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
+import { checkDirtyFieldsForm } from '../../../../utils/checkDirtyFieldsForm';
 import { IFormUpdatePosition, IUpdateModalData } from './UpdatePositionModal.types';
 
 export const UpdatePositionModal = () => {
@@ -21,7 +22,7 @@ export const UpdatePositionModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, dirtyFields },
   } = useForm<IFormUpdatePosition>({
     mode: 'onChange',
     defaultValues: {
@@ -53,7 +54,7 @@ export const UpdatePositionModal = () => {
         helperText={t(errors.name?.message as string) || ''}
       />
 
-      <ModalWindowButton loading={loading} isValid={isValid} />
+      <ModalWindowButton loading={loading} isValid={checkDirtyFieldsForm(dirtyFields) && isValid} />
     </form>
   );
 };

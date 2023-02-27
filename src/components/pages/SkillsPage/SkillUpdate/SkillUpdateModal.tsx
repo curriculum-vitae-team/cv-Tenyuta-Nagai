@@ -12,6 +12,7 @@ import { SkillsInput } from '../../../../graphql/types/inputs/skill';
 import { UPDATE_SKILL } from '../../../../graphql/mutations/skills';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
+import { checkDirtyFieldsForm } from '../../../../utils/checkDirtyFieldsForm';
 import { ISkillUpdate } from './SkillUpdateModal.interface';
 
 export const SkillsUpdateModal = () => {
@@ -23,7 +24,7 @@ export const SkillsUpdateModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, dirtyFields },
   } = useForm<SkillsInput>({
     defaultValues: {
       name: skill.name,
@@ -59,7 +60,10 @@ export const SkillsUpdateModal = () => {
             helperText={t(errors.name?.message as string) || ''}
           />
 
-          <ModalWindowButton loading={loading} isValid={isValid} />
+          <ModalWindowButton
+            loading={loading}
+            isValid={checkDirtyFieldsForm(dirtyFields) && isValid}
+          />
         </form>
       )}
     </>

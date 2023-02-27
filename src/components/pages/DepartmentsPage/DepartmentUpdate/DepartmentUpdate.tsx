@@ -11,6 +11,7 @@ import { FieldNameDepartmentsForm } from '../../../../constants/fieldNameDepartm
 import { DepartmentsInput } from '../../../../graphql/types/inputs/department';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
+import { checkDirtyFieldsForm } from '../../../../utils/checkDirtyFieldsForm';
 import { IDepartment } from './DepartmentUpdateModal.interface';
 
 export const DepartmentUpdateModal = () => {
@@ -22,7 +23,7 @@ export const DepartmentUpdateModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, dirtyFields },
   } = useForm<DepartmentsInput>({
     defaultValues: {
       name: department.name,
@@ -54,7 +55,7 @@ export const DepartmentUpdateModal = () => {
         helperText={t(errors.name?.message as string) || ''}
       />
 
-      <ModalWindowButton loading={loading} isValid={isValid} />
+      <ModalWindowButton loading={loading} isValid={checkDirtyFieldsForm(dirtyFields) && isValid} />
     </form>
   );
 };

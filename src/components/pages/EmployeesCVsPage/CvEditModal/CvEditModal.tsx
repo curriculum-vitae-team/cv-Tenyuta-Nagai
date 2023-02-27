@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import React from 'react';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { Checkbox, Typography } from '@mui/material';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { useParams } from 'react-router-dom';
@@ -16,6 +16,7 @@ import { IUserAllResult } from '../../../../graphql/types/results/user';
 import { Spinner } from '../../../Spinner';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
+import { checkDirtyFieldsForm } from '../../../../utils/checkDirtyFieldsForm';
 import * as Styled from './CvEditModal.styles';
 import { TCvId, IFormEditCv } from './CvEditModal.types';
 
@@ -26,7 +27,6 @@ export const CvEditModal = () => {
   });
   const cvId: Pick<Partial<TCvId>, keyof TCvId> = useReactiveVar(modalService.modalData$);
   const cv = userData?.user?.cvs?.filter((cv) => cv.id === cvId.id)[0];
-  const [isTemplate, setIsTemplate] = useState(cv?.is_template);
   const [updateCV, { loading: updateCvLoading }] = useMutation<ICvResult>(UPDATE_CV);
   const [unbindCV, { loading: unbindCvLoading }] = useMutation<ICvUnbindResult>(UNBIND_CV, {
     update(cache, { data }) {
@@ -38,19 +38,17 @@ export const CvEditModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, dirtyFields },
+    control,
   } = useForm<IFormEditCv>({
     defaultValues: {
       name: cv?.name,
       description: cv?.description,
+      template: cv?.is_template,
     },
     mode: 'onChange',
     resolver: yupResolver(editCvSchema),
   });
-
-  const handleChangeTemplate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsTemplate(e.target.checked);
-  };
 
   const handleUnBind = () => {
     unbindCV({
@@ -82,9 +80,13 @@ export const CvEditModal = () => {
           name: inputs.name,
           description: inputs.description,
           userId: userData?.user.id,
-          skills: userData?.user.profile.skills,
+          skills: userData?.user.profile.skills.map((skill) => {
+            return { skill_name: skill.skill_name, mastery: skill.mastery };
+          }),
           projectsIds: [], // TO-DO change it
-          languages: userData?.user.profile.languages,
+          languages: userData?.user.profile.languages.map((language) => {
+            return { language_name: language.language_name, proficiency: language.proficiency };
+          }),
           is_template: inputs.template,
         },
       },
@@ -131,16 +133,24 @@ export const CvEditModal = () => {
 
           <Styled.CheckboxWrap>
             <Typography>{t('Template')}</Typography>
-            <Checkbox
-              {...register('template')}
-              {...Styled.checkboxLabel}
-              checked={isTemplate}
-              onChange={handleChangeTemplate}
+            <Controller
+              name={'template'}
+              control={control}
+              render={({ field: props }) => (
+                <Checkbox
+                  {...props}
+                  checked={props.value}
+                  onChange={(e) => props.onChange(e.target.checked)}
+                />
+              )}
             />
           </Styled.CheckboxWrap>
 
           <Styled.ButtonsWrap>
-            <ModalWindowButton loading={updateCvLoading || unbindCvLoading} isValid={isValid} />
+            <ModalWindowButton
+              loading={updateCvLoading || unbindCvLoading}
+              isValid={checkDirtyFieldsForm(dirtyFields) && isValid}
+            />
 
             <ModalWindowButton
               loading={updateCvLoading || unbindCvLoading}
