@@ -8,6 +8,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import Checkbox from '@mui/material/Checkbox';
+import { useTranslation } from 'react-i18next';
 import { GET_ALL_PROJECTS } from '../../../../graphql/queries/projects';
 import { Spinner } from '../../../Spinner';
 import { ICvQueryResult, ICvResult } from '../../../../graphql/types/results/cv';
@@ -24,6 +25,7 @@ import * as Styled from './UpdateModal.styles';
 
 export const UpdateModal = () => {
   const { id } = useParams();
+  const { t } = useTranslation();
   const { loading, data } = useQuery<IProjectsResult>(GET_ALL_PROJECTS, {
     variables: { id },
     onError: () => modalService.closeModal(),
@@ -85,7 +87,7 @@ export const UpdateModal = () => {
         <form onSubmit={handleSubmit}>
           <Styled.FormWrapper>
             <Styled.FormControl>
-              <InputLabel id="projects-label">Projects</InputLabel>
+              <InputLabel id="projects-label">{t('Projects')}</InputLabel>
               <Select
                 labelId="projects-label"
                 id="projects-chip"

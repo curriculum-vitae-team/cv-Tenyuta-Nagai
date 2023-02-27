@@ -9,6 +9,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 import { USER } from '../../../graphql/queries/user';
 import { RoutePath } from '../../../constants/routeVariables';
 import { useUser } from '../../../hooks/useUser';
@@ -31,6 +32,7 @@ export const ProfileButton = () => {
   const { data: userData } = useQuery<IUserAllResult>(USER, {
     variables: { id: currentUser?.id },
   });
+  const { t } = useTranslation();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -53,7 +55,7 @@ export const ProfileButton = () => {
     <>
       <WrapProfileButtons>
         <TypographyEmailProfileButtons>{currentUser?.email}</TypographyEmailProfileButtons>
-        <Tooltip title="Account settings">
+        <Tooltip title={t('Account settings')}>
           <IconButton
             onClick={handleClick}
             size="small"
@@ -82,19 +84,19 @@ export const ProfileButton = () => {
       >
         <MenuItem onClick={handleGoToProfile}>
           <AccountCircleIcon sx={IconStyleProfileButtons} />
-          Profile
+          {t('Profile')}
         </MenuItem>
 
         <MenuItem>
           <SettingsIcon sx={IconStyleProfileButtons} />
-          Setting
+          {t('Settings')}
         </MenuItem>
 
         <Divider />
 
         <MenuItem onClick={handleLogout}>
           <Logout sx={IconStyleProfileButtons} />
-          Logout
+          {t('Logout')}
         </MenuItem>
       </Menu>
     </>

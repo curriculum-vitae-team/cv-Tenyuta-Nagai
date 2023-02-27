@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -19,6 +20,7 @@ const CvsDetailsPage = () => {
   const navigate = useNavigate();
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
+  const { t } = useTranslation();
   const { loading, data } = useQuery<ICvQueryResult>(CV, {
     variables: { id },
     onError: () => navigate(`/${RoutePath.CVS}`, { replace: true }),
@@ -36,16 +38,16 @@ const CvsDetailsPage = () => {
         <Styled.PaperWrapper elevation={3}>
           <Styled.Wrapper>
             <Styled.ContentWrapper>
-              <Row title={'Name:'}>{data?.cv?.name || '-'}</Row>
-              <Row title={'Description:'}>{data?.cv?.description || '-'}</Row>
-              <Row title={'User:'}>
+              <Row title={`${t('Name')}:`}>{data?.cv?.name || '-'}</Row>
+              <Row title={`${t('Description')}:`}>{data?.cv?.description || '-'}</Row>
+              <Row title={`${t('User')}:`}>
                 {data?.cv?.user?.profile?.full_name || data?.cv?.user?.email || '-'}
               </Row>
-              <Row title={'User position:'}>{data?.cv?.user?.position_name || '-'}</Row>
-              <Row title={'Skills:'}>
+              <Row title={`${t('User position')}:`}>{data?.cv?.user?.position_name || '-'}</Row>
+              <Row title={`${t('Skills')}:`}>
                 {data?.cv?.skills?.length ? convertSkillsArray(data?.cv?.skills) : '-'}
               </Row>
-              <Row title={'Languages:'}>
+              <Row title={`${t('Languages')}:`}>
                 {data?.cv?.languages?.length ? convertLanguagesArray(data?.cv?.languages) : '-'}
               </Row>
             </Styled.ContentWrapper>
@@ -56,7 +58,7 @@ const CvsDetailsPage = () => {
                 onClick={handleEdit}
                 sx={{ minWidth: 140 }}
               >
-                Edit
+                {t('Edit')}
               </PrivateButton>
             </Styled.BtnWrapper>
           </Styled.Wrapper>

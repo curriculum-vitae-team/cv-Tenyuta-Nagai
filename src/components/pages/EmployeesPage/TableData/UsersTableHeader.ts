@@ -5,12 +5,12 @@ export const UsersTableHeader: IColumn[] = [
   { columnKey: 'avatar', columnName: ' ', isSortable: false, ColumnCellComponent: AvatarImage },
   {
     columnKey: 'name',
-    columnName: 'First Name',
+    columnName: 'First name',
     isSortable: true,
   },
   {
     columnKey: 'lastName',
-    columnName: 'Last Name',
+    columnName: 'Last name',
     isSortable: true,
   },
   { columnKey: 'email', columnName: 'Email', isSortable: true },

@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'react-i18next';
 import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
 import { TError } from '../../../../types/errorTypes';
 import { Spinner } from '../../../Spinner';
@@ -37,6 +38,7 @@ export const LanguageModal = () => {
     resolver: yupResolver(employeeLanguagesSchema),
   });
   const languagesList = userData?.user.profile.languages.map(({ language_name }) => language_name);
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<ILanguagesFormInput> = (inputs) => {
     updateUser({
@@ -68,7 +70,7 @@ export const LanguageModal = () => {
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputSelectEmployeePage
             sx={{ minWidth: '150px' }}
-            label={'Language'}
+            label={t('Language')}
             registerName={FieldNameEmployeeLanguagesForm.LANGUAGE_NAME}
             register={register}
             data={languagesData!.languages.filter(
@@ -79,7 +81,7 @@ export const LanguageModal = () => {
 
           <InputSelectEmployeePage
             sx={{ minWidth: '150px' }}
-            label={'Proficiency'}
+            label={t('Proficiency')}
             registerName={FieldNameEmployeeLanguagesForm.PROFICIENCY}
             register={register}
             data={languageProficiencyData}

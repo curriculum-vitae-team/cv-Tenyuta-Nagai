@@ -4,6 +4,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useMutation } from '@apollo/client';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { UserRoles } from '../../../../constants/userRoles';
 import { useUser } from '../../../../hooks/useUser';
 import { TError } from '../../../../types/errorTypes';
@@ -20,6 +21,7 @@ export const CvsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
   const navigate = useNavigate();
   const isAdmin = user?.role === UserRoles.Admin;
   const isOwnerCv = user?.email === employee;
+  const { t } = useTranslation();
   const [deleteCv] = useMutation<ICvsDeleteResult>(DELETE_CV, {
     update(cache) {
       updateCvsCacheAfterCvDeleteMutation(cache, id as string);
@@ -49,7 +51,7 @@ export const CvsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
     <>
       <MenuItem sx={Styled.ActionsMenuRowItemProps} onClick={handleGoToDetails}>
         <InfoOutlinedIcon sx={Styled.ActionsMenuRowIconsProps} />
-        Details
+        {t('Details')}
       </MenuItem>
 
       <Divider />
@@ -60,7 +62,7 @@ export const CvsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }) => {
         disabled={disableDeleteButton()}
       >
         <DeleteOutlineIcon sx={Styled.ActionsMenuRowIconsProps} />
-        Delete
+        {t('Delete')}
       </MenuItem>
     </>
   );

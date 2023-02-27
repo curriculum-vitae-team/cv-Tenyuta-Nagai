@@ -12,6 +12,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import Groups3Icon from '@mui/icons-material/Groups3';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { RoutePath } from '../../../constants/routeVariables';
 import { CardBurgerMenu, ToolbarBurgerMenu } from './burgerMenu.styles';
 
@@ -21,6 +22,8 @@ interface IBurgerMenuProps {
 }
 
 export const BurgerMenu: FC<IBurgerMenuProps> = ({ open, onClose }) => {
+  const { t } = useTranslation();
+
   const handleClose = () => {
     onClose();
   };
@@ -52,7 +55,7 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({ open, onClose }) => {
               onClick={handleClose}
             >
               <GroupIcon sx={{ color: 'secondary.contrastText', mr: 2 }} />
-              Employees
+              {t('Employees')}
             </MenuItem>
 
             <MenuItem
@@ -62,7 +65,7 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({ open, onClose }) => {
               onClick={handleClose}
             >
               <BackupTableIcon sx={{ color: 'secondary.contrastText', mr: 2 }} />
-              Projects
+              {t('Projects')}
             </MenuItem>
 
             <MenuItem
@@ -72,7 +75,7 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({ open, onClose }) => {
               onClick={handleClose}
             >
               <BallotIcon sx={{ color: 'secondary.contrastText', mr: 2 }} />
-              Cvs
+              {t('Cvs')}
             </MenuItem>
 
             <Divider />
@@ -84,7 +87,7 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({ open, onClose }) => {
               onClick={handleClose}
             >
               <Groups3Icon sx={{ color: 'secondary.contrastText', mr: 2 }} />
-              Departments
+              {t('Departments')}
             </MenuItem>
 
             <MenuItem
@@ -94,7 +97,7 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({ open, onClose }) => {
               onClick={handleClose}
             >
               <EqualizerIcon sx={{ color: 'secondary.contrastText', mr: 2 }} />
-              Positions
+              {t('Positions')}
             </MenuItem>
 
             <MenuItem
@@ -104,7 +107,7 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({ open, onClose }) => {
               onClick={handleClose}
             >
               <EngineeringIcon sx={{ color: 'secondary.contrastText', mr: 2 }} />
-              Skills
+              {t('Skills')}
             </MenuItem>
 
             <MenuItem
@@ -114,7 +117,7 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({ open, onClose }) => {
               onClick={handleClose}
             >
               <TranslateIcon sx={{ color: 'secondary.contrastText', mr: 2 }} />
-              Languages
+              {t('Languages')}
             </MenuItem>
           </MenuList>
         </CardContent>

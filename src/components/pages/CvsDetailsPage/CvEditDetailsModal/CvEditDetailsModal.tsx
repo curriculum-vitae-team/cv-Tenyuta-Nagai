@@ -3,6 +3,7 @@ import { Checkbox, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 import { editCvDetailsSchema } from '../../../../utils/validationSchema';
 import { InputText } from '../../../UI/InputText';
 import { UPDATE_CV } from '../../../../graphql/mutations/cv';
@@ -19,6 +20,7 @@ export const CvEditDetailsModal = () => {
   const cvData: Pick<Partial<ICvQueryResult>, keyof ICvQueryResult> = useReactiveVar(
     modalService.modalData$
   );
+  const { t } = useTranslation();
 
   const {
     register,
@@ -64,25 +66,25 @@ export const CvEditDetailsModal = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <InputText
-        name="Name"
+        name={t('Name')}
         registerName={'name'}
         register={register}
         error={!!errors.name}
-        helperText={errors.name?.message || ''}
+        helperText={t(errors.name?.message as string) || ''}
       />
 
       <InputText
-        name="Description"
+        name={t('Description')}
         registerName={'description'}
         multiline
         maxRows={4}
         register={register}
         error={!!errors.description}
-        helperText={errors.description?.message || ''}
+        helperText={t(errors.description?.message as string) || ''}
       />
 
       <Styled.CheckboxWrap>
-        <Typography>Template</Typography>
+        <Typography>{t('Template')}</Typography>
         <Checkbox
           {...register('template')}
           {...Styled.checkboxLabel}

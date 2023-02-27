@@ -2,6 +2,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'react-i18next';
 import { InputText } from '../../../UI/InputText';
 import { departmentsSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
@@ -16,6 +17,7 @@ export const DepartmentUpdateModal = () => {
   const department: Pick<Partial<IDepartment>, keyof IDepartment> = useReactiveVar(
     modalService.modalData$
   );
+  const { t } = useTranslation();
   const [updateDepartment, { loading }] = useMutation(UPDATE_DEPARTMENT);
   const {
     register,
@@ -45,11 +47,11 @@ export const DepartmentUpdateModal = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <InputText
-        name="Department name"
+        name={t('Department name')}
         registerName={FieldNameDepartmentsForm.NAME}
         register={register}
         error={!!errors.name}
-        helperText={errors.name?.message || ''}
+        helperText={t(errors.name?.message as string) || ''}
       />
 
       <ModalWindowButton loading={loading} isValid={isValid} />

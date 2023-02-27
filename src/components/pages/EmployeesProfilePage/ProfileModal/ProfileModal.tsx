@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'react-i18next';
 import { useProfileFormData } from '../../../../hooks/useProfileFormData';
 import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
 import { profileSchema } from '../../../../utils/validationSchema';
@@ -35,6 +36,7 @@ export const ProfileModal = () => {
     mode: 'onChange',
     resolver: yupResolver(profileSchema),
   });
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<IProfileFormInput> = (inputs) => {
     updateUser({
@@ -62,23 +64,23 @@ export const ProfileModal = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
-            name="First name"
+            name={t('First name')}
             registerName={FieldNameProfileForm.FIRST_NAME}
             register={register}
             error={!!errors.firstName}
-            helperText={errors.firstName?.message || ''}
+            helperText={t(errors.firstName?.message as string) || ''}
           />
 
           <InputText
-            name="Last name"
+            name={t('Last name')}
             registerName={FieldNameProfileForm.LAST_NAME}
             register={register}
             error={!!errors.lastName}
-            helperText={errors.lastName?.message || ''}
+            helperText={t(errors.lastName?.message as string) || ''}
           />
 
           <InputSelect
-            label={'Position'}
+            label={t('Position')}
             registerName={FieldNameProfileForm.POSITION}
             register={register}
             defaultValue={userData?.user.position?.id || ''}
@@ -86,7 +88,7 @@ export const ProfileModal = () => {
           />
 
           <InputSelect
-            label={'Department'}
+            label={t('Department')}
             registerName={FieldNameProfileForm.DEPARTMENT}
             register={register}
             defaultValue={userData?.user.department?.id || ''}

@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'react-i18next';
 import { InputText } from '../../../UI/InputText';
 import { DatePickerInput } from '../../../UI/DatePicker';
 import { updateCacheAfterCreatingProject } from '../../../../graphql/cache/createProject';
@@ -26,6 +27,7 @@ export const ProjectCreateModal = () => {
   } = useForm<IProjectsFormInput>({
     resolver: yupResolver(projectsSchema),
   });
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<IProjectsFormInput> = (inputs) => {
     createProject({
@@ -52,54 +54,58 @@ export const ProjectCreateModal = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <InputText
-        name="Project name"
+        name={t('Project name')}
         registerName={FieldNameProjectsForm.NAME}
         register={register}
         error={!!errors.name}
-        helperText={errors.name?.message || ''}
+        helperText={t(errors.name?.message as string) || ''}
       />
 
       <InputText
-        name="Internal name"
+        name={t('Internal name')}
         registerName={FieldNameProjectsForm.INTERNAL_NAME}
         register={register}
         error={!!errors.internalName?.message}
-        helperText={errors.internalName?.message || ''}
+        helperText={t(errors.internalName?.message as string) || ''}
       />
 
       <InputText
-        name="Description"
+        name={t('Description')}
         registerName={FieldNameProjectsForm.DESCRIPTION}
         register={register}
         error={!!errors.description}
-        helperText={errors.description?.message || ''}
+        helperText={t(errors.description?.message as string) || ''}
         multiline
       />
 
       <InputText
-        name="Domain"
+        name={t('Domain')}
         registerName={FieldNameProjectsForm.DOMAIN}
         register={register}
         error={!!errors.domain}
-        helperText={errors.domain?.message || ''}
+        helperText={t(errors.domain?.message as string) || ''}
       />
 
       <InputText
-        name="Team size"
+        name={t('Team size')}
         registerName={FieldNameProjectsForm.TEAM_SIZE}
         register={register}
         error={!!errors.teamSize}
-        helperText={errors.teamSize?.message || ''}
+        helperText={t(errors.teamSize?.message as string) || ''}
       />
 
       <DatePickerInput
         control={control}
-        label="Start date"
+        label={t('Start date')}
         name={FieldNameProjectsForm.START_DATE}
         triggerName={'endDate'}
         trigger={trigger}
       />
-      <DatePickerInput control={control} label="End date" name={FieldNameProjectsForm.END_DATE} />
+      <DatePickerInput
+        control={control}
+        label={t('End date')}
+        name={FieldNameProjectsForm.END_DATE}
+      />
 
       <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
     </form>
