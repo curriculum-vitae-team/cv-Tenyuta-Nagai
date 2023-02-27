@@ -5,7 +5,7 @@ import { useReactiveVar } from '@apollo/client';
 import { RoutePath } from '../../../constants/routeVariables';
 import { breadcrumbsService } from '../../../graphql/service/breadcrumbsService/breadcrumbsService';
 import * as Styled from './NavBreadcrumbs.styles';
-import { createBreadcrumbs } from './helpers/createBreadcrumbs';
+import { CreateBreadcrumbs } from './helpers/createBreadcrumbs';
 
 export const NavBreadcrumbs = () => {
   const location = useLocation();
@@ -22,7 +22,7 @@ export const NavBreadcrumbs = () => {
   return (
     <Styled.WrapperBreadcrumbs role="presentation">
       <Breadcrumbs aria-label="breadcrumb">
-        {createBreadcrumbs(pathnames, id, idPathName)}
+        {CreateBreadcrumbs(pathnames, id, idPathName)}
       </Breadcrumbs>
     </Styled.WrapperBreadcrumbs>
   );

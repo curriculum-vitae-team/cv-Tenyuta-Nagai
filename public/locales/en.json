@@ -4,6 +4,15 @@
   "name is a required field": "name is a required field",
   "description is a required field": "description is a required field",
   "Add employee": "Add employee",
+  "CVs": "CVs",
+  "Create new user": "Create new user",
+  "Cvs": "Cvs",
+  "Delete": "Delete",
+  "Department": "Department",
+  "Departments": "Departments",
+  "Details": "Details",
+  "Email": "Email",
+  "Employees": "Employees",
   "Add language": "Add language",
   "name must be at most 30 characters": "name must be at most 30 characters",
   "name must be at most 20 characters": "name must be at most 20 characters",
@@ -54,6 +63,8 @@
   "Only a-z, A-Z": "Only a-z, A-Z",
   "Password": "Password",
   "Position": "Position",
+  "Positions": "Positions",
+  "Profile": "Profile",
   "Preview": "Preview",
   "Proficiency": "Proficiency",
   "Profile": "Profile",
@@ -62,14 +73,11 @@
   "Projects": "Projects",
   "Register now": "Register now",
   "Save": "Save",
-  "Search": {
-    "": {
-      "": "Search"
-    }
-  },
+  "Search..": "Search..",
   "Settings": "Settings",
   "Sign in": "Sign in",
   "Sign up": "Sign up",
+  "Skills": "Skills",
   "Skill": "Skill",
   "Team size": "Team size",
   "Till now": "Till now",
@@ -97,6 +105,13 @@
   "name must be at most 30 characters": "name must be at most 30 characters",
   "password is a required field": "password is a required field",
   "password must be at least 5 characters": "password must be at least 5 characters",
+  "signup": "signup",
+  "profile": "profile",
+  "skills": "skills",
+  "languages": "languages",
+  "cvs": "cvs",
+  "details": "details",
+  "projects": "projects"
   "projects": "projects",
   "signup": "signup"
 }
