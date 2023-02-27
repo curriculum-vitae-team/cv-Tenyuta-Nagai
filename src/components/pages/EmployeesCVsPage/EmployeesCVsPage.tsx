@@ -2,6 +2,7 @@ import { useQuery, useReactiveVar } from '@apollo/client';
 import { Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useUser } from '../../../hooks/useUser';
 import { UserRoles } from '../../../constants/userRoles';
 import { USER } from '../../../graphql/queries/user';
@@ -23,6 +24,7 @@ const EmployeesCVsPage = () => {
   const navigate = useNavigate();
   const isAdmin = user?.role === UserRoles.Admin;
   const currentId = isAdmin ? id : user?.id;
+  const { t } = useTranslation();
   const { loading, data } = useQuery<IUserAllResult>(USER, {
     variables: { id: currentId },
     onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
@@ -72,7 +74,7 @@ const EmployeesCVsPage = () => {
   };
 
   const handleEdit = () => {
-    modalService.setModalData('Edit CV', CvEditModal, { id: cvData.id });
+    modalService.setModalData(t('Edit CV'), CvEditModal, { id: cvData.id });
   };
 
   const handlePreview = () => {};
@@ -86,7 +88,7 @@ const EmployeesCVsPage = () => {
           <Container maxWidth="xl">
             <Styled.WrapperCvsButton>
               <Styled.CvsButton variant="outlined" color="secondary" onClick={handleOpenMenu}>
-                Cvs list
+                {t('Cvs list')}
               </Styled.CvsButton>
             </Styled.WrapperCvsButton>
 
@@ -100,17 +102,17 @@ const EmployeesCVsPage = () => {
               {isDataCv && (
                 <Styled.Wrapper>
                   <Styled.ContentWrapper>
-                    <Row title={'Name:'} content={cvData.name} />
-                    <Row title={'Description:'} content={cvData.description} />
+                    <Row title={`${t('Name')}:`} content={cvData.name} />
+                    <Row title={`${t('Description')}:`} content={cvData.description} />
                   </Styled.ContentWrapper>
 
                   <Styled.ButtonWrapper>
                     <PrivateButton isVisible={isDataCv} onClick={handleEdit}>
-                      Edit
+                      {t('Edit')}
                     </PrivateButton>
 
                     <PrivateButton isVisible={isDataCv} onClick={handlePreview} disabled>
-                      Preview
+                      {t('Preview')}
                     </PrivateButton>
                   </Styled.ButtonWrapper>
                 </Styled.Wrapper>

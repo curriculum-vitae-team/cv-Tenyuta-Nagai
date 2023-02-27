@@ -7,7 +7,7 @@ export interface IInputSelectProps<T extends FieldValues> {
   label: string;
   registerName?: Path<T>;
   register?: UseFormRegister<T>;
-  defaultValue: string;
+  defaultValue?: string;
   data: TData[];
   sx?: SxProps;
   size?: 'small' | 'medium' | undefined;

@@ -9,8 +9,8 @@ import { modalService } from '../../../../graphql/service/modalService';
 import { IPositionCreateReturn } from '../../../../graphql/types/results/position';
 import { updateCacheAfterCreatingPosition } from '../../../../graphql/cache/position';
 import { TError } from '../../../../types/errorTypes';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { IFormCreatePosition } from './CreatePositionModal.types';
-import * as Styled from './CreatePositionModal.style';
 
 export const CreatePositionModal = () => {
   const [createPosition, { loading }] = useMutation<IPositionCreateReturn>(CREATE_POSITION, {
@@ -22,9 +22,8 @@ export const CreatePositionModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<IFormCreatePosition>({
-    mode: 'onChange',
     resolver: yupResolver(positionSchema),
   });
 
@@ -50,16 +49,7 @@ export const CreatePositionModal = () => {
         helperText={errors.name?.message || ''}
       />
 
-      <Styled.ButtonSubmit
-        loading={loading}
-        type="submit"
-        variant="contained"
-        fullWidth
-        size="large"
-        disabled={!isValid}
-      >
-        Save
-      </Styled.ButtonSubmit>
+      <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
     </form>
   );
 };

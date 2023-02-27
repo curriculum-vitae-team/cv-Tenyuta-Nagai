@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import React from 'react';
 import { Container, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { RoutePath } from '../../../constants/routeVariables';
 import { Spinner } from '../../Spinner';
 import { createTable } from '../../Table/template';
@@ -21,6 +22,7 @@ const ProjectsPage = () => {
   });
   const user = useUser();
   const isCreateBtnVisible = user?.role === UserRoles.Admin;
+  const { t } = useTranslation();
 
   return (
     <main>
@@ -33,9 +35,9 @@ const ProjectsPage = () => {
               header={ProjectsTableHeader}
               items={getProjects(data.projects)}
               ModalForCreating={ProjectCreateModal}
-              titleModal={'Create new project'}
+              titleModal={t('Create new project')}
               searchParameter="name"
-              titleCreateBtn="Add project"
+              titleCreateBtn={t('Add project')}
               isCreateBtnVisible={isCreateBtnVisible}
               AdditionalButtons={ProjectsAdditionalButtons}
               defaultSortingBy="name"

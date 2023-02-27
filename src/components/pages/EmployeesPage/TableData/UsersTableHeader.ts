@@ -1,4 +1,3 @@
-import i18next from 'i18next';
 import { AvatarImage } from '../../../Table/helpers/Avatar';
 import { IColumn } from '../../../Table/template/templateTable.types';
 
@@ -6,23 +5,23 @@ export const UsersTableHeader: IColumn[] = [
   { columnKey: 'avatar', columnName: ' ', isSortable: false, ColumnCellComponent: AvatarImage },
   {
     columnKey: 'name',
-    columnName: i18next.t('First Name'),
+    columnName: 'First name',
     isSortable: true,
   },
   {
     columnKey: 'lastName',
-    columnName: i18next.t('Last Name'),
+    columnName: 'Last name',
     isSortable: true,
   },
-  { columnKey: 'email', columnName: i18next.t('Email'), isSortable: true },
+  { columnKey: 'email', columnName: 'Email', isSortable: true },
   {
     columnKey: 'department',
-    columnName: i18next.t('Department'),
+    columnName: 'Department',
     isSortable: true,
   },
   {
     columnKey: 'position',
-    columnName: i18next.t('Position'),
+    columnName: 'Position',
     isSortable: true,
   },
 ];

@@ -20,9 +20,17 @@ export const CreateBreadcrumbs = (
 
     if (pathId && isPreLast) {
       if (startPath === RoutePath.EMPLOYEES) {
-        return <Styled.IdName key={name}>{pathName}</Styled.IdName>;
+        return (
+          <Styled.IdName component={NavLink} key={name} to={`${routeTo}/${RoutePath.PROFILE}`}>
+            {pathName}
+          </Styled.IdName>
+        );
       } else if (startPath === RoutePath.CVS) {
-        return <Styled.IdName key={name}>{pathName}</Styled.IdName>;
+        return (
+          <Styled.IdName component={NavLink} key={name} to={`${routeTo}/${RoutePath.DETAILS}`}>
+            {pathName}
+          </Styled.IdName>
+        );
       }
     } else if (isLast && pathId && startPath === RoutePath.PROJECTS) {
       return <Typography key={name}>{pathName}</Typography>;
