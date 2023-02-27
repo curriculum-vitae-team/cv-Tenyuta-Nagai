@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -25,13 +26,14 @@ const EmployeesProfilePage = () => {
     onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
   });
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
+  const { t } = useTranslation();
 
   const handleEdit = () => {
-    modalService.setModalData('Edit profile', ProfileModal, { id: id! });
+    modalService.setModalData(t('Edit profile'), ProfileModal, { id: id! });
   };
 
   const handleOpenAvatarModal = () => {
-    modalService.setModalData('Update avatar', AvatarModal, { id: id! });
+    modalService.setModalData(t('Update avatar'), AvatarModal, { id: id! });
   };
 
   return (
@@ -54,16 +56,16 @@ const EmployeesProfilePage = () => {
             </Styled.RowWrapper>
 
             <Styled.InfoWrapper>
-              <Row title={'First name:'}>{data?.user?.profile.first_name || '-'}</Row>
-              <Row title={'Last name:'}>{data?.user?.profile.last_name || '-'}</Row>
-              <Row title={'Position:'}>{data?.user?.position?.name || '-'}</Row>
-              <Row title={'Department:'}>{data?.user?.department?.name || '-'}</Row>
-              <Row title={'A member since'}>{convertData(data?.user?.created_at)}</Row>
+              <Row title={`${t('First name')}:`}>{data?.user?.profile.first_name || '-'}</Row>
+              <Row title={`${t('Last name')}:`}>{data?.user?.profile.last_name || '-'}</Row>
+              <Row title={`${t('Position')}:`}>{data?.user?.position?.name || '-'}</Row>
+              <Row title={`${t('Department')}:`}>{data?.user?.department?.name || '-'}</Row>
+              <Row title={`${t('A member since')}:`}>{convertData(data?.user?.created_at)}</Row>
             </Styled.InfoWrapper>
           </Styled.Wrapper>
 
           <PrivateButton isVisible={isVisible} onClick={handleEdit} sx={{ minWidth: 140 }}>
-            Edit
+            {t('Edit')}
           </PrivateButton>
         </Styled.PaperWrapper>
       )}

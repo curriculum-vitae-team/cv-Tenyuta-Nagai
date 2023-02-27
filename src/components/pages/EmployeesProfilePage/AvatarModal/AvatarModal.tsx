@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { useTranslation } from 'react-i18next';
 import { USER } from '../../../../graphql/queries/user';
 import { IAvatarReturn } from '../../../../graphql/types/results/avatar';
 import { DELETE_AVATAR, UPLOAD_AVATAR } from '../../../../graphql/mutations/avatar';
@@ -30,7 +31,7 @@ export const AvatarModal = () => {
       updateUserCacheAfterAvatarMutation(cache, userId!, data as IAvatarReturn);
     },
   });
-
+  const { t } = useTranslation();
   const [deleteAvatar, { loading: deleteLoading }] = useMutation(DELETE_AVATAR, {
     update(cache) {
       updateUserCacheAfterAvatarMutation(cache, userId!);
@@ -113,15 +114,15 @@ export const AvatarModal = () => {
 
             <Styled.WrapperDropArea onDragOver={handlerDragOver} onDrop={handlerOnDrop}>
               <InputFile registerName={'picture'} register={register}>
-                {'Upload avatar'}
+                {t('Upload avatar')}
               </InputFile>
 
-              <Styled.Paragraph>{'or drag and drop the file here'}</Styled.Paragraph>
+              <Styled.Paragraph>{t('or drag and drop the file here')}</Styled.Paragraph>
 
               {errors?.picture?.message ? (
-                <Styled.ErrorPicture>{errors?.picture?.message}</Styled.ErrorPicture>
+                <Styled.ErrorPicture>{t(errors?.picture?.message)}</Styled.ErrorPicture>
               ) : (
-                <Styled.Paragraph>{'JPG, JPEG, PNG no more than 500 Kb'}</Styled.Paragraph>
+                <Styled.Paragraph>{t('JPG, JPEG, PNG no more than 500 Kb')}</Styled.Paragraph>
               )}
             </Styled.WrapperDropArea>
           </Styled.WrapperUserAvatar>
