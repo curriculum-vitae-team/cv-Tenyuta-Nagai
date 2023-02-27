@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'react-i18next';
 import { useProfileFormData } from '../../../../hooks/useProfileFormData';
 import { UPDATE_USER } from '../../../../graphql/mutations/updateUser';
 import { profileSchema } from '../../../../utils/validationSchema';
@@ -10,10 +11,11 @@ import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { FieldNameProfileForm } from '../../../../constants/fieldNameProfileForm';
 import { InputSelect } from '../../../UI/InputSelect';
-import { IUserAllResult } from '../../../../graphql/types/results/user';
+import { IUpdateUserResult } from '../../../../graphql/types/results/user';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { checkDirtyFieldsForm } from '../../../../utils/checkDirtyFieldsForm';
+import { authService } from '../../../../graphql/service/authentication/authService';
 import { IProfileFormInput, IProfileModalUserId } from './ProfileModal.types';
 
 export const ProfileModal = () => {
@@ -23,7 +25,7 @@ export const ProfileModal = () => {
     modalService.modalData$
   );
   const { loading, userData, positionsData, departmentsData } = useProfileFormData(userId!);
-  const [updateUser, { loading: updateLoading }] = useMutation<IUserAllResult>(UPDATE_USER);
+  const [updateUser, { loading: updateLoading }] = useMutation<IUpdateUserResult>(UPDATE_USER);
   const {
     register,
     handleSubmit,
@@ -38,6 +40,7 @@ export const ProfileModal = () => {
     mode: 'onChange',
     resolver: yupResolver(profileSchema),
   });
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<IProfileFormInput> = (inputs) => {
     updateUser({
@@ -54,7 +57,10 @@ export const ProfileModal = () => {
         },
       },
     })
-      .catch((err) => console.error((err as TError).message))
+      .then((res) =>
+        authService.writeUserFullName(res.data?.updateUser.profile.full_name || undefined)
+      )
+      .catch((err: TError) => console.error(err.message))
       .finally(() => modalService.closeModal());
   };
 
@@ -65,23 +71,23 @@ export const ProfileModal = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
-            name="First name"
+            name={t('First name')}
             registerName={FieldNameProfileForm.FIRST_NAME}
             register={register}
             error={!!errors.firstName}
-            helperText={errors.firstName?.message || ''}
+            helperText={t(errors.firstName?.message as string) || ''}
           />
 
           <InputText
-            name="Last name"
+            name={t('Last name')}
             registerName={FieldNameProfileForm.LAST_NAME}
             register={register}
             error={!!errors.lastName}
-            helperText={errors.lastName?.message || ''}
+            helperText={t(errors.lastName?.message as string) || ''}
           />
 
           <InputSelect
-            label={'Position'}
+            label={t('Position')}
             registerName={FieldNameProfileForm.POSITION}
             register={register}
             defaultValue={userData?.user.position?.id || ''}
@@ -89,7 +95,7 @@ export const ProfileModal = () => {
           />
 
           <InputSelect
-            label={'Department'}
+            label={t('Department')}
             registerName={FieldNameProfileForm.DEPARTMENT}
             register={register}
             defaultValue={userData?.user.department?.id || ''}

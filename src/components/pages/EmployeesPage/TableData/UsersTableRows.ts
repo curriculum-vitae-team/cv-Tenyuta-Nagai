@@ -9,5 +9,6 @@ export function getAllUsers(users: IUser[]) {
     email: user?.email,
     department: user?.department_name || '',
     position: user?.position_name || '',
+    fullName: user.profile.full_name || '',
   }));
 }

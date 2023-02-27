@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { Container, Grid } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -21,6 +22,7 @@ const LanguagesPage = () => {
   });
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
+  const { t } = useTranslation();
 
   return (
     <main>
@@ -33,9 +35,9 @@ const LanguagesPage = () => {
               header={LanguagesTableHeader}
               items={getAllLanguages(data?.languages || [])}
               ModalForCreating={LanguageCreateModal}
-              titleModal={'Create language'}
+              titleModal={t('Create language')}
               searchParameter="name"
-              titleCreateBtn="Create"
+              titleCreateBtn={t('Create')}
               isCreateBtnVisible={isAdmin}
               defaultSortingBy="name"
               AdditionalButtons={isAdmin ? LanguagesAdditionalButtons : undefined}

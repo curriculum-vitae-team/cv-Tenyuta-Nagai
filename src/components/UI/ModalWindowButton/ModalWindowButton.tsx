@@ -1,3 +1,4 @@
+import i18next from 'i18next';
 import React from 'react';
 import { IModalWindowButtonProps } from './ModalWindowButton.interface';
 import * as Styled from './ModalWindowButton.styles';
@@ -6,7 +7,7 @@ export const ModalWindowButton = ({
   loading,
   isValid = true,
   size = 'large',
-  name = 'Save',
+  name = i18next.t('Save')!,
   handleClick,
   ...props
 }: IModalWindowButtonProps) => {

@@ -25,6 +25,15 @@ class AuthService implements IAuthService {
     }
   }
 
+  writeUserFullName(fullName: string | undefined) {
+    const user = this.user$();
+    if (user) {
+      const newUserData = { ...user, profile: { ...user.profile, full_name: fullName } };
+      this.user$(newUserData);
+      this.storage.setItem('user', JSON.stringify(newUserData));
+    }
+  }
+
   writeUserToStorage(user: IUser, access_token: string) {
     this.user$(user);
     this.access_token$(access_token);

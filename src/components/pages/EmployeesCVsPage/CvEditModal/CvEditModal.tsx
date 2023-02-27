@@ -4,6 +4,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { Checkbox, Typography } from '@mui/material';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { UNBIND_CV, UPDATE_CV } from '../../../../graphql/mutations/cv';
 import { updateUserCacheAfterCvUnbindMutation } from '../../../../graphql/cache/cv';
 import { editCvSchema } from '../../../../utils/validationSchema';
@@ -32,6 +33,7 @@ export const CvEditModal = () => {
       updateUserCacheAfterCvUnbindMutation(cache, userData!.user!.id, data!);
     },
   });
+  const { t } = useTranslation();
 
   const {
     register,
@@ -64,9 +66,9 @@ export const CvEditModal = () => {
         });
         modalService.closeModal();
       })
-      .catch((err) => {
+      .catch((err: TError) => {
         modalService.closeModal();
-        console.error((err as TError).message);
+        console.error(err.message);
       });
   };
 
@@ -99,8 +101,8 @@ export const CvEditModal = () => {
         });
         modalService.closeModal();
       })
-      .catch((err) => {
-        console.error((err as TError).message);
+      .catch((err: TError) => {
+        console.error(err.message);
         modalService.closeModal();
       });
   };
@@ -112,25 +114,25 @@ export const CvEditModal = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
-            name="Name"
+            name={t('Name')}
             registerName={'name'}
             register={register}
             error={!!errors.name}
-            helperText={errors.name?.message || ''}
+            helperText={t(errors.name?.message as string) || ''}
           />
 
           <InputText
-            name="Description"
+            name={t('Description')}
             registerName={'description'}
             multiline
             maxRows={4}
             register={register}
             error={!!errors.description}
-            helperText={errors.description?.message || ''}
+            helperText={t(errors.description?.message as string) || ''}
           />
 
           <Styled.CheckboxWrap>
-            <Typography>Template</Typography>
+            <Typography>{t('Template')}</Typography>
             <Controller
               name={'template'}
               control={control}
@@ -153,7 +155,7 @@ export const CvEditModal = () => {
             <ModalWindowButton
               loading={updateCvLoading || unbindCvLoading}
               handleClick={handleUnBind}
-              name="Unbind"
+              name={t('Unbind')!}
             />
           </Styled.ButtonsWrap>
         </form>

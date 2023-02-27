@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { Container, Grid, Link } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../hooks/useAuth';
 import { RoutePath } from '../../../constants/routeVariables';
 import { ErrorPageButton, Image, ReloadButton, TypographyStyled } from './ErrorPage.styles';
@@ -8,6 +9,7 @@ import { IPropsPageNotFound } from './ErrorPage.interface';
 
 const ErrorPage: FC<IPropsPageNotFound> = ({ pageNotFound }) => {
   const isAuth = useAuth();
+  const { t } = useTranslation();
 
   const onHandleReload = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -18,7 +20,7 @@ const ErrorPage: FC<IPropsPageNotFound> = ({ pageNotFound }) => {
     <main>
       <Container sx={{ mt: '85px' }}>
         <TypographyStyled>
-          {pageNotFound ? 'Page not found..' : 'Something went wrong..'}
+          {pageNotFound ? t('Page not found..') : t('Something went wrong..')}
         </TypographyStyled>
 
         <Grid container justifyContent="center">
@@ -40,7 +42,7 @@ const ErrorPage: FC<IPropsPageNotFound> = ({ pageNotFound }) => {
                 component={Link}
                 href={isAuth ? RoutePath.EMPLOYEES : RoutePath.LOGIN}
               >
-                {isAuth ? 'Main page' : 'Login page'}
+                {isAuth ? t('Main page') : t('Login page')}
               </ErrorPageButton>
             </Grid>
           )}

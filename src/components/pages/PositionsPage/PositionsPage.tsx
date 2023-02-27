@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import React from 'react';
 import { Grid } from '@mui/material';
 import { Container } from '@mui/system';
+import { useTranslation } from 'react-i18next';
 import { createTable } from '../../Table/template';
 import { POSITIONS } from '../../../graphql/queries/positions';
 import { Spinner } from '../../Spinner';
@@ -18,6 +19,7 @@ const PositionsPage = () => {
   const { data, loading } = useQuery<IPositionReturn>(POSITIONS);
   const user = useUser();
   const isAdmin = user?.role === UserRoles.Admin;
+  const { t } = useTranslation();
 
   return (
     <main>
@@ -30,10 +32,10 @@ const PositionsPage = () => {
               header={PositionsTableHeader}
               items={createPositionsData(data)}
               searchParameter="name"
-              titleCreateBtn="Create Position"
+              titleCreateBtn={t('Create Position')}
               isCreateBtnVisible={isAdmin}
               ModalForCreating={CreatePositionModal}
-              titleModal={'Create Position'}
+              titleModal={t('Create Position')}
               AdditionalButtons={isAdmin ? PositionsAdditionalButtons : undefined}
               defaultSortingBy="name"
             />

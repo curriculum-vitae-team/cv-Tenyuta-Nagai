@@ -2,7 +2,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Spinner } from '../../../Spinner';
+import { useTranslation } from 'react-i18next';
 import { InputText } from '../../../UI/InputText';
 import { departmentsSchema } from '../../../../utils/validationSchema';
 import { TError } from '../../../../types/errorTypes';
@@ -18,6 +18,7 @@ export const DepartmentUpdateModal = () => {
   const department: Pick<Partial<IDepartment>, keyof IDepartment> = useReactiveVar(
     modalService.modalData$
   );
+  const { t } = useTranslation();
   const [updateDepartment, { loading }] = useMutation(UPDATE_DEPARTMENT);
   const {
     register,
@@ -40,32 +41,21 @@ export const DepartmentUpdateModal = () => {
         },
       },
     })
-      .catch((err: TError) => {
-        console.error(err.message);
-      })
+      .catch((err: TError) => console.error(err.message))
       .finally(() => modalService.closeModal());
   };
 
   return (
-    <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-          <InputText
-            name="Department name"
-            registerName={FieldNameDepartmentsForm.NAME}
-            register={register}
-            error={!!errors.name}
-            helperText={errors.name?.message || ''}
-          />
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      <InputText
+        name={t('Department name')}
+        registerName={FieldNameDepartmentsForm.NAME}
+        register={register}
+        error={!!errors.name}
+        helperText={t(errors.name?.message as string) || ''}
+      />
 
-          <ModalWindowButton
-            loading={loading}
-            isValid={checkDirtyFieldsForm(dirtyFields) && isValid}
-          />
-        </form>
-      )}
-    </>
+      <ModalWindowButton loading={loading} isValid={checkDirtyFieldsForm(dirtyFields) && isValid} />
+    </form>
   );
 };
