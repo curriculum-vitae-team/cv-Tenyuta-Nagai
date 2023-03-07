@@ -2,9 +2,9 @@ import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TError } from '../../../../types/errorTypes';
 import { languagesSchema } from '../../../../utils/validationSchema';
-import { Spinner } from '../../../Spinner';
 import { InputText } from '../../../UI/InputText';
 import { modalService } from '../../../../graphql/service/modalService';
 import { CREATE_LANGUAGE } from '../../../../graphql/mutations/languages';
@@ -12,16 +12,16 @@ import { LanguageInput } from '../../../../graphql/types/inputs/language';
 import { updateCacheAfterCreatingLanguage } from '../../../../graphql/cache/languages';
 import { CreateLanguageResult } from '../../../../graphql/types/results/language';
 import { FieldNameLanguagesForm } from '../../../../constants/fieldNameLanguagesForm';
-import * as Styled from './LanguageCreateModal.styles';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 
 export const LanguageCreateModal = () => {
   const [createLanguage, { loading }] = useMutation<CreateLanguageResult>(CREATE_LANGUAGE);
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<LanguageInput>({
-    mode: 'onChange',
     resolver: yupResolver(languagesSchema),
   });
 
@@ -43,47 +43,32 @@ export const LanguageCreateModal = () => {
   };
 
   return (
-    <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-          <InputText
-            name="Language"
-            registerName={FieldNameLanguagesForm.NAME}
-            register={register}
-            error={!!errors.name}
-            helperText={errors.name?.message || ''}
-          />
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      <InputText
+        name={t('Language')}
+        registerName={FieldNameLanguagesForm.NAME}
+        register={register}
+        error={!!errors.name}
+        helperText={t(errors.name?.message as string) || ''}
+      />
 
-          <InputText
-            name="ISO2"
-            registerName={FieldNameLanguagesForm.ISO2}
-            register={register}
-            error={!!errors.iso2}
-            helperText={errors.iso2?.message || ''}
-          />
+      <InputText
+        name="ISO2"
+        registerName={FieldNameLanguagesForm.ISO2}
+        register={register}
+        error={!!errors.iso2}
+        helperText={t(errors.iso2?.message as string) || ''}
+      />
 
-          <InputText
-            name="Native name"
-            registerName={FieldNameLanguagesForm.NATIVE}
-            register={register}
-            error={!!errors.nativeName}
-            helperText={errors.nativeName?.message || ''}
-          />
+      <InputText
+        name={t('Native name')}
+        registerName={FieldNameLanguagesForm.NATIVE}
+        register={register}
+        error={!!errors.nativeName}
+        helperText={t(errors.nativeName?.message as string) || ''}
+      />
 
-          <Styled.ButtonSubmit
-            loading={loading}
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={!isValid}
-          >
-            {'Save'}
-          </Styled.ButtonSubmit>
-        </form>
-      )}
-    </>
+      <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
+    </form>
   );
 };

@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { Grid } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -17,6 +18,7 @@ const CvsProjectsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const user = useUser();
+  const { t } = useTranslation();
   const isAdmin = user?.role === UserRoles.Admin;
   const Table = createTable();
   const { loading, data } = useQuery<ICvQueryResult>(CV, {
@@ -34,11 +36,11 @@ const CvsProjectsPage = () => {
             header={cvsProjectsHeaderTable}
             items={createCvsProjectRowData(data?.cv?.projects || [])}
             searchParameter="projectName"
-            titleCreateBtn="Update"
+            titleCreateBtn={t('Update')}
             isCreateBtnVisible={data?.cv.user?.id === user?.id || isAdmin}
             ModalForCreating={UpdateModal}
             defaultSortingBy="projectName"
-            titleModal={'Update Cv Projects'}
+            titleModal={t('Update Cv Projects')}
           />
         </Grid>
       )}

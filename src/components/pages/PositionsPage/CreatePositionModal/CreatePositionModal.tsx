@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 import { positionSchema } from '../../../../utils/validationSchema';
 import { InputText } from '../../../UI/InputText';
 import { CREATE_POSITION } from '../../../../graphql/mutations/position';
@@ -9,8 +10,8 @@ import { modalService } from '../../../../graphql/service/modalService';
 import { IPositionCreateReturn } from '../../../../graphql/types/results/position';
 import { updateCacheAfterCreatingPosition } from '../../../../graphql/cache/position';
 import { TError } from '../../../../types/errorTypes';
+import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { IFormCreatePosition } from './CreatePositionModal.types';
-import * as Styled from './CreatePositionModal.style';
 
 export const CreatePositionModal = () => {
   const [createPosition, { loading }] = useMutation<IPositionCreateReturn>(CREATE_POSITION, {
@@ -18,13 +19,13 @@ export const CreatePositionModal = () => {
       updateCacheAfterCreatingPosition(cache, data!);
     },
   });
+  const { t } = useTranslation();
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<IFormCreatePosition>({
-    mode: 'onChange',
     resolver: yupResolver(positionSchema),
   });
 
@@ -43,23 +44,14 @@ export const CreatePositionModal = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <InputText
-        name="Name"
+        name={t('Name')}
         registerName={'name'}
         register={register}
         error={!!errors.name}
-        helperText={errors.name?.message || ''}
+        helperText={t(errors.name?.message as string) || ''}
       />
 
-      <Styled.ButtonSubmit
-        loading={loading}
-        type="submit"
-        variant="contained"
-        fullWidth
-        size="large"
-        disabled={!isValid}
-      >
-        Save
-      </Styled.ButtonSubmit>
+      <ModalWindowButton loading={loading} isValid={!isSubmitted || isValid} />
     </form>
   );
 };

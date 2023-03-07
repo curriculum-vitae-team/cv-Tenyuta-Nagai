@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useReactiveVar } from '@apollo/client';
 import { Header } from '../Header';
-import { Footer } from '../Footer';
 import { Spinner } from '../Spinner';
 import { ErrorBoundary } from '../ErrorBoundary';
 import { Notifier } from '../UI/Notifier';
@@ -14,13 +13,12 @@ export const Layout = () => {
 
   return (
     <>
-      <Header />
       <ErrorBoundary>
+        <Header />
         <Suspense fallback={<Spinner />}>
           <Outlet />
         </Suspense>
       </ErrorBoundary>
-      <Footer />
       <Notifier />
       {isOpen && <ModalWindow />}
     </>

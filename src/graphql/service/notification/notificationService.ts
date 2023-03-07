@@ -18,17 +18,6 @@ class Notification implements INotification {
     this.autoCloseAlert(alertData.id);
   }
 
-  openSuccessAlert(message?: string) {
-    const alertData: IAlert = {
-      id: ++this.alertId,
-      message: message || AlertDefaultMessage.SUCCESS,
-      type: AlertValues.SUCCESS,
-    };
-    const alertArray = this.alertArray$();
-    this.alertArray$([...alertArray, alertData]);
-    this.autoCloseAlert(alertData.id);
-  }
-
   autoCloseAlert(id: number) {
     setTimeout(() => this.closeAlert(id), ALERT_DURATION);
   }

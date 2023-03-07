@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from '../../../constants/routeVariables';
 import { UserRoles } from '../../../constants/userRoles';
@@ -23,6 +24,7 @@ const ProjectsDetailsPage = () => {
   });
   const user = useUser();
   const isVisible = user?.id === id || user?.role === UserRoles.Admin;
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (data?.project) {
@@ -31,7 +33,7 @@ const ProjectsDetailsPage = () => {
   }, [data]);
 
   const handleEdit = () => {
-    modalService.setModalData('Update project', ProjectUpdateModal, { ...data });
+    modalService.setModalData(t('Update project'), ProjectUpdateModal, { ...data });
   };
 
   return (
@@ -49,16 +51,16 @@ const ProjectsDetailsPage = () => {
               </Styled.RowWrapper>
 
               <Styled.InfoWrapper>
-                <Row title={'Internal name:'}>{data?.project?.internal_name || '-'}</Row>
-                <Row title={'Description:'}>{data?.project?.description || '-'}</Row>
-                <Row title={'Domain:'}>{data?.project?.domain || '-'}</Row>
-                <Row title={'Start date:'}>{data?.project?.start_date}</Row>
-                <Row title={'End date:'}>{data?.project?.end_date}</Row>
+                <Row title={t('Internal name:')}>{data?.project?.internal_name || '-'}</Row>
+                <Row title={`${t('Description')}:`}>{data?.project?.description || '-'}</Row>
+                <Row title={`${t('Domain')}:`}>{data?.project?.domain || '-'}</Row>
+                <Row title={t('Start date:')}>{data?.project?.start_date}</Row>
+                <Row title={t('End date:')}>{data?.project?.end_date || t('Till now')}</Row>
               </Styled.InfoWrapper>
             </Styled.Wrapper>
 
             <PrivateButton isVisible={isVisible} onClick={handleEdit} sx={{ minWidth: 140 }}>
-              Edit
+              {t('Edit')}
             </PrivateButton>
           </Styled.PaperWrapper>
         </Styled.ContainerWrapper>

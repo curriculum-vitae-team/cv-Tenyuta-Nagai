@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { FieldNameEmployeesForm } from '../../../../constants/FieldNameEmployeesForm';
 import { CREATE_USER } from '../../../../graphql/mutations/createUser';
 import { updateCacheAfterCreatingUser } from '../../../../graphql/cache/createUser';
@@ -11,22 +12,22 @@ import { employeesSchema } from '../../../../utils/validationSchema';
 import { Spinner } from '../../../Spinner';
 import { InputSelect } from '../../../UI/InputSelect';
 import { InputText } from '../../../UI/InputText';
-import { CreateUserResult, IUserAllResult } from '../../../../graphql/types/results/user';
+import { CreateUserResult } from '../../../../graphql/types/results/user';
 import { modalService } from '../../../../graphql/service/modalService';
 import { ModalWindowButton } from '../../../UI/ModalWindowButton';
 import { IEmployeesFormInput } from './EmployeesModal.interface';
 
 export const EmployeesModal = () => {
   const { loading, positionsData, departmentsData, rolesData } = useEmployeesFormData();
-  const [createUser, { loading: updateLoading }] = useMutation<IUserAllResult>(CREATE_USER);
+  const [createUser, { loading: updateLoading }] = useMutation<CreateUserResult>(CREATE_USER);
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
   } = useForm<IEmployeesFormInput>({
-    mode: 'onChange',
     resolver: yupResolver(employeesSchema),
   });
+  const { t } = useTranslation();
 
   const onSubmit: SubmitHandler<IEmployeesFormInput> = (inputs) => {
     createUser({
@@ -49,10 +50,10 @@ export const EmployeesModal = () => {
         },
       },
       update(cache, { data }) {
-        updateCacheAfterCreatingUser(cache, inputs.role, (data as unknown) as CreateUserResult);
+        updateCacheAfterCreatingUser(cache, inputs.role, data!);
       },
     })
-      .catch((err) => console.error((err as TError).message))
+      .catch((err: TError) => console.error(err.message))
       .finally(() => modalService.closeModal());
   };
 
@@ -63,40 +64,40 @@ export const EmployeesModal = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <InputText
-            name="Email"
+            name={t('Email')}
             registerName={FieldNameEmployeesForm.EMAIL}
             register={register}
             error={!!errors.email}
-            helperText={errors.email?.message || ''}
+            helperText={t(errors.email?.message as string) || ''}
           />
 
           <InputText
-            name="Password"
+            name={t('Password')}
             type="password"
             registerName={FieldNameEmployeesForm.PASSWORD}
             register={register}
             error={!!errors.password?.message}
-            helperText={errors.password?.message || ''}
+            helperText={t(errors.password?.message as string) || ''}
           />
 
           <InputText
-            name="First name"
+            name={t('First name')}
             registerName={FieldNameEmployeesForm.FIRST_NAME}
             register={register}
             error={!!errors.firstName}
-            helperText={errors.firstName?.message || ''}
+            helperText={t(errors.firstName?.message as string) || ''}
           />
 
           <InputText
-            name="Last name"
+            name={t('Last name')}
             registerName={FieldNameEmployeesForm.LAST_NAME}
             register={register}
             error={!!errors.lastName}
-            helperText={errors.lastName?.message || ''}
+            helperText={t(errors.lastName?.message as string) || ''}
           />
 
           <InputSelect
-            label={'Position'}
+            label={t('Position')}
             registerName={FieldNameEmployeesForm.POSITION}
             register={register}
             defaultValue={''}
@@ -104,7 +105,7 @@ export const EmployeesModal = () => {
           />
 
           <InputSelect
-            label={'Department'}
+            label={t('Department')}
             registerName={FieldNameEmployeesForm.DEPARTMENT}
             register={register}
             defaultValue={''}
@@ -112,14 +113,14 @@ export const EmployeesModal = () => {
           />
 
           <InputSelect
-            label={'User role'}
+            label={t('User role')}
             registerName={FieldNameEmployeesForm.ROLE}
             register={register}
             defaultValue={'employee'}
             data={rolesData}
           />
 
-          <ModalWindowButton loading={updateLoading} isValid={isValid} />
+          <ModalWindowButton loading={updateLoading} isValid={!isSubmitted || isValid} />
         </form>
       )}
     </>

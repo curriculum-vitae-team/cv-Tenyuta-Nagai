@@ -3,6 +3,7 @@ import { TextField } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { Controller } from 'react-hook-form';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { useTranslation } from 'react-i18next';
 import { DatePickerInputProps } from './DatePicker.types';
 
 export const DatePickerInput = <T extends Record<string, unknown>>({
@@ -12,6 +13,7 @@ export const DatePickerInput = <T extends Record<string, unknown>>({
   trigger,
   triggerName,
 }: DatePickerInputProps<T>) => {
+  const { t } = useTranslation();
   return (
     <Controller
       control={control}
@@ -34,7 +36,7 @@ export const DatePickerInput = <T extends Record<string, unknown>>({
                 size="small"
                 fullWidth
                 label={label}
-                helperText={fieldState.error?.message}
+                helperText={t(fieldState.error?.message as string)}
                 error={!!fieldState.error}
               />
             )}

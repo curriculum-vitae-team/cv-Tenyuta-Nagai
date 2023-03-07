@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useMutation } from '@apollo/client';
 import UpdateIcon from '@mui/icons-material/Update';
+import { useTranslation } from 'react-i18next';
 import { IAdditionalButtonsProps } from '../../../Table/TableRows/TableRowComponent.types';
 import { modalService } from '../../../../graphql/service/modalService';
 import { UpdatePositionModal } from '../UpdatePositionModal/UpdatePositionModal';
@@ -18,6 +19,7 @@ export const PositionsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }
       updateCacheAfterDeletePosition(cache, id as string);
     },
   });
+  const { t } = useTranslation();
 
   const handleDeletePosition = () => {
     deletePosition({
@@ -33,14 +35,14 @@ export const PositionsAdditionalButtons: FC<IAdditionalButtonsProps> = ({ item }
     <>
       <MenuItem sx={Styled.ActionsMenuRowItemProps} onClick={handleUpdatePosition}>
         <UpdateIcon sx={Styled.ActionsMenuRowIconsProps} />
-        Update
+        {t('Update')}
       </MenuItem>
 
       <Divider />
 
       <MenuItem onClick={handleDeletePosition} sx={Styled.ActionsMenuRowItemProps}>
         <DeleteOutlineIcon sx={Styled.ActionsMenuRowIconsProps} />
-        Delete
+        {t('Delete')}
       </MenuItem>
     </>
   );

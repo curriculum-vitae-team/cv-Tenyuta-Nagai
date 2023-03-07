@@ -15,6 +15,7 @@ export const ContainerWrapper = styled(Container)(() => ({
   display: 'flex',
   flexDirection: 'column',
   rowGap: 12,
+  marginTop: 16,
 })) as typeof Container;
 
 export const Wrapper = styled('div')(() => ({

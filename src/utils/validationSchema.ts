@@ -44,6 +44,7 @@ export const projectsSchema = object().shape({
       startDate && schema.min(startDate, 'End date must be bigger than start date')
   ),
   teamSize: number()
+    .typeError('team size must be a number')
     .min(2)
     .max(100)
     .required(),
@@ -56,7 +57,8 @@ export const avatarSchema = object().shape({
         return (
           image[0].type === 'image/jpeg' ||
           image[0].type === 'image/jpg' ||
-          image[0].type === 'image/png'
+          image[0].type === 'image/png' ||
+          image[0].type === 'image/gif'
         );
       }
       return true;
@@ -113,4 +115,14 @@ export const positionSchema = object({
   name: string()
     .max(50)
     .required(),
+});
+
+export const employeeSkillsSchema = object({
+  skillName: string().required(),
+  mastery: string().required(),
+});
+
+export const employeeLanguagesSchema = object({
+  languageName: string().required(),
+  proficiency: string().required(),
 });
