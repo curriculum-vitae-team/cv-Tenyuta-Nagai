@@ -55,8 +55,8 @@ const Table = ({
 
   return (
     <>
-      <TableContainer>
-        <MuiTable>
+      <TableContainer sx={{ maxHeight: 'calc(100vh - 120px)' }}>
+        <MuiTable stickyHeader>
           <TableHead>
             <TableRow>
               <TableCell colSpan={10} sx={{ border: 'none' }}>
