@@ -14,4 +14,5 @@ export enum RoutePath {
   GENERAL = '*',
   DETAILS = 'details',
   PREVIEW = 'preview',
+  ANALYTICS = 'analytics',
 }

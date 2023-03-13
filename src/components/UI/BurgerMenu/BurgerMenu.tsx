@@ -11,6 +11,7 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import Groups3Icon from '@mui/icons-material/Groups3';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { RoutePath } from '../../../constants/routeVariables';
@@ -118,6 +119,18 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({ open, onClose }) => {
             >
               <TranslateIcon sx={{ color: 'secondary.contrastText', mr: 2 }} />
               {t('Languages')}
+            </MenuItem>
+
+            <Divider />
+
+            <MenuItem
+              sx={{ fontSize: 18 }}
+              component={NavLink}
+              to={`/${RoutePath.ANALYTICS}`}
+              onClick={handleClose}
+            >
+              <AnalyticsIcon sx={{ color: 'secondary.contrastText', mr: 2 }} />
+              {t('Analytics')}
             </MenuItem>
           </MenuList>
         </CardContent>

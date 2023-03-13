@@ -8,4 +8,5 @@ export enum BreadcrumbNames {
   LANGUAGES = 'Languages',
   PROFILE = 'Profile',
   DETAILS = 'Details',
+  ANALYTICS = 'Analytics',
 }
