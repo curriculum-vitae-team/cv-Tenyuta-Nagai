@@ -3,15 +3,15 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
 import { DEPARTMENTS } from '../../../../graphql/queries/departments';
 import { createArrayForDepartments } from '../../../../utils/createArrayForDepartments';
 import { RoutePath } from '../../../../constants/routeVariables';
 import { GET_ALL_USERS } from '../../../../graphql/queries/users';
 import { Spinner } from '../../../Spinner';
 import { IUser } from '../../../../interfaces/IUser.interface';
-import { getQuantity } from '../helpers/getQuantity';
-import { departmentsBackgrounds } from '../helpers/departmentsBackgrounds';
+import { departmentsBackgrounds, departmentsBorders } from '../helpers/departmentsBackgrounds';
+import { getDepartmentsQuantity } from '../helpers/getQuantity';
+import * as Styled from './DepartmentChart.styles';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -26,8 +26,11 @@ export const DepartmentsChart = () => {
   });
 
   const users = usersData?.users.map((elem: IUser) => elem.department_name);
-  const departments = createArrayForDepartments(departmentsData?.departments);
-  const employeesNumbers = getQuantity(departments, users);
+  const departments = [
+    'Without department',
+    ...createArrayForDepartments(departmentsData?.departments),
+  ];
+  const employeesNumbers = getDepartmentsQuantity(departments, users);
 
   const dataPie = {
     labels: departments,
@@ -36,26 +39,26 @@ export const DepartmentsChart = () => {
         label: 'Number of employees',
         data: employeesNumbers,
         backgroundColor: departmentsBackgrounds,
-        borderColor: 'black',
-        borderWidth: 1,
+        borderColor: departmentsBorders,
+        borderWidth: 1.5,
       },
     ],
   };
 
   return (
-    <Box>
+    <Styled.PaperWrapper>
       {departmentsLoading || usersLoading ? (
         <Spinner />
       ) : (
         <>
-          <Typography sx={{ fontSize: '20px' }}>
+          <Styled.PaperTypography sx={{ fontSize: '20px' }}>
             Number of employees in different departments
-          </Typography>
-          <Box>
+          </Styled.PaperTypography>
+          <Styled.ChartWrapper>
             <Pie data={dataPie} />
-          </Box>
+          </Styled.ChartWrapper>
         </>
       )}
-    </Box>
+    </Styled.PaperWrapper>
   );
 };
