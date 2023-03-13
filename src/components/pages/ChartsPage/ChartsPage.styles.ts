@@ -4,6 +4,7 @@ export const PaperWrapper = styled(Paper)(({ theme }) => ({
   display: 'flex',
   padding: 10,
   justifyContent: 'center',
+  margin: 'auto',
   flexDirection: 'column',
   marginBottom: '40px',
   width: '500px',
