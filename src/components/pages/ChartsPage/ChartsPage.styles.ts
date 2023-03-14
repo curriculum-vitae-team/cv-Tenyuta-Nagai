@@ -7,16 +7,23 @@ export const PaperWrapper = styled(Paper)(({ theme }) => ({
   margin: 'auto',
   flexDirection: 'column',
   marginBottom: '40px',
-  width: '500px',
+  width: '750px',
+  [theme.breakpoints.down('md')]: {
+    width: '550px',
+  },
   [theme.breakpoints.down('sm')]: {
-    width: '380px',
+    width: '340px',
   },
 }));
 
-export const ChartWrapper = styled(Box)(() => ({
+export const ChartWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
-  width: '100%',
+  width: '450px',
+  margin: 'auto',
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+  },
 }));
 
 export const PaperTypography = styled(Typography)(({ theme }) => ({
@@ -29,4 +36,12 @@ export const PaperTypography = styled(Typography)(({ theme }) => ({
     textAlign: 'center',
     fontSize: 16,
   },
+}));
+
+export const BarChartWrapper = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  height: '500px',
+  width: '100%',
+  margin: 'auto',
 }));

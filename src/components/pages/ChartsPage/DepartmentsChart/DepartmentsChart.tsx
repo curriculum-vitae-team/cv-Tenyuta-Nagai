@@ -44,7 +44,7 @@ export const DepartmentsChart = () => {
       },
     ],
   };
-
+  //TO-DO TRANSLATE
   return (
     <Styled.PaperWrapper>
       {departmentsLoading || usersLoading ? (

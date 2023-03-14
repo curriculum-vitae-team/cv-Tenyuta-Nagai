@@ -1,20 +1,27 @@
 import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 import { RoutePath } from '../../../../constants/routeVariables';
 import { GET_ALL_USERS } from '../../../../graphql/queries/users';
 import { Spinner } from '../../../Spinner';
 import { IUser } from '../../../../interfaces/IUser.interface';
-import { departmentsBackgrounds, departmentsBorders } from '../helpers/departmentsBackgrounds';
 import { IPositionReturn } from '../../../../graphql/types/results/position';
 import { POSITIONS } from '../../../../graphql/queries/positions';
 import { createArrayForPositions } from '../../../../utils/createArrayForPositions';
 import { getPositionsQuantity } from '../helpers/getPositionsQuantity';
 import * as Styled from './../ChartsPage.styles';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export const PositionsChart = () => {
   const navigate = useNavigate();
@@ -25,24 +32,31 @@ export const PositionsChart = () => {
   const { data: usersData, loading: usersLoading } = useQuery(GET_ALL_USERS, {
     onError: () => navigate(`/${RoutePath.LOGIN}`, { replace: true }),
   });
-
   const users = usersData?.users.map((elem: IUser) => elem.position_name);
-  const positions = ['Without position', ...createArrayForPositions(positionsData?.positions)];
-  const employeesNumbers = getPositionsQuantity(positions, users);
+  const labels = ['Without position', ...createArrayForPositions(positionsData?.positions)];
+  const employeesNumbers = getPositionsQuantity(labels, users);
 
-  const dataPie = {
-    labels: positions,
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 110.5,
+      },
+    },
+  };
+
+  const dataBar = {
+    labels,
     datasets: [
       {
         label: 'Number of employees',
-        data: employeesNumbers,
-        backgroundColor: departmentsBackgrounds,
-        borderColor: departmentsBorders,
-        borderWidth: 1.5,
+        data: labels.map((value, index) => employeesNumbers[index]),
+        backgroundColor: 'rgba(198, 48, 49, 1)',
       },
     ],
   };
-  //TO-DO TRANSLATE
+
   return (
     <Styled.PaperWrapper>
       {positionsLoading || usersLoading ? (
@@ -52,9 +66,9 @@ export const PositionsChart = () => {
           <Styled.PaperTypography sx={{ fontSize: '20px' }}>
             Distribution of employees by position
           </Styled.PaperTypography>
-          <Styled.ChartWrapper>
-            <Pie data={dataPie} />
-          </Styled.ChartWrapper>
+          <Styled.BarChartWrapper>
+            <Bar options={options} data={dataBar} />
+          </Styled.BarChartWrapper>
         </>
       )}
     </Styled.PaperWrapper>
