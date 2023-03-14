@@ -4,11 +4,13 @@ import { IUser } from '../../../../interfaces/IUser.interface';
 export const getUsersRegistrationDates = (data: IUser[]) => {
   const lastYear = +new Date() - 31536000000;
   const months: string[] = [];
+  let month: number;
   data?.map((item: IUser) => {
     if (+item.created_at < lastYear) {
       return;
     }
-    months.push(dayjs(item.created_at).format('MMMM'));
+    month = new Date(+item.created_at).getMonth() + 1;
+    months.push(dayjs(month.toString()).format('MMMM'));
   });
   return months;
 };
