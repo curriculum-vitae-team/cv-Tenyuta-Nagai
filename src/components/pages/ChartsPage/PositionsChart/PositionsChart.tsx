@@ -11,6 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { useTranslation } from 'react-i18next';
 import { RoutePath } from '../../../../constants/routeVariables';
 import { GET_ALL_USERS } from '../../../../graphql/queries/users';
 import { Spinner } from '../../../Spinner';
@@ -25,6 +26,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 export const PositionsChart = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { data: positionsData, loading: positionsLoading } = useQuery<IPositionReturn>(POSITIONS, {
     onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
   });
@@ -49,7 +51,7 @@ export const PositionsChart = () => {
     labels,
     datasets: [
       {
-        label: 'Number of employees',
+        label: t('Number of employees'),
         data: labels.map((value, index) => employeesNumbers[index]),
         borderColor: 'rgba(198, 48, 49, 1)',
         borderWidth: 2,
@@ -62,7 +64,7 @@ export const PositionsChart = () => {
     <Spinner />
   ) : (
     <Styled.PaperWrapper>
-      <Styled.PaperTypography>Distribution of employees by position</Styled.PaperTypography>
+      <Styled.PaperTypography>{t('Distribution of employees by position')}</Styled.PaperTypography>
       <Styled.BarChartWrapper>
         <Bar options={options} data={dataBar} />
       </Styled.BarChartWrapper>

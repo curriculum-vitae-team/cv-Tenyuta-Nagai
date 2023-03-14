@@ -12,6 +12,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { useTranslation } from 'react-i18next';
 import { RoutePath } from '../../../../constants/routeVariables';
 import { GET_ALL_USERS } from '../../../../graphql/queries/users';
 import { Spinner } from '../../../Spinner';
@@ -24,6 +25,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 export const RegistrationChart = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { data: usersData, loading: usersLoading } = useQuery(GET_ALL_USERS, {
     onError: () => navigate(`/${RoutePath.LOGIN}`, { replace: true }),
   });
@@ -39,7 +41,7 @@ export const RegistrationChart = () => {
     labels,
     datasets: [
       {
-        label: 'Number of employees',
+        label: t('Number of employees'),
         data: labels.map((value, index) => quantityData[index]),
         borderColor: 'rgba(198, 48, 49, 1)',
         backgroundColor: 'rgba(198, 48, 49, 0.8)',
@@ -52,11 +54,11 @@ export const RegistrationChart = () => {
   ) : (
     <Styled.PaperWrapper>
       <Styled.PaperTypography sx={{ fontSize: '20px' }}>
-        Account creation timeline for the last year
+        {t('Account creation timeline for the last year')}
       </Styled.PaperTypography>
-      <Styled.BarChartWrapper>
+      <Styled.LineChartWrapper>
         <Line options={options} data={data} />
-      </Styled.BarChartWrapper>
+      </Styled.LineChartWrapper>
     </Styled.PaperWrapper>
   );
 };

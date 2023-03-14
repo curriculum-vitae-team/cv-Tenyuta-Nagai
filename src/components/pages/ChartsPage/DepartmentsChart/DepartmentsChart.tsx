@@ -3,6 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { DEPARTMENTS } from '../../../../graphql/queries/departments';
 import { createArrayForDepartments } from '../../../../utils/createArrayForDepartments';
 import { RoutePath } from '../../../../constants/routeVariables';
@@ -17,7 +18,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const DepartmentsChart = () => {
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const { data: departmentsData, loading: departmentsLoading } = useQuery(DEPARTMENTS, {
     onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
   });
@@ -36,20 +37,22 @@ export const DepartmentsChart = () => {
     labels: departments,
     datasets: [
       {
-        label: 'Number of employees',
+        label: t('Number of employees'),
         data: employeesNumbers,
         backgroundColor: departmentsBackgrounds,
         borderColor: departmentsBorders,
-        borderWidth: 1.5,
+        borderWidth: 1,
       },
     ],
   };
-  //TO-DO TRANSLATE
+
   return departmentsLoading || usersLoading ? (
     <Spinner />
   ) : (
     <Styled.PaperWrapper>
-      <Styled.PaperTypography>Number of employees in different departments</Styled.PaperTypography>
+      <Styled.PaperTypography>
+        {t('Number of employees in different departments')}
+      </Styled.PaperTypography>
       <Styled.ChartWrapper>
         <Pie data={dataPie} />
       </Styled.ChartWrapper>

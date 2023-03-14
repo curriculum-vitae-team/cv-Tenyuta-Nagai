@@ -45,3 +45,17 @@ export const BarChartWrapper = styled(Box)(() => ({
   width: '100%',
   margin: 'auto',
 }));
+
+export const LineChartWrapper = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  height: '350px',
+  width: '100%',
+  margin: 'auto',
+  [theme.breakpoints.down('md')]: {
+    height: '250px',
+  },
+  [theme.breakpoints.down('sm')]: {
+    height: '200px',
+  },
+}));
