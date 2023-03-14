@@ -26,7 +26,7 @@ export const DepartmentsChart = () => {
     onError: () => navigate(`/${RoutePath.LOGIN}`, { replace: true }),
   });
 
-  const users = usersData?.users.map((elem: IUser) => elem.department_name);
+  const users = usersData?.users.map((item: IUser) => item.department_name);
   const departments = [
     'Without department',
     ...createArrayForDepartments(departmentsData?.departments),
