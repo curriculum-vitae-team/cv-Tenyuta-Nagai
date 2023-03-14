@@ -19,7 +19,7 @@ export const PaperWrapper = styled(Paper)(({ theme }) => ({
 export const ChartWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
-  width: '500px',
+  width: '450px',
   margin: 'auto',
   [theme.breakpoints.down('sm')]: {
     width: '100%',
