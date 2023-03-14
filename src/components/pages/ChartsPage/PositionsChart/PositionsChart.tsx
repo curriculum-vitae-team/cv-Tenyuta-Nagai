@@ -31,7 +31,7 @@ export const PositionsChart = () => {
   const { data: usersData, loading: usersLoading } = useQuery(GET_ALL_USERS, {
     onError: () => navigate(`/${RoutePath.LOGIN}`, { replace: true }),
   });
-  const users = usersData?.users.map((elem: IUser) => elem.position_name);
+  const users = usersData?.users.map((item: IUser) => item.position_name);
   const labels = ['Without position', ...createArrayForPositions(positionsData?.positions)];
   const employeesNumbers = getPositionsQuantity(labels, users);
 

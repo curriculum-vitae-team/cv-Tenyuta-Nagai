@@ -12,12 +12,12 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import dayjs from 'dayjs';
 import { RoutePath } from '../../../../constants/routeVariables';
 import { GET_ALL_USERS } from '../../../../graphql/queries/users';
 import { Spinner } from '../../../Spinner';
 import { getArrayOfCurrentMonths } from '../helpers/getMonthsArray';
-import { IUser } from '../../../../interfaces/IUser.interface';
+import { getUsersRegistrationDates } from '../helpers/getUsersRegistrationDates';
+import { getMonthsQuantity } from '../helpers/getMonthsQuantity';
 import * as Styled from './../ChartsPage.styles';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -27,33 +27,20 @@ export const RegistrationChart = () => {
   const { data: usersData, loading: usersLoading } = useQuery(GET_ALL_USERS, {
     onError: () => navigate(`/${RoutePath.LOGIN}`, { replace: true }),
   });
+  const labels = getArrayOfCurrentMonths();
+  const usersRegistrationMonths = getUsersRegistrationDates(usersData?.users);
+  const quantityData = getMonthsQuantity(labels, usersRegistrationMonths);
 
   const options = {
     responsive: true,
   };
-
-  const labels = getArrayOfCurrentMonths();
-  const usersRegistrationDate = () => {
-    const lastYear = Number(new Date()) - 31536000000;
-    const users: string[] = [];
-    usersData?.users.map((item: IUser) => {
-      console.log(Number(item.created_at));
-      if (Number(item.created_at) < lastYear) {
-        return;
-      }
-      users.push(dayjs(item.created_at).format('MMMM'));
-    });
-    return users;
-  };
-
-  console.log(usersRegistrationDate());
 
   const data = {
     labels,
     datasets: [
       {
         label: 'Number of employees',
-        data: labels.map(() => Math.random()),
+        data: labels.map((value, index) => quantityData[index]),
         borderColor: 'rgba(198, 48, 49, 1)',
         backgroundColor: 'rgba(198, 48, 49, 0.8)',
       },
