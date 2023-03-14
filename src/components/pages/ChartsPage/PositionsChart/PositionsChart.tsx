@@ -51,7 +51,9 @@ export const PositionsChart = () => {
       {
         label: 'Number of employees',
         data: labels.map((value, index) => employeesNumbers[index]),
-        backgroundColor: 'rgba(198, 48, 49, 1)',
+        borderColor: 'rgba(198, 48, 49, 1)',
+        borderWidth: 2,
+        backgroundColor: 'rgba(198, 48, 49, 0.6)',
       },
     ],
   };
@@ -60,9 +62,7 @@ export const PositionsChart = () => {
     <Spinner />
   ) : (
     <Styled.PaperWrapper>
-      <Styled.PaperTypography sx={{ fontSize: '20px' }}>
-        Distribution of employees by position
-      </Styled.PaperTypography>
+      <Styled.PaperTypography>Distribution of employees by position</Styled.PaperTypography>
       <Styled.BarChartWrapper>
         <Bar options={options} data={dataBar} />
       </Styled.BarChartWrapper>

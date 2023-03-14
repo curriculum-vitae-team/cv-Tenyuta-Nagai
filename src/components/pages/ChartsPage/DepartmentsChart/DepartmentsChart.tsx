@@ -49,9 +49,7 @@ export const DepartmentsChart = () => {
     <Spinner />
   ) : (
     <Styled.PaperWrapper>
-      <Styled.PaperTypography sx={{ fontSize: '20px' }}>
-        Number of employees in different departments
-      </Styled.PaperTypography>
+      <Styled.PaperTypography>Number of employees in different departments</Styled.PaperTypography>
       <Styled.ChartWrapper>
         <Pie data={dataPie} />
       </Styled.ChartWrapper>

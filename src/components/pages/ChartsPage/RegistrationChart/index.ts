@@ -1,0 +1,1 @@
+export { RegistrationChart } from './RegistrationChart';
