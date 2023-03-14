@@ -25,7 +25,6 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 export const PositionsChart = () => {
   const navigate = useNavigate();
-
   const { data: positionsData, loading: positionsLoading } = useQuery<IPositionReturn>(POSITIONS, {
     onError: () => navigate(`/${RoutePath.EMPLOYEES}`, { replace: true }),
   });
@@ -57,20 +56,16 @@ export const PositionsChart = () => {
     ],
   };
 
-  return (
+  return positionsLoading || usersLoading ? (
+    <Spinner />
+  ) : (
     <Styled.PaperWrapper>
-      {positionsLoading || usersLoading ? (
-        <Spinner />
-      ) : (
-        <>
-          <Styled.PaperTypography sx={{ fontSize: '20px' }}>
-            Distribution of employees by position
-          </Styled.PaperTypography>
-          <Styled.BarChartWrapper>
-            <Bar options={options} data={dataBar} />
-          </Styled.BarChartWrapper>
-        </>
-      )}
+      <Styled.PaperTypography sx={{ fontSize: '20px' }}>
+        Distribution of employees by position
+      </Styled.PaperTypography>
+      <Styled.BarChartWrapper>
+        <Bar options={options} data={dataBar} />
+      </Styled.BarChartWrapper>
     </Styled.PaperWrapper>
   );
 };

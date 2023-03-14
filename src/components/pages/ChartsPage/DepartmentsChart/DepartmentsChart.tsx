@@ -45,20 +45,16 @@ export const DepartmentsChart = () => {
     ],
   };
   //TO-DO TRANSLATE
-  return (
+  return departmentsLoading || usersLoading ? (
+    <Spinner />
+  ) : (
     <Styled.PaperWrapper>
-      {departmentsLoading || usersLoading ? (
-        <Spinner />
-      ) : (
-        <>
-          <Styled.PaperTypography sx={{ fontSize: '20px' }}>
-            Number of employees in different departments
-          </Styled.PaperTypography>
-          <Styled.ChartWrapper>
-            <Pie data={dataPie} />
-          </Styled.ChartWrapper>
-        </>
-      )}
+      <Styled.PaperTypography sx={{ fontSize: '20px' }}>
+        Number of employees in different departments
+      </Styled.PaperTypography>
+      <Styled.ChartWrapper>
+        <Pie data={dataPie} />
+      </Styled.ChartWrapper>
     </Styled.PaperWrapper>
   );
 };
