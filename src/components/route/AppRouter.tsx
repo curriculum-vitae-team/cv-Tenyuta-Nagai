@@ -21,6 +21,7 @@ const DepartmentsPage = lazy(() => import('../pages/DepartmentsPage'));
 const PositionsPage = lazy(() => import('../pages/PositionsPage'));
 const LanguagesPage = lazy(() => import('../pages/LanguagesPage'));
 const SkillsPage = lazy(() => import('../pages/SkillsPage'));
+const ChartsPage = lazy(() => import('../pages/ChartsPage'));
 
 const EmployeesPage = lazy(() => import('../pages/EmployeesPage'));
 const EmployeesPrivatePage = lazy(() => import('../pages/EmployeesPrivatePage'));
@@ -91,6 +92,10 @@ export const AppRouter = () => {
           <Route
             path={RoutePath.LANGUAGES}
             element={<PrivateRoute>{<LanguagesPage />}</PrivateRoute>}
+          />
+          <Route
+            path={RoutePath.ANALYTICS}
+            element={<PrivateRoute>{<ChartsPage />}</PrivateRoute>}
           />
 
           <Route path={RoutePath.ERROR} element={<ErrorPage pageNotFound />} />

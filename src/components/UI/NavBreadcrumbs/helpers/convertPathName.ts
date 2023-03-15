@@ -21,6 +21,8 @@ export const convertPathName = (name: string) => {
       return BreadcrumbNames.PROFILE;
     case RoutePath.DETAILS:
       return BreadcrumbNames.DETAILS;
+    case RoutePath.ANALYTICS:
+      return BreadcrumbNames.ANALYTICS;
     default:
       return name;
   }
