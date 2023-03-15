@@ -43,7 +43,7 @@ export const RegistrationChart = () => {
     datasets: [
       {
         label: t('Number of employees'),
-        data: labels.map((value, index) => quantityData[index]),
+        data: labels.map((_, index) => quantityData[index]),
         borderColor: 'rgba(198, 48, 49, 1)',
         backgroundColor: 'rgba(198, 48, 49, 0.8)',
       },
