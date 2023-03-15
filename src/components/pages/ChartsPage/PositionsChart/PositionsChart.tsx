@@ -34,17 +34,14 @@ export const PositionsChart = () => {
     onError: () => navigate(`/${RoutePath.LOGIN}`, { replace: true }),
   });
   const users = usersData?.users.map((item: IUser) => item.position_name);
-  const labels = ['Without position', ...createArrayForPositions(positionsData?.positions)];
+  const labels = ['Without position', ...createArrayForPositions(positionsData?.positions)].sort(
+    (a, b) => a.length - b.length
+  );
   const employeesNumbers = getPositionsQuantity(labels, users);
 
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 110.5,
-      },
-    },
   };
 
   const dataBar = {
@@ -52,7 +49,7 @@ export const PositionsChart = () => {
     datasets: [
       {
         label: t('Number of employees'),
-        data: labels.map((value, index) => employeesNumbers[index]),
+        data: labels.map((_, index) => employeesNumbers[index]),
         borderColor: 'rgba(198, 48, 49, 1)',
         borderWidth: 2,
         backgroundColor: 'rgba(198, 48, 49, 0.6)',

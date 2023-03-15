@@ -35,6 +35,7 @@ export const RegistrationChart = () => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
   };
 
   const data = {

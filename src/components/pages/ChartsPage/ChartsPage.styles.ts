@@ -12,7 +12,7 @@ export const PaperWrapper = styled(Paper)(({ theme }) => ({
     width: '550px',
   },
   [theme.breakpoints.down('sm')]: {
-    width: '340px',
+    width: '290px',
   },
 }));
 
@@ -46,16 +46,10 @@ export const BarChartWrapper = styled(Box)(() => ({
   margin: 'auto',
 }));
 
-export const LineChartWrapper = styled(Box)(({ theme }) => ({
+export const LineChartWrapper = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
-  height: '350px',
   width: '100%',
   margin: 'auto',
-  [theme.breakpoints.down('md')]: {
-    height: '250px',
-  },
-  [theme.breakpoints.down('sm')]: {
-    height: '200px',
-  },
+  minHeight: '300px',
 }));
