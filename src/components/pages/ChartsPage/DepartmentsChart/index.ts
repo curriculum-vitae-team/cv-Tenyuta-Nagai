@@ -1,0 +1,1 @@
+export { DepartmentsChart } from './DepartmentsChart';
