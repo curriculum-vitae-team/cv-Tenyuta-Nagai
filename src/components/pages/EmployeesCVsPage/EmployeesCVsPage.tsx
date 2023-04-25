@@ -77,8 +77,6 @@ const EmployeesCVsPage = () => {
     modalService.setModalData(t('Edit CV'), CvEditModal, { id: cvData.id });
   };
 
-  const handlePreview = () => {};
-
   return (
     <>
       <Styled.Paper elevation={3}>
@@ -109,10 +107,6 @@ const EmployeesCVsPage = () => {
                   <Styled.ButtonWrapper>
                     <PrivateButton isVisible={isDataCv} onClick={handleEdit}>
                       {t('Edit')}
-                    </PrivateButton>
-
-                    <PrivateButton isVisible={isDataCv} onClick={handlePreview} disabled>
-                      {t('Preview')}
                     </PrivateButton>
                   </Styled.ButtonWrapper>
                 </Styled.Wrapper>

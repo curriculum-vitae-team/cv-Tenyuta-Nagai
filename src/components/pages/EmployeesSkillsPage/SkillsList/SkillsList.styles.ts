@@ -3,6 +3,7 @@ import { IChipStyled } from './SkillsList.interface';
 
 export const ItemMenu = styled(MenuItem)(({ theme }) => ({
   display: 'flex',
+  alignItems: 'center',
   justifyContent: 'space-between',
   whiteSpace: 'pre-wrap',
   wordWrap: 'break-word',
@@ -18,6 +19,7 @@ export const ItemMenu = styled(MenuItem)(({ theme }) => ({
 
 export const ItemBox = styled(Box)(() => ({
   display: 'flex',
+  alignItems: 'center',
   justifyContent: 'space-between',
   columnGap: 10,
 }));

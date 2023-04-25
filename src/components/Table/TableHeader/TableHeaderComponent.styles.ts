@@ -6,6 +6,7 @@ export const TableCellStyled = styled(TableCell)<ITableCellStyled>(({ theme, sor
   fontWeight: 'bold',
   minWidth: '155px',
   cursor: 'default',
+  top: '72px',
 
   '&:hover': {
     color: sortable === 'true' && theme.palette.secondary.contrastText,
